@@ -40,4 +40,9 @@ module AccountGamesHelper
       search_tags = @tag_list ? @tag_list : []
       game.tags.collect{|t| search_tags.include?(t.name) ? content_tag(:strong, t.name) : t.name}.join(", ")
   end
+  
+  def selectable_tag_list(game)
+    tags_li = game.tags.inject(""){|acc, t| acc << content_tag(:li, t.name, :class => t.name)}
+    content_tag(:ul, tags_li, :class => "tags clear")
+  end
 end

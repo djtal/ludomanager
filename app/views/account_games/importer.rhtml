@@ -8,3 +8,7 @@
 	<%= f.file_field :file, :text => "fichier a importer" %>
 	<%= submit_or_back_to dashboard_path, "Retour sur le dashboard", :submit_text => "Importer" %>
 <% end %>
+
+<% content_for :subnav do %>
+	<%= render :partial => "subnav" %>
+<% end %>

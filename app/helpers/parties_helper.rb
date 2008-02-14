@@ -1,20 +1,25 @@
 module PartiesHelper
-  def render_parties(group, opts= {})
-    text = ""
+  def render_parties(group, options= {})
+    opts = {
+      :class => "sortable"
+    }.merge(options)
+   
     if group.size > 0
-      table_id = "id=\"#{opts[:id]}\"" if opts[:id]
-      text = "<table class=\"sortable\" #{table_id if table_id}>"
-    	text +="<thead><tr><th class=\"nosort\">S</th><th>Nom</th><th>Derniere partie</th><th>Nb Parties</th></tr></thead>"
+    	text ="<thead><tr><th class=\"nosort span-1\">S</th><th class=\"span-11\">Nom</th><th class=\"span-3\">Derniere partie</th><th class=\"span-2\">Nb Parties</th></tr></thead>"
     	text += "<tbody>"
       group.each do |game, parties|
     		text << render(:partial => "party", :locals => {:game => game, :parties => parties})
     	end
     	text += "</tbody>"
-    	text += "</table>"
+      content_tag(:table, text, opts)
     else
-      text = content_tag(:p, "Vous n'avez pour l'instat aucune parties dans cette categorie", :class => "empty")
+     content_tag(:p, "Vous n'avez pour l'instat aucune parties dans cette categorie", :class => "empty")
     end
-    text
+ end
+ 
+ def last_play_date_table_cell(parties)
+   #<span class="hide"><%= last_play_date(parties).to_s(:date_fr) %></span><%= time_ago_in_words(last_play_date(parties)) %>
+   content_tag(:span, last_play_date(parties).to_s(:table), :class => "hide") + time_ago_in_words(last_play_date(parties))
  end
  
  def has_game?(g)

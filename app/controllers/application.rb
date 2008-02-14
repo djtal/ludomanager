@@ -4,9 +4,10 @@ class ApplicationController < ActionController::Base
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   # If you want "remember me" functionality, add this before_filter to Application Controller
+  before_filter :login_from_cookie
   before_filter :set_section
   before_filter :set_path
-  before_filter :login_from_cookie
+  
   
   
   def rescue_action_in_public(exception)

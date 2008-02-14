@@ -32,6 +32,10 @@ class PartiesController < ApplicationController
     end  
   end
   
+  def played
+    
+  end
+  
   protected
   
   def split_parties(parties)

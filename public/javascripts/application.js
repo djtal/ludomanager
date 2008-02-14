@@ -89,7 +89,14 @@ GameForm.addMethods({
     if (!$(form))
       return;
     this.form = $(form);
+	new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
     this.bindUI();
+  },
+  
+  loadTags: function(reponse){
+    this.tags = reponse.responseJSON;
+    new Autocompleter.Local('tag', 'tags_lookup_auto_complete', this.tags, 
+                            {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
   },
   
   bindUI: function(){
@@ -98,6 +105,7 @@ GameForm.addMethods({
         $(elt).observe("click", this.hideContent.bindAsEventListener(this));
     }.bind(this));
   },
+  
   
   hideContent: function(ev){
     ev.element().next("div").toggle();
@@ -139,17 +147,21 @@ var LudoSearch = Class.create();
 LudoSearch.addMethods({
   initialize: function(form){
     if (!$(form))
-    return;
-  this.form = $(form);
-  $("search_player").setAttribute('autocomplete','off');
-  new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
-  this.loadObservers();
+    	return;
+	this.form = $(form);
+	this.tagField = $("search_tags");
+	this.searchedTags = [];
+	this.results = $("search-results")
+	$("search_player").setAttribute('autocomplete','off');
+	new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
+	this.loadObservers();
+	this.makeTagsClickable();
   },
   
   
   loadTags: function(reponse){
     this.tags = reponse.responseJSON;
-    new Autocompleter.Local('search_tags', 'tags_lookup_auto_complete', this.tags, 
+    this.tagFieldAutocomplete = new Autocompleter.Local(this.tagField, 'tags_lookup_auto_complete', this.tags, 
                             {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' '],
                             afterUpdateElement: this.search.bind(this) } );
   },
@@ -164,17 +176,52 @@ LudoSearch.addMethods({
   
   reset: function(){
     this.form.reset();
+	this.searchedTags = [];
+	this.highlightSelectedTags();
     this.formChange(null);
   },
   
   search: function(input, elt){
+  	this.searchedTags.push(elt.innerHTML.stripTags());
     this.formChange(null);
   },
   
   formChange: function(ev){
     new Ajax.Request(this.form.action, {asynchronous:true, evalScripts:true, parameters:Form.serialize(this.form)});
     return false;
+  },
+  
+  makeTagsClickable: function(){
+  	this.results.select("ul.tags li").each(function(elt){
+		elt.observe("click", this.tagClicked.bindAsEventListener(this));
+	}.bind(this));
+	this.highlightSelectedTags();
+  },
+  
+  tagClicked: function(ev){
+	li = ev.element();
+	if (!this.searchedTags.include(li.innerHTML)) {
+		this.searchedTags.push(li.innerHTML);
+		if (this.tagField.getValue().empty())
+			val = li.innerHTML
+		else
+			val = this.tagField.getValue() + ", " + li.innerHTML
+		this.tagField.setValue(val);
+		li.addClassName("selected");
+	} else {
+		this.searchedTags = this.searchedTags.without(li.innerHTML);
+		this.tagField.setValue(this.tagField.getValue().gsub(",\\s" + li.innerHTML, ""));
+		li.removeClassName("selected");
+	}
+	this.formChange(null);
+  },
+ 
+  highlightSelectedTags: function(){
+  	this.searchedTags.each(function(tag){
+		this.results.select("li." + tag).invoke("addClassName", "selected")
+	}.bind(this));
   }
+ 
 });
 
 document.observe("dom:loaded", function() {
@@ -182,6 +229,6 @@ document.observe("dom:loaded", function() {
   PartyFilter.loadObservers();
   new PlayForm("play-form");
   new GameForm("game-form");
-  new LudoSearch("ludo-search");
+  ls = new LudoSearch("ludo-search");
   new GameList();
 })

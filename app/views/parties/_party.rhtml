@@ -1,6 +1,6 @@
 <tr class="<%= has_game?(game) ? "own" : "" %>" id="<%= dom_id(game) %>">
-	<td class="span-1"><%= account_game_status_for(game) %></td>
-	<td class="span-11"><%= link_to game.name, game_path(game) %></td>
-	<td class="span-3" id="<%= dom_id(game) %>_last_played"><span class="hide"><%= last_play_date(parties).to_s(:date_fr) %></span><%= time_ago_in_words(last_play_date(parties)) %></td>
-	<td class="span-2 parties_count" ><span id="<%= dom_id(game) %>_count"><%= parties.size %></span><%= link_to_remote ("", {:url => game_parties_path(game)} ,{:href => game_parties_path(game), :class => "ss_sprite ss_control_play"}) %></td>
+	<td><%= account_game_status_for(game) %></td>
+	<td><%= link_to game.name, game_path(game) %></td>
+	<td id="<%= dom_id(game) %>_last_played"><%= last_play_date_table_cell(parties) %></td>
+	<td><span id="<%= dom_id(game) %>_count"><%= parties.size %></span><%= link_to_remote ("", {:url => game_parties_path(game)} ,{:href => game_parties_path(game), :class => "ss_sprite ss_control_play"}) %></td>
 </tr>

@@ -45,20 +45,6 @@
 		
 		<%= yield :newsbox %>
 		
-		<h3>Recherche Rapide</h3>
-		<p class='tips'>
-			La recherche est effectue sur la base complete des jeux. Pas sur votre ludotheque.
-		</p>
-		
-		<% form_for "search", :url => search_games_path, :html => {:class => "clear", :id => "search-form"} do |f| %>
-			<%= label_tag 'search_type_title', "par titre" %><%= f.radio_button "type", "title", :checked => true %>
-			<%= label_tag 'search_type_tags', "par tag" %><%= f.radio_button "type", "tags" %>
-			<div id="wrap" class="search_wrapper">
-				<%= f.text_field :q, :size => "23" %> 
-			</div>
-     		<%= submit_tag "Go", :class => "right" %>
-		<% end %>
-		<ul id="search-results"></ul>
 		<% if !logged_in? %>
 			<h3>TeamScore</h3>
 			<p>

@@ -12,20 +12,11 @@ class TagsController < ApplicationController
     @cloud = @cloud.sort
   end
   
-  def tags_for_lookup
-    @tags = Tag.find(:all)
-    headers['content-type'] = "text/javascript"
-    render :layout => false
-  end
-  
   def lookup
     @tags = Tag.find(:all)
     respond_to do |format|
       format.json{render :json => @tags.map{|t|  t.name}.to_json}
     end
   end
-  
-  def show
-    
-  end
+
 end
