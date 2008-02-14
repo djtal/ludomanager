@@ -1,0 +1,17 @@
+<fieldset>
+  <legend>Votre Jeu</legend>
+  <p><%= label_tag :account_game_game_id, "Nom du jeu" %><br />
+  <%= f.collection_select :game_id, @games, :id, :name %></p>
+  <p><%= label_tag :account_game_origin, "Origine"  %><br />
+  <%= f.text_field :origin, :size => 50 %></p>
+  <p><%= label_tag :account_game_price, "Prix d'achat" %><br />
+  <%= f.text_field :price %></p>
+  <p><%= label_tag :account_game_transdate, "Date d'acquisition" %><br />
+  <%= f.date_select :transdate %></p>
+</fieldset>
+
+<fieldset>
+	<legend>Informations Complementaires</legend>
+	<p><%= label_tag :account_game_origin, "Jeux plastique"  %>
+  	<%= f.check_box :shield %></p>
+</fieldset>

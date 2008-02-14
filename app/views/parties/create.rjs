@@ -1,0 +1,8 @@
+page["#{dom_id(@game)}_count"].replace_html("#{@parties.size}")
+page["#{dom_id(@game)}_last_played"].replace_html(last_play_date(@parties).to_s(:date_fr))
+page["global_parties_count"].replace_html(pluralize(@count, "partie", "parties"))
+page["last"].replace(render(:partial => "last"))
+page[dom_id(@game)].highlight()
+%w( high medium low).each do |e|
+  page << "TableKit.Sortable.sort($(\"#{e}\"), 4, -1); TableKit.Rows.stripe($(\"#{e}\"))"
+end

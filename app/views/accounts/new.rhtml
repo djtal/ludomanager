@@ -1,0 +1,35 @@
+<% content_for :head  do %>
+	<title>Inscription nouveau membre</title>
+<% end %>
+
+<h3>Inscription nouveau membre</h3>
+<% form_for :account, :url => accounts_path, :method => :post do |f| -%>
+	<%= error_messages_for :account %>
+	<p><label for="login">Nom du compte</label><br/>
+	<%= f.text_field :login %></p>
+	
+	<p><label for="email">Votre mail</label><br/>
+	<%= f.text_field :email %></p>
+	
+	<p><label for="password">Password</label><br/>
+	<%= f.password_field :password %></p>
+	
+	<p><label for="password_confirmation">Repetez votre Password</label><br/>
+	<%= f.password_field :password_confirmation %></p>
+	
+	<div class="buttons clear">
+	    <div class="right ">
+	    	  <strong><%= link_to "Retour sur la liste des jeux", games_path %></strong> ou <%= submit_tag "M'inscrire" %>
+	    </div>
+	</div>
+<% end -%>
+
+
+<% content_for :newsbox do %>
+	<h2>A Savoir</h2>
+	<p>
+		L'inscription sur TeamScore est gratuite et sans engagement. Vous pouvez a tout moment vous descrire.
+		En vous inscrivant vous vous engagez a respecter la charte du Site.<br />
+	 	Vos donnez sont confidentielles et ne sernt transmis a aucun tiers ou partenaire.
+	</p>
+<% end %>

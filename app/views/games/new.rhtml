@@ -1,0 +1,12 @@
+<% content_for :head  do %>
+  <script src="/tags/tags_for_lookup" type="text/javascript"></script> 
+	<title>Ajoutez votre jeu au site</title>
+<% end %>
+
+<h3>Ajoutez un jeu...</h3>
+<% labeled_form_for(:game, :url => games_path, :html => {:multipart => true}) do |f| %>
+	<%= error_messages_for 'game' %>
+	<%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_or_back_to authors_path, "Retour sur la liste des jeux" %>
+<% end %>
+

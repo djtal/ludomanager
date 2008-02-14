@@ -1,0 +1,9 @@
+<h3>Modifier une entr&ecute ludotheque</h3>
+
+<%= error_messages_for :account_game %>
+
+<% form_for(:account_game, :url => account_game_path(@account_game), :html => { :method => :put }) do |f| %>
+  <%= error_messages_for :account_game %>
+  <%= render :partial => "form", :locals => {:f => f} %>
+  <%= submit_or_back_to account_games_path, "Retour sur votre ludotheque" %>
+<% end %>

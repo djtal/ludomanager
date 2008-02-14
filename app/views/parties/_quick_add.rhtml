@@ -1,0 +1,7 @@
+<h3>Vite joue</h3>
+<% form_for "party", :url => play_games_path, :html => {:class => "clear", :id => "play-form"} do |f| %>
+	<%= f.text_field :q, :size => "23" %> 
+<% end %>
+<ul id="play-results" class="clear">
+		
+</ul>

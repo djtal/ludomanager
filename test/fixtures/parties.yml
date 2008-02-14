@@ -1,0 +1,29 @@
+# == Schema Information
+# Schema version: 29
+#
+# Table name: parties
+#
+#  id         :integer       not null, primary key
+#  game_id    :integer       
+#  created_at :datetime      
+#  account_id :integer       
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  account_id: 2
+  game_id: 4
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+
+second:
+  id: 2
+  account_id: 2
+  game_id: 4
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+  
+thrid:
+  id: 3
+  account_id: 2
+  game_id: 2
+  created_at: <%= 2.month.ago.to_s(:db)  %>

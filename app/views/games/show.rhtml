@@ -1,0 +1,78 @@
+<% content_for :head do %>
+	<title><%= @game.name %></title>
+<% end %>
+
+
+<h3 class="clear">
+	
+	<div class="column span-12">
+		<%= @game.name %>
+	</div>
+	<% if logged_in? %>
+		<div class="column span-5 functions last">
+			<%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_database_edit" %>
+			<%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_database_delete" %>
+		</div>
+	<% end %>
+</h3>
+
+<% div_for @game, :class => "clear" do %>
+	<div class="column span-3">
+	 <%= image_tag(@game.image.public_filename, :size =>"100x100") if @game.image %>
+	</div>
+	<div class="column last span-13">
+    	<%= parse_tag(@game.description) %>
+		<ul class="meta">
+			<li>Difficulté (1 a 5) : <span class="flash"><%= @game.difficulty %></span></li>
+			<li><%= nb_player_tag(@game) %></li>
+			<li>Moyenne TricTrac: <%= @game.average %>/5</li>
+			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url %></li>
+			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></li>
+			<li>Année de sortie : <span class="flash"><%= @game.publish_year %></span></li>
+			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span></li>
+			<li>Editeur <span class="flash"><%= @game.editor %></span></li>
+			<li>Tags : <%= game_tags_links @game %></li>
+		</ul>
+	</div>
+<% end %>
+	
+<div class="page-nav">
+	<strong><%= link_to "Retour sur la liste des jeux", games_path %></strong>		
+</div>	
+
+<% content_for :newsbox do %>
+	<h3>Quelques Stats</h3>
+	<p>
+		<span class="flash"><%= pluralize(@game.account_games.size, "membre</span> a", "membres</span> ont") %>
+		ce jeu dans leurs ludotheque.
+	</p>
+	<p>
+		Nos membres ont joués un total de 
+		<span class='flash'><%= pluralize(@game.parties_count, "partie</span>", "parties</span>") %> de ce jeu.
+	</p>
+	<h3>Administration</h3>
+	<ul>
+		<li><%= link_to 'Modifiez', edit_game_path(@game) %></li>
+		<li><%= link_to "Effacer", game_path(@game), :method => :delete %></li>
+		<li><%= link_to "Retour sur la liste des jeux", games_path %></li>
+	</ul>
+<% end %>
+
+<% content_for :my_teamscore do %>
+	<% if logged_in? %>
+		<ul>
+			<% if account_have_game?(@game) %>
+				<li><%= link_to "Supprimer de ma ludotheque", {:controller => "account_games", 
+														:action => 'destroy', :game_id => @game.id}, :method => :delete, :class => "ss_sprite ss_database_delete" %></li>
+			<% else %>
+				<li><%= link_to "Ajouter a ma ludotheque", 	{:controller => "account_games", :action => 'create', 
+								:account_game => {:game_id => @game.id}}, :method => :post, :class => "ss_sprite ss_database_add"  %></li>
+			<% end %>
+			<li><%= link_to "Ajouter une partie", game_parties_path(@game), :method => :post, :class => "ss_sprite ss_control_play" %></li>
+		</ul>
+	<% end %>
+<% end %>
+
+<% content_for :subnav do %>
+	<%= render :partial => "subnav" %>
+<% end %>

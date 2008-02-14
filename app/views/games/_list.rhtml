@@ -1,0 +1,17 @@
+<% div_for list, :class => "column last" do %>
+	<% if logged_in? %>
+		<div class="right function">
+			<%= link_to "", edit_game_path(list), :class => " ss_sprite ss_database_edit" %>
+			<%= link_to "", game_path(list), :method => :delete, :class => "ss_sprite ss_database_delete" %> 
+			
+		</div>
+	<% end %>
+	<h2><%= link_to list.name, game_path(list) %></h2>
+	<%= image_tag(list.image.public_filename, :size =>"80x80", :class => "pull-1 left") if list.image %>
+	<p>
+		<%= parse_tag list.description %>
+		<div class="meta">Tags : <%= game_tags_links list %></div>
+	</p>
+<% end %>
+<hr>
+

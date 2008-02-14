@@ -1,0 +1,48 @@
+
+/*  PrettySearchField  */
+
+.search_field{
+	padding-left: 0;
+	padding-rignt: 0;
+	background: url('../images/prettysearch/searchfield_repeat.png') repeat-x scroll center top;
+	border:0px none;
+	margin-left: 20px;
+	margin-right: 8px;
+	width: 195px;
+}
+
+#search_wrapper{
+	position: relative;
+}
+
+#search_wrapper .reset {
+	background:transparent url(../images/prettysearch/close.gif) repeat scroll 0%;
+	cursor:pointer;
+	display:block;
+	height:11px;
+	overflow:hidden;
+	position:absolute;
+	right:4px;
+	top:4px;
+	width:11px;
+	z-index:1;
+}
+
+.pretty_search_left{
+	background: transparent url(../images/prettysearch/searchfield_leftcap.png) no-repeat scroll left top;
+	display:block;
+	height:19px;
+	width:20px;
+	left:0pt;
+	position: absolute;
+	padding: 0;
+}
+
+.pretty_search_right {
+	background:transparent url(../images/prettysearch/searchfield_rightcap.png) no-repeat scroll right top;
+	display:block;
+	height:19px;
+	position:absolute;
+	right:0pt;
+	width:10px;
+}

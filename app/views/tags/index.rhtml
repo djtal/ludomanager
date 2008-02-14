@@ -1,0 +1,6 @@
+<h3>Les Tags</h3>
+<ul>
+	<% @cloud.each do |t| %>
+		<li><%= link_to t[0], tag_games_path(t[0]) %> : <%= t[1] %></li>
+	<% end %>
+</ul>

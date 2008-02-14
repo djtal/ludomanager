@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>fileTriggers</key>
+        <dict>
+            <key>appl</key>
+            <string>public\stylesheets\application.css</string>
+            <key>grid</key>
+            <string>public\stylesheets\blueprint\lib\grid.css</string>
+            <key>part</key>
+            <string>app\helpers\parties_helper.rb</string>
+            <key>rou</key>
+            <string>config\routes.rb</string>
+            <key>route</key>
+            <string>config\routes.rb</string>
+            <key>routes</key>
+            <string>config\routes.rb</string>
+            <key>ty</key>
+            <string>public\stylesheets\blueprint\lib\typography.css</string>
+            <key>typ</key>
+            <string>public\stylesheets\blueprint\lib\typography.css</string>
+            <key>type</key>
+            <string>public\javascripts\prototype.js</string>
+            <key>typo</key>
+            <string>public\stylesheets\blueprint\lib\typography.css</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,23 @@
+<h3 class="clear">
+	<% if logged_in? %>
+		<div class="column span-12">
+			Les jeux de <%= @author.display_name%>
+		</div>
+		<div class="column span-5 functions last">
+			<%= link_to "", edit_author_path(@author), :class => "ss_sprite ss_database_edit" %>
+			<%= link_to "", author_path(@author), :method => :delete, :class => "ss_sprite ss_database_delete" %>
+		</div>
+	<% end %>
+</h3>
+
+<div class="clear">
+	<ul class="games">
+		<% @games.each do |g| %>
+			<li><%= link_to g.name, game_path(g) %></li>
+		<% end %>
+	</ul>
+</div>
+
+<div class="page-nav">
+	<strong><%= link_to "Retour sur la liste des auteurs", authors_path %></strong>		
+</div>	

@@ -1,0 +1,11 @@
+<% content_for :head  do %>
+	<title>Creer un nouvel auteur</title>
+<% end %>
+
+<h3>Creer un nouvel auteur</h3>
+
+<% form_for(:author, :url => authors_path) do |f| %>
+  <%= error_messages_for :author %> 
+  <%= render :partial => "form", :locals => {:f => f} %>
+  <%= submit_or_back_to authors_path, "Retour sur la liste des auteurs" %>
+<% end %>

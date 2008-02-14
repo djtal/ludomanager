@@ -1,0 +1,4 @@
+var tags = new Array(<%= @tags.size %>)
+<% @tags.each_with_index do |tag, index| %>
+  tags[<%= index %>] = "<%= tag.name %>" 
+<% end %>

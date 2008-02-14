@@ -1,0 +1,4 @@
+<li class="<%= cycle("even", "odd") %>" >
+	<span class="right">le <%= party.created_at.to_s(:date_fr) %></span>
+	<%= link_to party.game.name, game_path(party.game) %>
+</li>

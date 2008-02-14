@@ -1,0 +1,26 @@
+<% content_for :newsbox do %>
+	<h2>Navigation</h2>
+	<p>
+		<strong><%= link_to "Retour a la liste des jeux", games_path %></strong>
+	</p>
+	<h2>Comment creer un jeu</h2>
+	<p>
+		Remplissez juste le formuare ci-contre<br />
+		Attention certain champs sont obligatoire.
+		Et voila ce n'est pas plus compliquez que cela.<br />
+		Vous pouvez aussi ajoutez des tags a votre jeu.
+		Les tags sont la pour categorisez les jeu.<br/>
+		Par la suite vous pourez voir aisin tous les jeu ayant un meme tag.
+	</p>
+	<h2>Quelques regle tout de meme</h2>
+	<p>
+		Merci de respecter les quels points ci-dessous pour un meilleur contenu.
+		<ul>
+			<li>Verifiez que votre jeux n'est pas deja dans la base
+			Le titre doit etre unique(ne changez pas une lettre pour passez au travers)
+			</li>
+			<li>Ne mettez pas n'importe quoi dans la description. Soyez gentils</li>
+			<li>Pas d'autre regle pour le moment</li>
+		</ul>
+	</p>
+<% end %>

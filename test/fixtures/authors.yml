@@ -1,0 +1,19 @@
+# == Schema Information
+# Schema version: 29
+#
+# Table name: authors
+#
+#  id      :integer       not null, primary key
+#  name    :string(255)   
+#  surname :string(255)   
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+kinizia:
+  id: 1
+  name: Kinizia
+  surname: Reiner
+kramer:
+  id: 2
+  name: Kramer
+  surname: Wolfgang

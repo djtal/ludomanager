@@ -1,0 +1,3 @@
+<li class="<%= cycle("odd", "even") %>">
+	<span class="right"><%= last_account_game.created_at.to_s(:date_fr) %></span><%= link_to(truncate(last_account_game.game.name, 18), game_path(last_account_game.game)) %>
+</li>

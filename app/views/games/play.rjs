@@ -1,0 +1,2 @@
+page << "$('play-results').innerHTML = \"\";"
+page.insert_html :top,  'play-results', :partial => "play_result", :collection => @games

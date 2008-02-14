@@ -1,0 +1,10 @@
+<h3>Importer des jeux dans ma ludotheque</h3>
+
+<p>
+	Les jeux qui ne sont actuellement pas en base seront cree et les jeux deja existant non.
+</p>
+
+<% labeled_form_for "import", :url => import_account_games_path(), :html => {:multipart => true} do |f| %>
+	<%= f.file_field :file, :text => "fichier a importer" %>
+	<%= submit_or_back_to dashboard_path, "Retour sur le dashboard", :submit_text => "Importer" %>
+<% end %>

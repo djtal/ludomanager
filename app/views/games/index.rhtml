@@ -1,0 +1,49 @@
+<% content_for:head do %>
+	<title>Les jeux</title>
+<% end %>
+
+<%  content_for :page_nav do%>
+	<div class="page-nav">
+		<%= (link_to("Precedente", @mod == :all ? games_path(:page => @page.prev.number) : {:controller => "games", :action => "index", :tag_id => params[:tag_id], :page => @page.prev.number}) + " |") if @page.prev? %>
+	  <% if @pager.number_of_pages > 1 %>
+			Page <%= @page.number %> / <%= @page.last.number %>
+		<% end %>
+		<%= ("| " + link_to("Suivante", @mod == :all ? games_path(:page => @page.next.number) : {:controller => "games", :action => "index", :tag_id => params[:tag_id], :page => @page.next.number})) if @page.next? %>
+	</div>
+<% end %>
+
+<h3>Les jeux...</h3>
+
+<div class="column prepend-1">
+	
+	<%= yield :page_nav %>
+	<% if flash[:notice] %><div class="notice"><%= flash[:notice] %></div><% end %>
+	<div id="games">
+		<% if @games.size > 0 %>
+			<%= render :partial => 'list', :collection => @games %>
+		<% else %>
+			Desolé. Aucun jeux ne corespond a vos criteres.
+		<% end %>
+	</div>
+	<%= yield :page_nav %>
+</div>
+
+<% content_for :my_teamscore do %>
+	<ul>
+		<li><%= link_to "Ajouter une fiche jeu", new_game_path %></li>
+		<li><%= link_to "Ajouter un auteur", new_author_path %></li>
+		<li><%= link_to "Allez a ma ludotheque", account_games_path %></li>
+	</ul>
+<% end %>
+
+<% content_for :newsbox do %>
+	<h3>Quelques Stats</h3>
+	<p>
+		Actuelement nos membres on joués <em><%= pluralize(@total_parties, "partie", "parties") %></em> pour 
+		<em><%= pluralize(@total_games, "jeu", "jeux") %></em>. 
+	</p>
+<% end %>
+
+<% content_for :subnav do %>
+	<%= render :partial => "subnav" %>
+<% end %>

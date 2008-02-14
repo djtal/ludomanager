@@ -1,0 +1,56 @@
+# == Schema Information
+# Schema version: 29
+#
+# Table name: games
+#
+#  id           :integer       not null, primary key
+#  name         :string(255)   
+#  description  :text          
+#  difficulty   :integer       default(1)
+#  min_player   :integer       default(1)
+#  max_player   :integer       
+#  price        :float         
+#  time_average :string(255)   
+#  created_at   :datetime      
+#  updated_at   :datetime      
+#  publish_year :string(255)   
+#  editor       :string(255)   
+#  url          :text          
+#  average      :float         default(0.0)
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+coloreto:
+  id: 1
+  name: coloreto
+  description: gdshfj
+  difficulty: 1
+  min_player: 2
+  max_player: 6
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+battlelore:
+  id: 2
+  name: BattleLore
+  description: test
+  difficulty: 2
+  created_at: <%= 1.days.ago %>
+game_with_comment_expired:
+  id: 3
+  name: Du Balais
+  description: test
+  difficulty: 2
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+ever_played:
+  id: 4
+  name: Mykerinos
+  description: test
+  difficulty: 2
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+  
+coloreto_ext:
+  id: 5
+  name: Coloreto Ext
+  description: test
+  difficulty: 2
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+  

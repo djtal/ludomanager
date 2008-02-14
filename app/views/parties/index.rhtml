@@ -1,0 +1,53 @@
+<h3>Vos parties <%= "(Jeux de votre ludotheque seulement)" if @filter == :ludo %></h3>
+
+<div class="widget clear">
+	<h4>
+		<span class="right"><%= pluralize(@high.size, "jeu", "jeux") %></span>
+		Les plus joués <em class="tips">Superieur a 10 parties</em>
+	</h4>
+	<%= render_parties @high, :id => "high"  %>
+</div>
+
+<hr />
+
+<div class="widget clear">
+	<h4>
+		<span class="right"><%= pluralize(@medium.size, "jeu", "jeux") %></span>
+		Les moderement joués <em class="tips">Entre 4 et 10 parties</em>
+	</h4>
+	<%= render_parties @medium, :id => "medium" %>
+</div>
+
+<hr />
+
+<div class="widget clear">
+	<h4>
+		<span class="right"><%= pluralize(@low.size, "jeu", "jeux") %></span>
+		Les peu joués <em class="tips">Inferieur a 4 parties</em>
+	</h4>
+	<%= render_parties @low, :id => "low" %>
+</div>
+
+<% content_for :my_teamscore do %>
+	Vous avez effectuez <em id="global_parties_count"><%= pluralize(@count, "partie", "parties") %></em> sur 
+	<em><%= pluralize(@parties.size, "jeu", "jeux") %></em> different.
+	<ul>
+		<li><span class="ss_bullet_green  ss_sprite"> : Vous possedez ce jeu</span></li>
+	</ul>
+<% end %>
+
+<% content_for :newsbox do %>
+	<%= render :partial => "last" %>
+	
+	<h3>Options d'affichage</h3>
+	<form method="get" action="/parties" id="parties-filter" class="clear">
+		<%= radio_button_tag "filter[type]", "all" %><%= label_tag 'filter_type', "Voir toutes mes parties" %><br />
+		<%= radio_button_tag "filter[type]", "ludo" %><%= label_tag 'filter_type', "Voir les parties des jeux que je possedent" %><br />
+		<%= submit_tag "Filtrer"%>		
+	</form>
+	
+	<%=  render :partial => "quick_add" %>
+
+	
+	
+<% end %>

@@ -1,0 +1,18 @@
+<tr id="<%= dom_id(account_game) %>">
+	<td><%= status_indicator account_game %></td>
+	<td><%= shield_indicator account_game %></td>
+	<td><%= link_to_game account_game %></td>
+	<% if mode == :full %>
+    <td><div class="meta"><%= highlighted_tag_list account_game.game %></div></td>
+		<td><%= "#{account_game.game.min_player}/#{account_game.game.max_player}" %></td>
+	<% end %>
+
+	<% if mode == :overview %>
+		<td><%= account_game.transdate.to_s(:date_fr) %></td>
+		<td>
+			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_database_edit" %>
+			<%= link_to "", account_game_path(account_game), :method => :delete, :class => "ss_sprite ss_database_delete" %>
+			<%= link_to "", game_parties_path(account_game.game), :method => :post, :class => "ss_sprite ss_control_play" %>
+		</td>
+	<% end %>
+</tr>

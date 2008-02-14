@@ -1,0 +1,53 @@
+<fieldset>
+	<legend>Le plus important</legend>
+	<div>
+	  <%= f.text_field :name, :text => "Nom" , :size => 35 %>
+  	<%= f.text_area :description, :rows => 5, :cols => 71, :text => "Une petite description" %>
+  	<%= render :partial => "tags/new", :object => @game.tag_list %>
+  	<% fields_for :game_photo do |g| %>		
+  		<p>
+  			<div class="form-image left">
+  				<%= image_tag(@game.image.public_filename, :size =>"86x86", :class => "box") if @game.image %>
+  			</div>
+  			<%= g.label_for :uploaded_data, :text => "Une image de la boite ?" %><br />
+  			<%= g.file_field :uploaded_data %>		
+  			<% if @game.image %>
+  				Effacer l'image <%= check_box_tag 'delete_image' %>
+  			<% end %>
+  		</p>
+  	<% end %>
+	</div>
+
+</fieldset>
+<fieldset>
+	<legend>Le coin technique</legend>
+	<div>
+	 	<%= f.text_field :min_player, :size => 2, :text => "Nombre mini de joueurs " %>
+  	<%= f.text_field :max_player, :size => 2, :text => "Nombre maxi de joueurs " %>
+  	<%= f.text_field :difficulty, :size => 4, :text => "Niveau de difficulte (1 a 5 )" %>
+  	<%= f.text_field :time_average, :text => "Temps moyen d'une partie :" %>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Information Complementaires</legend>
+	<div>
+	  <%= f.text_field :average, :size => 4,  :text => "Moyenne TricTrac" %>
+  	<%= f.text_field :url, :text => "Url de la fiche sur TricTrac" %>
+	</div>
+</fieldset>
+
+<fieldset>
+  <legend>Le reste</legend>
+  <div>
+    <%= f.text_field :publish_year, :size => 4, :text => "Année de sortie" %>
+    <p><%= f.label_for :author, :text => "Auteurs"  %>
+    <p class="tips">Sous la forme "nom-prenom"<br />
+    1 par ligne ",".</p>
+    <% @authors.each_with_index do |a, index| %>
+  	  <% fields_for "authors[#{index}]", a do |fs| %>
+  		<%= fs.text_field :display_name %><br />
+  	  <% end %>
+  	<% end %>
+    <%= f.text_field :editor, :text => "Editeur" %>
+  </div>
+</fieldset>

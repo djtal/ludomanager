@@ -1,0 +1,10 @@
+<%= label_tag "tag", "Les tags"%>
+<p class='tips'>
+	Cela permet de catgorisé les jeux, utilisez des mot clef, les principaux themes, inspirez vous des tags deja existants.<br />
+	Separé les un espace ou une virgule ",".
+</p>
+<%= text_field_tag "tag", new, :size => 40 %>
+<div class="auto_complete" id="tags_lookup_auto_complete"></div> 
+<%= javascript_tag("new Autocompleter.Local('tag', 'tags_lookup_auto_complete', tags, {fullSearch: true, 
+frequency: 0, minChars: 1 , tokens : [',', ' '] } );") %> 
+
