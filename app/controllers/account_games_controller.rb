@@ -35,7 +35,6 @@ class AccountGamesController < ApplicationController
   end
   
   def import
-     logger.debug params[:import][:file]
      if (params[:import][:file])
          LudoImporter.new(:account => current_account).import(params[:import][:file].read)
      end

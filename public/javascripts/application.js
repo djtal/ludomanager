@@ -112,6 +112,9 @@ GameForm.addMethods({
   }
 });
 
+
+
+
 PartyFilter = {
   showMine: function(table) {
     table.select("tbody tr").each(function(e){
@@ -142,6 +145,36 @@ PartyFilter = {
     $("parties-filter").getInputs("submit").first().hide();
   },
 }
+
+Sidebar = {
+	load: function(){
+		$$("#innernews .widget").each(function(widget){
+			new Widget(widget);
+		});
+	}
+}
+
+var Widget = Class.create();
+Widget.addMethods({
+	initialize: function(elt){
+		if (!$(elt))
+			return;
+		this.widget = $(elt);
+		this.title = this.widget.select("h3").reduce();
+		this.content = this.widget.select("div.w-content").reduce();
+		this.widgitize();
+	},
+	
+	widgitize: function(){
+		new Effect.Corner(this.widget, "tl br 10px");
+		if (this.title)
+			this.title.observe("click", this.toggleContent.bindAsEventListener(this));
+	},
+	
+	toggleContent: function(ev){
+		this.content.toggle();
+	}
+});
 
 var LudoSearch = Class.create();
 LudoSearch.addMethods({
@@ -231,4 +264,5 @@ document.observe("dom:loaded", function() {
   new GameForm("game-form");
   ls = new LudoSearch("ludo-search");
   new GameList();
+  Sidebar.load();
 })

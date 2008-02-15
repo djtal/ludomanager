@@ -37,20 +37,25 @@
 	<div class="column last span-7" id="innernews">
 			
 		<% if logged_in? %>
-		<h3>Bienvenue <%= current_account.login %></h3>
-		<p>
-			<%= yield :my_teamscore %>
-		</p>
+			<div class="widget">
+				<h3>Bienvenue <%= current_account.login %></h3>
+				<div class="w-content">
+					<%= yield :my_teamscore %>
+				</div>
+			</div>
 		<% end %>
 		
 		<%= yield :newsbox %>
 		
 		<% if !logged_in? %>
-			<h3>TeamScore</h3>
-			<p>
-				<%= link_to "Loggez vous", login_path %> pour acceder a votre compte TeamScore.<br />
-				Pas de compte chez nous ? <%= link_to "Creer le votre !", signup_path %> c'est simple et gratuit.
-			</p>
+			<div class="widget">
+				<h3>TeamScore</h3>
+				<div class="w-content">
+					<p><%= link_to "Loggez vous", login_path %> pour acceder a votre compte TeamScore.<br />
+					Pas de compte chez nous ? <%= link_to "Creer le votre !", signup_path %> c'est simple et gratuit.</p>
+				</div>	
+			</div>
+
 		<% end %>
 	</div>
 	<div class="column span-14" id="footer">

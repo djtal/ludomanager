@@ -1,5 +1,3 @@
-* add game partie view to see all partie for a game in one account
-* presented by played date
 * better ui for author managment
 * add players for parties 
 * make dashboard widget drag & drop for position
@@ -7,29 +5,28 @@
 * make anual stats
 * add auto-completer for authors
 * Editor model
-* ajax partie add in ludo view (just display an message an update according lists)
 * ajax ludo game add/delete
 * check  usage of content parser. Did we realy need it ?
 * think a little baout performance in ludo view
-* new presentaion mode for partie and ludo
-	* overview data are slice and short : use normal layout
-	* full  only one list but more detailed: use a simplyfied layout
+ 	* fetch all account parties, restrict to owned game and then group by game
+ 	* compare to precedent result when createing ludo group games
 * try to better use duration of partie/game
 * what about saving ludo search's for latter use (sort of smart folder)
------------------------------------------------------------------------------------------------
-Next Iteration search reborn
-* use new lookup tag (with JSON in new tag)
-* better game form
-* in ludo search if click a tag it should be add to tag search field
+* DRY up sunav generation
 -----------------------------------------------------------------------------------------------
 Next Iteration : Party Remix
-* fix AJAX update in partie view when playing a game
-  * update last play date and duration data in party view when switching view mode
-  * insert new played game if no played before
+
+* better sidebar design and markup
+* update party view when switching  mode(own/not own)
+* FIX weird sorting issue after updating view by AJAX
+* insert new played game if no played before
+* new presentaion mode for partie
+	* overview data are slice and short : use normal layout
+	* full  only one list but more detailed: use a simplyfied layout
+* show parties by game grouped by play month
 
 -----------------------------------------------------------------------------------------------
 Next Iteration
-* FIX in auto-auth
 * ludo game origin revamp
 * better dashboard
   * highlight most played  month in dashboard

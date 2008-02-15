@@ -37,11 +37,13 @@
 <% end %>
 
 <% content_for :newsbox do %>
-	<h3>Quelques Stats</h3>
-	<p>
-		Actuelement nos membres on joués <em><%= pluralize(@total_parties, "partie", "parties") %></em> pour 
-		<em><%= pluralize(@total_games, "jeu", "jeux") %></em>. 
-	</p>
+	<div class="widget">
+		<h3>Quelques Stats</h3>
+		<div class="w-content">
+			<p>Actuelement nos membres on joués <em><%= pluralize(@total_parties, "partie", "parties") %></em> pour 
+			<em><%= pluralize(@total_games, "jeu", "jeux") %></em>.</p>
+		</div>
+	</div>
 <% end %>
 
 <% content_for :subnav do %>
