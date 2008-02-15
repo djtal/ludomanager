@@ -1,7 +1,0 @@
-<tr class="<%= has_game?(game) ? "own" : "" %>" id="<%= dom_id(game) %>">
-	<td class="span-1"><%= account_game_status_for(game) %></td>
-	<td class="span-10"><%= link_to game.name, game_path(game) %></td>
-	<td class="span-3" id="<%= dom_id(game) %>_last_played"><%= current_account.parties.last_played_date_for(game).to_s(:date_fr) %></td>
-	<td class="span-1"><%= link_to_remote ("", {:url => game_parties_path(game)} ,{:href => game_parties_path(game), :class => "ss_sprite ss_add"}) %></td>
-	<td class="span-2 parties_count" id="<%= dom_id(game) %>_count"><%= parties.size %></td>
-</tr>

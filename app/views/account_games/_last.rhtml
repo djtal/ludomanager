@@ -1,8 +1,8 @@
-<div id="last">
-	<h3 class="rnd">Vos derniers achat</h3>
-	<p>
-	  <ul>
-		<%= render :partial => "last_account_game", :collection => @month %>
-	  </ul>
-	</p>
+<div  class="widget" id="last">
+	<h3>Vos derniers achat</h3>
+	<div class="w-content">
+		<ul>
+			<%= render :partial => "last_account_game", :collection => @month %>
+	  	</ul>
+	</div>
 </div>

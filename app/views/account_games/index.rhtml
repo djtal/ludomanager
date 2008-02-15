@@ -23,9 +23,11 @@
 	<li><span class="ss_sprite ss_shield"></span> : Ce jeu est platique</li>
   </ul>
   
-  <%= render :partial => "last" %>
 <% end %>
 
+<% content_for :newsbox do %>
+	<%= render :partial => "last" %>
+<% end %>
 
 <% content_for :subnav do %>
 	<%= render :partial => "subnav" %>

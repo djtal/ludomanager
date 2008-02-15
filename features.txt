@@ -16,7 +16,6 @@
 -----------------------------------------------------------------------------------------------
 Next Iteration : Party Remix
 
-* better sidebar design and markup
 * update party view when switching  mode(own/not own)
 * FIX weird sorting issue after updating view by AJAX
 * insert new played game if no played before
