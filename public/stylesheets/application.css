@@ -437,6 +437,11 @@ ul.tags li.selected{
 	font-weight: bold;
 }
 
+#last-acgames img,
+#last-parties img{
+	margin: 0;
+	vertical-align: middle;
+}
 
 /* Accounts & Login */
 .center_box{
