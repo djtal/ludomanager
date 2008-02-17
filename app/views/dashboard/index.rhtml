@@ -1,17 +1,7 @@
 <h3><%= current_account.login.humanize%> dashboard's</h3>
 
-<div class="column span-9">
-  <div class="widget" id="last-games">
-    <span class="right small"><%= link_to "Voir tout mes jeux (#{@games.size})", account_games_path %></span>
-  	<h4>Vos dernieres acquisition jeux</h4>
-  	<% if @games.size > 0 %>
-  		<ul>
-  			<%= render :partial => "account_games/last_account_game", :collection => @games[0,5] %>
-  		</ul>
-  	<% else %>
-  		<p class="empty">Vous n'avez pas aquis de jeux recement</p>
-  	<% end %>
-  </div>
+<div class="column span-11">
+  <%= render :partial => "account_games/last" %>
 
   <div class="widget" id="p-overview">
     <h4>Parties par mois</h4>
@@ -36,17 +26,8 @@
   </div>
 </div>
 
-<div class="column span-8 last">
-  <div class="widget" id="last-played">
-    <h4>Vos derniers parties</h4>
-      <% if @parties_count > 0 %>
-  		<ul>
-  			<%= render :partial => "parties/last_party", :collection => @last_played %>
-  		</ul>
-  	<% else %>
-  		<p class="empty">Vous n'avez jouez/saisie encore aucune parties actuellement</p>
-  	<% end %>
-  </div>
+<div class="column span-12 last">
+  <%= render :partial => "parties/last" %>
 
   <div class="widget" id="most-played">
     <span class="right small"><%= link_to "Voir toute mes parties (#{@parties_count})", parties_path %></span>

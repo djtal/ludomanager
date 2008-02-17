@@ -8,7 +8,7 @@ class AccountGamesController < ApplicationController
   def index
     @path << :overview
     @account_games = current_account.account_games.find(:all, :include => :game, :order => "games.name ASC")
-    @last = @account_games.sort_by(&:created_at).last(5).reverse
+    @last_buyed = @account_games.sort_by(&:created_at).last(5).reverse
     @month, @other, @no_play = [], [], []
     now = Time.now
     @account_games.each do |a|

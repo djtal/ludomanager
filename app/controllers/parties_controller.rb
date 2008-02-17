@@ -5,8 +5,9 @@ class PartiesController < ApplicationController
     @parties = current_account.parties.played_games
     @account_games = current_account.games
     @filter = :all
-    @last = current_account.parties.last_played
+    @last_parties = current_account.parties.last_played
     if params[:filter] && params[:filter][:type] == "ludo"
+        @account_games = current_account.games
         @parties = @parties.select{ |game, parties| @account_games.include?(game)}
         @filter = :ludo
     end

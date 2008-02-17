@@ -7,7 +7,7 @@
 * Editor model
 * ajax ludo game add/delete
 * check  usage of content parser. Did we realy need it ?
-* think a little baout performance in ludo view
+* think a little about performance in ludo view
  	* fetch all account parties, restrict to owned game and then group by game
  	* compare to precedent result when createing ludo group games
 * try to better use duration of partie/game
@@ -16,6 +16,9 @@
 -----------------------------------------------------------------------------------------------
 Next Iteration : Party Remix
 
+* add difficlty to search accuont game
+* move search account game int his own model
+* js version of show game (aka quick look)
 * update party view when switching  mode(own/not own)
 * FIX weird sorting issue after updating view by AJAX
 * insert new played game if no played before

@@ -226,9 +226,9 @@ LudoSearch.addMethods({
   
   makeTagsClickable: function(){
   	this.results.select("ul.tags li").each(function(elt){
-		elt.observe("click", this.tagClicked.bindAsEventListener(this));
-	}.bind(this));
-	this.highlightSelectedTags();
+		  elt.observe("click", this.tagClicked.bindAsEventListener(this));
+	  }.bind(this));
+	  this.highlightSelectedTags();
   },
   
   tagClicked: function(ev){
