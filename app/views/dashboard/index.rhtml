@@ -4,35 +4,35 @@
   <%= render :partial => "account_games/last" %>
 
   <div class="widget" id="p-overview">
-    <h4>Parties par mois</h4>
-	<table>
-    	<thead>
-    		<tr><th class="span-5">Mois</th><th class="span-2"><%= @start.year %></th><th class="span-2"><%= @end.year %></th></tr>
-    	</thead>
-		<tbody>
-    		<% @parties_overview.each do |month, data|  %>
-        		<tr class="<%= cycle("even", "odd")  %>">
-        			<td><%= month_name(month) %></td>
-					<td><%= data[0] != 0 ? content_tag(:span, data[0], :class => "empty") : "--" %></td>
-					<td><%= data[1] != 0 ? content_tag(:span, data[1], :class => "empty") : "--" %></td>
-				</tr>
-      		<% end %>
-			<tr><td>Total</td><td><%= content_tag(:span, @years_total[0], :class => "empty") %></td><td><%= content_tag(:span, @years_total[1], :class => "empty") %></td></tr>
-    	</tbody>
-    </table>
-	<ul>
-      
-    </ul>
+    <h3>Parties par mois</h3>
+	<div class="w-content">
+		<table>
+			<thead>
+				<tr><th class="span-5">Mois</th><th class="span-2"><%= @start.year %></th><th class="span-2"><%= @end.year %></th></tr>
+			</thead>
+			<tbody>
+				<% @parties_overview.each do |month, data|  %>
+		    		<tr class="<%= cycle("even", "odd")  %>">
+		    			<td><%= month_name(month) %></td>
+						<td><%= data[0] != 0 ? content_tag(:span, data[0], :class => "empty") : "--" %></td>
+						<td><%= data[1] != 0 ? content_tag(:span, data[1], :class => "empty") : "--" %></td>
+					</tr>
+		  		<% end %>
+				<tr><td>Total</td><td><%= content_tag(:span, @years_total[0], :class => "empty") %></td><td><%= content_tag(:span, @years_total[1], :class => "empty") %></td></tr>
+			</tbody>
+    	</table>
+	</div>
   </div>
 </div>
 
 <div class="column span-12 last">
   <%= render :partial => "parties/last" %>
-
+	
   <div class="widget" id="most-played">
     <span class="right small"><%= link_to "Voir toute mes parties (#{@parties_count})", parties_path %></span>
-  	<h4>Top 5 actuel</h4>
-	<% if @parties_count > 0 %>
+  	<h3>Top 5 actuel</h3>
+	<div class="w-content">
+		<% if @parties_count > 0 %>
 	  	<ul>
 	  		<% @most_played.each do |game, parties| %>
 	  			<li class="<%= cycle("even", "odd") %>">
@@ -44,5 +44,7 @@
 	<% else %>
 		<p class="empty">Vous n'avez jouez/saisie encore aucune parties actuellement</p>
 	<% end%>
+	</div>
+	
   </div>
 </div>
