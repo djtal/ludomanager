@@ -21,12 +21,13 @@ a:visited {
 	margin-bottom: 15px;
 }
 
-#content h1{
+h1{
 	border-bottom: 1px solid;
 	color:#422100;
 }
 
-#content h3{
+
+h3{
 	border-bottom: solid 1px #DCEAD7;
 	border-top: solid 1px #DCEAD7;
 	background: #E6F7D4;
@@ -34,27 +35,12 @@ a:visited {
 	padding: 10px 0;
 }
 
-#innernews h3{
-	border-bottom: solid 1px #DCEAD7;
-	border-top: solid 1px #DCEAD7;
-	background: #E6F7D4;
-	
-	margin-bottom: 10px;
-	padding: 2px 0;
-	color:#422100;
-}
-
-.parties h3{
-	padding: 4px 0;
-	background: none;
-	border: none;
-}
-
-#content h4{
+h4{
 	font-weight: bold;
 	font-size: 1.3em;
 	color:#422100;
 }
+
 
 ul#search-results {
 	margin-top: 3px;
@@ -144,19 +130,37 @@ ul#search-results {
 	font-weight: bold;
 }
 
-#innernews .widget{
+.widget{
 	margin-top: 0;
 	margin-bottom: 20px;
 	background: #FFF;
-	border: solid 1px  #000;
 }
 
-#innernews h3{
+.widget h3{
+	border-bottom: solid 1px #DCEAD7;
+	border-top: solid 1px #DCEAD7;
+	background: #E6F7D4;
+	
+	margin-bottom: 10px;
+	padding: 2px 0;
+	color:#422100;
+}
+
+.widget .w-content{
 	padding: 2px 4px;
 }
-#innernews .w-content{
-	padding: 2px 4px;
+
+.widget ul{
+	margin: 0;
+	padding-left: 0;
+	list-style-type: none;
 }
+
+.widget ul li{
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 
 
 
@@ -186,6 +190,7 @@ legend{
 	background-color: #E6F7D4;
 	padding: 5px;
 }
+
 .buttons a{
 	border-bottom: 1px dotted #422100;
 	text-decoration:none;
@@ -352,39 +357,6 @@ div.auto_complete ul strong.highlight {
 	background-color: #fff;
 	color: #666;
 	font-weight: bold;
-}
-
-
-
-/* Dashboard */
-
-.widget{
-	margin-top: 15px;
-	margin-bottom: 15px;
-}
-.more{
-	font-size: 80%;
-}
-
-.more a{
-	text-decoration: none;
-}
-
-.more a:hover{
-	background-color: #FFF;
-	border-bottom: 1px dotted #422100;
-}
-
-
-.widget ul{
-	margin: 0;
-	padding-left: 0;
-	list-style-type: none;
-}
-
-.widget ul li{
-	padding-top: 2px;
-	padding-bottom: 2px;
 }
 
 
