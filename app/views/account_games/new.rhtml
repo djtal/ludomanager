@@ -5,3 +5,7 @@
   <%= render :partial => "form", :locals => {:f => f} %>
   <%= submit_or_back_to games_path, "Retour sur la liste des jeux" %>
 <% end %>
+
+<% content_for :subnav do %>
+	<%= render :partial => "subnav" %>
+<% end %>

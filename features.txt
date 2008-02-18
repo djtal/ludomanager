@@ -1,8 +1,11 @@
-* better ui for author managment
+
 * add players for parties 
+* add members managment
+* add in/out managment for ludo games
 * make dashboard widget drag & drop for position
 * create a parser wich parse a trictrac game request to fetch additional data (Hpricot powered)
 * make anual stats
+* better ui for author managment
 * add auto-completer for authors
 * Editor model
 * js version of show game (aka quick look)
@@ -16,12 +19,20 @@
 * DRY up sunav generation
 	* automatic detection of which partiam to render (determined by controller)
 * AJAX pagination when move from one page to another
+* some admin list for games
+	* game with no tag
+	* game with no desc
+	* game wih no image
+* search game in db
 -----------------------------------------------------------------------------------------------
 Next Iteration
 
+* tooltip when game name is truncated to display full name (in widget)
 * add difficlty to search account game
 * move search account game into his own model
+ * be clever add some test
 * FIX weird sorting issue after updating view by AJAX
+* AJAX verion for delete ludo game
 * insert new played game if no played before
 * new presentaion mode for partie
 	* overview data are slice and short : use normal layout
@@ -29,15 +40,19 @@ Next Iteration
 
 -----------------------------------------------------------------------------------------------
 Next Iteration
+
+* FIX design issue for game with no desc and no image
+* if no image filled used an default in game view
 * ludo game origin revamp
 * better dashboard
   * highlight most played  month in dashboard
   * collapsable widget
 * importer overhall
+  * ignore case when searching if a game exist
   * get nb of imported account game
   * get nb of newly created game
 * in import view explain what the imprt will do before
-* a tooltip when game name is truncated to display full name
+
 
 ------------------------------------------------------------------------------------------------
 Next Iteration 
