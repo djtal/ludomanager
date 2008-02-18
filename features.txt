@@ -13,19 +13,19 @@
 * try to better use duration of partie/game
 * what about saving ludo search's for latter use (sort of smart folder)
 * DRY up sunav generation
+	* automatic detection of which partiam to render (determined by controller)
 -----------------------------------------------------------------------------------------------
-Next Iteration : Party Remix
+Next Iteration
 
-* add difficlty to search accuont game
+* FIX error in widget when no image is associated
+* add difficlty to search account game
 * move search account game int his own model
 * js version of show game (aka quick look)
-* update party view when switching  mode(own/not own)
 * FIX weird sorting issue after updating view by AJAX
 * insert new played game if no played before
 * new presentaion mode for partie
 	* overview data are slice and short : use normal layout
 	* full  only one list but more detailed: use a simplyfied layout
-* show parties by game grouped by play month
 
 -----------------------------------------------------------------------------------------------
 Next Iteration
@@ -53,8 +53,6 @@ Next Iteration
 
 
 rails 2 adoption release
-pre-requiste
- *git to use branch
 
 Next Iteration In new Branch (to keep old ready)
 * upgrade to rails 2
