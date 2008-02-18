@@ -4,9 +4,9 @@ class DashboardController < ApplicationController
   
   
   def index
-    @last_buyed = current_account.account_games.find(:all, :include => :game, :order => "account_games.created_at DESC", :limit  =>  5)
+    @last_buyed = current_account.account_games.find(:all, :include => {:game => :image}, :order => "account_games.created_at DESC", :limit  =>  5)
     @parties = current_account.parties
-    @parties_count = @parties.count
+    @parties_count = @parties.size
     @last_parties = @parties.last_played
     @most_played = @parties.played_games.first(5)
     @parties_overview = {}

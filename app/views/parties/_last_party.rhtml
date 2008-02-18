@@ -1,5 +1,5 @@
 <li class="<%= cycle("odd", "even") %>">
 	<span class="right">le <%= last_party.created_at.to_s(:date_fr) %></span>
-	<%= image_tag last_party.game.image.public_filename , :size => "35x35" %>
+	<%= image_tag(last_party.game.image.public_filename , :size => "35x35") if last_party.game.image  %>
 	<%= link_to(truncate(last_party.game.name, 18), game_path(last_party.game)) %>
 </li>

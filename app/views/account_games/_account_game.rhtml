@@ -3,7 +3,7 @@
 	<td><%= shield_indicator account_game %></td>
 	<td><%= link_to_game account_game %></td>
 	<% if mode == :full %>
-    <td><%= selectable_tag_list account_game.game %></td>
+    	<td><%= selectable_tag_list account_game.game %></td>
 		<td><%= "#{account_game.game.min_player}/#{account_game.game.max_player}" %></td>
 	<% end %>
 

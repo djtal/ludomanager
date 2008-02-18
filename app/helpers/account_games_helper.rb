@@ -34,6 +34,7 @@ module AccountGamesHelper
   def link_to_game(a)
     css = a.recenty_acquired? ? "bold" : ""
     link_to a.game.name, game_path(a.game), :class => css
+    
   end
   
   def highlighted_tag_list(game)

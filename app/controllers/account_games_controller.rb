@@ -7,7 +7,8 @@ class AccountGamesController < ApplicationController
   # GET /account_games.xml
   def index
     @path << :overview
-    @account_games = current_account.account_games.find(:all, :include => :game, :order => "games.name ASC")
+    @account_games = current_account.account_games.find(:all, :include => {:game => :image}, :order => "games.name ASC")
+    played_games = current_account.parties.map{|p| p.game_id}.uniq
     @last_buyed = @account_games.sort_by(&:created_at).last(5).reverse
     @month, @other, @no_play = [], [], []
     now = Time.now
@@ -15,7 +16,7 @@ class AccountGamesController < ApplicationController
       if (a.transdate.month == now.month && a.transdate.year == now.year)
         @month << a
       end
-      if a.parties_count == 0
+      if !played_games.include?(a.game.id)
         @no_play << a
       else
         @other << a

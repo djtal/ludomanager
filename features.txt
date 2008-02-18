@@ -5,6 +5,7 @@
 * make anual stats
 * add auto-completer for authors
 * Editor model
+* js version of show game (aka quick look)
 * ajax ludo game add/delete
 * check  usage of content parser. Did we realy need it ?
 * think a little about performance in ludo view
@@ -14,13 +15,12 @@
 * what about saving ludo search's for latter use (sort of smart folder)
 * DRY up sunav generation
 	* automatic detection of which partiam to render (determined by controller)
+* AJAX pagination when move from one page to another
 -----------------------------------------------------------------------------------------------
 Next Iteration
 
-* FIX error in widget when no image is associated
 * add difficlty to search account game
-* move search account game int his own model
-* js version of show game (aka quick look)
+* move search account game into his own model
 * FIX weird sorting issue after updating view by AJAX
 * insert new played game if no played before
 * new presentaion mode for partie
