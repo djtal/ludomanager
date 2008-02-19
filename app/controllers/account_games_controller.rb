@@ -121,6 +121,7 @@ class AccountGamesController < ApplicationController
     @account_game.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to account_games_url }
       format.xml  { head :ok }
     end
