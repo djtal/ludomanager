@@ -6,10 +6,9 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-    @path << :overview
-    @account_games = current_account.account_games.find(:all, :include => {:game => :image}, :order => "games.name ASC")
+    @account_games = current_account.account_games.find(:all, :include => {:game => :image}, :order => "account_games.created_at DESC")
     played_games = current_account.parties.map{|p| p.game_id}.uniq
-    @last_buyed = @account_games.sort_by(&:created_at).last(5).reverse
+    @last_buyed = @account_games.first(5)
     @month, @other, @no_play = [], [], []
     now = Time.now
     @account_games.each do |a|
