@@ -45,7 +45,7 @@ class LudoImporter
   def find_or_initialize_game(name)
     g = ::Game.find(:first, :conditions => ["LOWER(games.name) == ?", name.downcase])
     if (!g)
-      g = ::Game.new(:name => name)
+      g = ::Game.new(:name => name.downcase.humanize)
       @created_games += 1
     end
     g
