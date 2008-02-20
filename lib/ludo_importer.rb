@@ -19,12 +19,16 @@ class LudoImporter
       end
       if type == :jeux
         g = find_or_initialize_game(row[1])
-        g.editor = row[7]
-        g.publish_year = row[8] if row[8]
-        g.time_average = row[12] if row[12]
-        g.min_player, g.max_player = findPlayerRange(row) 
-        if (g.save)
-          g.tag_with curTag if !curTag.blank?
+        if (g.new_record?)
+          g.editor = row[7] if row[7]
+          g.publish_year = row[8] if row[8]
+          g.time_average = row[12] if row[12]
+          g.min_player, g.max_player = findPlayerRange(row) 
+          if (g.save)
+            a = find_or_create_author(row[5])
+            g.authors << a if a && !g.authors.include?(a)
+            g.tag_with curTag if !curTag.blank?
+          end
         end
         if @account && !@account.games.include?(g)
           ag = AccountGame.new
@@ -47,8 +51,14 @@ class LudoImporter
     g
   end
   
-  def find_author(name)
-    a = ::Author.find(:first, :conditions => ["LOWER(authors.name) == ?", name.downcase])
+  def find_or_create_author(name)
+    if (name && name != "_" && name != "")
+      a = ::Author.find(:first, :conditions => ["LOWER(authors.name) == ?", name.downcase])
+      if (!a)
+        a = ::Author.new(:name => name)
+        a.save
+      end
+    end
     a
   end
   

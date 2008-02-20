@@ -17,3 +17,8 @@ two:
   id: 2
   author_id: 2
   game_id: 1
+  
+three:
+  id: 3
+  author_id: 3
+  game_id: 1

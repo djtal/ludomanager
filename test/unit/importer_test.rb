@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ImporterTest < Test::Unit::TestCase
-  fixtures :accounts, :games, :account_games, :authors
+  fixtures :accounts, :games, :account_games, :authors, :authorships
   
   def setup
     super
@@ -31,9 +31,40 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal games(:coloreto_ext), importer.find_or_initialize_game("Coloreto Ext")
   end
   
-  def test_find_author
+  def test_find_or_create_author
     importer = LudoImporter.new
-    assert_equal authors(:fraga), importer.find_author("Fraga")
+    assert_equal authors(:fraga), importer.find_or_create_author("Fraga")
+    assert_nil importer.find_or_create_author("")
+    assert_nil importer.find_or_create_author("_")
+    a = importer.find_or_create_author("Ehrhard")
+    assert !a.new_record?
+    assert_equal "Ehrhard", a.name
+  end
+  
+  def test_should_create_game_with_authors_if_game_not_exist
+    assert_difference Game, :count, 1 do
+      LudoImporter.new.import(@raw)
+    end
+    g = Game.find_by_name("Rapidcroco")
+    assert_equal "Cocktail Games", g.editor
+    assert_equal 1, g.authors.size
+    assert g.authors.include?(authors(:fraga)) 
+    assert_equal 2, g.min_player
+    assert_equal 4, g.max_player
+    assert_equal "30mn", g.time_average
+  end
+  
+  def test_should_not_update_authors_if_ever_exist_in_game
+    line = "jeux;coloreto;;Cocktail Games;1;Fraga;;Cocktail Games;2004;J;GP;7;30mn;34;3,71;1;;;R;;2;3;4;;;;;;;;;;;;"
+    assert_no_difference Authorship, :count do
+      LudoImporter.new.import(line)
+    end
+  end
+  
+  def test_importer_should_not_overrides_old_games_attributes
+    old_attributes = games(:coloreto).attributes
+    LudoImporter.new.import("jeux;coloreto;;Cocktail Games;1;Fraga;;Cocktail Games;2004;J;GP;7;30mn;34;3,71;1;;;R;;2;3;4;;;;;;;;;;;;")
+    assert_equal old_attributes, Game.find_by_name("coloreto").attributes
   end
   
   def test_importer_should_create_missing_game
@@ -42,11 +73,6 @@ class ImporterTest < Test::Unit::TestCase
     end
     g = Game.find_by_name("Ligretto Rouge")
     assert_not_nil g
-    assert_equal "Scmidt", g.editor
-    assert_equal "2000", g.publish_year
-    assert_equal 2, g.min_player
-    assert_equal 4, g.max_player
-    assert_equal "20mn", g.time_average
     assert_equal "apero", g.tags.first.name
   end
   

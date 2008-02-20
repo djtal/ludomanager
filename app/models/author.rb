@@ -10,7 +10,6 @@
 
 class Author < ActiveRecord::Base
   validates_presence_of :name, :on => :create, :message => "can't be blank"
-  validates_presence_of :surname, :on => :create, :message => "can't be blank"
   has_many :authorship
   has_many :games, :through => :authorship
   
