@@ -1,12 +1,13 @@
 require "csv"
 
 class LudoImporter
-  attr_accessor :account
+  attr_accessor :account, :created_games, :imported_account_games
   
   def initialize(opts = {})
     @account = nil
     @account = opts[:account]
-    
+    @created_games = 0
+    @imported_account_games = 0
   end
   
   def import(data = "")
@@ -17,7 +18,7 @@ class LudoImporter
         curTag = row[1].downcase if row[1]
       end
       if type == :jeux
-        g = ::Game.find_or_initialize_by_name(row[1].downcase) if !row[1].nil? 
+        g = find_or_initialize_game(row[1])
         g.editor = row[7]
         g.publish_year = row[8] if row[8]
         g.time_average = row[12] if row[12]
@@ -36,6 +37,21 @@ class LudoImporter
       end
     end
   end
+  
+  def find_or_initialize_game(name)
+    g = ::Game.find(:first, :conditions => ["LOWER(games.name) == ?", name.downcase])
+    if (!g)
+      g = ::Game.new(:name => name)
+      @created_games += 1
+    end
+    g
+  end
+  
+  def find_author(name)
+    a = ::Author.find(:first, :conditions => ["LOWER(authors.name) == ?", name.downcase])
+    a
+  end
+  
     
   def self.import(filename)
     self.new.import(File.open(filename, 'r'))

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ImporterTest < Test::Unit::TestCase
-  fixtures :accounts, :games, :account_games
+  fixtures :accounts, :games, :account_games, :authors
   
   def setup
     super
@@ -14,11 +14,33 @@ class ImporterTest < Test::Unit::TestCase
     jeux;Rapidcroco;;Cocktail Games;1;Ehrhard;;CocktailGames;2006;J;;6;_;2;4,00;_;;;R;;2;3;4;;;;;;;;;;;;"
   end
   
+  def test_should_not_create_game_twice
+    csv = "jeux;Rapidcroco;;Cocktail Games;1;Fraga;;Cocktail Games;2004;J;GP;7;30mn;34;3,71;1;;;R;;2;3;4;;;;;;;;;;;;
+    jeux;Rapidcroco;;Cocktail Games;1;Ehrhard;;CocktailGames;2006;J;;6;_;2;4,00;_;;;R;;2;3;4;;;;;;;;;;;;"
+    assert_difference Game, :count, 1 do
+      LudoImporter.new.import(csv)
+    end
+  end
+  
+  def test_find_or_initialize_game_should_not_create_new_game_for_case_difference_in_name
+    importer = LudoImporter.new
+    assert_equal games(:coloreto), importer.find_or_initialize_game("ColoretO")
+    assert_equal games(:coloreto), importer.find_or_initialize_game("CoLoReTo")
+    
+    assert_equal games(:coloreto_ext), importer.find_or_initialize_game("coloreto ext")
+    assert_equal games(:coloreto_ext), importer.find_or_initialize_game("Coloreto Ext")
+  end
+  
+  def test_find_author
+    importer = LudoImporter.new
+    assert_equal authors(:fraga), importer.find_author("Fraga")
+  end
+  
   def test_importer_should_create_missing_game
     assert_difference Game, :count, 3 do
       LudoImporter.new.import(@extract)
     end
-    g = Game.find_by_name("ligretto rouge")
+    g = Game.find_by_name("Ligretto Rouge")
     assert_not_nil g
     assert_equal "Scmidt", g.editor
     assert_equal "2000", g.publish_year
@@ -33,7 +55,7 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal 0, a.games.size
     LudoImporter.new(:account => a).import(@extract)
     assert_equal 3, a.games.count
-    g = a.games.find_by_name("ligretto rouge")
+    g = a.games.find_by_name("Ligretto Rouge")
     assert_not_nil g
     ag = a.account_games.find(:first,g.id)
     assert_not_nil ag
