@@ -35,7 +35,7 @@ class AuthorsController < ApplicationController
   # POST /authors.xml
   def create
     @author = Author.new(params[:author])
-
+    @games = @authors.games.find(:all, :order => "games.publish_year ASC")
     respond_to do |format|
       if @author.save
         flash[:notice] = 'Author was successfully created.'

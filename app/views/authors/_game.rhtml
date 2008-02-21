@@ -1,0 +1,5 @@
+<li>
+  <%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
+  <%= link_to game.name, game_path(game) %>
+  &nbsp;|&nbsp;<%= game.publish_year %>
+</li>

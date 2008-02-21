@@ -154,12 +154,14 @@ ul#search-results {
 	padding: 2px 4px;
 }
 
+.list ul,
 .widget ul{
 	margin: 0;
 	padding-left: 0;
 	list-style-type: none;
 }
 
+.list ul li,
 .widget ul li{
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -413,6 +415,8 @@ ul.tags li.selected{
 	font-weight: bold;
 }
 
+
+#last-games img,
 #last-acgames img,
 #last-parties img{
 	margin: 0;
