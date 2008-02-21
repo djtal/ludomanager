@@ -43,12 +43,12 @@
     <p><%= f.label_for :author, :text => "Auteurs"  %>
     <p class="tips">Sous la forme "nom-prenom"<br />
     1 par ligne ",".</p>
-	<div class="authors">
+	<div id="authors">
 		<% @authors.each_with_index do |a, index| %>
 	  	  <div class = "author" id="author_<%= index %>">
 	  	  	<% fields_for "authors[#{index}]", a do |fs| %>
 	  			<%= fs.text_field :display_name %>
-				<%= content_tag :span,  "add", :class => "add" %> | <%= content_tag :span, "del", :class => "del" %>
+				<%= content_tag :span,  "add", :class => "add link" %> | <%= content_tag :span, "del", :class => "del link" %>
 	  	  	<% end %>
 	  	  </div>
 	

@@ -89,6 +89,7 @@ GameForm.addMethods({
     if (!$(form))
       return;
     this.form = $(form);
+	this.authors = this.form.select("#authors").reduce();
 	new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
     this.bindUI();
   },
@@ -104,8 +105,11 @@ GameForm.addMethods({
       if ($(elt))
         $(elt).observe("click", this.hideContent.bindAsEventListener(this));
     }.bind(this));
-	this.form.select(".authors .del").each(function(a){
+	this.form.select("#authors .del").each(function(a){
 		a.observe("click", this.removeAuthor.bindAsEventListener(this));
+	}.bind(this));
+	this.form.select("#authors .add").each(function(a){
+		a.observe("click", this.addAuthor.bindAsEventListener(this));
 	}.bind(this));
   },
   
@@ -115,7 +119,17 @@ GameForm.addMethods({
   },
   
   addAuthor: function(ev){
-
+	elt = new Element("div", {"class": "author"})
+	elt.insert(new Element("input", {"type": "text", "size": 30}))
+	add = new Element("span", {"class": "link add"})
+	add.observe("click", this.addAuthor.bindAsEventListener(this))
+	elt.insert(add.insert("add"))
+	elt.insert(" | ")
+	del = new Element("span", {"class": "link del"});
+	del.observe("click", this.removeAuthor.bindAsEventListener(this))
+	elt.insert(del.insert("del"))
+	
+	this.authors.insert(elt);
   },
   
   removeAuthor: function(ev){
