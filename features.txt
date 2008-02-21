@@ -29,6 +29,9 @@
 -----------------------------------------------------------------------------------------------
 Next Iteration
 
+* truncate game description in main view
+* show difficulty in acgames view(search first)
+* re-enable search for general game (by nam only)
 * better ui for author managment
 * add auto-completer for authors
 * tooltip when game name is truncated to display full name (in widget)
@@ -36,13 +39,7 @@ Next Iteration
 * move search account game into his own model
  * be clever add some test
 * FIX weird sorting issue after updating view by AJAX
-* AJAX verion for delete ludo game
 * insert new played game if no played before
-
-
------------------------------------------------------------------------------------------------
-Next Iteration
-
 * FIX design issue for game with no desc and no image
 * if no image filled used an default in game view
 * ludo game origin revamp

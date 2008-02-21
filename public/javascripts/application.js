@@ -104,11 +104,22 @@ GameForm.addMethods({
       if ($(elt))
         $(elt).observe("click", this.hideContent.bindAsEventListener(this));
     }.bind(this));
+	this.form.select(".authors .del").each(function(a){
+		a.observe("click", this.removeAuthor.bindAsEventListener(this));
+	}.bind(this));
   },
   
   
   hideContent: function(ev){
     ev.element().next("div").toggle();
+  },
+  
+  addAuthor: function(ev){
+
+  },
+  
+  removeAuthor: function(ev){
+  	ev.element().up().hide();
   }
 });
 
