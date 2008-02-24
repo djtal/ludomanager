@@ -19,7 +19,7 @@
 		    			<td><%= month_name(month) %></td>
 						  <td><%= data[0] != 0 ? content_tag(:span, data[0], :class => "empty") : "--" %></td>
 						  <td><%= data[1] != 0 ? content_tag(:span, data[1], :class => "empty") : "--" %></td>
-						  <tr><span class="<%= trends_for(data[0], data[1]) %>">&nbsp;</span></tr>
+						  <td><span class="<%= trends_for(data[0], data[1]) %>">&nbsp;</span></td>
 					</tr>
 		  		<% end %>
 				<tr><td>Total</td><td><%= content_tag(:span, @years_total[0], :class => "empty") %></td><td><%= content_tag(:span, @years_total[1], :class => "empty") %></td></tr>
