@@ -4,7 +4,7 @@ page["#{dom_id(@game)}_last_played"].replace_html(last_play_date_table_cell(@par
 
 page["global_parties_count"].replace_html(pluralize(@count, "partie", "parties"))
 
-page["last"].replace(render(:partial => "last"))
+page["last-parties"].replace(render(:partial => "last"))
 
 page[dom_id(@game)].highlight()
 

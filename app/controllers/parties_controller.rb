@@ -25,7 +25,7 @@ class PartiesController < ApplicationController
     party.save
     @account_games = current_account.games
     @count = current_account.parties.count
-    @last = current_account.parties.last(5)
+    @last_parties = current_account.parties.last(5)
     @parties = Party.find(:all, :conditions => {:account_id => current_account.id, :game_id => @game.id})
     respond_to do |format|
       format.html{ redirect_to parties_path }
