@@ -167,6 +167,11 @@ ul#search-results {
 	padding-bottom: 2px;
 }
 
+.widget ul li img{
+	margin: 0;
+	vertical-align: middle;
+}
+
 
 
 
@@ -415,13 +420,6 @@ ul.tags li.selected{
 	font-weight: bold;
 }
 
-
-#last-games img,
-#last-acgames img,
-#last-parties img{
-	margin: 0;
-	vertical-align: middle;
-}
 
 /* Accounts & Login */
 .center_box{

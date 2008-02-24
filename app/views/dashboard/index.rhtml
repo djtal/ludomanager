@@ -1,6 +1,6 @@
 <h3><%= current_account.login.humanize%> dashboard's</h3>
 
-<div class="column span-11">
+<div class="column span-11 append-1">
   <%= render :partial => "account_games/last" %>
 
   <div class="widget" id="p-overview">
@@ -37,6 +37,7 @@
 	  		<% @most_played.each do |game, parties| %>
 	  			<li class="<%= cycle("even", "odd") %>">
 	  				<span class="right"><%= pluralize(parties.size, "partie", "parties") %></span>
+	  				<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
 	  				<%= link_to game.name, game_path(game) %>
 	  			</li>
 	  		<% end %>
