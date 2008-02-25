@@ -154,6 +154,25 @@ PartyFilter = {
   },
   
   loadObservers: function(){
+  	if ($("mine"))
+	{
+		$("mine").observe("click", function(ev){
+			elt = ev.element();
+			if (elt.hasClassName("active"))
+			{
+				elt.removeClassName("active");
+				$$("table").each(function(t){
+          			PartyFilter.showAll(t);
+        		});	
+			} else {
+				elt.addClassName("active");
+				$$("table").each(function(t){
+          			PartyFilter.showMine(t);
+        		});
+			}
+		})
+		
+	}
     if(!$("parties-filter"))
       return;
     $("parties-filter").observe("change", function(e){
