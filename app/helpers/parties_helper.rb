@@ -5,7 +5,7 @@ module PartiesHelper
     }.merge(options)
    
     if group.size > 0
-    	text ="<thead><tr><th class=\"nosort span-1\">S</th><th class=\"span-11\">Nom</th><th class=\"span-3\">Derniere partie</th><th class=\"span-2\">Nb Parties</th></tr></thead>"
+    	text ="<thead><tr><th class=\"nosort span-1\">S</th><th class=\"span-10\">Nom</th><th class=\"span-3\">Derniere partie</th><th class=\"span-2\">Nb Parties</th><th class=\"span-1\">Taux</th></tr></thead>"
     	text += "<tbody>"
       group.each do |game, parties|
     		text << render(:partial => "party", :locals => {:game => game, :parties => parties})
@@ -36,6 +36,14 @@ module PartiesHelper
  
  def elapsed_time_for_partie(parties)
    ((last_play_date(parties) - first_play_date(parties)) / 1.day).to_i + 1
+ end
+ 
+ def  play_time(parties)
+  ((Time.now - first_play_date(parties)) / 1.month)
+ end
+ 
+ def  month_rate(parties)
+   number_with_precision(parties.size.to_f / play_time(parties), 2)
  end
  
  def  account_game_status_for(game)

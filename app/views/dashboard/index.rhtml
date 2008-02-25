@@ -22,7 +22,10 @@
 						  <td><%= trends_for(data[0], data[1]) %></td>
 					</tr>
 		  		<% end %>
-				<tr><td>Total</td><td><%= content_tag(:span, @years_total[0], :class => "empty") %></td><td><%= content_tag(:span, @years_total[1], :class => "empty") %></td></tr>
+				<tr class="<%= cycle("roweven", "rowodd")  %>">
+					<td>Total</td><td><%= content_tag(:span, @years_total[0], :class => "empty") %></td><td><%= content_tag(:span, @years_total[1], :class => "empty") %></td>
+					<td><%= trends_for(@years_total[0], @years_total[1]) %></td>
+				</tr>
 			</tbody>
     	</table>
 	</div>
