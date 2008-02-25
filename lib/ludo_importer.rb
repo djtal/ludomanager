@@ -23,6 +23,7 @@ class LudoImporter
           g.editor = row[7] if row[7]
           g.publish_year = row[8] if row[8]
           g.time_average = row[12] if row[12]
+          g.average = row[14] if row[14]
           g.min_player, g.max_player = findPlayerRange(row) 
           if (g.save)
             a = find_or_create_author(row[5])

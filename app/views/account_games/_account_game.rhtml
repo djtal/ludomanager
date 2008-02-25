@@ -5,6 +5,7 @@
 	<% if mode == :full %>
     	<td><%= selectable_tag_list account_game.game %></td>
 		<td><%= "#{account_game.game.min_player}/#{account_game.game.max_player}" %></td>
+		<td><%= account_game.game.difficulty  %></td>
 	<% end %>
 
 	<% if mode == :overview %>
