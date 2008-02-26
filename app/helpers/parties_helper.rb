@@ -3,10 +3,11 @@ module PartiesHelper
     opts = {
       :class => "sortable"
     }.merge(options)
-   
+    result_id = ""
+    result_id = "id=\"#{opts[:id]}-results\"" if opts[:id]
     if group.size > 0
     	text ="<thead><tr><th class=\"nosort span-1\">S</th><th class=\"span-10\">Nom</th><th class=\"span-3\">Derniere partie</th><th class=\"span-2\">Nb Parties</th><th class=\"span-1\">Taux</th></tr></thead>"
-    	text += "<tbody>"
+    	text += "<tbody #{result_id}>"
       group.each do |game, parties|
     		text << render(:partial => "party", :locals => {:game => game, :parties => parties})
     	end
@@ -43,7 +44,22 @@ module PartiesHelper
  end
  
  def  month_rate(parties)
-   number_with_precision(parties.size.to_f / play_time(parties), 2)
+    by, ey = Time.now.beginning_of_year, Time.now
+    duration = ((ey - by) /1.month)
+    p = parties.select{|pa| pa.created_at >= by && pa.created_at <= ey}
+    if (!p.empty?)
+      rate =  p.size.to_f / duration
+    else
+      rate = 0
+    end
+    color = if rate > 1
+                :green
+            elsif rate > 0.5
+                :orange
+            else
+                :red
+            end
+    content_tag(:span, number_with_precision(rate, 2), :class => "#{color} color", :id => "#{dom_id(parties.first.game)}_rate")
  end
  
  def  account_game_status_for(game)

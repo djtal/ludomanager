@@ -43,6 +43,11 @@ h4{
 	color:#422100;
 }
 
+.color{ font-weight: bold;}
+.red{ color: red;}
+.orange{color: Orange;}
+.green{color: green;}
+
 
 ul#search-results {
 	margin-top: 3px;

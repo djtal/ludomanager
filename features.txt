@@ -46,10 +46,6 @@ Next Iteration
 * better dashboard
   * highlight most played  month in dashboard
   * collapsable widget
-* importer overhall
-  * ignore case when searching if a game exist
-  * get nb of imported account game
-  * get nb of newly created game
 * in import view explain what the imprt will do before
 
 
