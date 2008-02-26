@@ -20,6 +20,10 @@ class AccountGame < ActiveRecord::Base
   belongs_to :account
   before_save :set_date
 
+  def self.search parms
+    
+  end
+
   def image
     game.image
   end

@@ -38,16 +38,10 @@ Next Iteration
 * add difficlty to search account game
 * move search account game into his own model
  * be clever add some test
-* FIX weird sorting issue after updating view by AJAX
 * insert new played game if no played before
 * FIX design issue for game with no desc and no image
 * if no image filled used an default in game view
 * ludo game origin revamp
-* better dashboard
-  * highlight most played  month in dashboard
-  * collapsable widget
-* in import view explain what the imprt will do before
-
 
 ------------------------------------------------------------------------------------------------
 Next Iteration 
