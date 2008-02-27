@@ -33,8 +33,14 @@ class PartiesController < ApplicationController
     end  
   end
   
-  def played
-    
+  def resume
+    @date = Time.now
+    @parties = current_account.parties.find(:all, :conditions => ["parties.created_at > ? AND parties.created_at < ?", @date.beginning_of_month, @date.end_of_month ])
+    previous_played_games = current_account.parties.find(:all, 
+    :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game).uniq
+    @days = @parties.group_by{ |p| p.created_at.mday}
+    @games_count = @parties.map(&:game_id).uniq.size
+    @discovered = @parties.map(&:game).uniq.reject{|g| previous_played_games.include?(g)}
   end
   
   protected

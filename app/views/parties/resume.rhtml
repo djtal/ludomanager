@@ -1,0 +1,41 @@
+<% content_for :head do %>
+	<%= stylesheet_link_tag "calendar/big/style.css" %>
+<% end %>
+
+<h3>Vos partie du mois</h3>
+
+
+<%= calendar(:year => @date.year, :month => @date.month, :abbrev => (0..-1), :show_today => true) do |d|
+	if (d.month == @date.month)
+		render(:partial => "calendar_parties", :locals => {:parties => @days[d.mday], :day => d.mday})
+
+	end
+
+end  %>
+
+<% content_for :my_teamscore do %>
+	Vous avez effectuez <em id="global_parties_count"><%= pluralize(@parties.size, "partie", "parties") %></em> sur 
+	<em><%= pluralize(@games_count, "jeu", "jeux") %></em> different.
+<% end %>
+
+<% content_for :subnav do %>
+	<%= render :partial => "subnav" %>
+<% end %>
+
+
+<% content_for :newsbox do %>
+	<div class="widget">
+		<h3>Les decouvertes</h3>
+		<div class="w-content">
+			<ul>
+				<% @discovered.each do |game| %>
+					<li>
+						<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
+						<%= link_to(truncate(game.name, 18), game_path(game)) %>
+					</li>				
+				<% end %>
+			</ul>
+		</div>	
+	</div>
+
+<% end %>

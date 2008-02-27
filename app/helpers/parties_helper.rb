@@ -61,6 +61,7 @@ module PartiesHelper
             end
     content_tag(:span, number_with_precision(rate, 2), :class => "#{color} color", :id => "#{dom_id(parties.first.game)}_rate")
  end
+
  
  def  account_game_status_for(game)
    content_tag(:span, "&nbsp", :class => has_game?(game) ? "ss_bullet_green  ss_sprite" : "")

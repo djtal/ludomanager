@@ -1,0 +1,9 @@
+<span class="mday"><%= day %></span>
+<% if parties %>
+	<ul>
+		<% parties.first(4).each do |p| %>
+			<li><%= link_to(truncate(p.game.name, 10), game_path(p.game)) %></li>
+		<% end %>
+		<%= content_tag(:li, link_to("#{parties.size - 4} more")) if parties.size > 4 %>
+	</ul>
+<% end%>

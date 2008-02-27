@@ -2,7 +2,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # The priority is based upon order of creation: first created -> highest priority.
 
-  map.resources :sessions, :accounts, :authors, :authorships, :parties
+  map.resources :sessions, :accounts, :authors, :authorships
+  map.resources :parties, :collection => {:resume => :get}
   map.resources :account_games,
                 :collection => {:all => :get, :search => :post, :import => :post, :importer => :get}
   map.resources :tags, :collection => {:tags_for_lookup => :get, :lookup => :get} do |t|
