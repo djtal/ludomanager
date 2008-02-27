@@ -210,7 +210,6 @@ Widget.addMethods({
 	},
 	
 	widgitize: function(){
-		new Effect.Corner(this.widget, "tl br 10px");
 		if (this.title)
 			this.title.observe("click", this.toggleContent.bindAsEventListener(this));
 	},

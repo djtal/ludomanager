@@ -40,6 +40,7 @@ class PartiesController < ApplicationController
     :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game).uniq
     @days = @parties.group_by{ |p| p.created_at.mday}
     @games_count = @parties.map(&:game_id).uniq.size
+    @account_games = current_account.games
     @discovered = @parties.map(&:game).uniq.reject{|g| previous_played_games.include?(g)}
   end
   
