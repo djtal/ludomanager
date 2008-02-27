@@ -18,11 +18,6 @@ context "New Games Account" do
     assert !clean_game_account.save
   end
   
-  specify "last should give last buyed game" do
-    
-  end
-  
-  
   
   private
   
@@ -32,5 +27,18 @@ context "New Games Account" do
       :game_id => 1
     }.merge(overrides)
     AccountGame.new(opts)
+  end
+end
+
+
+context "search account game" do
+  fixtures :account_games, :accounts, :games, :tags, :taggings
+  
+  specify "should return all if no args given" do
+    
+  end
+  
+  specify "can search by difficulty" do
+    
   end
 end
