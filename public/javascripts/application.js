@@ -71,6 +71,13 @@ var BShow = Behavior.create({
     onmouseout : function() { this.element.select('.function').reduce().hide();}
 });
 
+var BMore = Behavior.create({
+    onclick : function() { 
+        this.element.up("td").down("#" + this.element.id + "_more").toggle();
+        return false;
+    },
+});
+
 var GameList = Class.create();
 GameList.addMethods({
   initialize: function(){
@@ -308,4 +315,7 @@ document.observe("dom:loaded", function() {
   ls = new LudoSearch("ludo-search");
   new GameList();
   Sidebar.load();
+  $$(".more").each(function(elt){
+      BMore.attach(elt);
+  });
 })

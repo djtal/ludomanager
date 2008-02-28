@@ -465,3 +465,7 @@ ul#accounts li{
 	color: gray;
 	font-variant: small-caps;
 }
+
+.extended{
+    position: absolute;
+}
