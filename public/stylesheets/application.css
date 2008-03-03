@@ -163,14 +163,11 @@ ul#search-results {
 	padding-bottom: 2px;
 }
 
+.list img,
 .widget img{
 	margin: 0;
 	vertical-align: middle;
 }
-
-
-
-
 
 
 
@@ -270,10 +267,6 @@ legend{
 
 /* ---- Forms ----*/
 
-#tag{
-	font-size: 1.5em;
-}
-
 div.auto_complete { 
 	width: 350px; 
 	background: #fff; 
@@ -314,24 +307,9 @@ div.auto_complete ul strong.highlight {
 
 /* ---- Games ---- */
 
-.game h2{
-	font-size: 1.5em;
-}
-
 #games .game img{
 	margin-left: -30px;
 	margin-right: 10px;
-}
-
-#game_name{
-	font-size: 2em;
-	font-weight: bold;
-	
-}
-
-#game_min_player, #game_max_player{
-	font-size: 1.2em;
-	font-weight: bold;
 }
 
 #innernews #search-results{

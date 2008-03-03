@@ -1,7 +1,7 @@
 <fieldset>
 	<legend>Le plus important</legend>
 	<div>
-	  <%= f.text_field :name, :text => "Nom" , :size => 35 %>
+	<%= f.text_field :name, :text => "Nom" , :size => 50, :class => "title" %>
   	<%= f.text_area :description, :rows => 5, :cols => 71, :text => "Une petite description" %>
   	<%= render :partial => "tags/new", :object => @game.tag_list %>
   	<% fields_for :game_photo do |g| %>		
@@ -31,8 +31,8 @@
 <fieldset>
 	<legend>Information Complementaires</legend>
 	<div>
-	  <%= f.text_field :average, :size => 4,  :text => "Moyenne TricTrac" %>
-  	<%= f.text_field :url, :text => "Url de la fiche sur TricTrac" %>
+	    <%= f.text_field :average, :size => 4,  :text => "Moyenne TricTrac"%>
+  	    <%= f.text_field :url, :text => "Url de la fiche sur TricTrac" , :class => "text" %>
 	</div>
 </fieldset>
 
@@ -46,13 +46,13 @@
 		<% @authors.each_with_index do |a, index| %>
 	  	  <div class = "author" id="author_<%= index %>">
 	  	  	<% fields_for "authors[#{index}]", a do |fs| %>
-	  			<%= fs.text_field :display_name, :id => "author_#{index}_display_name", :class => "author_display_name" %>
+	  			<%= fs.text_field :display_name, :id => "author_#{index}_display_name", :class => "author_display_name text" %>
 				<%= content_tag :span,  "add", :class => "add link" %> | <%= content_tag :span, "del", :class => "del link" %>
 	  	  	<% end %>
 	  	  </div>
 	      <div class="auto_complete" id="authors_lookup_auto_complete"></div> 
 	  	<% end %>		
 	</div>
-    <%= f.text_field :editor, :text => "Editeur" %>
+    <%= f.text_field :editor, :text => "Editeur", :class => "text" %>
   </div>
 </fieldset>
