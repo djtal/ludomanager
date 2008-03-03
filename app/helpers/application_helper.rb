@@ -1,8 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   ALLOWED_TAGS = %w(game)
-  
-  
+
   def main_nav_section_for(name, url, section, opts = {})
     html_class = @section == section ? "active" : ""
     html_class += " #{opts[:class]}"
@@ -72,10 +71,18 @@ module ApplicationHelper
       txt += "</div>"
     end
     
-    def month_name index
-      names = ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout",
+    def month_fr
+        ["", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout",
               "Septembre", "Octobre", "Novembre", "Decembre"]
-      names[index - 1]
+    end
+    
+    def day_fr
+     ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+    end
+    
+    def month_name index
+      names = month_fr
+      names[index]
     end
     
     def distance_of_time_in_words(from_time, to_time = 0, include_seconds = false)

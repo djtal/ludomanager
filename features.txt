@@ -5,13 +5,9 @@
 * make dashboard widget drag & drop for position
 * create a parser wich parse a trictrac game request to fetch additional data (Hpricot powered)
 * make anual stats
-
-* new presentaion mode for partie
-	* overview data are slice and short : use normal layout
-	* full  only one list but more detailed: use a simplyfied layout
 * Editor model
 * js version of show game (aka quick look)
-* ajax ludo game add/delete
+* ajax ludo game add
 * check  usage of content parser. Did we realy need it ?
 * think a little about performance in ludo view
  	* fetch all account parties, restrict to owned game and then group by game
@@ -30,7 +26,6 @@
 Next Iteration
 
 * truncate game description in main view
-* show difficulty in acgames view(search first)
 * re-enable search for general game (by nam only)
 * better ui for author managment
 * add auto-completer for authors
