@@ -244,6 +244,7 @@ LudoSearch.addMethods({
 	this.searchedTags = [];
 	this.results = $("search-results")
 	$("search_player").setAttribute('autocomplete','off');
+    $("search_difficulty").setAttribute('autocomplete','off');
 	new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
 	this.loadObservers();
 	this.makeTagsClickable();
@@ -259,6 +260,7 @@ LudoSearch.addMethods({
   
   loadObservers: function(){
     new Field.Observer("search_player", 0.3, this.formChange.bindAsEventListener(this));
+    new Field.Observer("search_difficulty", 0.3, this.formChange.bindAsEventListener(this));
     new Field.Observer("search_tags_mode_or", 0.3, this.formChange.bindAsEventListener(this));
     new Field.Observer("search_tags_mode_and", 0.3, this.formChange.bindAsEventListener(this));
     if ($("reset"))

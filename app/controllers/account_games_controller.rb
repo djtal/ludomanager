@@ -51,9 +51,15 @@ class AccountGamesController < ApplicationController
       :include => {:game => :tags}
     }
     @tag_list = Tag.parse(params[:search][:tags])
+    criterion = {}
     if !params[:search][:player].blank?
-      opts[:conditions] = ["games.min_player <= ? AND games.max_player >= ?", params[:search][:player], params[:search][:player]]
+      criterion["games.min_player <= ?"] = params[:search][:player]
+      criterion["games.max_player >= ?"] = params[:search][:player]
     end
+    if !params[:search][:difficulty].blank?
+      criterion["games.difficulty <= ?"] = params[:search][:difficulty]
+    end
+    opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
     @ag = current_account.account_games.find(:all, opts)
     if !@tag_list.empty?
       @ag = @ag.select do |ag|

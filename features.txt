@@ -27,9 +27,6 @@ Next Iteration
 
 * re-enable search for general game (by nam only)
 * tooltip when game name is truncated to display full name (in widget)
-* add difficlty to search account game
-* move search account game into his own model
- * be clever add some test
 * insert new played game if no played before
 * FIX design issue for game with no desc and no image
 * if no image filled used an default in game view
