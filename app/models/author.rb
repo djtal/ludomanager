@@ -37,7 +37,7 @@ class Author < ActiveRecord::Base
   end
   
   def display_name
-    self.new_record? ? "" : "#{surname} - #{name}"
+    self.new_record? ? "" : (surname.blank? ? name : "#{surname} - #{name}")
   end
   
   def display_name=(str)

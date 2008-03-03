@@ -98,13 +98,22 @@ GameForm.addMethods({
     this.form = $(form);
 	this.authors = this.form.select("#authors").reduce();
 	new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
+    new Ajax.Request("/authors", {method: "get", onSuccess: this.loadAuthor.bind(this)});
     this.bindUI();
   },
   
-  loadTags: function(reponse){
-    this.tags = reponse.responseJSON;
+  loadTags: function(response){
+    this.tags = response.responseJSON;
     new Autocompleter.Local('tag', 'tags_lookup_auto_complete', this.tags, 
                             {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+  },
+  
+  loadAuthor: function(response){
+    this.authorsName = response.responseJSON;
+    this.authors.select("input[type=text]").each(function(input){
+         new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
+                            {fullSearch: true, frequency: 0, minChars: 1});  
+    }.bind(this));  
   },
   
   bindUI: function(){
@@ -135,7 +144,6 @@ GameForm.addMethods({
 	del = new Element("span", {"class": "link del"});
 	del.observe("click", this.removeAuthor.bindAsEventListener(this))
 	elt.insert(del.insert("del"))
-	
 	this.authors.insert(elt);
   },
   

@@ -27,8 +27,6 @@ Next Iteration
 
 * truncate game description in main view
 * re-enable search for general game (by nam only)
-* better ui for author managment
-* add auto-completer for authors
 * tooltip when game name is truncated to display full name (in widget)
 * add difficlty to search account game
 * move search account game into his own model
