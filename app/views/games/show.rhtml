@@ -1,19 +1,11 @@
-<% content_for :head do %>
-	<title><%= @game.name %></title>
+<% if logged_in? %>
+	<ul class="right function">
+		<li><%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_database_edit" %></li>
+		<li><%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_database_delete" %></li>
+	</ul>
 <% end %>
-
-
-<h3 class="clear">
-	
-	<div class="column span-12">
-		<%= @game.name %>
-	</div>
-	<% if logged_in? %>
-		<div class="column span-5 functions last">
-			<%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_database_edit" %>
-			<%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_database_delete" %>
-		</div>
-	<% end %>
+<h3>
+    <%= @game.name %>
 </h3>
 
 <% div_for @game, :class => "clear" do %>
@@ -27,7 +19,7 @@
 			<li><%= nb_player_tag(@game) %></li>
 			<li>Moyenne TricTrac: <%= @game.average %>/5</li>
 			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url %></li>
-			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></li>
+			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></span></li>
 			<li>Année de sortie : <span class="flash"><%= @game.publish_year %></span></li>
 			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span></li>
 			<li>Editeur <span class="flash"><%= @game.editor %></span></li>

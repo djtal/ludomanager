@@ -301,7 +301,7 @@ LudoSearch.addMethods({
 		li.addClassName("selected");
 	} else {
 		this.searchedTags = this.searchedTags.without(li.innerHTML);
-		this.tagField.setValue(this.tagField.getValue().gsub(",\\s" + li.innerHTML, ""));
+		this.tagField.setValue(this.tagField.getValue().gsub(",*\\s*" + li.innerHTML, ""));
 		li.removeClassName("selected");
 	}
 	this.formChange(null);

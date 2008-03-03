@@ -8,10 +8,8 @@
 	<% end %>
 	<h2><%= link_to list.name, game_path(list) %></h2>
 	<%= image_tag(list.image.public_filename, :size =>"80x80", :class => "pull-1 left") if list.image %>
-	<p>
-		<%= parse_tag list.description %>
-		<div class="meta">Tags : <%= game_tags_links list %></div>
-	</p>
+	<%= parse_tag list.description %>
+	<span class="meta">Tags : <%= game_tags_links list %></span>
 <% end %>
-<hr>
+<hr />
 

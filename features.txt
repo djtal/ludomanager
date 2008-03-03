@@ -25,7 +25,6 @@
 -----------------------------------------------------------------------------------------------
 Next Iteration
 
-* truncate game description in main view
 * re-enable search for general game (by nam only)
 * tooltip when game name is truncated to display full name (in widget)
 * add difficlty to search account game

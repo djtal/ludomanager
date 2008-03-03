@@ -13,7 +13,7 @@ class GamesController < ApplicationController
       @mod = :all
       @game_all = Game.find(:all, :include => [:image, :tags], :order => "games.name ASC")
     end
-    
+    @title = "Les jeux"
     @pager = ::Paginator.new(@game_all.size, 10) do |offset, per_page|
        @game_all[offset, per_page]
      end
@@ -71,6 +71,7 @@ class GamesController < ApplicationController
   # GET /games/1.xml
   def show
     @game = Game.find(params[:id], :include => [:tags, :image])
+    @title = @game.name
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @game.to_xml }
