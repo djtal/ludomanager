@@ -1,0 +1,14 @@
+<div class="widget" id="zoom">
+    <h3>Zoom sur <%= zoom.name %></h3>
+    <div class="w-content">
+    <%= image_tag(zoom.image.public_filename, :size =>"80x80") if zoom.image %>   
+    <ul class="meta">
+			<li>Difficulté (1 a 5) : <span class="flash"><%= zoom.difficulty %></span></li>
+			<li><%= nb_player_tag(zoom) %></li>
+			<li>Année de sortie : <span class="flash"><%= zoom.publish_year %></span></li>
+			<li>Un jeu de :<span class="flash"><%= authors_links(zoom.authors) %></span></li>
+			<li>Editeur <span class="flash"><%= zoom.editor %></span></li>
+			<li>Tags : <%= game_tags_links zoom %></li>
+		</ul>
+    </div>
+</div>

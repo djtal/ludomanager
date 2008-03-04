@@ -1,0 +1,1 @@
+page["w-1"].update(render(:partial => "zoom", :locals => {:zoom => @game}))

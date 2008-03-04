@@ -23,8 +23,6 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.atom {render_atom_feed_for @games, :item => {:title => :name, :pub_date => :created_at},
-                                                :feed => {:title => "TeamScore : Les jeux"}}
       format.xml  { render :xml => @games.to_xml }
     end
   end
@@ -74,6 +72,7 @@ class GamesController < ApplicationController
     @title = @game.name
     respond_to do |format|
       format.html # show.rhtml
+      format.js
       format.xml  { render :xml => @game.to_xml }
     end
   end

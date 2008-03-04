@@ -78,6 +78,21 @@ var BMore = Behavior.create({
     },
 });
 
+
+var BZoomOn = Behavior.create({
+    //onmouseover: function(){return this.zoom();},
+    onclick: function(){return this.zoom();},
+    
+    zoom: function(){
+        if (! this.url)
+        {
+           this.url = this.element.href; 
+        }
+        new Ajax.Request(this.url, {asynchronous:true, evalScripts:true, method:'get'}); 
+        return false;
+    }
+});
+
 var GameList = Class.create();
 GameList.addMethods({
   initialize: function(){
@@ -317,6 +332,8 @@ LudoSearch.addMethods({
  
 });
 
+
+
 document.observe("dom:loaded", function() {
   //new PrettySearchField("wrap", "search_q");
   PartyFilter.loadObservers();
@@ -327,6 +344,9 @@ document.observe("dom:loaded", function() {
   Sidebar.load();
   $$(".more").each(function(elt){
       BMore.attach(elt);
+  });
+   $$(".bzoom").each(function(elt){
+      BZoomOn.attach(elt);
   });
   $$(".rate").each(function(elt){
       new Starbox(elt, elt.up().down(".average").innerHTML, {locked: true, overlay: "big.png"});
