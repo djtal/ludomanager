@@ -328,4 +328,7 @@ document.observe("dom:loaded", function() {
   $$(".more").each(function(elt){
       BMore.attach(elt);
   });
+  $$(".rate").each(function(elt){
+      new Starbox(elt, elt.up().down(".average").innerHTML, {locked: true, overlay: "big.png"});
+  })
 })
