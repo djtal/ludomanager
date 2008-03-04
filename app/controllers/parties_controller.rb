@@ -35,6 +35,7 @@ class PartiesController < ApplicationController
   
   def resume
     @date = Time.now
+
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
     @date = @date.to_time
     @parties = current_account.parties.find(:all, :conditions => ["parties.created_at > ? AND parties.created_at < ?", @date.beginning_of_month, @date.end_of_month + 1.day - 1.second ])
