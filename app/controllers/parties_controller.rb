@@ -47,6 +47,13 @@ class PartiesController < ApplicationController
     @discovered = @parties.map(&:game).uniq.reject{|g| previous_played_games.include?(g)}
   end
   
+  def new
+    @partie = Party.new
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   protected
   
   def split_parties(parties)

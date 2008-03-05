@@ -6,7 +6,6 @@
 * create a parser wich parse a trictrac game request to fetch additional data (Hpricot powered)
 * make anual stats
 * Editor model
-* js version of show game (aka quick look)
 * ajax ludo game add
 * check  usage of content parser. Did we realy need it ?
 * think a little about performance in ludo view

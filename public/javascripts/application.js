@@ -105,6 +105,31 @@ GameList.addMethods({
   },
 });
 
+var PartyForm = Class.create();
+PartyForm.addMethods({
+    initialize: function(form){
+        if(!$(form) && !$("party_game"))
+            return;
+        this.form = $(form);
+        this.party_id_field = $("party_game_id");
+        new Ajax.Request("/games", {method: "get", onSuccess: this.loadGames.bind(this)}); 
+    },
+    
+    loadGames: function(response){
+       this.games = response.responseJSON.inject($H(), function(acc, game){
+           acc.set(game.name, game.id);
+           return acc;
+       });
+       new Autocompleter.Local("party_game", "party_game_auto_complete", this.games.keys(), 
+                                {fullSearch: true, frequency: 0, minChars: 1,
+                                afterUpdateElement: this.updateForm.bind(this) });
+    },
+    
+    updateForm: function(){
+        this.party_id_field.value = this.games.get($F("party_game"));
+    }
+});
+
 var GameForm = Class.create();
 GameForm.addMethods({
   initialize: function(form){
@@ -342,6 +367,7 @@ document.observe("dom:loaded", function() {
   ls = new LudoSearch("ludo-search");
   new GameList();
   Sidebar.load();
+  new PartyForm("party-form");
   $$(".more").each(function(elt){
       BMore.attach(elt);
   });

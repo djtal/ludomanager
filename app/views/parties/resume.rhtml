@@ -19,6 +19,8 @@ end  %>
 <% content_for :my_teamscore do %>
 	Vous avez effectuez <em id="global_parties_count"><%= pluralize(@parties.size, "partie", "parties") %></em> sur 
 	<em><%= pluralize(@games_count, "jeu", "jeux") %></em> different.
+    
+    <%= link_to_remote "Nouvelle partie", :url => new_party_path, :method => :get %>
 <% end %>
 
 <% content_for :subnav do %>
@@ -27,20 +29,25 @@ end  %>
 
 
 <% content_for :newsbox do %>
-    <div id="w-1">
+    <div id="placeholder-1">
     </div>
-    <div class="widget">
-		<h3>Les decouvertes</h3>
-		<div class="w-content">
-			<ul>
-				<% @discovered.each do |game| %>
-					<li>
-						<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
-						<%= link_to(truncate(game.name, 18), game_path(game)) %>
-					</li>				
-				<% end %>
-			</ul>
-		</div>	
-	</div>
+    <div id="placeholder-2">
+    </div>
+    <div id="placeholder-3">
+        <div class="widget">
+    		<h3>Les decouvertes</h3>
+    		<div class="w-content">
+    			<ul>
+    				<% @discovered.each do |game| %>
+    					<li>
+    						<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
+    						<%= link_to(truncate(game.name, 18), game_path(game)) %>
+    					</li>				
+    				<% end %>
+    			</ul>
+    		</div>	
+	    </div>
+    </div>
+    
 
 <% end %>

@@ -1,0 +1,2 @@
+page["placeholder-2"].update(render(:partial => "new"))
+page << "new PartyForm('party-form');"

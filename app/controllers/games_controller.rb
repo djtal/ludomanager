@@ -13,17 +13,19 @@ class GamesController < ApplicationController
       @mod = :all
       @game_all = Game.find(:all, :include => [:image, :tags], :order => "games.name ASC")
     end
-    @title = "Les jeux"
-    @pager = ::Paginator.new(@game_all.size, 10) do |offset, per_page|
-       @game_all[offset, per_page]
-     end
     
-    @page = @pager.page(params[:page])
-    @games = @page.items
 
     respond_to do |format|
-      format.html
-      format.xml  { render :xml => @games.to_xml }
+      format.html do
+        @title = "Les jeux"
+        @pager = ::Paginator.new(@game_all.size, 10) do |offset, per_page|
+           @game_all[offset, per_page]
+        end
+        @page = @pager.page(params[:page])
+        @games = @page.items
+      end
+      format.js{ render :json => @game_all.map{| g| g.attributes}.to_json}
+      format.xml  { render :xml => @game_all.to_xml }
     end
   end
   
