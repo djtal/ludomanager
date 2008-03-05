@@ -1,0 +1,1 @@
+page << "console.debug('ok')"

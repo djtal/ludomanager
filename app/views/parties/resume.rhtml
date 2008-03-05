@@ -19,8 +19,6 @@ end  %>
 <% content_for :my_teamscore do %>
 	Vous avez effectuez <em id="global_parties_count"><%= pluralize(@parties.size, "partie", "parties") %></em> sur 
 	<em><%= pluralize(@games_count, "jeu", "jeux") %></em> different.
-    
-    <%= link_to_remote "Nouvelle partie", :url => new_party_path, :method => :get %>
 <% end %>
 
 <% content_for :subnav do %>

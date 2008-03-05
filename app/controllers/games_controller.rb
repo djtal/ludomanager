@@ -59,13 +59,7 @@ class GamesController < ApplicationController
       format.xml  { render :xml => @games.to_xml }
     end
   end
-  
-  def play
-    @games = Game.search(params[:party][:q])
-    respond_to do |format|
-      format.js
-    end
-  end
+
 
   # GET /games/1
   # GET /games/1.xml

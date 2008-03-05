@@ -81,12 +81,13 @@ var BMore = Behavior.create({
 
 var BZoomOn = Behavior.create({
     //onmouseover: function(){return this.zoom();},
-    onclick: function(){return this.zoom();},
+    onclick: function(){this.zoom(); return false;},
     
     zoom: function(){
         if (! this.url)
         {
            this.url = this.element.href; 
+           this.element.setAttribute("href", "")
         }
         new Ajax.Request(this.url, {asynchronous:true, evalScripts:true, method:'get'}); 
         return false;
@@ -253,6 +254,17 @@ Sidebar = {
 	}
 }
 
+Game = {
+  loadStar: function(){
+    $$(".rate").each(function(elt){
+        console.debug(elt.inspect());
+        new Starbox(elt, elt.previous(".average").innerHTML, {locked: true, overlay: "big.png"});
+        
+    });
+    return false;
+  }
+}
+
 var Widget = Class.create();
 Widget.addMethods({
 	initialize: function(elt){
@@ -367,6 +379,7 @@ document.observe("dom:loaded", function() {
   ls = new LudoSearch("ludo-search");
   new GameList();
   Sidebar.load();
+  Game.loadStar();
   new PartyForm("party-form");
   $$(".more").each(function(elt){
       BMore.attach(elt);
@@ -374,7 +387,5 @@ document.observe("dom:loaded", function() {
    $$(".bzoom").each(function(elt){
       BZoomOn.attach(elt);
   });
-  $$(".rate").each(function(elt){
-      new Starbox(elt, elt.up().down(".average").innerHTML, {locked: true, overlay: "big.png"});
-  })
+
 })

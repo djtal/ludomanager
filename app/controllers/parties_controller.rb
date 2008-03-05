@@ -18,6 +18,7 @@ class PartiesController < ApplicationController
     @low = @low.sort_by{ |game, parties| parties.size}.reverse
   end
   
+  #use in main view ie not in calendar
   def create
     @game = Game.find params[:game_id]
     party = current_account.parties.build
@@ -31,6 +32,16 @@ class PartiesController < ApplicationController
       format.html{ redirect_to parties_path }
       format.js
     end  
+  end
+  
+  #used for playing a game in calendar context
+  # can be merged with create but how to differentiate render type taht are the same mime type
+  def play
+    @game = Game.find(params[:party][:game_id])
+    current_account.parties.create(:game => @game, :created_at => params[:party][:created_at])
+    respond_to do |format|
+      format.js
+    end
   end
   
   def resume
@@ -48,7 +59,8 @@ class PartiesController < ApplicationController
   end
   
   def new
-    @partie = Party.new
+    @date = Date.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i)
+    @party = Party.new(:created_at => @date)
     respond_to do |format|
       format.js
     end

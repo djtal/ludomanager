@@ -15,6 +15,10 @@ module GamesHelper
     end.join(", ")
   end
   
+  def average_for(game)
+    "<span class=\"hide average\">#{@game.average}</span><span class=\"rate\"></span>"
+  end
+  
   def authors_links(authors)
     authors.collect do |a|
       link_to(a.display_name, author_path(a))

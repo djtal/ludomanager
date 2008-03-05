@@ -2,10 +2,11 @@
 <div class="widget">
     <h3>Nouvelle Partie</h3>
     <div class="w-content">
-       <% form_for :party , :url => parties_path , :html => {:id => "party-form"} do |f| %>
+       <% remote_form_for :party, @party, :url => play_parties_path , :html => {:id => "party-form"} do |f| %>
             <%= text_field_tag "party[game]", nil, :id => "party_game" %>
             <div class="auto_complete" id="party_game_auto_complete"></div> 
             <%= f.hidden_field :game_id %>
+            <%=  f.hidden_field :created_at %>
             <br />
             <%= submit_tag "Jouer" %>
         <% end %> 
