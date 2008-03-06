@@ -396,6 +396,7 @@ ul#accounts li{
 	color: #858585;
 	font-weight: bold;
 }
+/* Pseudo link Style */
 
 .link{
 	cursor: pointer;
@@ -427,7 +428,7 @@ ul.function li{
     margin-top: 5px;
 }
 
-/* Specific Widget Styles */
+/* Widget Styles */
 
 .widget{
 	margin-top: 0;
@@ -462,6 +463,8 @@ ul.function li{
 	margin: 0;
 	vertical-align: middle;
 }
+
+/* Specific Widget Styles */
 
 #zoom div.w-content img {
 	padding-right: 5px;

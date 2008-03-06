@@ -128,6 +128,10 @@ PartyForm.addMethods({
     
     updateForm: function(){
         this.party_id_field.value = this.games.get($F("party_game"));
+    },
+    
+    close: function(){
+        
     }
 });
 

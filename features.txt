@@ -21,9 +21,16 @@
 	* game with no desc
 	* game wih no image
 * search game in db
+* extract a new autocompleter.local from usage with a json content request
+* add ability to close widget
+* try to make a toolbar like os x (text and icons) form main nav bar
 -----------------------------------------------------------------------------------------------
 Next Iteration
 
+* add a normal form for adding party ie not only in widget
+* enable multi party form
+* add a close buttons to zoom
+* add link to zoom on futur played game in party new from calendar
 * re-enable search for general game (by nam only)
 * tooltip when game name is truncated to display full name (in widget)
 * insert new played game if no played before
@@ -56,7 +63,7 @@ Next Iteration
 * take advantage of rails 2
 	* use simply helpful tricks
 	* simplify fixture
-	* partial layout
+	* partial layout (for widget and maybe some form)
 * use user uploaded avatar in login view
 * use acts_as_taggable_on_steroid
 	
