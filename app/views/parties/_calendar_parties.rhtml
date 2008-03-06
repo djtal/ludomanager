@@ -1,7 +1,7 @@
-<%= link_to_remote("jouer", {:url =>  {:action => "new", :day => day, :month => @date.month, :year => @date.year}}, :class => "right" ) %>
+<%= link_to_remote("jouer", {:url =>  {:action => "new", :day => day, :month => @date.month, :year => @date.year}, :method => :get}, :class => "right" ) %>
 <span class="mday"><%= day %></span>
 <% if parties %>
-	<ul id="day_<%= day %>_parties">
+	<ul>
 		<% parties.first(4).each do |p| %>
 			<li><%= link_to(truncate(p.game.name, 12), game_path(p.game),:class => has_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
 		<% end %>
@@ -9,7 +9,7 @@
 	</ul>
 	<% if parties.size > 4 %>
 		<div class="extended" id="day_<%= day %>_more" style="display : none;">
-		    <ul id="day_<%= day %>_parties_more">
+		    <ul>
 		       <% parties.last(parties.size - 4).each do |p| %>
                    <li><%= link_to(truncate(p.game.name, 12), game_path(p.game), :class => has_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
                <% end %> 

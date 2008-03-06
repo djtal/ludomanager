@@ -1,1 +1,2 @@
-page << "console.debug('ok')"
+page["day_#{@date.mday}"].update(render(:partial => "calendar_parties", :locals => {:parties => @parties, :day => @date.mday}))
+page["day_#{@date.mday}"].highlight

@@ -10,7 +10,7 @@
 			:previous_month_text => link_to("Precedent", :controller => "parties", :action => "resume", :date => [(@date - 1.month - 1.day).month, (@date - 1.month - 1.day).year]),
 			:next_month_text => link_to("Suivant", :controller => "parties", :action => "resume", :date => [(@date + 1.month - 1.day).month, (@date + 1.month - 1.day).year])) do |d|
 	if (d.month == @date.month)
-		render(:partial => "calendar_parties", :locals => {:parties => @days[d.mday], :day => d.mday})
+		[render(:partial => "calendar_parties", :locals => {:parties => @days[d.mday], :day => d.mday}), {:class => "day", :id => "day_#{d.mday}"}]
 
 	end
 
