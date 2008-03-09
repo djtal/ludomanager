@@ -7,7 +7,7 @@ module AccountGamesHelper
       :mode => :full,
       :class => "sortable"
     }.merge(options)
-    head = "<th class=\"nosort span-1\">S</th><th class=\"nosort span-1\">P</th><th class=\"span-11 text\">Nom</th><th class=\"span-2\">Date achat</th><th class=\"nosort span-2\">Gerer</th>"
+    head = "<th class=\"nosort span-1\">S</th><th class=\"nosort span-1\">P</th><th class=\"span-8 text\">Nom</th><th class=\"span-3 text\">Origine</th><th class=\"span-2\">Date achat</th><th class=\"nosort span-2\">Gerer</th>"
     extended_head = "<th class=\"nosort span-1\">S</th><th class=\"nosort span-1\">P</th><th class=\"span-18 text\">Nom</th><th class=\"span-9 nosort \">Tags</th><th class=\"span-1 nosort \">Joueurs</th><th class=\"span-1\">Difficulte<th>"
     if games.size > 0 
       text = "<thead><tr>#{opts[:mode] == :overview ? head : extended_head}</tr></thead>"

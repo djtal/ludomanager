@@ -27,6 +27,24 @@
 -----------------------------------------------------------------------------------------------
 Next Iteration
 
+* new widget to replace last played : last activity
+  * see last play game per day
+  * maybe see last buy game mixed in
+* enhance partie overview widget with link to calendar for each month
+* add zoom game feature to partie overview view
+* in partie overivew use same color schme for game own as n calendar (orange @ green)
+* auo hide play link in calendar view
+
+
+----------------------------------------------------------------------------------------------
+Next Iteration
+
+* add TricTrac Parser (with confiture inside)
+
+-----------------------------------------------------------------------------------------------
+
+Next Iteration
+
 * add a normal form for adding party ie not only in widget
 * enable multi party form
 * add a close buttons to zoom
@@ -36,10 +54,10 @@ Next Iteration
 * insert new played game if no played before
 * FIX design issue for game with no desc and no image
 * if no image filled used an default in game view
-* ludo game origin revamp
 
 ------------------------------------------------------------------------------------------------
 Next Iteration 
+
 * add view parties per game and per year
 * improve stats
   * partie played game/year

@@ -9,6 +9,7 @@
 	<% end %>
 
 	<% if mode == :overview %>
+	  <td><%= account_game.origin %></td>
 		<td><%= account_game.transdate.to_s(:date_fr) %></td>
 		<td>
 			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_database_edit" %>
