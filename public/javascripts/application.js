@@ -73,7 +73,7 @@ var BShow = Behavior.create({
 
 var BMore = Behavior.create({
     onclick : function() { 
-        this.element.up("td").down("#" + this.element.id + "_more").toggle();
+        this.element.up("td").down(".extended").toggle();
         return false;
     },
 });

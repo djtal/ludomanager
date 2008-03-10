@@ -5,10 +5,10 @@
 		<% parties.first(4).each do |p| %>
 			<li><%= link_to(truncate(p.game.name, 12), game_path(p.game),:class => has_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
 		<% end %>
-		<%= content_tag(:li, link_to("#{parties.size - 4} more", "", :class => "more", :id => "day_#{day}")) if parties.size > 4 %>
+		<%= content_tag(:li, link_to("#{parties.size - 4} more", "", :class => "more")) if parties.size > 4 %>
 	</ul>
 	<% if parties.size > 4 %>
-		<div class="extended" id="day_<%= day %>_more" style="display : none;">
+		<div class="extended" style="display : none;">
 		    <ul>
 		       <% parties.last(parties.size - 4).each do |p| %>
                    <li><%= link_to(truncate(p.game.name, 12), game_path(p.game), :class => has_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
