@@ -1,4 +1,4 @@
-<%= link_to_remote("jouer", {:url =>  {:action => "new", :day => day, :month => @date.month, :year => @date.year}, :method => :get}, :class => "right" ) %>
+<%= link_to_remote("jouer", {:url =>  {:action => "new", :day => day, :month => @date.month, :year => @date.year}, :method => :get}, :class => "right play" ) %>
 <span class="mday"><%= day %></span>
 <% if parties %>
 	<ul>

@@ -78,6 +78,19 @@ var BMore = Behavior.create({
     },
 });
 
+var BCalendarCell = Behavior.create({
+    initialize: function(){
+        this.element.down(".play").hide();
+    },
+    onmouseover : function(){
+        this.element.down(".play").show();
+    },
+    
+    onmouseout : function(){
+        this.element.down(".play").hide();
+    }
+});
+
 
 var BZoomOn = Behavior.create({
     //onmouseover: function(){return this.zoom();},
@@ -374,6 +387,14 @@ LudoSearch.addMethods({
 });
 
 
+Calendar = {
+    load: function(){
+      $$(".day").each(function(elt){
+          BCalendarCell.attach(elt);
+      });
+    }
+}
+
 
 document.observe("dom:loaded", function() {
   //new PrettySearchField("wrap", "search_q");
@@ -383,6 +404,7 @@ document.observe("dom:loaded", function() {
   ls = new LudoSearch("ludo-search");
   new GameList();
   Sidebar.load();
+  Calendar.load();
   Game.loadStar();
   new PartyForm("party-form");
   $$(".more").each(function(elt){
@@ -391,5 +413,6 @@ document.observe("dom:loaded", function() {
    $$(".bzoom").each(function(elt){
       BZoomOn.attach(elt);
   });
+  
 
 })
