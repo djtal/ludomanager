@@ -35,6 +35,16 @@ class AccountGamesController < ApplicationController
     render :action => :all, :layout => "simple"
   end
   
+  def cover
+    ag = current_account.account_games.find(:all, :include => {:game => :image}, :order => "games.name ASC")
+    @pager = ::Paginator.new(ag.size, 50) do |offset, per_page|
+      ag[offset, per_page]
+    end
+    @page = @pager.page(params[:page])
+    @ag = @page.items
+    render :action => :cover, :layout => "simple"
+  end
+  
   def import
      if (params[:import][:file])
          LudoImporter.new(:account => current_account).import(params[:import][:file].read)

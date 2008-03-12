@@ -1,4 +1,3 @@
-
 * add players for parties 
 * add members managment
 * add in/out managment for ludo games
@@ -24,12 +23,13 @@
 * extract a new autocompleter.local from usage with a json content request
 * add ability to close widget
 * try to make a toolbar like os x (text and icons) form main nav bar
------------------------------------------------------------------------------------------------
-Next Iteration
-
 * new widget to replace last played : last activity
   * see last play game per day
   * maybe see last buy game mixed in
+-----------------------------------------------------------------------------------------------
+Next Iteration
+
+
 * enhance partie overview widget with link to calendar for each month
 
 

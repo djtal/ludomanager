@@ -413,6 +413,8 @@ document.observe("dom:loaded", function() {
    $$(".bzoom").each(function(elt){
       BZoomOn.attach(elt);
   });
+  if ($("protoflow"))
+    cf = new ProtoFlow($("protoflow"), {captions: 'protocaptions'});
   
 
 })
