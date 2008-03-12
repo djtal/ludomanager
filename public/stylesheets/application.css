@@ -47,6 +47,9 @@ h4{
 .red{ color: red;}
 .orange{color: orange;}
 .green{color: green;}
+.orange a{ color: inherit;}
+.color a{ color: inherit; font-weight: bold;}
+
 
 
 ul#search-results {

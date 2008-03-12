@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   
   #map.resources :parties, :collection => {:resume => :get}
   map.resources :account_games,
-                :collection => {:all => :get, :search => :post, :import => :post, :importer => :get}
+                :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, :cover  => :get}
   map.resources :tags, :collection => {:lookup => :get} do |t|
     t.resources :games
   end

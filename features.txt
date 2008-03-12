@@ -31,9 +31,7 @@ Next Iteration
   * see last play game per day
   * maybe see last buy game mixed in
 * enhance partie overview widget with link to calendar for each month
-* add zoom game feature to partie overview view
-* in partie overivew use same color schme for game own as n calendar (orange @ green)
-* auo hide play link in calendar view
+
 
 
 ----------------------------------------------------------------------------------------------

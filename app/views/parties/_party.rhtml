@@ -1,7 +1,6 @@
-<tr class="<%= has_game?(game) ? "own" : "" %>" id="<%= dom_id(game) %>">
+<tr class="<%= has_game?(game) ? "own green color" : "orange" %>" id="<%= dom_id(game) %>">
 	<td><%= account_game_status_for(game) %></td>
-	<td><%= link_to game.name, game_path(game) %></td>
+	<td><%= link_to_remote game.name, :url  => game_path(game), :method => :get %></td>
 	<td id="<%= dom_id(game) %>_last_played"><%= last_play_date_table_cell(parties) %></td>
 	<td><span id="<%= dom_id(game) %>_count"><%= parties.size %></span><%= link_to_remote ("", {:url => game_parties_path(game)} ,{:href => game_parties_path(game), :class => "ss_sprite ss_control_play"}) %></td>
-	<td><%= month_rate parties %></td>
 </tr>

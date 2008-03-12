@@ -6,7 +6,7 @@ module PartiesHelper
     result_id = ""
     result_id = "id=\"#{opts[:id]}-results\"" if opts[:id]
     if group.size > 0
-    	text ="<thead><tr><th class=\"nosort span-1\">S</th><th class=\"span-10\">Nom</th><th class=\"span-3\">Derniere partie</th><th class=\"span-2\">Nb Parties</th><th class=\"span-1\">Taux</th></tr></thead>"
+    	text ="<thead><tr><th class=\"nosort span-1\">S</th><th class=\"span-11\">Nom</th><th class=\"span-3\">Derniere partie</th><th class=\"span-2\">Nb Parties</th></tr></thead>"
     	text += "<tbody #{result_id}>"
       group.each do |game, parties|
     		text << render(:partial => "party", :locals => {:game => game, :parties => parties})
