@@ -34,13 +34,20 @@ Next Iteration
 * enhance partie overview widget with link to calendar for each month
 
 
+ProtoFlow features
+----------------------------------------------------------------------------------------------
+
+* only display a limited set of img
+* support for callback
+* better slider style (like apple.com/products)
+
 ----------------------------------------------------------------------------------------------
 Next Iteration
 
 * add TricTrac Parser (with confiture inside)
 
------------------------------------------------------------------------------------------------
 
+-----------------------------------------------------------------------------------------------
 Next Iteration
 
 * add a normal form for adding party ie not only in widget
