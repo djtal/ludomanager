@@ -24,6 +24,12 @@ var myFlow = new ProtoFlow(
 
 
 */
+
+/*
+    * use alt property for caption instead of a separate list
+    * now you can pass either an element or an id
+    * some refactoring to handleClick
+*/
 var ProtoFlow = Class.create({
   /*
 	Function: initialize
@@ -44,36 +50,28 @@ var ProtoFlow = Class.create({
 		flex: 100,
 		captions: false,
 		autoplay: false,
-		autoplayInterval: 5
+		autoplayInterval: 5,
+        useCaptions: false,
+        afterSlide: Prototype.emptyFunction
 	},
 	Object.extend(this.options, opt);
-	this.useCaptions = false; //initially we don't wanna use captions unless turned on?
 
-	
-	this.elem = elem;
+	if (!$(elem))
+        return;
+        
+	this.elem = $(elem);
 	
 
 	
 	this.elem.setStyle({overflow: "hidden", position: "relative"});
-	
 	this.stack = this.elem.childElements();
 	this.stackCount = (this.stack).size();
 
-	if(this.options.captions != false)
-	{
-		this.captionsHolder =  $(this.options.captions);
-		Element.hide(this.captionsHolder);
-		this.captions = this.captionsHolder.childElements();
-		
-		this.captions.each( ( function(elem, i){this.captions[i] = elem.innerHTML;} ).bind(this));
 
-		this.captionsCount = this.captions.size();
-		this.useCaptions = true;
-	}
-
-	if(this.useCaptions)
+	if(this.options.useCaptions)
 	{
-		this.captionHolder = new Element('div');
+		this.loadCaptions();
+        this.captionHolder = new Element('div');
 		this.captionHolder.className = "captionHolder";
 		this.captionHolder.setStyle({
 			width: "100%",
@@ -97,8 +95,8 @@ var ProtoFlow = Class.create({
 			width: '200px',
 			height: '10px',
 			position: 'absolute',
-			top: (Element.getHeight(this.elem) - 30) + "px",
-			left: (Element.getWidth(this.elem) / 2  - (137/2)) + "px"
+			top: (this.elem.getHeight() - 30) + "px",
+			left: (this.elem.getWidth() / 2  - (137/2)) + "px"
 		});
 		
 		this.sliderTrack = new Element('div');
@@ -126,13 +124,10 @@ var ProtoFlow = Class.create({
 	 
 	
 	/* sets up click listener on all the elements in the stack */
-	this.stack.each((
-		function(elem) {
-			
-			
-			Event.observe(elem, 'click', this.handleClick.bind(this));
-		}
-	).bind(this));
+	this.stack.each(function(elem){
+			elem.observe('click', this.handleClick.bind(this));
+	}.bind(this));
+
 	
 	this.goTo(this.currPos);
 	
@@ -144,54 +139,78 @@ var ProtoFlow = Class.create({
 
 	Event.observe(window, 'resize', this.handleWindowResize.bind(this));
   },
+  
+  
+  /*
+      Grab captions from alt of images  
+  */
+  loadCaptions: function(){
+      this.captions = this.stack.pluck("alt");
+      this.captionsCount = this.captions.size();
+  },
+  
   autoPlay: function(){
 	  if((this.currIndex + 2) > this.stackCount)
 	  {
 		  this.currIndex = 0;
 	  }
 	  this.currIndex = this.currIndex + 1
-	  this.goTo(this.currIndex);
+	  this.goTo();
   },
+  
   handleWindowResize: function(event)
   {
   },
+  
   handleWheel: function(event)
   {
 	v = Event.wheel(event);
 	this.goTo(this.currIndex + v);
 	this.slider.setValue(this.currIndex + v);
   },
+  
   handleSliderChange: function(v) {
 	
 	this.goTo(v);
   },
+  
   handleSlider: function(v){
-	if(v) this.goTo(v);
+	if(v)
+    {
+      this.currIndex = v;
+      this.goTo();  
+    } 
+        
   },
+  
   handleClick: function(e)
   {
-	elem = Event.element(e);
-	v = elem.getAttribute("index");
-	this.currIndex = v;
-	this.goTo(v);
-	this.updateSlider(v);
+	this.lastClickedElement = e.element();
+    this.currIndex = e.element().getAttribute("index");
+	this.goTo();
+	this.updateSlider();
   },
+  
   getCurrentPos: function()
   {
 	return this.currPos;
   },
+  
   goTo: function(index)
   {
-	this.slideTo(index * this.options.flex * -1);
-	//this.currPos = Math.round(index);
-	if(this.useCaptions) {
-		this.captionHolder.innerHTML = this.captions[Math.round(index)];
+	this.slideTo(this.currIndex * this.options.flex * -1);
+	if(this.options.useCaptions) {
+		this.captionHolder.update(this.captions[Math.round(this.currIndex)]);
 	}
+    this.options.afterSlide(this.lastClickedElement);
   },
+  
   updateSlider: function(index)
   {
-	if(this.options.slider) this.slider.setValue(index);
+	if(this.options.slider) 
+        this.slider.setValue(this.currIndex);
   },
+  
   step: function()
   {
 	if(this.target < this.currPos - 1 || this.target > this.currPos + 1)
@@ -206,6 +225,7 @@ var ProtoFlow = Class.create({
 
 	}
   },
+  
   slideTo: function(x)
   {
 	this.target = x;
@@ -254,15 +274,7 @@ var ProtoFlow = Class.create({
 					}
 				).bind(this));
   },
-  /*
-	Function: getStackCount
 
-	Description: returns the count of elements in the stack 
-
-	Parameters:
-
-	None
-  */
   getStackCount: function()
   {
 	return this.stackCount;
