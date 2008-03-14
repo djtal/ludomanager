@@ -1,22 +1,4 @@
-		#bodyWrap {
-			width: 800px;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		#protflow li {
-			color: white;
-			font-size: 32px;
-			list-style: none;
 
-		}
-		#protflow  .li {
-				border: 2px solid #77D2FF;
-				list-style: none;
-				display: inline;
-				width: 100px;
-				height: 100px;
-				background: #CCFFFF;
-		}
 		
 		#overlay {
 			background: url('../images/resources/trans.png') repeat-y;

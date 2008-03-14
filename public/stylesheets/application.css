@@ -474,3 +474,8 @@ ul.function li{
 	padding-bottom: 5px;
 	float: left;
 }
+
+#protoflow img{
+   margin: 0;
+   padding:0; 
+}

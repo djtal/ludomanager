@@ -414,7 +414,7 @@ document.observe("dom:loaded", function() {
       BZoomOn.attach(elt);
   });
   if ($("protoflow"))
-    cf = new ProtoFlow("protoflow", {useCaptions: true, afterSlide: function(elt){console.log(elt);}});
+    cf = new ProtoFlow("protoflow", {useCaptions: true, useReflection: true, afterSlide: function(elt){console.log(elt);}});
   
 
 })

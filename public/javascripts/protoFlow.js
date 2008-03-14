@@ -6,6 +6,15 @@ This code is being release under open-terms. Use at your own risk. Give us feedb
 
 contact@deensoft.com
 
+There are three ideas in the code.
+
+First, the use of setTimeout to perform animation. setTimeout schedules a function call to occur at some time in the future. If the animation is not yet finished, this function should again call setTimeout.
+
+Second, the math behind the manipulation of the images. The path is a 100-unit hyperbola, where the observer is standing 100 diagonal units away from the origin. Divide the image height by the perpendicular distance from the observer to simulate vanishing. Change the zIndex to simulate occlusion.
+
+Third, the use of hidden div tags to hold data. Set the inner text of a visible div tag to the inner text of a hidden one in order to place the data on the screen.
+
+Enjoy!
 ------------------------------------------------------------------------------------------------------------------------------
 
 Class: ProtoFlow
@@ -52,6 +61,7 @@ var ProtoFlow = Class.create({
 		autoplay: false,
 		autoplayInterval: 5,
         useCaptions: false,
+        useReflection: false,
         afterSlide: Prototype.emptyFunction
 	},
 	Object.extend(this.options, opt);
@@ -65,8 +75,10 @@ var ProtoFlow = Class.create({
 	
 	this.elem.setStyle({overflow: "hidden", position: "relative"});
 	this.stack = this.elem.childElements();
+    
 	this.stackCount = (this.stack).size();
 
+    
 
 	if(this.options.useCaptions)
 	{
@@ -83,7 +95,7 @@ var ProtoFlow = Class.create({
 		this.elem.appendChild(this.captionHolder);
 	}
 
-	
+	this.loadReflection();
 	
 	this.currPos = this.options.startIndex - 1;
 	this.currIndex = this.currPos;
@@ -149,6 +161,17 @@ var ProtoFlow = Class.create({
       this.captionsCount = this.captions.size();
   },
   
+  
+  loadReflection: function(){
+      if (this.options.useReflection)
+      {
+          this.stack.each(function(elt){ Reflection.add(elt, {opacity: 2/3})})
+          this.stack  = this.stack.map(function(e){ return e.up("div)")});
+          this.stack.invoke("identify");
+      }
+          
+  },
+  
   autoPlay: function(){
 	  if((this.currIndex + 2) > this.stackCount)
 	  {
@@ -186,7 +209,8 @@ var ProtoFlow = Class.create({
   handleClick: function(e)
   {
 	this.lastClickedElement = e.element();
-    this.currIndex = e.element().getAttribute("index");
+    if(this.options.useReflection) { this.lastClickedElement = this.lastClickedElement.up('div'); }
+    this.currIndex = this.lastClickedElement.getAttribute("index");
 	this.goTo();
 	this.updateSlider();
   },
@@ -243,24 +267,26 @@ var ProtoFlow = Class.create({
   {
 	 var x = currentPos;
 	 this.currPos = currentPos;
-	 var width = Element.getWidth(this.elem);
-	 var height = Element.getHeight(this.elem);
+	 var width = this.elem.getWidth();
+	 var height = this.elem.getHeight();
 
 	 var top = this.elem.offsetTop;
 	 var size = width * 0.5;
 	 var biggest = height;
 	 var zIndex = this.stackCount;
 	(this.stack).each((
-					function(elem, index) { 	
+					function(elem, index) {
+						
 						Element.absolutize(elem);
 						elem.setAttribute("index", index);
 						var z = Math.sqrt(10000 + x * x * 1) + 100;
 						var xs = x / z * size + size;
 						elem.setStyle({
-							left: (xs - 50 / z * biggest) + "px",
-							top: (30 / z * size + 0) + "px",
-							width: (100 / z * biggest) + "px",
-							height: (110.25 / z * biggest) + "px"
+							left: (xs - 40 / z * biggest) + "px",
+							top: (30 / z * size + 0) + "px"/*,
+                            width:(100 / z * biggest) + "px",
+							height: (110.25 / z * biggest) + "px"*/
+			
 						});
 						//console.log(elem);
 						elem.style.zIndex = zIndex;
