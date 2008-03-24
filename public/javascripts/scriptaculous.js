@@ -55,4 +55,4 @@ var Scriptaculous = {
   }
 }
 
-//Scriptaculous.load();
+Scriptaculous.load();
