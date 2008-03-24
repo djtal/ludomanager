@@ -40,7 +40,7 @@
 	</p>
 	<p>
 		Nos membres ont joués un total de 
-		<span class='flash'><%= pluralize(@game.parties_count, "partie</span>", "parties</span>") %> de ce jeu.
+		<span class='flash'><%= pluralize(@game.parties.count, "partie</span>", "parties</span>") %> de ce jeu.
 	</p>
 	<h3>Administration</h3>
 	<ul>

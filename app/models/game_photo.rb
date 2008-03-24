@@ -16,5 +16,6 @@
 
 class GamePhoto < ActiveRecord::Base
   belongs_to :game
-  acts_as_attachment :storage => :file_system
+  has_attachment :storage => :file_system
+  
 end

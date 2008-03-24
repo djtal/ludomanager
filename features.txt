@@ -27,12 +27,15 @@
 * new widget to replace last played : last activity
   * see last play game per day
   * maybe see last buy game mixed in
-
+* iTunes view style for ludo
+  * coverflow on top (show/hide)
+  * list title in side bar(nrw, never play, ...)
+  * list content in center (synchronize with coverflow)
 -----------------------------------------------------------------------------------------------
 Next Iteration
 
 * enhance partie overview widget with link to calendar for each month
-
+* multi party form
 
 ProtoFlow features
 ----------------------------------------------------------------------------------------------
@@ -40,6 +43,7 @@ ProtoFlow features
 * only display a limited set of img
 * support for callback
 * better slider style (like apple.com/products)
+* display only a subset of content (hide other)
 
 ----------------------------------------------------------------------------------------------
 Next Iteration
