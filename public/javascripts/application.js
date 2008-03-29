@@ -126,7 +126,7 @@ PartyForm.addMethods({
             return;
         this.form = $(form);
         this.party_id_field = $("party_game_id");
-        new Ajax.Request("/games", {method: "get", onSuccess: this.loadGames.bind(this)}); 
+        new Ajax.Request("/games.json", {method: "get", onSuccess: this.loadGames.bind(this)}); 
     },
     
     loadGames: function(response){
@@ -155,8 +155,8 @@ GameForm.addMethods({
       return;
     this.form = $(form);
 	this.authors = this.form.select("#authors").reduce();
-	new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
-    new Ajax.Request("/authors", {method: "get", onSuccess: this.loadAuthor.bind(this)});
+	new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
+    new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
     this.bindUI();
   },
   

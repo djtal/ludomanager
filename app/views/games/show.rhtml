@@ -18,7 +18,7 @@
 			<li>Difficulté (1 a 5) : <span class="flash"><%= @game.difficulty %></span></li>
 			<li><%= nb_player_tag(@game) %></li>
 			<li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
-			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url %></li>
+			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></span></li>
 			<li>Année de sortie : <span class="flash"><%= @game.publish_year %></span></li>
 			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span></li>

@@ -14,13 +14,11 @@ context "registerd user can" do
     login_as(:quentin)
   end
 
-  specify "create new parties for his account" do
-    assert_difference accounts(:quentin).parties, :count do
-      post :create, :game_id => games(:battlelore).id
-    end
-    assert_response :redirect
-    assert_redirected_to parties_path
+  specify "can create multiple party at once" do
+    
   end
+  
+  
 end
 
 context "Non Registered user cannot" do

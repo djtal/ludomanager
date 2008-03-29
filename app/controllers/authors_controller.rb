@@ -6,7 +6,7 @@ class AuthorsController < ApplicationController
 
     respond_to do |format|
       format.html # index.rhtml
-      format.js{ render :json => @authors.map{|a| a.display_name}.to_json}
+      format.json{ render :json => @authors.map{|a| a.display_name}.to_json}
       format.xml  { render :xml => @authors.to_xml }
     end
   end

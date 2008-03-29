@@ -24,7 +24,7 @@ class GamesController < ApplicationController
         @page = @pager.page(params[:page])
         @games = @page.items
       end
-      format.js{ render :json => @game_all.map{| g| g.attributes}.to_json}
+      format.json{ render :json => @game_all.to_json}
       format.xml  { render :xml => @game_all.to_xml }
     end
   end
