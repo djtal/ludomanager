@@ -276,6 +276,8 @@ div.auto_complete ul strong.highlight {
 	position:absolute;
 }
 
+#party-form img{ float:none;}
+
 /* ---- Games ---- */
 
 #games .game img{

@@ -37,11 +37,20 @@ class PartiesController < ApplicationController
   #used for playing a game in calendar context
   # can be merged with create but how to differentiate render type taht are the same mime type
   def play
+    
     @game = Game.find(params[:party][:game_id])
     p = current_account.parties.create(:game => @game, :created_at => params[:party][:created_at])
     @date = p.created_at
     @parties = current_account.parties.find(:all, :conditions => ["parties.created_at >= ? AND parties.created_at <= ?", @date, @date + 1.day - 1.second])
     @account_games = current_account.games
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def add_party_form
+    session[:parties] += 1
+    @party = Party.new(:created_at => session[:date])
     respond_to do |format|
       format.js
     end
@@ -61,8 +70,10 @@ class PartiesController < ApplicationController
   end
   
   def new
+    session[:parties] = 1
     @date = Date.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i)
     @party = Party.new(:created_at => @date)
+    session[:date] = @date
     respond_to do |format|
       format.js
     end

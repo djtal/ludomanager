@@ -1,9 +1,10 @@
 <div class="widget">
     <h3>Nouvelle Partie</h3>
     <div class="w-content">
-       <% remote_form_for :party, @party, :url => play_parties_path , :html => {:id => "party-form"} do |f| %>
-            <%= render :partial => "form", :locals  => {:f => f} %>
-            <%=  f.hidden_field :created_at %>
+       <% remote_form_for :parties, @party, :url => play_parties_path , :html => {:id => "party-form"} do |f| %>
+            <ul id="parties">
+              <li><%= render :partial => "form", :locals  => {:f => f} %></li>
+            </ul>
             <div class="buttons clear">
                 <div class="right">
                     <strong><span class="link">Fermer</span> ou <%= submit_tag "Jouer" %></strong>
