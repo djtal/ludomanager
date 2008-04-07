@@ -125,9 +125,7 @@ PartyForm.addMethods({
     if(!$(form) && !$("party_game"))
     return;
     this.form = $(form);
-    this.autoc = $A();
     this.party_fields = this.form.select(".party-f");
-    this.party_id_field = $("party_game_id");
     new Ajax.Request("/games.json", {method: "get", onSuccess: this.loadGames.bind(this)}); 
   },
 
@@ -141,12 +139,16 @@ PartyForm.addMethods({
 
   addAutocomplete: function(){
     this.party_fields.each(function(field, index){
-      field_ac = "#{field_id}_auto_complete".interpolate({field_id: field.id})
-        new Autocompleter.Local(field, field_ac, this.games.keys(), 
-                              {fullSearch: true, frequency: 0, minChars: 1,
-                                afterUpdateElement: this.updateForm.bind(this, field, index + 1)});
-      }.bind(this));
+        this.newFieldAutocomplete(field, index + 1);
+    }.bind(this));
 
+    },
+    
+    newFieldAutocomplete: function(field, index){
+      field_ac = "#{field_id}_auto_complete".interpolate({field_id: $(field).id})
+      new Autocompleter.Local(field, field_ac, this.games.keys(), 
+                            {fullSearch: true, frequency: 0, minChars: 1,
+                              afterUpdateElement: this.updateForm.bind(this, field, index )});
     },
 
     updateForm: function(elt, index){
@@ -417,7 +419,7 @@ PartyForm.addMethods({
     Sidebar.load();
     Calendar.load();
     Game.loadStar();
-    new PartyForm("party-form");
+    pf = new PartyForm("party-form");
     $$(".more").each(function(elt){
       BMore.attach(elt);
     });
