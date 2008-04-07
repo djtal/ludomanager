@@ -1,6 +1,6 @@
 <% fields_for :parties, @party do |p| %>
 <label for="party_game_<%= session[:parties] %>">Jeu</label><br />
-<%= text_field_tag "party[game][#{session[:parties] }]", nil, :id => "party_game_#{session[:parties]}", :size => 25 %>
+<%= text_field_tag "party[game][#{session[:parties] }]", nil, :id => "party_game_#{session[:parties]}", :class => "party-f", :size => 25 %>
 <%= link_to_remote image_tag("cd_store_up.gif"), :url => add_party_form_parties_path, :method => :get %>
 <div class="auto_complete" id="party_game_<%= session[:parties] %>_auto_complete"></div>
 <%= p.hidden_field :game_id, :index => session[:parties] %>
