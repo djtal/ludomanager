@@ -2,6 +2,7 @@
     <h3>Nouvelle Partie</h3>
     <div class="w-content">
        <% remote_form_for :parties, @party, :url => play_parties_path , :html => {:id => "party-form"} do |f| %>
+            <strong>Jeu</strong><br />
             <ul id="parties">
               <%= render :partial => "form", :locals  => {:f => f} %>
             </ul>

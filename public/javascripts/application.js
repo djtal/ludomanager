@@ -93,15 +93,14 @@ var BCalendarCell = Behavior.create({
 
 
 var BZoomOn = Behavior.create({
+  initialize: function(){
+    this.url = this.element.href; 
+    this.element.setAttribute("href", "")
+  },
   //onmouseover: function(){return this.zoom();},
   onclick: function(){this.zoom(); return false;},
 
   zoom: function(){
-    if (! this.url)
-    {
-      this.url = this.element.href; 
-      this.element.setAttribute("href", "")
-    }
     new Ajax.Request(this.url, {asynchronous:true, evalScripts:true, method:'get'}); 
     return false;
   }
@@ -423,9 +422,11 @@ PartyForm.addMethods({
     $$(".more").each(function(elt){
       BMore.attach(elt);
     });
+    
     $$(".bzoom").each(function(elt){
       BZoomOn.attach(elt);
     });
+    
     if ($("protoflow"))
     cf = new ProtoFlow("protoflow", {useCaptions: true, useReflection: true, afterSlide: function(elt){console.log(elt);}});
 
