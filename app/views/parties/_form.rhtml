@@ -1,7 +1,8 @@
-<li>
+<li id="party_<%= session[:parties] %>">
 <% fields_for :parties, @party do |p| %>
 <%= text_field_tag "party[game][#{session[:parties] }]", nil, :id => "party_game_#{session[:parties]}", :class => "party-f", :size => 25 %>
 <%= link_to_remote image_tag("cd_store_up.gif"), :url => add_party_form_parties_path, :method => :get %>
+<%= link_to_remote image_tag("cd_store_down.gif"), :url => remove_party_form_parties_path, :method => :get %>
 <div class="auto_complete" id="party_game_<%= session[:parties] %>_auto_complete"></div>
 <%= p.hidden_field :game_id, :index => session[:parties] %>
 <%= p.hidden_field :created_at, :index => session[:parties] %>

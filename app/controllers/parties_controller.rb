@@ -55,6 +55,13 @@ class PartiesController < ApplicationController
     end
   end
   
+  def remove_party_form
+    session[:parties] -= 1
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def resume
     @date = Time.now
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
