@@ -2,6 +2,11 @@
 module ApplicationHelper
   ALLOWED_TAGS = %w(game)
 
+  def render_widget(partial, title)
+    render :partial => partial, :layout => "layouts/widget", :locals => {:title => title}
+  end
+
+
   def main_nav_section_for(name, url, section, opts = {})
     html_class = @section == section ? "active" : ""
     html_class += " #{opts[:class]}"

@@ -31,7 +31,7 @@
 
 <% content_for :newsbox do %>
 	
-	<%= render :partial => "search", :layout => "layouts/widget", :locals => {:title => "Recherche"} %>
+	<%= render_widget "search",  "Recherche" %>
 <% end %>
 
 <% content_for :subnav do %>

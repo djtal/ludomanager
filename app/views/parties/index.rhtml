@@ -40,25 +40,10 @@
   <div id="placeholder-1">
   </div>
   <div id="placeholder-2">
-    <%= render :partial => "last" %>
+    <%= render_widget "last", "Vos derniers parties" %>
   </div>
   <div id="placeholder-3">
-    <div class="widget">
-  		<h3>Options d'affichage</h3>
-  		<div class="w-content">
-  			<form method="get" action="/parties" id="parties-filter" class="clear">
-  				<%= radio_button_tag "filter[type]", "all" %><%= label_tag 'filter_type', "Voir toutes mes parties" %><br />
-  				<%= radio_button_tag "filter[type]", "ludo" %><%= label_tag 'filter_type', "Voir les parties des jeux que je possedent" %><br />
-  				<%= submit_tag "Filtrer"%>		
-  			</form>
-  		</div>
-  	</div>
   </div>
-	
-	
-
-	
-
 <% end %>
 
 <% content_for :subnav do %>

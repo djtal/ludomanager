@@ -1,12 +1,8 @@
-<div  class="widget" id="last-acgames">
-	<h3>Vos derniers achat</h3>
-	<div class="w-content">
-		<% if  @last_buyed.size > 0   %>
-  		<ul>
-  			<%= render :partial => "account_games/last_account_game", :collection => @last_buyed %>
-  	  </ul>
-	  <% else %>
-	    <p class="empty">Vous ne possedez aucun jeux actuellement</p>
-	  <% end %>
-	</div>
-</div>
+<% if  @last_buyed.size > 0   %>
+	<ul>
+		<%= render :partial => "account_games/last_account_game", :collection => @last_buyed %>
+  </ul>
+<% else %>
+  <p class="empty">Vous ne possedez aucun jeux actuellement</p>
+<% end %>
+

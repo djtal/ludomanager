@@ -1,13 +1,9 @@
-<div class="widget" id="last-parties">
-	<h3>Vos Dernieres parties</h3>
-	<div class="w-content">
-		<% if @last_parties.size > 0 %>
-		<ul>
-			<%= render :partial => "parties/last_party", :collection => @last_parties %>
-	  </ul>
-	  <% else %>
-	    	<p class="empty">Vous n'avez jouez/saisie encore aucune parties actuellement</p>
-	  <% end %>
-	</div>
-</div>
+<% if @last_parties.size > 0 %>
+<ul>
+	<%= render :partial => "parties/last_party", :collection => @last_parties %>
+</ul>
+<% else %>
+  	<p class="empty">Vous n'avez jouez/saisie encore aucune parties actuellement</p>
+<% end %>
+
 
