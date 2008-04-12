@@ -69,3 +69,4 @@ end
 
 require 'paginator-1.0.7/lib/paginator'
 require 'content_parser'
+require 'will_paginate'

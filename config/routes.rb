@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
     t.resources :games
   end
   map.resources :games,
-                :collection => {:search => :post} do |game|
+                :collection => {:search => :get} do |game|
     game.resources :parties, :name_prefix => "game_"
   end
 

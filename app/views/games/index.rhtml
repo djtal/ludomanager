@@ -1,11 +1,7 @@
 
 <%  content_for :page_nav do%>
 	<div class="page-nav">
-		<%= (link_to("Precedente", @mod == :all ? games_path(:page => @page.prev.number) : {:controller => "games", :action => "index", :tag_id => params[:tag_id], :page => @page.prev.number}) + " |") if @page.prev? %>
-	  <% if @pager.number_of_pages > 1 %>
-			Page <%= @page.number %> / <%= @page.last.number %>
-		<% end %>
-		<%= ("| " + link_to("Suivante", @mod == :all ? games_path(:page => @page.next.number) : {:controller => "games", :action => "index", :tag_id => params[:tag_id], :page => @page.next.number})) if @page.next? %>
+    <%= will_paginate @games %>
 	</div>
 <% end %>
 
@@ -41,6 +37,8 @@
 			<em><%= pluralize(@total_games, "jeu", "jeux") %></em>.</p>
 		</div>
 	</div>
+	
+	<%= render :partial => "search", :layout => "layouts/widget", :locals => {:title => "Recherche"} %>
 <% end %>
 
 <% content_for :subnav do %>

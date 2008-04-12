@@ -39,24 +39,9 @@ class Game < ActiveRecord::Base
   acts_as_taggable
   acts_as_textiled :description
   
-  def self.search(query, mode = :title)
-    return [] if query.blank?
-    query.strip!
-    if mode == :title
-      if query.to_i != 0
-        conditions = ["min_player != max_player AND max_player <= ?", query]
-      else
-        conditions = ["LOWER(games.name) LIKE ?", "%#{query}%"]
-      end
-      if query[0,1] == "="
-        conditions = ["min_player == max_player AND max_player == ?", query.gsub("=", "")] 
-      end
-      games = find(:all, :include => [:tags, :image], :conditions => conditions)
-    end
-    if mode == :tags
-      games = find_tagged_with(query)
-    end
-    games
+  def self.search(query, page)
+    paginate :per_page => 5, :page => page,
+             :conditions => ['LOWER(name) like ?', "%#{query}%"], :order => 'name'
   end
   
   def min_max_player?

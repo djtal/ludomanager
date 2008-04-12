@@ -6,24 +6,9 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.xml
   def index
-    if params[:tag_id]
-      @game_all = Game.search(params[:tag_id], :tags)
-      @mod = :tag
-    else
-      @mod = :all
-      @game_all = Game.find(:all, :include => [:image, :tags], :order => "games.name ASC")
-    end
-    
-
+    @games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]
     respond_to do |format|
-      format.html do
-        @title = "Les jeux"
-        @pager = ::Paginator.new(@game_all.size, 10) do |offset, per_page|
-           @game_all[offset, per_page]
-        end
-        @page = @pager.page(params[:page])
-        @games = @page.items
-      end
+      format.html
       format.json{ render :json => @game_all.to_json}
       format.xml  { render :xml => @game_all.to_xml }
     end
@@ -40,24 +25,8 @@ class GamesController < ApplicationController
   end
 
   def search
-    search_type = params[:search][:type].to_sym || :title
-    @games = Game.search(params[:search][:q], search_type)
-    respond_to do |format|
-      format.html do
-        @pager = ::Paginator.new(@games.size, 10) do |offset, per_page|
-          @games[offset, per_page]
-        end
-        @page = @pager.page(params[:page])
-        @games = @page.items
-        if (@games.size == 1)
-          redirect_to :action => "show", :id => @games.first
-        else
-          render :action => "index"
-        end
-      end
-      format.js
-      format.xml  { render :xml => @games.to_xml }
-    end
+    @games = Game.search(params[:search], params[:page])
+    render :action => :index
   end
 
 
