@@ -1,16 +1,13 @@
 class GamesController < ApplicationController  
   before_filter :login_required, :only => [:destroy]
   before_filter :set_section
-  before_filter :set_basic_stats, :only => [:index, :tags]
   
   # GET /games
   # GET /games.xml
   def index
-    @games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]
     respond_to do |format|
-      format.html
-      format.json{ render :json => @game_all.to_json}
-      format.xml  { render :xml => @game_all.to_xml }
+      format.html {@games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]}
+      format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end
   end
   
@@ -122,10 +119,6 @@ class GamesController < ApplicationController
   
   protected
   
-  def set_basic_stats
-  	@total_games = Game.count
-    @total_parties = Party.count
-  end
   
   def set_section
   	@section = :games
