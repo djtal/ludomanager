@@ -124,8 +124,15 @@ PartyForm.addMethods({
     if(!$(form) && !$("party_game"))
     return;
     this.form = $(form);
-    this.party_fields = this.form.select(".party-f");
+    this.detect_game_fields();
     new Ajax.Request("/games.json", {method: "get", onSuccess: this.loadGames.bind(this)}); 
+    $("reset").observe("click", this.clearForm.bindAsEventListener(this));
+  },
+  
+  detect_game_fields: function(){
+    this.games_name = this.form.select(".party_game_name");
+    this.games_id = this.form.select(".party_game_id");
+    this.parties_li = $("parties").select("li.party")
   },
 
   loadGames: function(response){
@@ -137,298 +144,307 @@ PartyForm.addMethods({
   },
 
   addAutocomplete: function(){
-    this.party_fields.each(function(field, index){
+    this.games_name.each(function(field, index){
         this.newFieldAutocomplete(field, index + 1);
     }.bind(this));
 
-    },
+  },
     
-    newFieldAutocomplete: function(field, index){
+  newFieldAutocomplete: function(field, index){
       field_ac = "#{field_id}_auto_complete".interpolate({field_id: $(field).id})
       new Autocompleter.Local(field, field_ac, this.games.keys(), 
                             {fullSearch: true, frequency: 0, minChars: 1,
                               afterUpdateElement: this.updateForm.bind(this, field, index )});
+      $(field).up("li").down(".remove_game").observe("click", this.removeGame.bindAsEventListener(this))
+      this.detect_game_fields();
     },
 
-    updateForm: function(elt, index){
+  updateForm: function(elt, index){
       field_id = "parties_#{field_id}_game_id".interpolate({field_id: index})
       $(field_id).value = this.games.get($F(elt));
-    },
+  },
+  
+  removeGame: function(ev){
+    li = ev.element();
+    li.up("li").remove();
+    this.detect_game_fields();
+  },
 
-    close: function(){
-
-    }
-  });
-
-  var GameForm = Class.create();
-  GameForm.addMethods({
-    initialize: function(form){
-      if (!$(form))
-      return;
-      this.form = $(form);
-      this.authors = this.form.select("#authors").reduce();
-      new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
-      new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
-      this.bindUI();
-    },
-
-    loadTags: function(response){
-      this.tags = response.responseJSON;
-      new Autocompleter.Local('tag', 'tags_lookup_auto_complete', this.tags, 
-      {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
-    },
-
-    loadAuthor: function(response){
-      this.authorsName = response.responseJSON;
-      this.authors.select("input[type=text]").each(function(input){
-        new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
-        {fullSearch: true, frequency: 0, minChars: 1});  
-      }.bind(this));  
-    },
-
-    bindUI: function(){
-      this.form.select("legend").each(function(elt){
-        if ($(elt))
-        $(elt).observe("click", this.hideContent.bindAsEventListener(this));
-      }.bind(this));
-      this.form.select("#authors .del").each(function(a){
-        a.observe("click", this.removeAuthor.bindAsEventListener(this));
-      }.bind(this));
-      this.form.select("#authors .add").each(function(a){
-        a.observe("click", this.addAuthor.bindAsEventListener(this));
-      }.bind(this));
-    },
-
-
-    hideContent: function(ev){
-      ev.element().next("div").toggle();
-    },
-
-    addAuthor: function(ev){
-      elt = new Element("div", {"class": "author"})
-      elt.insert(new Element("input", {"type": "text", "size": 30}))
-      add = new Element("span", {"class": "link add"})
-      add.observe("click", this.addAuthor.bindAsEventListener(this))
-      elt.insert(add.insert("add"))
-      elt.insert(" | ")
-      del = new Element("span", {"class": "link del"});
-      del.observe("click", this.removeAuthor.bindAsEventListener(this))
-      elt.insert(del.insert("del"))
-      this.authors.insert(elt);
-    },
-
-    removeAuthor: function(ev){
-      ev.element().up().hide();
-    }
-  });
-
-
-
-
-  PartyFilter = {
-    showMine: function(table) {
-      table.select("tbody tr").each(function(e){
-        if (!e.hasClassName("own"))
-        e.hide();     
-      });
-      TableKit.Rows.stripe(table);
-    },
-
-    showAll : function(table){
-      $(table).select("tbody tr").invoke("show");
-    },
-
-    loadObservers: function(){
-      if ($("mine"))
-      {
-        $("mine").observe("click", function(ev){
-          elt = ev.element();
-          if (elt.hasClassName("active"))
-          {
-            elt.removeClassName("active");
-            $$("table").each(function(t){
-              PartyFilter.showAll(t);
-            });	
-          } else {
-            elt.addClassName("active");
-            $$("table").each(function(t){
-              PartyFilter.showMine(t);
-            });
-          }
-        })
-
-      }
-      if(!$("parties-filter"))
-      return;
-      $("parties-filter").observe("change", function(e){
-        if(e.element().getValue() == "ludo")
-        $$("table").each(function(t){
-          PartyFilter.showMine(t);
-        });
-        else
-        $$("table").each(function(t){
-          PartyFilter.showAll(t);
-        });
-
-      });
-      $("parties-filter").getInputs("submit").first().hide();
-    },
+  clearForm: function(){
+      this.games_name.invoke("clear")
+      this.games_id.invoke("clear")
   }
+});
 
-  Sidebar = {
-    load: function(){
-      $$("#innernews .widget").each(function(widget){
-        new Widget(widget);
-      });
-    }
+var GameForm = Class.create();
+GameForm.addMethods({
+  initialize: function(form){
+    if (!$(form))
+    return;
+    this.form = $(form);
+    this.authors = this.form.select("#authors").reduce();
+    new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
+    new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
+    this.bindUI();
+  },
+
+  loadTags: function(response){
+    this.tags = response.responseJSON;
+    new Autocompleter.Local('tag', 'tags_lookup_auto_complete', this.tags, 
+    {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+  },
+
+  loadAuthor: function(response){
+    this.authorsName = response.responseJSON;
+    this.authors.select("input[type=text]").each(function(input){
+      new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
+      {fullSearch: true, frequency: 0, minChars: 1});  
+    }.bind(this));  
+  },
+
+  bindUI: function(){
+    this.form.select("legend").each(function(elt){
+      if ($(elt))
+      $(elt).observe("click", this.hideContent.bindAsEventListener(this));
+    }.bind(this));
+    this.form.select("#authors .del").each(function(a){
+      a.observe("click", this.removeAuthor.bindAsEventListener(this));
+    }.bind(this));
+    this.form.select("#authors .add").each(function(a){
+      a.observe("click", this.addAuthor.bindAsEventListener(this));
+    }.bind(this));
+  },
+
+
+  hideContent: function(ev){
+    ev.element().next("div").toggle();
+  },
+
+  addAuthor: function(ev){
+    elt = new Element("div", {"class": "author"})
+    elt.insert(new Element("input", {"type": "text", "size": 30}))
+    add = new Element("span", {"class": "link add"})
+    add.observe("click", this.addAuthor.bindAsEventListener(this))
+    elt.insert(add.insert("add"))
+    elt.insert(" | ")
+    del = new Element("span", {"class": "link del"});
+    del.observe("click", this.removeAuthor.bindAsEventListener(this))
+    elt.insert(del.insert("del"))
+    this.authors.insert(elt);
+  },
+
+  removeAuthor: function(ev){
+    ev.element().up().hide();
   }
-
-  Game = {
-    loadStar: function(){
-      $$(".rate").each(function(elt){
-        console.debug(elt.inspect());
-        new Starbox(elt, elt.previous(".average").innerHTML, {locked: true, overlay: "big.png"});
-
-      });
-      return false;
-    }
-  }
-
-  var Widget = Class.create();
-  Widget.addMethods({
-    initialize: function(elt){
-      if (!$(elt))
-      return;
-      this.widget = $(elt);
-      this.title = this.widget.select("h3").reduce();
-      this.content = this.widget.select("div.w-content").reduce();
-      this.widgitize();
-    },
-
-    widgitize: function(){
-      if (this.title)
-      this.title.observe("click", this.toggleContent.bindAsEventListener(this));
-    },
-
-    toggleContent: function(ev){
-      this.content.toggle();
-    }
-  });
-
-  var LudoSearch = Class.create();
-  LudoSearch.addMethods({
-    initialize: function(form){
-      if (!$(form))
-      return;
-      this.form = $(form);
-      this.tagField = $("search_tags");
-      this.searchedTags = [];
-      this.results = $("search-results")
-      $("search_player").setAttribute('autocomplete','off');
-      $("search_difficulty").setAttribute('autocomplete','off');
-      new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
-      this.loadObservers();
-      this.makeTagsClickable();
-    },
+});
 
 
-    loadTags: function(reponse){
-      this.tags = reponse.responseJSON;
-      this.tagFieldAutocomplete = new Autocompleter.Local(this.tagField, 'tags_lookup_auto_complete', this.tags, 
-      {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' '],
-      afterUpdateElement: this.search.bind(this) } );
-    },
-
-    loadObservers: function(){
-      new Field.Observer("search_player", 0.3, this.formChange.bindAsEventListener(this));
-      new Field.Observer("search_difficulty", 0.3, this.formChange.bindAsEventListener(this));
-      new Field.Observer("search_tags_mode_or", 0.3, this.formChange.bindAsEventListener(this));
-      new Field.Observer("search_tags_mode_and", 0.3, this.formChange.bindAsEventListener(this));
-      if ($("reset"))
-      $("reset").observe("click", this.reset.bindAsEventListener(this));  
-    },
-
-    reset: function(){
-      this.form.reset();
-      this.searchedTags = [];
-      this.highlightSelectedTags();
-      this.formChange(null);
-    },
-
-    search: function(input, elt){
-      this.searchedTags.push(elt.innerHTML.stripTags());
-      this.formChange(null);
-    },
-
-    formChange: function(ev){
-      new Ajax.Request(this.form.action, {asynchronous:true, evalScripts:true, parameters:Form.serialize(this.form)});
-      return false;
-    },
-
-    makeTagsClickable: function(){
-      this.results.select("ul.tags li").each(function(elt){
-        elt.observe("click", this.tagClicked.bindAsEventListener(this));
-      }.bind(this));
-      this.highlightSelectedTags();
-    },
-
-    tagClicked: function(ev){
-      li = ev.element();
-      if (!this.searchedTags.include(li.innerHTML)) {
-        this.searchedTags.push(li.innerHTML);
-        if (this.tagField.getValue().empty())
-        val = li.innerHTML
-        else
-        val = this.tagField.getValue() + ", " + li.innerHTML
-        this.tagField.setValue(val);
-        li.addClassName("selected");
-      } else {
-        this.searchedTags = this.searchedTags.without(li.innerHTML);
-        this.tagField.setValue(this.tagField.getValue().gsub(",*\\s*" + li.innerHTML, ""));
-        li.removeClassName("selected");
-      }
-      this.formChange(null);
-    },
-
-    highlightSelectedTags: function(){
-      this.searchedTags.each(function(tag){
-        this.results.select("li." + tag).invoke("addClassName", "selected")
-      }.bind(this));
-    }
-
-  });
 
 
-  Calendar = {
-    load: function(){
-      $$(".day").each(function(elt){
-        BCalendarCell.attach(elt);
-      });
-    }
-  }
-
-
-  document.observe("dom:loaded", function() {
-    //new PrettySearchField("wrap", "search_q");
-    PartyFilter.loadObservers();
-    new PlayForm("play-form");
-    new GameForm("game-form");
-    ls = new LudoSearch("ludo-search");
-    new GameList();
-    Sidebar.load();
-    Calendar.load();
-    Game.loadStar();
-    pf = new PartyForm("party-form");
-    $$(".more").each(function(elt){
-      BMore.attach(elt);
+PartyFilter = {
+  showMine: function(table) {
+    table.select("tbody tr").each(function(e){
+      if (!e.hasClassName("own"))
+      e.hide();     
     });
-    
-    $$(".bzoom").each(function(elt){
-      BZoomOn.attach(elt);
+    TableKit.Rows.stripe(table);
+  },
+
+  showAll : function(table){
+    $(table).select("tbody tr").invoke("show");
+  },
+
+  loadObservers: function(){
+    if ($("mine"))
+    {
+      $("mine").observe("click", function(ev){
+        elt = ev.element();
+        if (elt.hasClassName("active"))
+        {
+          elt.removeClassName("active");
+          $$("table").each(function(t){
+            PartyFilter.showAll(t);
+          });	
+        } else {
+          elt.addClassName("active");
+          $$("table").each(function(t){
+            PartyFilter.showMine(t);
+          });
+        }
+      })
+
+    }
+    if(!$("parties-filter"))
+    return;
+    $("parties-filter").observe("change", function(e){
+      if(e.element().getValue() == "ludo")
+      $$("table").each(function(t){
+        PartyFilter.showMine(t);
+      });
+      else
+      $$("table").each(function(t){
+        PartyFilter.showAll(t);
+      });
+
     });
-    
-    if ($("protoflow"))
-    cf = new ProtoFlow("protoflow", {useCaptions: true, useReflection: true, afterSlide: function(elt){console.log(elt);}});
+    $("parties-filter").getInputs("submit").first().hide();
+  },
+}
+
+Sidebar = {
+  load: function(){
+    $$("#innernews .widget").each(function(widget){
+      new Widget(widget);
+    });
+  }
+}
+
+Game = {
+  loadStar: function(){
+    $$(".rate").each(function(elt){
+      console.debug(elt.inspect());
+      new Starbox(elt, elt.previous(".average").innerHTML, {locked: true, overlay: "big.png"});
+
+    });
+    return false;
+  }
+}
+
+var Widget = Class.create();
+Widget.addMethods({
+  initialize: function(elt){
+    if (!$(elt))
+    return;
+    this.widget = $(elt);
+    this.title = this.widget.select("h3").reduce();
+    this.content = this.widget.select("div.w-content").reduce();
+    this.widgitize();
+  },
+
+  widgitize: function(){
+    if (this.title)
+    this.title.observe("click", this.toggleContent.bindAsEventListener(this));
+  },
+
+  toggleContent: function(ev){
+    this.content.toggle();
+  }
+});
+
+var LudoSearch = Class.create();
+LudoSearch.addMethods({
+  initialize: function(form){
+    if (!$(form))
+    return;
+    this.form = $(form);
+    this.tagField = $("search_tags");
+    this.searchedTags = [];
+    this.results = $("search-results")
+    $("search_player").setAttribute('autocomplete','off');
+    $("search_difficulty").setAttribute('autocomplete','off');
+    new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
+    this.loadObservers();
+    this.makeTagsClickable();
+  },
 
 
-  })
+  loadTags: function(reponse){
+    this.tags = reponse.responseJSON;
+    this.tagFieldAutocomplete = new Autocompleter.Local(this.tagField, 'tags_lookup_auto_complete', this.tags, 
+    {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' '],
+    afterUpdateElement: this.search.bind(this) } );
+  },
+
+  loadObservers: function(){
+    new Field.Observer("search_player", 0.3, this.formChange.bindAsEventListener(this));
+    new Field.Observer("search_difficulty", 0.3, this.formChange.bindAsEventListener(this));
+    new Field.Observer("search_tags_mode_or", 0.3, this.formChange.bindAsEventListener(this));
+    new Field.Observer("search_tags_mode_and", 0.3, this.formChange.bindAsEventListener(this));
+    if ($("reset"))
+    $("reset").observe("click", this.reset.bindAsEventListener(this));  
+  },
+
+  reset: function(){
+    this.form.reset();
+    this.searchedTags = [];
+    this.highlightSelectedTags();
+    this.formChange(null);
+  },
+
+  search: function(input, elt){
+    this.searchedTags.push(elt.innerHTML.stripTags());
+    this.formChange(null);
+  },
+
+  formChange: function(ev){
+    new Ajax.Request(this.form.action, {asynchronous:true, evalScripts:true, parameters:Form.serialize(this.form)});
+    return false;
+  },
+
+  makeTagsClickable: function(){
+    this.results.select("ul.tags li").each(function(elt){
+      elt.observe("click", this.tagClicked.bindAsEventListener(this));
+    }.bind(this));
+    this.highlightSelectedTags();
+  },
+
+  tagClicked: function(ev){
+    li = ev.element();
+    if (!this.searchedTags.include(li.innerHTML)) {
+      this.searchedTags.push(li.innerHTML);
+      if (this.tagField.getValue().empty())
+      val = li.innerHTML
+      else
+      val = this.tagField.getValue() + ", " + li.innerHTML
+      this.tagField.setValue(val);
+      li.addClassName("selected");
+    } else {
+      this.searchedTags = this.searchedTags.without(li.innerHTML);
+      this.tagField.setValue(this.tagField.getValue().gsub(",*\\s*" + li.innerHTML, ""));
+      li.removeClassName("selected");
+    }
+    this.formChange(null);
+  },
+
+  highlightSelectedTags: function(){
+    this.searchedTags.each(function(tag){
+      this.results.select("li." + tag).invoke("addClassName", "selected")
+    }.bind(this));
+  }
+
+});
+
+
+Calendar = {
+  load: function(){
+    $$(".day").each(function(elt){
+      BCalendarCell.attach(elt);
+    });
+  }
+}
+
+
+document.observe("dom:loaded", function() {
+  //new PrettySearchField("wrap", "search_q");
+  PartyFilter.loadObservers();
+  new PlayForm("play-form");
+  new GameForm("game-form");
+  ls = new LudoSearch("ludo-search");
+  new GameList();
+  Sidebar.load();
+  Calendar.load();
+  Game.loadStar();
+  pf = new PartyForm("party-form");
+  $$(".more").each(function(elt){
+    BMore.attach(elt);
+  });
+  
+  $$(".bzoom").each(function(elt){
+    BZoomOn.attach(elt);
+  });
+  
+  if ($("protoflow"))
+  cf = new ProtoFlow("protoflow", {useCaptions: true, useReflection: true, afterSlide: function(elt){console.log(elt);}});
+
+
+})

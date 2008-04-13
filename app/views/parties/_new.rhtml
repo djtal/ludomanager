@@ -1,5 +1,5 @@
 <div class="widget">
-    <h3>Nouvelle Partie</h3>
+    <h3>Vos parties du <%= @date.to_s(:date_fr) %></h3>
     <div class="w-content">
        <% remote_form_for :parties, @party, :url => play_parties_path , :html => {:id => "party-form"} do |f| %>
             <strong>Jeu</strong><br />
@@ -8,7 +8,7 @@
             </ul>
             <div class="buttons clear">
                 <div class="right">
-                    <strong><span class="link">Fermer</span> ou <%= submit_tag "Jouer" %></strong>
+                    <strong><span class="link" id="reset">Reset</span> ou <%= submit_tag "Jouer" %></strong>
                 </div>
             </div>
             

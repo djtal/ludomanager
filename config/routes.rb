@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
-  map.resources :parties, :collection => {:play => :post, :add_party_form => :get, :remove_party_form => :get}
+  map.resources :parties, :collection => {:play => :post, :add_party_form => :get}
   map.resources :sessions, :accounts, :authors, :authorships
   
   #map.resources :parties, :collection => {:resume => :get}
