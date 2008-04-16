@@ -125,6 +125,7 @@ PartyForm.addMethods({
     return;
     this.form = $(form);
     this.detect_game_fields();
+    new Widget(this.form.up(".widget"));
     new Ajax.Request("/games.json", {method: "get", onSuccess: this.loadGames.bind(this)}); 
     $("reset").observe("click", this.clearForm.bindAsEventListener(this));
   },
@@ -308,7 +309,7 @@ PartyFilter = {
 Sidebar = {
   load: function(){
     $$("#innernews .widget").each(function(widget){
-      new Widget(widget);
+      new Widget(widget)
     });
   }
 }
@@ -331,17 +332,24 @@ Widget.addMethods({
     return;
     this.widget = $(elt);
     this.title = this.widget.select("h3").reduce();
+    this.close = this.widget.select(".close").reduce();
     this.content = this.widget.select("div.w-content").reduce();
     this.widgitize();
   },
 
   widgitize: function(){
     if (this.title)
-    this.title.observe("click", this.toggleContent.bindAsEventListener(this));
+      this.title.observe("click", this.toggleContent.bindAsEventListener(this));
+    if(this.close)
+      this.close.observe("click", this.closeWidget.bindAsEventListener(this));
   },
 
   toggleContent: function(ev){
     this.content.toggle();
+  },
+  
+  closeWidget: function(){
+    this.widget.remove();
   }
 });
 

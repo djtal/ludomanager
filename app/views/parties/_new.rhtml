@@ -1,4 +1,5 @@
 <div class="widget">
+    <span class="right close link">X</span>
     <h3>Vos parties du <%= @date.to_s(:date_fr) %></h3>
     <div class="w-content">
        <% remote_form_for :parties, @party, :url => play_parties_path , :html => {:id => "party-form"} do |f| %>
