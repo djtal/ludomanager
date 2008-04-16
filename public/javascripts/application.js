@@ -157,6 +157,7 @@ PartyForm.addMethods({
                               afterUpdateElement: this.updateForm.bind(this, field, index )});
       $(field).up("li").down(".remove_game").observe("click", this.removeGame.bindAsEventListener(this))
       this.detect_game_fields();
+      $(field).focus();
     },
 
   updateForm: function(elt, index){
@@ -173,6 +174,19 @@ PartyForm.addMethods({
   clearForm: function(){
       this.games_name.invoke("clear")
       this.games_id.invoke("clear")
+  },
+  
+  resetForm: function(){
+    if(this.parties_li.size() > 0)
+    {
+      this.parties_li.without(this.parties_li.first()).invoke("remove");
+      this.detect_game_fields();
+    }
+    this.clearForm();
+  },
+  
+  close: function(){
+    this.form.up(".widget").remove();
   }
 });
 
