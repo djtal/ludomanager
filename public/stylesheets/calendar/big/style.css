@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/calendar/big/style.css?1207482883 */
+
 /* @override http://localhost:3000/stylesheets/calendar/big/style.css?1204134317 */
 
 /*
@@ -57,5 +59,9 @@
 .calendar td {
 	border-right: solid 1px;
 	border-color: silver;
+}
+
+.calendar .active {
+	background-color: #fdf6ab;
 }
 

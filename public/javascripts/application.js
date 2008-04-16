@@ -83,11 +83,27 @@ var BCalendarCell = Behavior.create({
     this.element.down(".play").hide();
   },
   onmouseover : function(){
-    this.element.down(".play").show();
+      this.element.down(".play").show();
   },
 
   onmouseout : function(){
-    this.element.down(".play").hide();
+    if(!this.active)
+      this.element.down(".play").hide();
+  },
+  
+  onclick: function(){
+    Calendar.cells.each(function(cell){
+      cell.desactivate();
+    })
+    this.active = true;
+    this.element.addClassName("active");
+    this.onmouseover();
+  },
+  
+  desactivate: function(){
+    this.active = false;
+    this.element.removeClassName("active");
+    this.onmouseout();
   }
 });
 
@@ -125,7 +141,11 @@ PartyForm.addMethods({
     return;
     this.form = $(form);
     this.detect_game_fields();
-    new Widget(this.form.up(".widget"));
+    Widget.prototype.closeWidget = Widget.prototype.closeWidget.wrap(function(proceed){
+      Calendar.clearAll();
+      proceed();
+    });
+    this.widget = new Widget(this.form.up(".widget"));
     new Ajax.Request("/games.json", {method: "get", onSuccess: this.loadGames.bind(this)}); 
     $("reset").observe("click", this.clearForm.bindAsEventListener(this));
   },
@@ -438,10 +458,15 @@ LudoSearch.addMethods({
 
 
 Calendar = {
+  cells: $A(),
   load: function(){
     $$(".day").each(function(elt){
-      BCalendarCell.attach(elt);
+      Calendar.cells.push(new BCalendarCell(elt));
     });
+  },
+  
+  clearAll: function(){
+    Calendar.cells.invoke("desactivate")
   }
 }
 
