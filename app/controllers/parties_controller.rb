@@ -65,6 +65,8 @@ class PartiesController < ApplicationController
     @days = @parties.group_by{ |p| p.created_at.mday}
     @games_count = @parties.map(&:game_id).uniq.size
     @account_games = current_account.games
+    @other = (@parties.map(&:game_id) - (@account_games.map(&:id))).size
+    @yours = @parties.size - @other
     @discovered = @parties.map(&:game).uniq.reject{|g| previous_played_games.include?(g)}
   end
   
