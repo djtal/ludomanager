@@ -59,15 +59,22 @@ class PartiesController < ApplicationController
     @date = Time.now
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
     @date = @date.to_time
-    @parties = current_account.parties.find(:all, :conditions => ["parties.created_at >= ? AND parties.created_at <= ?", @date.beginning_of_month, @date.end_of_month + 1.day - 1.second ])
-    previous_played_games = current_account.parties.find(:all, 
-    :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game).uniq
+    @parties = current_account.parties.find(:all, :conditions => ["parties.created_at >= ? AND parties.created_at <= ?", @date.beginning_of_month, @date.end_of_month + 1.day - 1.second ],
+                                            :include => [:game => :image])
+    previous_played_games = current_account.parties.find(:all, :select => :game_id,
+    :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game_id).uniq
     @days = @parties.group_by{ |p| p.created_at.mday}
-    @games_count = @parties.map(&:game_id).uniq.size
+    
+    @played = @parties.map(&:game).uniq
+    @games = []
+    @played.each do |g|
+      @games << [g, !previous_played_games.include?(g.id), @parties.select{ |p| p.game_id == g.id}.size ]
+    end
+    @games = @games.sort_by{ |set| set[2]}.reverse
     @account_games = current_account.games
     @other = (@parties.map(&:game_id) - (@account_games.map(&:id))).size
     @yours = @parties.size - @other
-    @discovered = @parties.map(&:game).uniq.reject{|g| previous_played_games.include?(g)}
+    #@discovered = @parties.map(&:game).uniq.reject{|g| previous_played_games.include?(g)}
   end
   
   def new

@@ -16,10 +16,6 @@
 
 end  %>
 
-<% content_for :my_teamscore do %>
-	Vous avez effectuez <em id="global_parties_count"><%= pluralize(@parties.size, "partie", "parties") %></em> sur 
-	<em><%= pluralize(@games_count, "jeu", "jeux") %></em> different.
-<% end %>
 
 <% content_for :subnav do %>
 	<%= render :partial => "subnav" %>
@@ -41,9 +37,7 @@ end  %>
     <div id="placeholder-2">
     </div>
     <div id="placeholder-3">
-
-      <%= render_widget 'discovered', "Les jeux decouverts" %>
-
+      <%= render_widget 'discovered', "Les jeux du mois" %>
     </div>
     
 

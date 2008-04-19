@@ -35,7 +35,7 @@ class Account < ActiveRecord::Base
     end
   end
   
-  has_many :parties, :include => :game, :dependent => :delete_all do
+  has_many :parties, :dependent => :delete_all do
     def last_played(limit = 5)
       find(:all, :limit => limit, :order => "parties.created_at DESC")
     end

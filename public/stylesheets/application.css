@@ -469,6 +469,10 @@ ul.function li{
 	vertical-align: middle;
 }
 
+.widget table{
+  width: 100%;
+}
+
 /* Specific Widget Styles */
 
 #zoom div.w-content img {
