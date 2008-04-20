@@ -37,11 +37,12 @@ class PartiesController < ApplicationController
   #used for playing a game in calendar context
   # can be merged with create but how to differentiate render type taht are the same mime type
   def play
-    current_account.parties.build(params[:parties].values)
-    current_account.save
-    @date = params[:parties]["1"][:created_at].to_date
-    @parties = current_account.parties.find(:all, :conditions => ["parties.created_at >= ? AND parties.created_at <= ?", @date, @date + 1.day - 1.second])
-    @account_games = current_account.games
+    current_account.parties.create(params[:parties].values)
+    @date = params[:parties]["1"][:created_at].to_time
+    @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
+    @daily = @parties.select{|p| p.created_at.to_date == @date.to_date}
+    logger.debug { "daily : #{@daily.size}" }
+    find_yours(@parties)
     respond_to do |format|
       format.js
     end
@@ -59,8 +60,7 @@ class PartiesController < ApplicationController
     @date = Time.now
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
     @date = @date.to_time
-    @parties = current_account.parties.find(:all, :conditions => ["parties.created_at >= ? AND parties.created_at <= ?", @date.beginning_of_month, @date.end_of_month + 1.day - 1.second ],
-                                            :include => [:game => :image])
+    @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
     previous_played_games = current_account.parties.find(:all, :select => :game_id,
     :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game_id).uniq
     @days = @parties.group_by{ |p| p.created_at.mday}
@@ -71,10 +71,7 @@ class PartiesController < ApplicationController
       @games << [g, !previous_played_games.include?(g.id), @parties.select{ |p| p.game_id == g.id}.size ]
     end
     @games = @games.sort_by{ |set| set[2]}.reverse
-    @account_games = current_account.games
-    @other = (@parties.map(&:game_id) - (@account_games.map(&:id))).size
-    @yours = @parties.size - @other
-    #@discovered = @parties.map(&:game).uniq.reject{|g| previous_played_games.include?(g)}
+    find_yours(@parties)
   end
   
   def new
@@ -88,6 +85,12 @@ class PartiesController < ApplicationController
   end
   
   protected
+  
+  def find_yours(parties)
+    @account_games = current_account.games
+    @other = (parties.map(&:game_id) - (@account_games.map(&:id))).size
+    @yours = parties.size - @other
+  end
   
   def split_parties(parties)
   	high, medium, low = [], [], []

@@ -24,15 +24,7 @@ end  %>
 
 <% content_for :newsbox do %>
     <div id="placeholder-1">
-      <% render(:layout => 'layouts/widget', :locals => {:title => "Statistiques #{month_name(@date.month)} #{@date.year}"}) do %>
-        Vous avez jouez en tout <%= pluralize(@parties.size, "partie", "parties") %>.
-        <% form_for "legend" do |f| %>
-          <ul>
-            <li><span class="right"><%= @yours %></span><%= f.check_box :own, :checked => true %> Jeux de votre ludotheque</li>
-            <li><span class="right"><%= @other %></span><%= f.check_box :other ,:checked => true%> Autre jeux</li>
-          </ul>
-        <% end %>
-      <% end %>
+      <%= render :partial => 'legend' %>
     </div>
     <div id="placeholder-2">
     </div>
