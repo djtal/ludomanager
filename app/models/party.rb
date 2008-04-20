@@ -33,4 +33,18 @@ class Party < ActiveRecord::Base
     find(:all, options)
   end
   
+  def self.most_played(count, opts = {})
+    options = {
+      :select => "game_id, COUNT(id) AS total",
+      :group => "game_id",
+      :order => "total DESC",
+      :limit => count,
+    }.merge(opts)
+    parties = find(:all, options)
+    games = Game.find(:all, :conditions => {:id => parties.map(&:game_id)}, :include => :image).to_a
+    parties.inject({}) do |h, p|
+      h.merge({games.find{|g| g.id == p.game_id} => p.total.to_i})
+    end
+  end
+  
 end

@@ -36,14 +36,13 @@
   <%= render :partial => "parties/last" %>
 	
   <div class="widget" id="most-played">
-    <span class="right small"><%= link_to "Voir toute mes parties (#{@parties_count})", parties_path %></span>
   	<h3>Top 5 actuel</h3>
 	<div class="w-content">
-		<% if @parties_count > 0 %>
+		<% if @most_played.size > 0 %>
 	  	<ul>
-	  		<% @most_played.each do |game, parties| %>
+	  		<% @most_played.each do |game, count| %>
 	  			<li class="<%= cycle("even", "odd") %>">
-	  				<span class="right"><%= pluralize(parties.size, "partie", "parties") %></span>
+	  				<span class="right"><%= pluralize(count, "partie", "parties") %></span>
 	  				<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
 	  				<%= link_to game.name, game_path(game) %>
 	  			</li>
