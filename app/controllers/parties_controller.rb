@@ -41,8 +41,8 @@ class PartiesController < ApplicationController
     @date = params[:parties]["1"][:created_at].to_time
     @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
     @daily = @parties.select{|p| p.created_at.to_date == @date.to_date}
-    logger.debug { "daily : #{@daily.size}" }
     find_yours(@parties)
+    find_played(@parties)
     respond_to do |format|
       format.js
     end
@@ -61,16 +61,8 @@ class PartiesController < ApplicationController
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
     @date = @date.to_time
     @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
-    previous_played_games = current_account.parties.find(:all, :select => :game_id,
-    :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game_id).uniq
     @days = @parties.group_by{ |p| p.created_at.mday}
-    
-    @played = @parties.map(&:game).uniq
-    @games = []
-    @played.each do |g|
-      @games << [g, !previous_played_games.include?(g.id), @parties.select{ |p| p.game_id == g.id}.size ]
-    end
-    @games = @games.sort_by{ |set| set[2]}.reverse
+    find_played(@parties)
     find_yours(@parties)
   end
   
@@ -90,6 +82,16 @@ class PartiesController < ApplicationController
     @account_games = current_account.games
     @other = (parties.map(&:game_id) - (@account_games.map(&:id))).size
     @yours = parties.size - @other
+  end
+  
+  def find_played(parties)
+    @games = []
+    previous_played_games = current_account.parties.find(:all, :select => :game_id,
+    :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game_id).uniq
+    parties.map(&:game).uniq.each do |g|
+      @games << [g, !previous_played_games.include?(g.id), @parties.select{ |p| p.game_id == g.id}.size ]
+    end
+    @games = @games.sort_by{ |set| set[2]}.reverse
   end
   
   def split_parties(parties)

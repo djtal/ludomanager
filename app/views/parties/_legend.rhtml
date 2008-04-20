@@ -2,8 +2,8 @@
   Vous avez jouez en tout <%= pluralize(@parties.size, "partie", "parties") %>.
   <% form_for "legend" do |f| %>
     <ul>
-      <li class="orange"><span class="right"><%= @yours %></span><%= f.check_box :own, :checked => true %> Jeux de votre ludotheque</li>
-      <li class="green"><span class="right"><%= @other %></span><%= f.check_box :other ,:checked => true%> Autre jeux</li>
+      <li class="green"><span class="right"><%= @yours %></span><%= f.check_box :own, :checked => true %> Jeux de votre ludotheque</li>
+      <li class="orange"><span class="right"><%= @other %></span><%= f.check_box :other ,:checked => true%> Autre jeux</li>
     </ul>
   <% end %>
 <% end %>

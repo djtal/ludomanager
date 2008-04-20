@@ -1,3 +1,4 @@
 page["day_#{@date.mday}"].update(render(:partial => "calendar_parties", :locals => {:parties => @daily, :day => @date.mday}))
 page["placeholder-1"].update(render :partial => "legend")
+page["placeholder-3"].update(render_widget("discovered", "Les jeux du mois"))
 page << "pf.resetForm();"
