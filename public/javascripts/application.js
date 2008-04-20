@@ -472,7 +472,6 @@ Calendar = {
 
 
 document.observe("dom:loaded", function() {
-  //new PrettySearchField("wrap", "search_q");
   PartyFilter.loadObservers();
   new PlayForm("play-form");
   new GameForm("game-form");

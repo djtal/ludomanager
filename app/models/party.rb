@@ -20,4 +20,17 @@ class Party < ActiveRecord::Base
     }.merge(opts)
     self.find(:all, options)
   end
+  
+  def self.group_by_game
+    find(:all, :include => :game).group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
+  end
+  
+  def self.last_play(count, opts = {})
+    options = {
+      :limit => count,
+      :order => "parties.created_at DESC"
+    }.merge(opts)
+    find(:all, options)
+  end
+  
 end

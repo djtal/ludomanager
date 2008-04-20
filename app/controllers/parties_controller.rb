@@ -2,20 +2,10 @@ class PartiesController < ApplicationController
   before_filter :login_required
   
   def index
-    @parties = current_account.parties.played_games
+    @parties = current_account.parties.group_by_game
     @account_games = current_account.games
-    @filter = :all
-    @last_parties = current_account.parties.last_played
-    if params[:filter] && params[:filter][:type] == "ludo"
-        @account_games = current_account.games
-        @parties = @parties.select{ |game, parties| @account_games.include?(game)}
-        @filter = :ludo
-    end
+    @last_parties = current_account.parties.last_play(10, :include => [:game => :image])
     @count = @parties.inject(0){ |acc, group| acc += group[1].size}
-    @high, @medium, @low = split_parties(@parties)
-    @high = @high.sort_by{ |game, parties| parties.size}.reverse
-    @medium = @medium.sort_by{ |game, parties| parties.size}.reverse
-    @low = @low.sort_by{ |game, parties| parties.size}.reverse
   end
   
   #use in main view ie not in calendar

@@ -1,40 +1,8 @@
 <h3>Vos parties <%= "(Jeux de votre ludotheque seulement)" if @filter == :ludo %></h3>
 
-<div class="widget clear">
-	<h4>
-		<span class="right"><%= pluralize(@high.size, "jeu", "jeux") %></span>
-		Les plus joués <em class="tips">Superieur a 10 parties</em>
-	</h4>
-	<%= render_parties @high, :id => "high"  %>
-</div>
 
-<hr />
+<%= render_parties @parties, :id => "high"  %>
 
-<div class="widget clear">
-	<h4>
-		<span class="right"><%= pluralize(@medium.size, "jeu", "jeux") %></span>
-		Les moderement joués <em class="tips">Entre 4 et 10 parties</em>
-	</h4>
-	<%= render_parties @medium, :id => "medium" %>
-</div>
-
-<hr />
-
-<div class="widget clear">
-	<h4>
-		<span class="right"><%= pluralize(@low.size, "jeu", "jeux") %></span>
-		Les peu joués <em class="tips">Inferieur a 4 parties</em>
-	</h4>
-	<%= render_parties @low, :id => "low" %>
-</div>
-
-<% content_for :my_teamscore do %>
-	Vous avez effectuez <em id="global_parties_count"><%= pluralize(@count, "partie", "parties") %></em> sur 
-	<em><%= pluralize(@parties.size, "jeu", "jeux") %></em> different.
-	<ul id="attr-filter">
-		<li><span class="link right" id="mine">Filtrer</span><span class="ss_bullet_green  ss_sprite"> : Vous possedez ce jeu</span></li>
-	</ul>
-<% end %>
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
