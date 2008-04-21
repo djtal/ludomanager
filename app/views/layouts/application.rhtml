@@ -18,9 +18,9 @@
 			  <%= main_nav_section_for "Dashboard", dashboard_path, :dashboard, :class => "left" %>
 			  <%= main_nav_section_for "Ma ludotheque", account_games_path, :account_games, :class => "left" %>
 				<%= main_nav_section_for "Mes parties", parties_path, :parties, :class => "left" %>
-				<%= main_nav_section_for "Deconnexion : #{@current_account.login.humanize}", logout_path, :logout, :class => "right" %>
+				<%= main_nav_section_for "Deconnexion : #{current_account.login.humanize}", logout_path, :logout, :class => "right" %>
 			<% else %>
-			  <%= main_nav_section_for "Connexion", sessions_path, :login, :class => "right" %>
+			  <%= main_nav_section_for "Connexion", login_path, :login, :class => "right" %>
 			<% end %>
 		</ul>
 	</div>
