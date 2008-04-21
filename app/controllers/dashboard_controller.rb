@@ -4,17 +4,17 @@ class DashboardController < ApplicationController
   
   
   def index
-    @parties = current_account.parties
     @last_buyed = current_account.account_games.find(:all, :include => {:game => :image}, :order => "account_games.created_at DESC", :limit  =>  5)
-    @last_parties = @parties.last_played
-    @most_played = @parties.most_played(5)
+    @last_parties = current_account.parties.last_play(5)
+    @most_played = current_account.parties.most_played(5)
     
     @parties_overview = {}
     @start = 1.years.ago.beginning_of_year
     @end = Time.now.end_of_year
     @years_total = [0, 0]
-    if (@parties.size > 0)
-      parties = @parties.group_by{ |p| p.created_at.year}
+    all_parties = current_account.parties.find(:all, :select => "id, created_at", :conditions => ["created_at BETWEEN ? AND ?", @start, @end])
+    if (all_parties.size > 0)
+      parties = all_parties.group_by{ |p| p.created_at.year}
       cur_year = parties[@end.year]
       last_year = parties[@start.year]
       @years_total = [last_year.size, cur_year.size]
@@ -32,11 +32,6 @@ class DashboardController < ApplicationController
   
   protected
   
-  def build_timeline
-    parties = current_account.parties.last_play(25)
-    ac = current_account.account_games.last_buy(25)
-    events = (ac + parties).group_by(&:created_at)
-  end
   
   def set_section
     @section = :dashboard

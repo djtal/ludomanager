@@ -28,7 +28,8 @@ class Party < ActiveRecord::Base
   def self.last_play(count, opts = {})
     options = {
       :limit => count,
-      :order => "parties.created_at DESC"
+      :order => "parties.created_at DESC",
+      :include => [:game => :image]
     }.merge(opts)
     find(:all, options)
   end

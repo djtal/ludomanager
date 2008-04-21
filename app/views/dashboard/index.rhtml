@@ -1,57 +1,12 @@
 <h3><%= current_account.login.humanize%> dashboard's</h3>
 
 <div class="column span-11 append-1">
-  <%= render :partial => "account_games/last" %>
+  <%= render_widget "account_games/last", "Derniers achats" %>
+  <%= render_widget "monthly", "Parties par mois" %>
 
-  <div class="widget" id="p-overview">
-    <h3>Parties par mois</h3>
-	<div class="w-content">
-		<table>
-			<thead>
-				<tr>
-				  <th class="span-6">Mois</th><th class="span-2"><%= @start.year %></th><th class="span-2"><%= @end.year %></th>
-				  <th class"span-1"><%= image_tag "trends.gif" %></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @parties_overview.each do |month, data|  %>
-		    		<tr class="<%= cycle("roweven", "rowodd")  %>">
-		    			<td><%= month_name(month) %></td>
-						  <td><%= data[0] != 0 ? content_tag(:span, data[0], :class => "empty") : "--" %></td>
-						  <td><%= data[1] != 0 ? content_tag(:span, data[1], :class => "empty") : "--" %></td>
-						  <td><%= trends_for(data[0], data[1]) %></td>
-					</tr>
-		  		<% end %>
-				<tr class="<%= cycle("roweven", "rowodd")  %>">
-					<td>Total</td><td><%= content_tag(:span, @years_total[0], :class => "empty") %></td><td><%= content_tag(:span, @years_total[1], :class => "empty") %></td>
-					<td><%= trends_for(@years_total[0], @years_total[1]) %></td>
-				</tr>
-			</tbody>
-    	</table>
-	</div>
-  </div>
 </div>
 
 <div class="column span-12 last">
-  <%= render :partial => "parties/last" %>
-	
-  <div class="widget" id="most-played">
-  	<h3>Top 5 actuel</h3>
-	<div class="w-content">
-		<% if @most_played.size > 0 %>
-	  	<ul>
-	  		<% @most_played.each do |game, count| %>
-	  			<li class="<%= cycle("even", "odd") %>">
-	  				<span class="right"><%= pluralize(count, "partie", "parties") %></span>
-	  				<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
-	  				<%= link_to game.name, game_path(game) %>
-	  			</li>
-	  		<% end %>
-	  	</ul>
-	<% else %>
-		<p class="empty">Vous n'avez jouez/saisie encore aucune parties actuellement</p>
-	<% end%>
-	</div>
-	
-  </div>
+  <%= render_widget "parties/last", "Derniere parties" %>
+	<%= render_widget "parties/most_played", "Top 5" %>
 </div>

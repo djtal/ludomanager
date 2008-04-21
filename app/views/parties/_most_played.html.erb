@@ -1,0 +1,13 @@
+<% if @most_played.size > 0 %>
+	<ul>
+		<% @most_played.each do |game, count| %>
+			<li class="<%= cycle("even", "odd") %>">
+				<span class="right"><%= pluralize(count, "partie", "parties") %></span>
+				<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
+				<%= link_to game.name, game_path(game) %>
+			</li>
+		<% end %>
+	</ul>
+<% else %>
+<p class="empty">Vous n'avez jouez/saisie encore aucune parties actuellement</p>
+<% end%>
