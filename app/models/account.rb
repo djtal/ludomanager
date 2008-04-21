@@ -1,19 +1,3 @@
-# == Schema Information
-# Schema version: 29
-#
-# Table name: accounts
-#
-#  id                        :integer       not null, primary key
-#  login                     :string(255)   
-#  email                     :string(255)   
-#  crypted_password          :string(40)    
-#  salt                      :string(40)    
-#  created_at                :datetime      
-#  updated_at                :datetime      
-#  remember_token            :string(255)   
-#  remember_token_expires_at :datetime      
-#
-
 require 'digest/sha1'
 class Account < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
@@ -29,25 +13,10 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password
   
-  has_many :account_games, :dependent => :delete_all do
-    def last
-      find(:all, :limit => 5, :inlcude => :game,  :order => "created_at DESC")
-    end
-  end
-  
-  has_many :parties, :dependent => :delete_all do
-    def last_played(limit = 5)
-      find(:all, :limit => limit, :order => "parties.created_at DESC")
-    end
-    
-    def played_games
-      self.group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
-    end
-  end
-  
-  has_many :games, :through => :account_games
-  
-  
+  # prevents a user from submitting a crafted form that bypasses activation
+  # anything else you want your user to change should be added here.
+  attr_accessible :login, :email, :password, :password_confirmation
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
@@ -93,6 +62,11 @@ class Account < ActiveRecord::Base
     save(false)
   end
 
+  # Returns true if the user has just been activated.
+  def recently_activated?
+    @activated
+  end
+
   protected
     # before filter 
     def encrypt_password
@@ -100,10 +74,10 @@ class Account < ActiveRecord::Base
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
       self.crypted_password = encrypt(password)
     end
-    
+      
     def password_required?
       crypted_password.blank? || !password.blank?
     end
-
+    
     
 end

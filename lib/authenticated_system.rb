@@ -1,25 +1,24 @@
 module AuthenticatedSystem
   protected
-    # Returns true or false if the user is logged in.
-    # Preloads @current_account with the user model if they're logged in.
+    # Returns true or false if the account is logged in.
+    # Preloads @current_account with the account model if they're logged in.
     def logged_in?
-      current_account != :false
+      !!current_account
     end
-    
-    # Accesses the current account from the session.
+
+    # Accesses the current account from the session. 
+    # Future calls avoid the database because nil is not equal to false.
     def current_account
-      #for dev only
-      #@current_account =  Account.find_by_id(1)
-      @current_account ||= (session[:account] && Account.find_by_id(session[:account])) || :false
+      @current_account ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_account == false
     end
-    
-    # Store the given account in the session.
+
+    # Store the given account id in the session.
     def current_account=(new_account)
-      session[:account] = (new_account.nil? || new_account.is_a?(Symbol)) ? nil : new_account.id
-      @current_account = new_account
+      session[:account_id] = new_account ? new_account.id : nil
+      @current_account = new_account || false
     end
-    
-    # Check if the account is authorized.
+
+    # Check if the account is authorized
     #
     # Override this method in your controllers if you want to restrict access
     # to only a few actions or if you want to check if the account
@@ -28,11 +27,11 @@ module AuthenticatedSystem
     # Example:
     #
     #  # only allow nonbobs
-    #  def authorize?
+    #  def authorized?
     #    current_account.login != "bob"
     #  end
     def authorized?
-      true
+      logged_in?
     end
 
     # Filter method to enforce a login requirement.
@@ -50,11 +49,9 @@ module AuthenticatedSystem
     #   skip_before_filter :login_required
     #
     def login_required
-      username, passwd = get_auth_data
-      self.current_account ||= Account.authenticate(username, passwd) || :false if username && passwd
-      logged_in? && authorized? ? true : access_denied
+      authorized? || access_denied
     end
-    
+
     # Redirect as appropriate when an access request fails.
     #
     # The default action is to redirect to the login screen.
@@ -64,59 +61,55 @@ module AuthenticatedSystem
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def access_denied
-      respond_to do |accepts|
-        accepts.html do
+      respond_to do |format|
+        format.html do
           store_location
-          redirect_to :controller => 'sessions', :action => 'index'
+          redirect_to new_session_path
         end
-        accepts.xml do
-          headers["Status"]           = "Unauthorized"
-          headers["WWW-Authenticate"] = %(Basic realm="Web Password")
-          render :text => "Could't authenticate you", :status => '401 Unauthorized'
+        format.any do
+          request_http_basic_authentication 'Web Password'
         end
       end
-      false
-    end  
-    
+    end
+
     # Store the URI of the current request in the session.
     #
     # We can return to this location by calling #redirect_back_or_default.
     def store_location
       session[:return_to] = request.request_uri
     end
-    
+
     # Redirect to the URI stored by the most recent store_location call or
     # to the passed default.
     def redirect_back_or_default(default)
-      session[:return_to] ? redirect_to_url(session[:return_to]) : redirect_to(default)
+      redirect_to(session[:return_to] || default)
       session[:return_to] = nil
     end
-    
+
     # Inclusion hook to make #current_account and #logged_in?
     # available as ActionView helper methods.
     def self.included(base)
       base.send :helper_method, :current_account, :logged_in?
     end
 
-    # When called with before_filter :login_from_cookie will check for an :auth_token
-    # cookie and log the user back in if apropriate
-    def login_from_cookie
-      return unless cookies[:auth_token] && !logged_in?
-      user = Account.find_by_remember_token(cookies[:auth_token])
-      if user && user.remember_token?
-        user.remember_me
-        self.current_account = user
-        cookies[:auth_token] = { :value => self.current_account.remember_token , :expires => self.current_account.remember_token_expires_at }
-        flash[:notice] = "Logged in successfully"
+    # Called from #current_account.  First attempt to login by the account id stored in the session.
+    def login_from_session
+      self.current_account = Account.find_by_id(session[:account_id]) if session[:account_id]
+    end
+
+    # Called from #current_account.  Now, attempt to login by basic authentication information.
+    def login_from_basic_auth
+      authenticate_with_http_basic do |username, password|
+        self.current_account = Account.authenticate(username, password)
       end
     end
 
-  private
-    @@http_auth_headers = %w(X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization)
-    # gets BASIC auth info
-    def get_auth_data
-      auth_key  = @@http_auth_headers.detect { |h| request.env.has_key?(h) }
-      auth_data = request.env[auth_key].to_s.split unless auth_key.blank?
-      return auth_data && auth_data[0] == 'Basic' ? Base64.decode64(auth_data[1]).split(':')[0..1] : [nil, nil] 
+    # Called from #current_account.  Finaly, attempt to login by an expiring token in the cookie.
+    def login_from_cookie
+      account = cookies[:auth_token] && Account.find_by_remember_token(cookies[:auth_token])
+      if account && account.remember_token?
+        cookies[:auth_token] = { :value => account.remember_token, :expires => account.remember_token_expires_at }
+        self.current_account = account
+      end
     end
 end

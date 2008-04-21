@@ -3,43 +3,39 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AccountTest < Test::Unit::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
   # Then, you can remove it from this and the functional test.
-  
-  fixtures :accounts, :account_games, :games, :parties
-
-  def test_should_have_account_games
-    assert_equal 1, accounts(:quentin).account_games.size
-  end
+  include AuthenticatedTestHelper
+  fixtures :accounts
 
   def test_should_create_account
-    assert_difference Account, :count do
+    assert_difference 'Account.count' do
       account = create_account
       assert !account.new_record?, "#{account.errors.full_messages.to_sentence}"
     end
   end
 
   def test_should_require_login
-    assert_no_difference Account, :count do
+    assert_no_difference 'Account.count' do
       u = create_account(:login => nil)
       assert u.errors.on(:login)
     end
   end
 
   def test_should_require_password
-    assert_no_difference Account, :count do
+    assert_no_difference 'Account.count' do
       u = create_account(:password => nil)
       assert u.errors.on(:password)
     end
   end
 
   def test_should_require_password_confirmation
-    assert_no_difference Account, :count do
+    assert_no_difference 'Account.count' do
       u = create_account(:password_confirmation => nil)
       assert u.errors.on(:password_confirmation)
     end
   end
 
   def test_should_require_email
-    assert_no_difference Account, :count do
+    assert_no_difference 'Account.count' do
       u = create_account(:email => nil)
       assert u.errors.on(:email)
     end
@@ -97,14 +93,11 @@ class AccountTest < Test::Unit::TestCase
     assert_not_nil accounts(:quentin).remember_token_expires_at
     assert accounts(:quentin).remember_token_expires_at.between?(before, after)
   end
-  
-  def test_played_game_should_given_all_play_game_for_account
-    count = Party.find(:all, :conditions => {:account_id => accounts(:aaron).id}).map(&:game_id).uniq.size
-    assert_equal count, accounts(:aaron).parties.played_games.size 
+
+protected
+  def create_account(options = {})
+    record = Account.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
+    record.save
+    record
   end
-  
-  protected
-    def create_account(options = {})
-      Account.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
-    end
 end
