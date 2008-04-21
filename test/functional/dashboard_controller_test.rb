@@ -34,7 +34,7 @@ context "Dashboard for logged user" do
   
   specify "index is accesible" do
     get :index
-    assert_response :succes
+    assert_response :success
     assert_template 'index'
   end
   
