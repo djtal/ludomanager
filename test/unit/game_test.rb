@@ -60,7 +60,7 @@ context "Game" do
   
   specify "can have  authors" do
     assert clean_game.respond_to?(:authors)
-    assert_equal 2, games(:coloreto).authors.count
+    assert_equal 3, games(:coloreto).authors.count
     assert games(:coloreto).authors.include?(authors(:kinizia))
   end
   

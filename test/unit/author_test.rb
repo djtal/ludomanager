@@ -30,14 +30,14 @@ class AuthorTest < Test::Unit::TestCase
     assert_equal authors(:kinizia), Author.find_or_create_from_str("Reiner - Kinizia")
     assert_equal authors(:kinizia), Author.find_or_create_from_str("Kinizia - Reiner")
     
-    assert_difference Author, :count do
+    assert_difference "Author.count" do
       Author.find_or_create_from_str("Seyrfath - Andreas")
     end
-    assert_no_difference Author, :count do
+    assert_no_difference "Author.count "do
       Author.find_or_create_from_str("")
     end
     
-    assert_no_difference Author, :count do
+    assert_no_difference" Author.count" do
       Author.find_or_create_from_str("Vialla")
     end
   end

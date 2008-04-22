@@ -36,9 +36,9 @@ class AuthorsController < ApplicationController
   # POST /authors.xml
   def create
     @author = Author.new(params[:author])
-    @games = @authors.games.find(:all, :order => "games.publish_year ASC")
     respond_to do |format|
       if @author.save
+        @games = @author.games.find(:all, :order => "games.publish_year ASC")
         flash[:notice] = 'Author was successfully created.'
         format.html { redirect_to author_url(@author) }
         format.xml  { head :created, :location => author_url(@author) }

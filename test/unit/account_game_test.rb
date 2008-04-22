@@ -1,44 +1,38 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-context "New Games Account" do
+class AccountGameTest < Test::Unit::TestCase
   fixtures :account_games, :accounts, :games
   
-  specify "should have a game" do
-    assert_invalid clean_game_account, :game_id, nil
-    assert_equal account_games(:one).game, games(:battlelore)
-  end
   
-  specify "should have an account" do
-    assert_invalid clean_game_account, :account_id, nil
-    assert_equal account_games(:one).account, accounts(:quentin)
-  end
-  
-  specify "should have only one copy of game per account" do
+  def test_can_own_only_once_a_game
     assert clean_game_account.save
     assert !clean_game_account.save
   end
   
+  def test_should_take_price_from_game_if_not_set
+    a = clean_game_account({:price => nil})
+    assert_equal nil, a.price
+    assert a.save
+    assert_equal games(:coloreto).price, a.price
+  end
+  
+  def test_should_set_date_to_now_if_not_set
+    a = clean_game_account({:price => nil})
+    assert_equal nil, a.transdate
+    assert a.save
+    assert_equal Time.now.to_date, a.transdate
+  end
   
   private
   
   def clean_game_account(overrides = {})
     opts = {
       :account_id => 1,
-      :game_id => 1
+      :game_id => 1,
+      :price => 10,
+      :origin => "a shop somewhere"
     }.merge(overrides)
     AccountGame.new(opts)
   end
 end
 
-
-context "search account game" do
-  fixtures :account_games, :accounts, :games, :tags, :taggings
-  
-  specify "should return all if no args given" do
-    
-  end
-  
-  specify "can search by difficulty" do
-    
-  end
-end

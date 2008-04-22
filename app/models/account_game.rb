@@ -18,7 +18,8 @@ class AccountGame < ActiveRecord::Base
   validates_uniqueness_of :game_id, :scope => :account_id
   belongs_to :game
   belongs_to :account
-  before_save :set_date
+  before_create :setup_default
+  
 
   def self.search params
     opts = {
@@ -61,8 +62,9 @@ class AccountGame < ActiveRecord::Base
   
   protected
   
-  def set_date
-    self.transdate = Time.now.to_s(:db) if !self.transdate
+  def setup_default
+    self.transdate ||= Time.now.to_date
+    self.price ||= self.game.price
   end
   
 end

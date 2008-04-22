@@ -15,7 +15,7 @@ context "Game for logged user" do
   end
 
   specify "can delete game without any party" do
-    assert_difference Game, :count, -1 do
+    assert_difference "Game.count", -1 do
       delete :destroy, :id => 1
     end    
     assert_redirected_to games_path
@@ -23,8 +23,8 @@ context "Game for logged user" do
   
   specify "cannot delete a game with at least one party played" do
     assert_equal games(:ever_played), parties(:first).game
-    assert_equal 1, games(:ever_played).parties.size
-    assert_difference Game, :count, 0 do
+    assert games(:ever_played).parties.size > 0
+    assert_no_difference "Game.count" do
       delete :destroy, :id => games(:ever_played).id
     end    
     assert_redirected_to games_path
@@ -55,7 +55,7 @@ context "Games for non logged user" do
   end
   
   specify "can create game" do
-    assert_difference Game, :count do
+    assert_difference "Game.count" do
       post :create, {:game => {:name => "test", :difficulty => 1, :min_player => 2, :max_player => 6 },
                       :game_photo => {:uploaded_data => ""}}
     end
@@ -79,7 +79,7 @@ context "Games for non logged user" do
   end
   
   specify "cannot destroy game" do
-    assert_no_difference Game, :count do
+    assert_no_difference "Game.count" do
       delete :destroy, :id => 1
     end
     assert_response :redirect

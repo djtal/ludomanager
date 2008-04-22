@@ -100,9 +100,6 @@ class AccountGamesController < ApplicationController
   # POST /account_games.xml
   def create
     @account_game = current_account.account_games.build(params[:account_game])
-    @account_game.price = @account_game.game.price
-    logger.info @account_game.transdate
-    @account_game.transdate = Time.now if @account_game.transdate.blank?
     
     respond_to do |format|
       if @account_game.save
@@ -137,8 +134,8 @@ class AccountGamesController < ApplicationController
     @account_game.destroy
 
     respond_to do |format|
-      format.js
       format.html { redirect_to account_games_url }
+      format.js
       format.xml  { head :ok }
     end
   end

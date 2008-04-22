@@ -65,7 +65,7 @@ class GamesController < ApplicationController
     @game.tag_with params[:tag] if params[:tag]
     respond_to do |format|
       if @game.save
-        add_game_authors! if params[:authors]["1"]
+        add_game_authors!
         flash[:notice] = 'Game was successfully created.'
         save_box_thumbnail!
         format.html { redirect_to game_path(@game) }
@@ -126,9 +126,11 @@ class GamesController < ApplicationController
   
   def add_game_authors!
     @game.authors.destroy_all
-    params[:authors].each do |key, value|
-      a = Author.find_or_create_from_str(value[:display_name])
-      @game.authors << a if a && !@game.authors.include?(a)
+    if params[:authors]
+      params[:authors].each do |key, value|
+        a = Author.find_or_create_from_str(value[:display_name])
+        @game.authors << a if a && !@game.authors.include?(a)
+      end
     end
   end
   

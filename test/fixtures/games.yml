@@ -27,6 +27,7 @@ coloreto:
   difficulty: 1
   min_player: 2
   max_player: 6
+  price: 10
   created_at: <%= 2.month.ago.to_s(:db)  %>
 battlelore:
   id: 2
