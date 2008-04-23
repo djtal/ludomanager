@@ -3,6 +3,14 @@
 		<div class="right function">
 			<%= link_to "", edit_game_path(list), :class => " ss_sprite ss_database_edit" %>
 			<%= link_to "", game_path(list), :method => :delete, :class => "ss_sprite ss_database_delete" %> 
+			&nbsp;|&nbsp;
+			<% if account_have_game?(list) %>
+				<%= link_to "", {:controller => "account_games", 
+														:action => 'destroy', :game_id => list.id}, :method => :delete, :class => "ss_sprite ss_folder_delete" %>
+			<% else %>
+				<%= link_to "", 	{:controller => "account_games", :action => 'create', 
+								:account_game => {:game_id => list.id}}, :method => :post, :class => "ss_sprite ss_folder_add "  %>
+			<% end %>
 			
 		</div>
 	<% end %>

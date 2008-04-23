@@ -1,58 +1,67 @@
 <fieldset>
 	<legend>Le plus important</legend>
 	<div>
-	<%= f.text_field :name, :text => "Nom" , :size => 50, :class => "title" %>
-  	<%= f.text_area :description, :rows => 5, :cols => 71, :text => "Une petite description" %>
-  	<%= render :partial => "tags/new", :object => @game.tag_list %>
+	  <p><%= f.label :name, "Nom du jeu" %><br />
+	  <%= f.text_field :name, :size => 50, :class => "title" %></p>
+	  <p><%= f.label :description, "Une petite description" %><br />
+	  <%= f.text_area :description, :rows => 5, :cols => 71 %></p>
+  	<% fields_for :tag, @game  do |ff| %>
+  	  <%= render :partial => "tags/new", :locals => {:f => ff} %>
+  	<% end %>
   	<% fields_for :game_photo do |g| %>		
-  		<p>
-  			<div class="form-image left">
-  				<%= image_tag(@game.image.public_filename, :size =>"86x86", :class => "box") if @game.image %>
-  			</div>
-  			<%= g.label_for :uploaded_data, :text => "Une image de la boite ?" %><br />
-  			<%= g.file_field :uploaded_data %>		
+  		<div class="column">
+  		  <%= image_tag(@game.image.public_filename, :size =>"60x60") if @game.image %>
+  		</div>
+      <div class="column last">
   			<% if @game.image %>
-  				Effacer l'image <%= check_box_tag 'delete_image' %>
+  				<%= g.label :delete, "Supprimer l'image actuel" %>
+  				<%= g.check_box :delete %>
   			<% end %>
-  		</p>
+  			<p class="<%= @game.image ? "hide" : "" %>">
+  			  <%= g.label :uploaded_data, "Une image de la boite ?" %><br />
+    			<%= g.file_field :uploaded_data %>
+  			</p>
+      </div>
   	<% end %>
 	</div>
-
 </fieldset>
 <fieldset>
 	<legend>Le coin technique</legend>
 	<div>
-	 	<%= f.text_field :min_player, :size => 2, :text => "Nombre mini de joueurs " %>
-	  	<%= f.text_field :max_player, :size => 2, :text => "Nombre maxi de joueurs " %>
-	  	<%= f.text_field :difficulty, :size => 4, :text => "Niveau de difficulte (1 a 5 )" %>
-	  	<%= f.text_field :time_average, :text => "Temps moyen d'une partie :" %>
-	</div>
-</fieldset>
-<fieldset>
-	<legend>Information Complementaires</legend>
-	<div>
-	    <%= f.text_field :average, :size => 4,  :text => "Moyenne TricTrac"%>
-  	    <%= f.text_field :url, :text => "Url de la fiche sur TricTrac" , :class => "text" %>
+	 	  <p><%= f.label :min_player, "De " %><%= f.text_field :min_player, :size => 2 %>
+	 	  &nbsp;<%= f.label :max_player, "A " %><%= f.text_field :max_player, :size => 2 %>
+	 	  &nbsp;joueurs</p>
+	 	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.text_field :difficulty, :size => 4 %></p>
+	  	<p><%= f.label "Dur&eacute;e " %><%= f.text_field :time_average, :size => 10 %></p>
+	  	<p><%= f.label :editor, "Editeur " %><%= f.text_field :editor %></p>
+	  	<p><%= f.label :publish_year, "Ann&eacute;e de sortie " %><%= f.text_field :publish_year, :size => 4 %></p>
 	</div>
 </fieldset>
 
 <fieldset>
-  <legend>Le reste</legend>
+  <legend>Les auteurs</legend>
   <div>
-    <%= f.text_field :publish_year, :size => 4, :text => "Année de sortie" %>
-    <%= f.label_for :author, :text => "Auteurs"  %><br />
     <span class="tips">Sous la forme "nom-prenom"  1 par ligne ",".</span>
-	<div id="authors">
-		<% @authors.each_with_index do |a, index| %>
-	  	  <div class = "author" id="author_<%= index %>">
-	  	  	<% fields_for "authors[#{index}]", a do |fs| %>
-	  			<%= fs.text_field :display_name, :id => "author_#{index}_display_name", :class => "author_display_name text" %>
-				<%= content_tag :span,  "add", :class => "add link" %> | <%= content_tag :span, "del", :class => "del link" %>
-	  	  	<% end %>
-	  	  </div>
-	      <div class="auto_complete" id="authors_lookup_auto_complete"></div> 
-	  	<% end %>		
-	</div>
-    <%= f.text_field :editor, :text => "Editeur", :class => "text" %>
+	  <ul id="authors">
+  		<% @authors.each_with_index do |author, index| %>
+  	  	  <li>
+  	  	  	<% fields_for :authors, author do |ffa| %>
+  	  			  <%= ffa.text_field :display_name, :index => index, :class => "author_display_name text" %>
+  				    <%= content_tag :span,  "add", :class => "add link" %> | <%= content_tag :span, "del", :class => "del link" %>
+  	  	      <div class="auto_complete" id="authors_lookup_auto_complete"></div> 
+  	  	    <% end %>
+  	  	  </li>
+  	  	<% end %>		
+  	</ul>
   </div>
+</fieldset>
+
+<fieldset>
+	<legend>Information Complementaires</legend>
+	<div>
+	  <p><%= f.label :average, "Moyenne TricTrac " %>
+	  <%= f.text_field :average, :size => 4  %></p>
+	  <p><%= f.label :url, "Url de la fiche sur TricTrac" %>
+	  <%= f.text_field :url %></p>  
+	</div>
 </fieldset>

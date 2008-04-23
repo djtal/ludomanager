@@ -5,7 +5,7 @@
 
 <h3>Edition de <%= @game.name %></h3>
 
-<% labeled_form_for(:game, :url => game_path(@game), :html => { :method => :put, :multipart => true, :id => "game-form" }) do |f| %>
+<% form_for(@game, :url => game_path(@game), :html => { :method => :put, :multipart => true, :id => "game_form"}) do |f| %>
 	<%= render :partial => 'form', :locals => {:f => f} %>
   <div class="buttons clear">
     <div class="right ">

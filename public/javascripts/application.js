@@ -474,7 +474,7 @@ Calendar = {
 document.observe("dom:loaded", function() {
   PartyFilter.loadObservers();
   new PlayForm("play-form");
-  new GameForm("game-form");
+  new GameForm("game_form");
   ls = new LudoSearch("ludo-search");
   new GameList();
   Sidebar.load();
