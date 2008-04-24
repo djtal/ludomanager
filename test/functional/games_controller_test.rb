@@ -38,4 +38,28 @@ class GamesControllerTest < Test::Unit::TestCase
     assert_redirected_to login_path
   end
   
+  def test_create_register_authors
+    form = {
+      "game"=>{"name"=>"6 qui prend", "time_average"=>"30min", "publish_year"=>"", "url"=>"", "description"=>"Soyez malin et choissiez la valuer de votre carte mais garre a celles choisi par vos adeversaire.\r\nAyez le moins de tete de betail possible a la fin de chaque manche pour remportez la victoire.", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
+      "authors"=>{"0"=>{"display_name"=>"Wolfgang - Kramer"}, "1"=>{"display_name"=>""}, "2"=>{"display_name"=>""}}
+    }
+    login_as(:quentin)
+    post :create, form
+    assert_response :redirect
+    assert_not_nil(assigns(:game), "Cannot find @game")
+    assert_equal(assigns(:game).authors.size, 1 )
+  end
+  
+  def test_create_should_tag_game
+    form = {
+      "game"=>{"name"=>"6 qui prend", "time_average"=>"30min", "publish_year"=>"", "url"=>"", "description"=>"Soyez malin et choissiez la valuer de votre carte mais garre a celles choisi par vos adeversaire.\r\nAyez le moins de tete de betail possible a la fin de chaque manche pour remportez la victoire.", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
+      "tag"=>{"tag_list"=>"cartes,calcul,hasard"}
+    }
+    login_as(:quentin)
+    post :create, form
+    assert_response :redirect
+    assert_not_nil(assigns(:game), "Cannot find @game")
+    assert_equal(assigns(:game).tags.size, 3)
+  end
+  
 end

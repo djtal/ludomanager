@@ -62,12 +62,12 @@ class GamesController < ApplicationController
   # POST /games.xml
   def create
     @game = Game.new(params[:game])
-    @game.tag_with params[:tag] if params[:tag]
     respond_to do |format|
       if @game.save
-        add_game_authors!
+        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully created.'
         save_box_thumbnail!
+        add_game_authors!
         format.html { redirect_to game_path(@game) }
         format.xml  { head :created, :location => game_path(@game) }
       else
@@ -125,8 +125,8 @@ class GamesController < ApplicationController
   end
   
   def add_game_authors!
-    @game.authors.destroy_all
     if params[:authors]
+      @game.authors.destroy_all
       params[:authors].each do |key, value|
         a = Author.find_or_create_from_str(value[:display_name])
         @game.authors << a if a && !@game.authors.include?(a)
@@ -135,12 +135,13 @@ class GamesController < ApplicationController
   end
   
   def save_box_thumbnail!
-    @game.image.destroy if params[:delete_image]
-    unless params[:game_photo][:uploaded_data].blank?
-      @game.image.destroy if @game.image
-      box = GamePhoto.create! params[:game_photo]
-      @game.image =  box
-      @game.save
+    if params[:game_photo]
+      @game.image.destroy if params[:game_photo][:delete]
+      unless params[:game_photo][:uploaded_data].blank?
+        @game.image.destroy if @game.image
+        box = GamePhoto.create params[:game_photo]
+        @game.image = box
+      end
     end
   end
 end
