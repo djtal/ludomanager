@@ -14,6 +14,7 @@ module ApplicationHelper
   end
   
   def account_have_game?(game)
+    return @account_games.include?(game) if @account_games
     current_account.account_games.find_by_game_id(game.id)
   end
   
