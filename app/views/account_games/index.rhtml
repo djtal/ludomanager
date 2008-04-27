@@ -2,31 +2,16 @@
 
 <div class="widget clear">
 	<h4>
-		<span class="right"><%= pluralize @no_play.size, "Jeu", "Jeux" %></span>
-		Les jeux jamais joués
+		<span class="right"><%= pluralize @account_games.size, "Jeu", "Jeux" %></span>
+		Vos Jeux
 	</h4>
-	<%= render_games @no_play, :mode => :overview %>
-</div>
-<hr />
-<div class="widget clear">
-	<h4>
-		<span class="right"><%= pluralize @other.size, "Jeu", "Jeux" %></span>
-		Les autres
-	</h4>
-	<%= render_games @other, :mode => :overview %>
+	<%= render_games @account_games, :mode => :overview %>
 </div>
 
-<% content_for :my_teamscore do %>
-	Vous possedez actuelement <em><%=  pluralize(@account_games.size, "jeu", "jeux") %></em> dans votre <em>ludotheque</em> dont <em><%= pluralize @no_play.size, "Jeu", "Jeux" %></em> jamais joués.
-  <ul>
-  	<li><span class="ss_sprite status ss_star"></span> : Acquis il y a moins de 3 mois</li>
-	<li><span class="ss_sprite ss_shield"></span> : Ce jeu est platique</li>
-  </ul>
-  
-<% end %>
+
 
 <% content_for :newsbox do %>
-	<%= render_widget "last",  "Vos dernier achats" %>
+
 <% end %>
 
 <% content_for :subnav do %>

@@ -6,24 +6,7 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-    @account_games = current_account.account_games.find(:all, :include => {:game => :image}, :order => "account_games.created_at DESC")
-    played_games = current_account.parties.map{|p| p.game_id}.uniq
-    @last_buyed = @account_games.first(5)
-    @month, @other, @no_play = [], [], []
-    now = Time.now
-    @account_games.each do |a|
-      if (a.transdate.month == now.month && a.transdate.year == now.year)
-        @month << a
-      end
-      if !played_games.include?(a.game.id)
-        @no_play << a
-      else
-        @other << a
-      end
-      @month = @month.sort_by{|a| a.game.name}
-      @no_play = @no_play.sort_by{|a| a.game.name}
-      @other = @other.sort_by{|a| a.game.name}
-    end
+    @account_games = current_account.account_games.find(:all, :include => {:game => :image}, :order => "games.name ASC")
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @account_games.to_xml }
