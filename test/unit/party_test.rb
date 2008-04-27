@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 context "Party Creation" do
-  fixtures :parties, :games, :accounts
+  fixtures :all
   
   specify "game should be mandatory" do
     assert_invalid clean_party, :game_id, nil
@@ -14,7 +14,7 @@ context "Party Creation" do
   
   specify "have an mandatory account" do
     assert_invalid clean_party, :account_id, nil
-    assert_equal accounts(:aaron), parties(:first).account
+    assert_equal accounts(:aaron).id, parties(:second).account_id
   end
   
   
@@ -22,7 +22,7 @@ context "Party Creation" do
   
   def clean_party(overrides = {})
     opts = {
-      :game_id => 1,
+      :game_id => games(:coloreto).id,
       :account_id => accounts(:quentin).id
     }.merge(overrides)
     Party.new(opts)

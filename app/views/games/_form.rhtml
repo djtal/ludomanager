@@ -47,7 +47,6 @@
   	  	  <li>
   	  	  	<% fields_for :authors, author do |ffa| %>
   	  			  <%= ffa.text_field :display_name, :index => index, :class => "author_display_name text" %>
-  				    <%= content_tag :span,  "add", :class => "add link" %> | <%= content_tag :span, "del", :class => "del link" %>
   	  	      <div class="auto_complete" id="authors_lookup_auto_complete"></div> 
   	  	    <% end %>
   	  	  </li>

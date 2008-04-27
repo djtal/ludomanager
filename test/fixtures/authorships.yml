@@ -10,15 +10,12 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
-  id: 1
-  author_id: 1
-  game_id: 1
+  author: kinizia
+  game: coloreto
 two:
-  id: 2
-  author_id: 2
-  game_id: 1
+  author: kramer
+  game: coloreto
   
 three:
-  id: 3
-  author_id: 3
-  game_id: 1
+  author: fraga
+  game: coloreto

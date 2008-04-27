@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 context "Game" do
-  fixtures :games, :parties, :accounts, :authors, :account_games, :authorships
+  fixtures :all
   specify "should have a title" do
     assert_invalid clean_game(), :name, nil, ""
   end
@@ -60,8 +60,7 @@ context "Game" do
   
   specify "can have  authors" do
     assert clean_game.respond_to?(:authors)
-    assert_equal 3, games(:coloreto).authors.count
-    assert games(:coloreto).authors.include?(authors(:kinizia))
+    assert games(:coloreto).authors.find(:all).include?(authors(:kinizia))
   end
   
   specify "must delete authorship if destroyed" do

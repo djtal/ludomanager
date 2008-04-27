@@ -10,15 +10,12 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 kinizia:
-  id: 1
   name: Kinizia
   surname: Reiner
 kramer:
-  id: 2
   name: Kramer
   surname: Wolfgang
   
 fraga:
-  id: 3
   name: Fraga
   surname: Roberto

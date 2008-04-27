@@ -6,7 +6,7 @@ class AccountGamesController; def rescue_action(e) raise e end; end
 
 
 context "Logged User can have a list of games" do
-  fixtures :account_games, :accounts, :games
+  fixtures :all
 
   def setup
     @controller = AccountGamesController.new
@@ -35,7 +35,7 @@ context "Logged User can have a list of games" do
   
   specify "can delete a game from his list" do
     assert_difference "AccountGame.count", -1 do
-      delete :destroy, :id => 1
+      delete :destroy, :id => account_games(:one).id
     end
     assert_redirected_to account_games_path
   end

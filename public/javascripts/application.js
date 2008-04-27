@@ -214,63 +214,25 @@ PartyForm.addMethods({
 var GameForm = Class.create();
 GameForm.addMethods({
   initialize: function(form){
-    if (!$(form))
-    return;
+    if (!$(form)) return;
     this.form = $(form);
-    this.authors = this.form.select("#authors").reduce();
     new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
     new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
-    this.bindUI();
   },
 
   loadTags: function(response){
     this.tags = response.responseJSON;
-    new Autocompleter.Local('tag', 'tags_lookup_auto_complete', this.tags, 
+    new Autocompleter.Local('tag_tag_list', 'tags_lookup_auto_complete', this.tags, 
     {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
   },
 
   loadAuthor: function(response){
     this.authorsName = response.responseJSON;
-    this.authors.select("input[type=text]").each(function(input){
+    this.form.select("#authors input[type=text]").each(function(input){
       new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
       {fullSearch: true, frequency: 0, minChars: 1});  
     }.bind(this));  
   },
-
-  bindUI: function(){
-    this.form.select("legend").each(function(elt){
-      if ($(elt))
-      $(elt).observe("click", this.hideContent.bindAsEventListener(this));
-    }.bind(this));
-    this.form.select("#authors .del").each(function(a){
-      a.observe("click", this.removeAuthor.bindAsEventListener(this));
-    }.bind(this));
-    this.form.select("#authors .add").each(function(a){
-      a.observe("click", this.addAuthor.bindAsEventListener(this));
-    }.bind(this));
-  },
-
-
-  hideContent: function(ev){
-    ev.element().next("div").toggle();
-  },
-
-  addAuthor: function(ev){
-    elt = new Element("div", {"class": "author"})
-    elt.insert(new Element("input", {"type": "text", "size": 30}))
-    add = new Element("span", {"class": "link add"})
-    add.observe("click", this.addAuthor.bindAsEventListener(this))
-    elt.insert(add.insert("add"))
-    elt.insert(" | ")
-    del = new Element("span", {"class": "link del"});
-    del.observe("click", this.removeAuthor.bindAsEventListener(this))
-    elt.insert(del.insert("del"))
-    this.authors.insert(elt);
-  },
-
-  removeAuthor: function(ev){
-    ev.element().up().hide();
-  }
 });
 
 

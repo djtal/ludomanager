@@ -72,7 +72,11 @@ class GamesController < ApplicationController
         format.html { redirect_to game_path(@game) }
         format.xml  { head :created, :location => game_path(@game) }
       else
-        format.html { render :action => "new" }
+        format.html do
+          @authors = []
+          3.times{@authors << Author.new}
+          render :action => "new"
+        end
         format.xml  { render :xml => @game.errors.to_xml }
       end
     end
@@ -82,9 +86,9 @@ class GamesController < ApplicationController
   # PUT /games/1.xml
   def update
     @game = Game.find(params[:id])
-    @game.tag_with params[:tag] if params[:tag]
     respond_to do |format|
       if @game.update_attributes(params[:game])
+        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully updated.'
         save_box_thumbnail!
         add_game_authors!
@@ -137,7 +141,7 @@ class GamesController < ApplicationController
   
   def save_box_thumbnail!
     if params[:game_photo]
-      @game.image.destroy if params[:game_photo][:delete]
+      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo][:delete] == 1
       unless params[:game_photo][:uploaded_data].blank?
         @game.image.destroy if @game.image
         box = GamePhoto.create params[:game_photo]

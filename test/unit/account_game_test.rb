@@ -28,7 +28,7 @@ class AccountGameTest < Test::Unit::TestCase
   def clean_game_account(overrides = {})
     opts = {
       :account_id => 1,
-      :game_id => 1,
+      :game_id => games(:coloreto).id,
       :price => 10,
       :origin => "a shop somewhere"
     }.merge(overrides)
