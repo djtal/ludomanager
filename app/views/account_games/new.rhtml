@@ -1,6 +1,6 @@
 <h3>Ajoutez un jeu a votre ludotheque...</h3>
 
-<% form_for(:account_game, :url => account_games_path) do |f| %>
+<% form_for(@account_game, :url => account_games_path, :html => {:id => "account_game_form"}) do |f| %>
   <%= error_messages_for :account_game %>
   <%= render :partial => "form", :locals => {:f => f} %>
   <%= submit_or_back_to games_path, "Retour sur la liste des jeux" %>

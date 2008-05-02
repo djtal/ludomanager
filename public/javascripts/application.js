@@ -36,36 +36,11 @@ DOM = {
   }
 };
 
+
 // Add them to the element mixin
 Element.addMethods(DOM);
 
-var SearchForm = {
-  reset: function() {
-    Form.reset('search')
-    $('search-results').innerHTML = "";
-  },
 
-  search: function(){
-    new Ajax.Request('/games/search', {asynchronous:true, evalScripts:true, parameters:Form.serialize($("search-form"))});
-    return false;
-  }
-
-}
-
-var PlayForm = Class.create();
-PlayForm.addMethods({
-  initialize: function(elt){
-    this.form = $(elt)
-    if (!this.form)
-    return
-    new Form.Observer(this.form, 1, this.onFieldChange.bindAsEventListener(this));
-  },
-
-  onFieldChange: function(){
-    new Ajax.Request('/games/play', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this.form)});
-    return false;
-  }
-})
 var BShow = Behavior.create({
   onmouseover : function() { this.element.select('.function').reduce().show();},
   onmouseout : function() { this.element.select('.function').reduce().hide();}
@@ -234,6 +209,16 @@ GameForm.addMethods({
     }.bind(this));  
   },
 });
+
+var AccountGameForm = Class.create()
+AccountGameForm.addMethods({
+  initialize: function(form){
+    if (!$(form)) return;
+    this.form = $(form)
+    this.transdatePicker = new Control.DatePicker("account_game_transdate", {locale: 'fr'});
+    
+  }
+})
 
 
 
@@ -435,8 +420,8 @@ Calendar = {
 
 document.observe("dom:loaded", function() {
   PartyFilter.loadObservers();
-  new PlayForm("play-form");
   new GameForm("game_form");
+  new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
   new GameList();
   Sidebar.load();
