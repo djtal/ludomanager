@@ -18,14 +18,12 @@ class AccountGamesController < ApplicationController
     render :action => :all, :layout => "simple"
   end
   
-  def cover
-    ag = current_account.account_games.find(:all, :include => {:game => :image}, :order => "games.name ASC")
-    @pager = ::Paginator.new(ag.size, 50) do |offset, per_page|
-      ag[offset, per_page]
+  def missing
+    account_game = current_account.account_games.find(:all, :select => :game_id)
+    @missing = Game.find(:all, :select => "id, name", :conditions => ["(id NOT IN (?))", account_game.map(&:game_id)])
+    respond_to do |format|
+      format.json{ render :json => @missing.to_json(:only => [:id, :name])}
     end
-    @page = @pager.page(params[:page])
-    @ag = @page.items
-    render :action => :cover, :layout => "simple"
   end
   
   def import

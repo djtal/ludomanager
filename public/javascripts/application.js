@@ -216,7 +216,20 @@ AccountGameForm.addMethods({
     if (!$(form)) return;
     this.form = $(form)
     this.transdatePicker = new Control.DatePicker("account_game_transdate", {locale: 'fr'});
-    
+    new Ajax.Request("/account_games/missing.json", {method: "get", onSuccess: this.loadMissingGames.bind(this)});
+  },
+  
+  loadMissingGames: function(response){
+     this.missing = response.responseJSON.inject($H(), function(acc, game){
+        acc.set(game.name, game.id);
+        return acc;
+      });
+    new Autocompleter.Local("account_game_game_name", 'account_game_game_name_lookup', this.missing.keys(), 
+    {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updategameId.bind(this)}); 
+  },
+  
+  updategameId: function(elt){
+    $("account_game_game_id").value = this.missing.get($F(elt));
   }
 })
 

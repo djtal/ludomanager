@@ -1,7 +1,9 @@
 <fieldset>
   <legend>Votre Jeu</legend>
-  <p><%= label_tag :account_game_game_id, "Nom du jeu" %><br />
-  <%= f.collection_select :game_id, @games, :id, :name %></p>
+  <p><%= label_tag :account_game_game_name, "Nom du jeu" %><br />
+  <%= text_field_tag :account_game_game_name, "", :size => 50 %></p>
+  <div id="account_game_game_name_lookup" class="auto_complete"></div>
+  <%= f.hidden_field :game_id %>
   <p><%= label_tag :account_game_origin, "Origine"  %><br />
   <%= f.text_field :origin, :size => 50 %></p>
   <p><%= label_tag :account_game_price, "Prix d'achat" %><br />
