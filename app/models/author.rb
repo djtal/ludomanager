@@ -8,6 +8,16 @@
 #  surname :string(255)   
 #
 
+# == Schema Information
+# Schema version: 29
+#
+# Table name: authors
+#
+#  id      :integer       not null, primary key
+#  name    :string(255)   
+#  surname :string(255)   
+#
+
 class Author < ActiveRecord::Base
   validates_presence_of :name, :on => :create, :message => "can't be blank"
   has_many :authorship

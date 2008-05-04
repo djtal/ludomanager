@@ -3,15 +3,18 @@
 #
 # Table name: account_games
 #
-#  id         :integer       not null, primary key
-#  game_id    :integer       
-#  account_id :integer       
-#  created_at :datetime      
-#  origin     :text          
-#  price      :float         
-#  transdate  :datetime      
-#  shield     :boolean       
+#  id            :integer       not null, primary key
+#  game_id       :integer       
+#  account_id    :integer       
+#  created_at    :datetime      
+#  origin        :text          
+#  price         :float         
+#  transdate     :datetime      
+#  shield        :boolean       
+#  parties_count :integer       default(0)
 #
+
+
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
@@ -19,3 +22,4 @@ one:
   account: quentin
   transdate: <%= Time.now.to_s(:db)  %>
   created_at: <%= Time.now.to_s(:db)  %>
+  parties_count: 0

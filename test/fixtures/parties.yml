@@ -9,6 +9,17 @@
 #  account_id :integer       
 #
 
+# == Schema Information
+# Schema version: 29
+#
+# Table name: parties
+#
+#  id         :integer       not null, primary key
+#  game_id    :integer       
+#  created_at :datetime      
+#  account_id :integer       
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first:
   account: aaron

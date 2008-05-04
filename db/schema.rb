@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 29) do
     t.float    "price"
     t.datetime "transdate"
     t.boolean  "shield"
+    t.integer  "parties_count", :default => 0
   end
 
   create_table "accounts", :force => true do |t|

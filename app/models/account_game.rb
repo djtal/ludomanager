@@ -3,14 +3,15 @@
 #
 # Table name: account_games
 #
-#  id         :integer       not null, primary key
-#  game_id    :integer       
-#  account_id :integer       
-#  created_at :datetime      
-#  origin     :text          
-#  price      :float         
-#  transdate  :datetime      
-#  shield     :boolean       
+#  id            :integer       not null, primary key
+#  game_id       :integer       
+#  account_id    :integer       
+#  created_at    :datetime      
+#  origin        :text          
+#  price         :float         
+#  transdate     :datetime      
+#  shield        :boolean       
+#  parties_count :integer       default(0)
 #
 
 class AccountGame < ActiveRecord::Base
@@ -52,9 +53,6 @@ class AccountGame < ActiveRecord::Base
     game.image
   end
   
-  def parties_count
-    account.parties.find(:all, :conditions => {:game_id => game_id}).size
-  end
   
   def recenty_acquired?
     return self.transdate > 3.month.ago
