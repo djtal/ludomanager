@@ -50,8 +50,13 @@ class AccountGamesController < ApplicationController
     if !params[:search][:difficulty].blank?
       criterion["games.difficulty <= ?"] = params[:search][:difficulty]
     end
+    if !params[:search][:parties].blank?
+       criterion["account_games.parties_count <= ?"] = params[:search][:parties]
+    end
     opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
+    
     @ag = current_account.account_games.find(:all, opts)
+    #filter for tags
     if !@tag_list.empty?
       @ag = @ag.select do |ag|
          found = ag.game.tags.inject(0){|acc, tag| acc + (@tag_list.include?(tag.name) ? 1 : 0)}

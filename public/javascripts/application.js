@@ -342,11 +342,8 @@ LudoSearch.addMethods({
     this.tagField = $("search_tags");
     this.searchedTags = [];
     this.results = $("search-results")
-    $("search_player").setAttribute('autocomplete','off');
-    $("search_difficulty").setAttribute('autocomplete','off');
     new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
     this.loadObservers();
-    this.makeTagsClickable();
   },
 
 
@@ -358,12 +355,14 @@ LudoSearch.addMethods({
   },
 
   loadObservers: function(){
-    new Field.Observer("search_player", 0.3, this.formChange.bindAsEventListener(this));
-    new Field.Observer("search_difficulty", 0.3, this.formChange.bindAsEventListener(this));
-    new Field.Observer("search_tags_mode_or", 0.3, this.formChange.bindAsEventListener(this));
-    new Field.Observer("search_tags_mode_and", 0.3, this.formChange.bindAsEventListener(this));
+    this.form.select(".trigger").each(function(field){
+      new Form.Element.Observer(field, 0.3, this.formChange.bindAsEventListener(this));
+      field.setAttribute('autocomplete','off');
+    }.bind(this));
+    
+    this.results.observe("click", this.tagClicked.bind(this))
     if ($("reset"))
-    $("reset").observe("click", this.reset.bindAsEventListener(this));  
+      $("reset").observe("click", this.reset.bindAsEventListener(this));  
   },
 
   reset: function(){
@@ -373,6 +372,7 @@ LudoSearch.addMethods({
     this.formChange(null);
   },
 
+  //trigered by autocomplter update action
   search: function(input, elt){
     this.searchedTags.push(elt.innerHTML.stripTags());
     this.formChange(null);
@@ -383,27 +383,21 @@ LudoSearch.addMethods({
     return false;
   },
 
-  makeTagsClickable: function(){
-    this.results.select("ul.tags li").each(function(elt){
-      elt.observe("click", this.tagClicked.bindAsEventListener(this));
-    }.bind(this));
-    this.highlightSelectedTags();
-  },
-
   tagClicked: function(ev){
-    li = ev.element();
+    li = ev.findElement("li.tag")
+    if (!li) return;
+    ev.stop();
+    //tag not in query
     if (!this.searchedTags.include(li.innerHTML)) {
       this.searchedTags.push(li.innerHTML);
       if (this.tagField.getValue().empty())
-      val = li.innerHTML
+        val = li.innerHTML
       else
-      val = this.tagField.getValue() + ", " + li.innerHTML
+        val = this.tagField.getValue() + ", " + li.innerHTML
       this.tagField.setValue(val);
-      li.addClassName("selected");
-    } else {
+    } else { //tag in query
       this.searchedTags = this.searchedTags.without(li.innerHTML);
       this.tagField.setValue(this.tagField.getValue().gsub(",*\\s*" + li.innerHTML, ""));
-      li.removeClassName("selected");
     }
     this.formChange(null);
   },
