@@ -38,32 +38,7 @@ class AccountGamesController < ApplicationController
   end
   
   def search
-    opts = {
-      :include => {:game => :tags}
-    }
-    @tag_list = Tag.parse(params[:search][:tags])
-    criterion = {}
-    if !params[:search][:player].blank?
-      criterion["games.min_player <= ?"] = params[:search][:player]
-      criterion["games.max_player >= ?"] = params[:search][:player]
-    end
-    if !params[:search][:difficulty].blank?
-      criterion["games.difficulty <= ?"] = params[:search][:difficulty]
-    end
-    if !params[:search][:parties].blank?
-       criterion["account_games.parties_count <= ?"] = params[:search][:parties]
-    end
-    opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
-    
-    @ag = current_account.account_games.find(:all, opts)
-    #filter for tags
-    if !@tag_list.empty?
-      @ag = @ag.select do |ag|
-         found = ag.game.tags.inject(0){|acc, tag| acc + (@tag_list.include?(tag.name) ? 1 : 0)}
-         params[:search][:tags_mode] == "and" ? found == @tag_list.size : found > 0
-      end
-    end
-    @ag  = @ag.sort_by{|a| a.game.name}
+    @ag = current_account.account_games.search(params)
     respond_to do |format|
       format.js
       format.html {render :action => :all, :layout => "simple"}

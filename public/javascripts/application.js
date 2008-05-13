@@ -379,7 +379,7 @@ LudoSearch.addMethods({
   },
 
   formChange: function(ev){
-    new Ajax.Request(this.form.action, {asynchronous:true, evalScripts:true, parameters:Form.serialize(this.form)});
+    this.form.request();
     return false;
   },
 
@@ -442,9 +442,4 @@ document.observe("dom:loaded", function() {
   $$(".bzoom").each(function(elt){
     BZoomOn.attach(elt);
   });
-  
-  if ($("protoflow"))
-  cf = new ProtoFlow("protoflow", {useCaptions: true, useReflection: true, afterSlide: function(elt){console.log(elt);}});
-
-
 })
