@@ -410,6 +410,26 @@ LudoSearch.addMethods({
 
 });
 
+var SmartListForm = Class.create({
+  initialize: function(){
+    if(!$("smart_list_form")) return;
+    if(!$("ludo-search")) return;
+    this.form = $("smart_list_form")
+    this.query_form = $("ludo-search")
+    this.loadObservers()
+  }, 
+  
+  loadObservers: function(){
+    this.form.observe("submit", this.submit.bind(this));
+  },
+  
+  submit: function(ev){
+    ev.stop();
+    query = this.query_form.serialize(true)
+    this.form.request({parameters: query})
+  }
+})
+
 
 Calendar = {
   cells: $A(),

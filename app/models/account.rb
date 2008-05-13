@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 29
+# Schema version: 30
 #
 # Table name: accounts
 #
@@ -50,6 +50,7 @@ class Account < ActiveRecord::Base
   end
   
   has_many :games, :through => :account_games
+  has_many :smart_lists
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)

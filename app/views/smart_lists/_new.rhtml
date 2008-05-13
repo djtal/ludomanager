@@ -1,0 +1,6 @@
+<% form_for :smart_list, :url => smart_lists_path, :method => :post, :html => {:id => "smart_list_form"}  do |f| %>
+  <p><%= f.label :name, "Nom" %><br \>
+  <%= f.text_field :name %></p>
+  
+  <%= f.submit "Enregistrer" %>
+<% end %>

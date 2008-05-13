@@ -6,8 +6,8 @@
 <h2>Recherche Rapide<%= image_tag("loader-mini.gif", :class => "right", :id => "loader", :style => "display :none;") %></h2>
 <p>
 	<% form_remote_for "search", :url => search_games_path, :html => {:id => "search"} do |f| %>
-		<%= label_tag 'search_type', "par titre" %><%= f.radio_button "type", "title" %>
-		<%= label_tag 'search_type', "par tag" %><%= f.radio_button "type", "tags" %>
+		<%= f.label 'search_type', "par titre" %><%= f.radio_button "type", "title" %>
+		<%= f.label 'search_type', "par tag" %><%= f.radio_button "type", "tags" %>
 		<%= f.text_field :q, :size => "20" %>
 		<%= submit_tag(image_tag("search.gif")) %> ou
 		<%= link_to_function("x", "SearchForm.reset()") %>
