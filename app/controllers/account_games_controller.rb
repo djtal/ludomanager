@@ -7,6 +7,7 @@ class AccountGamesController < ApplicationController
   # GET /account_games.xml
   def index
     @account_games = current_account.account_games.find(:all, :include => {:game => :image}, :order => "games.name ASC")
+    @smart_lists = current_account.smart_lists
     respond_to do |format|
       format.html # index.rhtml
       format.xml  { render :xml => @account_games.to_xml }
@@ -14,7 +15,7 @@ class AccountGamesController < ApplicationController
   end
   
   def all
-    @ag = current_account.account_games.find(:all, :include => {:game => :tags}, :order => "games.name ASC")
+    @ag = current_account.account_games.search(params)
     render :action => :all, :layout => "simple"
   end
   
@@ -40,8 +41,8 @@ class AccountGamesController < ApplicationController
   def search
     @ag = current_account.account_games.search(params)
     respond_to do |format|
-      format.js
       format.html {render :action => :all, :layout => "simple"}
+      format.js
     end
   end
   

@@ -22,27 +22,28 @@ class AccountGame < ActiveRecord::Base
   before_create :setup_default
   
 
-  def self.search query
+  def self.search query = {}
     opts = {
       :include => {:game => :tags}
     }
-    @tag_list = Tag.parse(query[:search][:tags])
-    criterion = {}
-    if !query[:search][:player].blank?
-      criterion["games.min_player <= ?"] = query[:search][:player]
-      criterion["games.max_player >= ?"] = query[:search][:player]
+    if query[:search]
+      @tag_list = Tag.parse(query[:search][:tags]) if query[:search][:tags]
+      criterion = {}
+      if !query[:search][:player].blank?
+        criterion["games.min_player <= ?"] = query[:search][:player]
+        criterion["games.max_player >= ?"] = query[:search][:player]
+      end
+      if !query[:search][:difficulty].blank?
+        criterion["games.difficulty <= ?"] = query[:search][:difficulty]
+      end
+      if !query[:search][:parties].blank?
+         criterion["account_games.parties_count <= ?"] = query[:search][:parties]
+      end
+      opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
     end
-    if !query[:search][:difficulty].blank?
-      criterion["games.difficulty <= ?"] = query[:search][:difficulty]
-    end
-    if !query[:search][:parties].blank?
-       criterion["account_games.parties_count <= ?"] = query[:search][:parties]
-    end
-    opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
-    
     @ag = self.find(:all, opts)
     #filter for tags
-    if !@tag_list.empty?
+    if @tag_list && !@tag_list.empty?
       @ag = @ag.select do |ag|
          found = ag.game.tags.inject(0){|acc, tag| acc + (@tag_list.include?(tag.name) ? 1 : 0)}
          query[:search][:tags_mode] == "and" ? found == @tag_list.size : found > 0
