@@ -2,5 +2,11 @@
   <p><%= f.label :title, "Nom" %><br \>
   <%= f.text_field :title %></p>
   
-  <%= f.submit "Enregistrer" %>
+  <div class="buttons clear">
+    <div class="right">
+      <span class="link close">Fermer</span>&nbsp;ou&nbsp;
+      <%= f.submit "Sauvegarder" %>
+    </div>
+  </div>
+  
 <% end %>

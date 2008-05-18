@@ -421,6 +421,13 @@ var SmartListForm = Class.create({
   
   loadObservers: function(){
     this.form.observe("submit", this.submit.bind(this));
+    this.form.select("span.close").each(function(elt) {
+      elt.observe("click",this.hide.bind(this))
+    }.bind(this));
+  },
+  
+  hide: function(){
+    this.form.hide()
   },
   
   submit: function(ev){

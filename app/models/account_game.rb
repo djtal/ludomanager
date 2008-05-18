@@ -40,6 +40,8 @@ class AccountGame < ActiveRecord::Base
          criterion["account_games.parties_count <= ?"] = query[:search][:parties]
       end
       opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
+      
+      opts[:limit] = query[:search][:limit] if !query[:search][:limit].blank?
     end
     @ag = self.find(:all, opts)
     #filter for tags
