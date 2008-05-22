@@ -6,10 +6,17 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-    @account_games = current_account.account_games.find(:all, :include => {:game => :image}, :order => "games.name ASC")
+    query = {}
+    if params[:smart_list] && params[:smart_list][:id]
+      @smart_lists = current_account.smart_lists
+      smart = @smart_lists.find(params[:smart_list][:id]) 
+      query[:search] = smart.query
+    end
+    @account_games = current_account.account_games.search(query)
     @smart_lists = current_account.smart_lists
     respond_to do |format|
       format.html # index.rhtml
+      format.js
       format.xml  { render :xml => @account_games.to_xml }
     end
   end

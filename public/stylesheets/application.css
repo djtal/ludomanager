@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/application.css?1208982911 */
+
 /* @override http://localhost:3000/stylesheets/application.css?1204668042 */
 
 /* @override http://localhost:3000/stylesheets/application.css?1204150359 */
@@ -485,7 +487,28 @@ ul.function li{
 	float: left;
 }
 
-#protoflow img{
-   margin: 0;
-   padding:0; 
+
+#smart_list_form {
+	padding: 10px;
+	border: solid 2px #DCEAD7;
+	background-color: #E6F7D4;
 }
+
+
+
+#smart_list_form .close {
+	font-weight: bold;
+	font-style: italic;
+}
+
+#smart_list_form div.right {
+	background-color: white;
+	padding: 4px;
+	border: solid 1px #DCEAD7;
+}
+
+input#smart_list_title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
