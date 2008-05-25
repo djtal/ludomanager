@@ -1,7 +1,7 @@
 <% render(:layout => 'layouts/widget', :locals => {:title => "Vos lists"}) do %>
   <ul>
     <% @smart_lists.each do |s| %>
-      <li><%= link_to s.title, account_games_path(:smart_list => {:id => s.id}) %></li>
+      <li><%= link_to_remote s.title, :url => account_games_path(:smart_list => {:id => s.id}), :method => :get %></li>
     <% end %>
   </ul>
 <% end %>

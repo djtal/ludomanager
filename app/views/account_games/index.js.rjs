@@ -1,0 +1,1 @@
+page["account_games"].update(render_games @account_games, :mode => :overview, :id => "account_games")

@@ -1,12 +1,10 @@
 <h3>Votre ludotheque</h3>
 
-<div class="widget clear">
-	<h4>
-		<span class="right"><%= pluralize @account_games.size, "Jeu", "Jeux" %></span>
-		Vos Jeux
-	</h4>
-	<%= render_games @account_games, :mode => :overview %>
-</div>
+<h4>
+	<span class="right"><%= pluralize @account_games.size, "Jeu", "Jeux" %></span>
+	Vos Jeux
+</h4>
+<%= render_games @account_games, :mode => :overview, :id => "account_games" %>
 
 
 <% content_for :newsbox do %>
