@@ -51,6 +51,7 @@ class Account < ActiveRecord::Base
   
   has_many :games, :through => :account_games
   has_many :smart_lists
+  has_many :members, :dependent => :delete_all
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)

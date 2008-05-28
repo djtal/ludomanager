@@ -19,6 +19,7 @@
 			  <%= main_nav_section_for "Ma ludotheque", account_games_path, :account_games, :class => "left" %>
 				<%= main_nav_section_for "Mes parties", parties_path, :parties, :class => "left" %>
 				<%= main_nav_section_for "Mes List", smart_lists_path, :smart_lists, :class => "left" %>
+				<%= main_nav_section_for "Mes membres", members_path, :members, :class => "left" %>
 				<%= main_nav_section_for "Deconnexion : #{current_account.login.humanize}", logout_path, :logout, :class => "right" %>
 			<% else %>
 			  <%= main_nav_section_for "Connexion", login_path, :login, :class => "right" %>

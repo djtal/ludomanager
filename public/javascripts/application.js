@@ -43,12 +43,12 @@ Element.addMethods(DOM);
 
 var BShow = Behavior.create({
   initialize: function(){
-    this.element.down(".function");
     this.target = this.element.down(".function"); 
-    if (this.target) this.target.hide()
+    if (this.target) this.target.hide();
   },
   onmouseover : function() { if (this.target) this.target.show();},
   onmouseout : function() { if (this.target) this.target.hide();}
+
 });
 
 var BMore = Behavior.create({
@@ -450,6 +450,10 @@ document.observe("dom:loaded", function() {
   new GameForm("game_form");
   new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
+<<<<<<< HEAD:public/javascripts/application.js
+=======
+  new GameList();
+>>>>>>> Add basic member aministration:public/javascripts/application.js
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
   });
