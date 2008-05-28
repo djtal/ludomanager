@@ -42,6 +42,9 @@ Element.addMethods(DOM);
 
 
 var BShow = Behavior.create({
+  initialize: function(){
+    this.element.down(".function").hide();
+  },
   onmouseover : function() { this.element.select('.function').reduce().show();},
   onmouseout : function() { this.element.select('.function').reduce().hide();}
 });
@@ -458,6 +461,10 @@ document.observe("dom:loaded", function() {
   new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
   new GameList();
+  $$('.autohide').each(function(elt){
+    BShow.attach(elt)
+  });
+  
   Sidebar.load();
   Calendar.load();
   Game.loadStar();
