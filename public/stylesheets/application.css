@@ -480,6 +480,14 @@ tr img,
   width: 100%;
 }
 
+li.rowodd {
+	background-color: #FFF;
+}
+
+li.roweven {
+	background-color: #F2F2F2;
+}
+
 /* Specific Widget Styles */
 
 #zoom div.w-content img {

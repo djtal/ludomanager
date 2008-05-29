@@ -1,7 +1,7 @@
 <% if @most_played.size > 0 %>
-	<ul>
+	<ul class="strip">
 		<% @most_played.each do |game, count| %>
-			<li class="<%= cycle("even", "odd") %>">
+			<li>
 				<span class="right"><%= pluralize(count, "partie", "parties") %></span>
 				<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
 				<%= link_to game.name, game_path(game) %>
