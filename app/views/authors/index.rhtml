@@ -4,25 +4,26 @@
 
 <h3>Les auteurs</h3>
 
-<div class="widget clear">
-	<ul class="clear">
-	  <% @authors.each do |a| %>
-	    <li class="column span-17 last">
-			<div class="column span-15">
-				<%= link_to "#{a.name} #{a.surname}", author_path(a) %>
-			</div>
-			<div class="span-2 column last functions">
-				<%= link_to "", edit_author_path(a), :class => "ss_sprite ss_database_edit" %>
-	            <%= link_to "", author_path(a), :method => :delete,  :class => "ss_sprite ss_database_delete"  %>	
-			</div>
-	    </li>
-  <% end %>
-</ul>
-</div>
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-3">Nom</th>
+      <th class="span-3">Prenom</th>
+      <th class="span-11 no-sort"></th>
+      <th class="span-2">Administration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => @authors %>
+  </tbody>
+</table>
 
-
-<% content_for :my_teamscore do %>
-	<ul>
-		<li><%= link_to "Ajouter un auteur", new_author_path %></li>
-	</ul>
+<% content_for :newsbox do %>
+  <div id="placeholder-1">
+    <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
+      <ul>
+    		<li><%= link_to "Ajouter un auteur", new_author_path %></li>
+    	</ul>
+    <% end %>
+  </div>
 <% end %>

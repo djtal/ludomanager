@@ -1,7 +1,7 @@
 <fieldset>
   <legend>Les bases</legend>
-  <p><%= label_tag "author_name", "Nom :"  %><br />
-  <%= f.text_field :name %></p>
-  <p><%= label_tag "author_surname", "Prenom"  %><br />
-  <%= f.text_field :surname %></p>
+  <p><%= f.label :name, "Nom :" %><br />
+  <%= f.text_field :name, :class => "important" %></p>
+  <p><%= f.label :surname, "Prenom" %><br />
+  <%= f.text_field :surname, :class => "important" %></p>
 </fieldset>

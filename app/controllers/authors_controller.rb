@@ -74,6 +74,7 @@ class AuthorsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to authors_url }
+      format.js
       format.xml  { head :ok }
     end
   end
