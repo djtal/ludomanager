@@ -1,6 +1,26 @@
 <h3>Les Tags</h3>
-<ul>
-	<% @cloud.each do |t| %>
-		<li><%= link_to t[0], tag_games_path(t[0]) %> : <%= t[1] %></li>
-	<% end %>
-</ul>
+
+
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-3">Tag</th>
+      <th class="span-14 no-sort"></th>
+      <th class="span-3">Nombre jeux</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cloud.each do |t| %>
+      <tr>
+        <td><%= link_to t[0].humanize, tag_games_path(t[0]) %></td>
+        <td></td>
+        <td><%= t[1] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<% content_for :subnav do %>
+	<%= render :partial => "games/subnav" %>
+<% end %>
