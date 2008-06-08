@@ -13,7 +13,7 @@
 	<% if flash[:notice] %><div class="notice"><%= flash[:notice] %></div><% end %>
 	<div id="games">
 		<% if @games.size > 0 %>
-			<%= render :partial => 'list', :collection => @games %>
+			<%= render :partial => @games %>
 		<% else %>
 			Desolé. Aucun jeux ne corespond a vos criteres.
 		<% end %>
@@ -21,16 +21,8 @@
 	<%= yield :page_nav %>
 </div>
 
-<% content_for :my_teamscore do %>
-	<ul>
-		<li><%= link_to "Ajouter une fiche jeu", new_game_path %></li>
-		<li><%= link_to "Ajouter un auteur", new_author_path %></li>
-		<li><%= link_to "Allez a ma ludotheque", account_games_path %></li>
-	</ul>
-<% end %>
 
 <% content_for :newsbox do %>
-	
 	<%= render_widget "search",  "Recherche" %>
 <% end %>
 
