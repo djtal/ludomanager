@@ -15,7 +15,7 @@ class AuthorsController < ApplicationController
   # GET /authors/1.xml
   def show
     @author = Author.find(params[:id])
-    @games = @author.games.find(:all, :include => :image)
+    @games = @author.games.find(:all, :include => :image, :order => "publish_year ASC")
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @author.to_xml }

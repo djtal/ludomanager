@@ -131,7 +131,7 @@ class GamesController < ApplicationController
   
   def add_game_authors!
     if params[:authors]
-      @game.authors.destroy_all
+      @game.authorships.delete_all
       params[:authors].each do |key, value|
         a = Author.find_or_create_from_str(value[:display_name])
         @game.authors << a if a && !@game.authors.include?(a)

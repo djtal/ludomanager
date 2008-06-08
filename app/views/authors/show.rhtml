@@ -1,5 +1,9 @@
-<h3>Les jeux de <%= @author.display_name%></h3>
+<h3>Ludograhie de <%= @author.display_name%></h3>
 
+<p>
+  Il a publi&eacute; <%= pluralize(@games.size, "jeu", "jeux") %> entre <%= @games.first.publish_year %> et
+  <%= @games.last.publish_year %> 
+</p>
 <table class="sortable">
   <thead>
     <tr>

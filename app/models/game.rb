@@ -19,26 +19,6 @@
 #  average      :float         default(0.0)
 #
 
-# == Schema Information
-# Schema version: 29
-#
-# Table name: games
-#
-#  id           :integer       not null, primary key
-#  name         :string(255)   
-#  description  :text          
-#  difficulty   :integer       default(1)
-#  min_player   :integer       default(1)
-#  max_player   :integer       
-#  price        :float         
-#  time_average :string(255)   
-#  created_at   :datetime      
-#  updated_at   :datetime      
-#  publish_year :string(255)   
-#  editor       :string(255)   
-#  url          :text          
-#  average      :float         default(0.0)
-#
 
 class Game < ActiveRecord::Base
   before_destroy :check_parties, :check_accounts
