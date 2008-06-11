@@ -11,7 +11,7 @@ test:
 
 production:
   adapter: mysql
-  database: teamscore_production
-  username: teamscore
+  database: ludomanager_production
+  username: ludomanager
   host: localhost
-  password: amgg20590
+  password: test

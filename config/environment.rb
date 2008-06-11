@@ -68,5 +68,6 @@ end
 
 
 require 'paginator-1.0.7/lib/paginator'
+require 'RedCloth-3.0.4/lib/redcloth' unless defined?(RedCloth) #work around for dreamhost some gem are in vendor now
 require 'content_parser'
 require 'will_paginate'
