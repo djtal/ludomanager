@@ -7,10 +7,12 @@
 
 <h3>Les jeux...</h3>
 
+<% if flash[:notice] %><div class="notice"><%= flash[:notice] %></div><% end %>
+
+<%= yield :page_nav %>
+
 <div class="column prepend-1">
 	
-	<%= yield :page_nav %>
-	<% if flash[:notice] %><div class="notice"><%= flash[:notice] %></div><% end %>
 	<div id="games">
 		<% if @games.size > 0 %>
 			<%= render :partial => @games %>
@@ -18,9 +20,10 @@
 			Desolé. Aucun jeux ne corespond a vos criteres.
 		<% end %>
 	</div>
-	<%= yield :page_nav %>
+	
 </div>
 
+<%= yield :page_nav %>
 
 <% content_for :newsbox do %>
 	<%= render_widget "search",  "Recherche" %>

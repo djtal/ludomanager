@@ -1,4 +1,4 @@
-<% div_for game, :class => "column last autohide" do %>
+<% div_for game, :class => "autohide" do %>
   <%= render :partial => 'manage', :locals => {:game => game} %>
 
 	<h2><%= link_to game.name, game_path(game) %></h2>

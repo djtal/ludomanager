@@ -43,10 +43,12 @@ Element.addMethods(DOM);
 
 var BShow = Behavior.create({
   initialize: function(){
-    this.element.down(".function").hide();
+    this.element.down(".function");
+    this.target = this.element.down(".function"); 
+    this.target.hide()
   },
-  onmouseover : function() { this.element.select('.function').reduce().show();},
-  onmouseout : function() { this.element.select('.function').reduce().hide();}
+  onmouseover : function() { this.target.show();},
+  onmouseout : function() { this.target.hide();}
 });
 
 var BMore = Behavior.create({
