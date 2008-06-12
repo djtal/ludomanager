@@ -476,12 +476,20 @@ tr img,
   width: 100%;
 }
 
+ul.strip li{
+  border-bottom: 1px solid #DDDDDD;
+}
+
 li.rowodd {
 	background-color: #FFF;
 }
 
 li.roweven {
 	background-color: #F2F2F2;
+}
+
+ul.strip li.selected{
+  background-color: #ffb;
 }
 
 /* Specific Widget Styles */

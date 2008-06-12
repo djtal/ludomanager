@@ -3,7 +3,7 @@
 
 	<h2><%= link_to game.name, game_path(game) %></h2>
 	<%= image_tag(game.image.public_filename, :size =>"80x80", :class => "pull-1 left") if game.image %>
-	<%= parse_tag game.description %>
+	<p><%= parse_tag game.description %></p>
 	<span class="meta">Tags : <%= game_tags_links game %></span>
 <% end %>
 <hr />

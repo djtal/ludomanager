@@ -9,8 +9,8 @@ class AccountGamesController < ApplicationController
     query = {}
     if params[:smart_list] && params[:smart_list][:id]
       @smart_lists = current_account.smart_lists
-      smart = @smart_lists.find(params[:smart_list][:id]) 
-      query[:search] = smart.query
+      @smart = @smart_lists.find(params[:smart_list][:id]) 
+      query[:search] = @smart.query
     end
     @account_games = current_account.account_games.search(query)
     @smart_lists = current_account.smart_lists

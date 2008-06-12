@@ -94,8 +94,9 @@ Object.extend(TableKit, {
 	},
 	register : function(table, options) {
 		if(!table.id) {
-			TableKit._tblcount += 1;
-			table.id = "tablekit-table-" + TableKit._tblcount;
+			//TableKit._tblcount += 1;
+			//table.id = "tablekit-table-" + TableKit._tblcount;
+			table.identify();
 		}
 		var id = table.id;
 		TableKit.tables[id] = TableKit.tables[id] ? Object.extend(TableKit.tables[id], options || {}) : Object.extend({sortable:false,resizable:false,editable:false}, options || {});
