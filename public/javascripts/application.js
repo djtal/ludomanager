@@ -45,10 +45,10 @@ var BShow = Behavior.create({
   initialize: function(){
     this.element.down(".function");
     this.target = this.element.down(".function"); 
-    this.target.hide()
+    if (this.target) this.target.hide()
   },
-  onmouseover : function() { this.target.show();},
-  onmouseout : function() { this.target.hide();}
+  onmouseover : function() { if (this.target) this.target.show();},
+  onmouseout : function() { if (this.target) this.target.hide();}
 });
 
 var BMore = Behavior.create({

@@ -4,7 +4,7 @@
 	<td><%= link_to_game account_game %></td>
 	
 	<% if mode == :full %>
-    	<td><%= selectable_tag_list account_game.game %></td>
+    <td><%= selectable_tag_list account_game.game %></td>
 		<td><%= "#{account_game.game.min_player}/#{account_game.game.max_player}" %></td>
 		<td><%= account_game.game.difficulty  %></td>
 		<td><%= account_game.parties_count %></td>
@@ -14,9 +14,9 @@
 	  <td><%= account_game.origin %></td>
 		<td><%= account_game.transdate.to_s(:date_fr) %></td>
 		<td><%= account_game.parties_count %></td>
-		<td>
+		<td><span class="function">
 			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_database_edit" %>
 			<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, {:class => "ss_sprite ss_database_delete"} %>
-		</td>
+		</span></td>
 	<% end %>
 </tr>

@@ -47,6 +47,6 @@ module AccountGamesHelper
   
   def selectable_tag_list(game)
     tags_li = game.tags.inject(""){|acc, t| acc << content_tag(:li, t.name, :class => "#{t.name} tag")}
-    content_tag(:ul, tags_li, :class => "tags clear")
+    content_tag(:ul, tags_li, :class => "tags")
   end
 end
