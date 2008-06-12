@@ -38,7 +38,6 @@ class Game < ActiveRecord::Base
   has_many :authors, :through => :authorships
   
   acts_as_taggable
-  acts_as_textiled :description
   
   def self.search(query, page)
     paginate :per_page => 5, :page => page,
