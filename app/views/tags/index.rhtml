@@ -12,7 +12,7 @@
   <tbody>
     <% @cloud.each do |t| %>
       <tr>
-        <td><%= link_to t[0].humanize, tag_games_path(t[0]) %></td>
+        <td><%= link_to t[0].humanize, tag_path(t[0]) %></td>
         <td></td>
         <td><%= t[1] %></td>
       </tr>

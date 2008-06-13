@@ -1,0 +1,15 @@
+<h3>Les jeux de <%= @tag.name.humanize %></h3>
+
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-1 nosort"></th>
+      <th class="span-5">Jeu</th>
+      <th class="span-11 nosort"></th>
+      <th class="span-3 integer">Ann&eacute;e de sortie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => "game", :collection => @games %>
+  </tbody>
+</table>

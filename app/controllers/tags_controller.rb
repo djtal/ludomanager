@@ -19,4 +19,11 @@ class TagsController < ApplicationController
     end
   end
 
+  def show
+    @tag = Tag.find_by_name(params[:id])
+    ids = @tag.taggings.find_all_by_taggable_type(Game.acts_as_taggable_options[:taggable_type], 
+                                                    :select => :taggable_id).map(&:taggable_id)
+    @games = Game.find(:all, :conditions => {:id => ids}, :include => :image)
+  end
+
 end

@@ -11,7 +11,7 @@ module GamesHelper
   
   def game_tags_links(game)
     game.tags.collect do |tag|
-      link_to(tag.name, tag_games_path(tag.name))
+      link_to(tag.name, tag_path(tag.name))
     end.join(", ")
   end
   
