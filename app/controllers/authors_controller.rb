@@ -1,8 +1,10 @@
 class AuthorsController < ApplicationController
+  before_filter :login_required, :except => [:index, :show]
+  
   # GET /authors
   # GET /authors.xml
   def index
-    @authors = Author.find(:all, :include => :games)
+    @authors = Author.find(:all, :include => :authorship)
 
     respond_to do |format|
       format.html # index.rhtml

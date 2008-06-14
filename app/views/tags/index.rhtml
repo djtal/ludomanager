@@ -4,17 +4,24 @@
 <table class="sortable">
   <thead>
     <tr>
-      <th class="span-3">Tag</th>
-      <th class="span-14 no-sort"></th>
+      <th class="span-<%= logged_in? ? "11" : "14" %>">Tag</th>
       <th class="span-3">Nombre jeux</th>
+      <% if logged_in? %>
+        <th class="nosort">Administration</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% @cloud.each do |t| %>
-      <tr>
+      <tr class="autohide">
         <td><%= link_to t[0].humanize, tag_path(t[0]) %></td>
-        <td></td>
         <td><%= t[1] %></td>
+        <% if logged_in? %>
+          <td><div class="function">
+            <%= link_to "", edit_tag_path(t[0]), :class => "ss_sprite ss_database_edit" %>&nbsp;|&nbsp;
+            <%= link_to_remote "", {:url => tag_path(t[0]), :method => :delete},  :class => "ss_sprite ss_database_delete"  %>
+          </div></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

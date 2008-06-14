@@ -25,5 +25,9 @@ class TagsController < ApplicationController
                                                     :select => :taggable_id).map(&:taggable_id)
     @games = Game.find(:all, :conditions => {:id => ids}, :include => :image)
   end
+  
+  def edit
+    
+  end
 
 end
