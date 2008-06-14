@@ -1,5 +1,6 @@
 class SmartListsController < ApplicationController
-
+  before_filter :login_required
+  
   def index
     @smart_lists = current_account.smart_lists.find(:all, :order => "created_at DESC")
     respond_to do |format|

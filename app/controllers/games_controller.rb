@@ -1,5 +1,5 @@
 class GamesController < ApplicationController  
-  before_filter :login_required, :only => [:destroy]
+  before_filter :login_required, :except => [:index, :show, :search]
   before_filter :set_section
   
   # GET /games
@@ -12,16 +12,6 @@ class GamesController < ApplicationController
     end
   end
   
-  def tags
-    @games = Game.search(params[:tag], :tags)
-    @pager = ::Paginator.new(@games.size, 10) do |offset, per_page|
-      @games[offset, per_page]
-    end
-    @page = @pager.page(params[:page])
-    @games = @page.items
-    render :action => "index"
-  end
-
   def search
     @games = Game.search(params[:search], params[:page])
     render :action => :index
