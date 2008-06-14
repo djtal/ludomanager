@@ -1,14 +1,17 @@
 <% form_tag session_path do -%>
-<p><label for="login">Login</label><br/>
-<%= text_field_tag 'login' %></p>
 
-<p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
+<fieldset>
+  <p><%= label_tag :login, "Nom d'utilisateur" %><br />
+  <%= text_field_tag 'login', {}, :class => "important" %></p>
+
+  <p><%= label_tag :password, "Votre mot de passe" %><br/>
+  <%= password_field_tag 'password', {}, :class => "important" %></p>
+</fieldset>
+
+<%= submit_or_back_to games_path, "Annuler", :submit_text => "Me connecter" %>
 
 <!-- Uncomment this if you want this functionality
 <p><label for="remember_me">Remember me:</label>
 <%= check_box_tag 'remember_me' %></p>
 -->
-
-<p><%= submit_tag 'Log in' %></p>
 <% end -%>

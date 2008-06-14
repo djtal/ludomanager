@@ -13,3 +13,7 @@
     <%= render :partial => "game", :collection => @games %>
   </tbody>
 </table>
+
+<% content_for :subnav do %>
+	<%= render :partial => "games/subnav" %>
+<% end %>

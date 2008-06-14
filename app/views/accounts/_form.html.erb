@@ -1,0 +1,20 @@
+<fieldset>
+  <legend>Votre identit&eacute;</legend>
+
+  <p><%= f.label :login, "Nom d'utilisateur" %><br />
+  <%= f.text_field :login , :class => 'important'%></p>
+
+  <p><%= f.label :password, "Votre mote de passe" %><br/ >
+  <%= f.password_field :password, :class => "important" %></p>
+
+  <p><%= f.label :password_confirmation, "Re-tapez votre mot de passe" %><br />
+  <%= f.password_field :password_confirmation, :class => "important" %></p>
+
+</fieldset>
+
+<fieldset>
+  <legend>Mieux vous connaitre</legend>
+  
+  <p><%= f.label :email, "Votre adresse mail" %><br />
+  <%= f.text_field :email %></p>
+</fieldset>
