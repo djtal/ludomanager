@@ -19,7 +19,6 @@
         <% if logged_in? %>
           <td><div class="function">
             <%= link_to "", edit_tag_path(t[0]), :class => "ss_sprite ss_database_edit" %>&nbsp;|&nbsp;
-            <%= link_to_remote "", {:url => tag_path(t[0]), :method => :delete},  :class => "ss_sprite ss_database_delete"  %>
           </div></td>
         <% end %>
       </tr>

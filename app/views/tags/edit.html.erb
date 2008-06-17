@@ -1,0 +1,9 @@
+<h3>Edition d'un Tag</h3>
+
+<% form_for @tag, edit_tag_path(@tag) do |f| %>
+  <fieldset>
+    <p><%= f.label :name, "Nom" %><br />
+    <%= f.text_field :name, :class => "important" %></p>
+  </fieldset>
+  <%= submit_or_back_to tags_path, "Retour sur la liste des tag" %>
+<% end %>

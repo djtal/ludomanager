@@ -27,7 +27,16 @@ class TagsController < ApplicationController
   end
   
   def edit
-    
+    @tag = Tag.find_by_name(params[:id])
+  end
+  
+  def update
+    @tag = Tag.find(params[:id])
+    if @tag.update_attributes(params[:tag])
+      redirect_to tags_path
+    else
+      render :action => :edit
+    end
   end
 
 end
