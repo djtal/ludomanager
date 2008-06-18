@@ -1,7 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :members
-
   map.resources :smart_lists
 
 
@@ -10,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
   map.resources :parties, :collection => {:play => :post, :add_party_form => :get}
   map.resource :session
-  map.resources :accounts, :authors, :authorships
+  map.resources :accounts, :authors, :authorships, :members
   
   #map.resources :parties, :collection => {:resume => :get}
   map.resources :account_games,

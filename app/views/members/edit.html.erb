@@ -1,9 +1,9 @@
 <h3>Edition de membres...</h3>
 
-<%= error_messages_for :members %>
+<%= error_messages_for :member %>
 
 <% form_for(@member) do |f| %>
-  <%= render :partial => "form", :locals => {:f => f} %>
+  <%= render :partial => f %>
   <%= submit_or_back_to members_path, "Annuler" %>
 <% end %>
 

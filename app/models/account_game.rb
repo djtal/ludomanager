@@ -1,4 +1,19 @@
 # == Schema Information
+#
+# Table name: account_games
+#
+#  id            :integer       not null, primary key
+#  game_id       :integer       
+#  account_id    :integer       
+#  created_at    :datetime      
+#  origin        :text          
+#  price         :float         
+#  transdate     :datetime      
+#  shield        :boolean       
+#  parties_count :integer       default(0)
+#
+
+# == Schema Information
 # Schema version: 30
 #
 # Table name: account_games

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 30
 #
 # Table name: games
 #
@@ -18,6 +17,7 @@
 #  url          :text          
 #  average      :float         default(0.0)
 #
+
 
 
 class Game < ActiveRecord::Base

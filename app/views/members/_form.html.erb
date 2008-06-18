@@ -1,10 +1,12 @@
 <fieldset>
-  <p><%= f.label :name, "Nom" %><br />
-  <%= f.text_field :name, :class => "important" %></p>
+  <p><%= form.label :name, "Nom" %><br />
+  <%= form.text_field :name, :class => "important" %></p>
 
-  <p><%= f.label :nickname, "Prenom" %><br />
-  <%= f.text_field :nickname, :class => "important" %></p>
+  <p><%= form.label :nickname, "Prenom" %><br />
+  <%= form.text_field :nickname, :class => "important" %></p>
+  <p><%= form.label :email, "Adresse mail" %><br />
+  <%= form.text_field :email %></p>
   
-  <%= f.hidden_field :account_id %>
+  <%= form.hidden_field :account_id %>
 </fieldset>
 
