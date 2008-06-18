@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   
-  map.connect '/', :controller => "games"
+  map.root  :controller => "games"
 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id'
