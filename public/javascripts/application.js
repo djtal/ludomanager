@@ -45,7 +45,9 @@ var BShow = Behavior.create({
   initialize: function(){
     this.target = this.element.down(".function"); 
     if (this.target) this.target.hide();
+
   },
+
   onmouseover : function() { if (this.target) this.target.show();},
   onmouseout : function() { if (this.target) this.target.hide();}
 
