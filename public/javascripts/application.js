@@ -450,10 +450,6 @@ document.observe("dom:loaded", function() {
   new GameForm("game_form");
   new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
-<<<<<<< HEAD:public/javascripts/application.js
-=======
-  new GameList();
->>>>>>> Add basic member aministration:public/javascripts/application.js
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
   });
