@@ -447,6 +447,47 @@ Calendar = {
 }
 
 
+var MemberAutocompleteField = Class.create({
+  initialize: function(field, field_to_update){
+    if (!$(field) && $(field_to_update)) return;
+    this.field = $(field);
+    this.field_lookup = "#{field_id}_lookup".interpolate({field_id: this.field});
+    this.field_to_update = $(field_to_update);
+    if (MemberAutocompleteField.models.size == 0)
+      this.loadModels();
+  },
+  
+  loadModels: function(){
+    new Ajax.Request('/members.json', {onSucess: function(response){
+      if (!response.responseJSON)
+      {
+        this.parseModels(response.responseJSON);
+        this.setupAutocomplete();
+      }
+    }.bind(this)});
+  },
+  
+  parseModels: function(models){
+     MemberAutocompleteField.models = models.inject($H(), function(acc, member){
+        acc.set(member.name, member.id);
+        return acc;
+      });
+  },
+  
+  setupAutocomplete: function(){
+    new Autocompleter.Local(this.field, this.field_lookup, MemberAutocompleteField.models.keys(), 
+        {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.afterAutocompleteUpdate.bind(this)}); 
+  },
+  
+  afterAutocompleteUpdate: function(){
+    this.field_to_update = MemberAutocompleteField.models.get($F(this.field));
+  }
+});
+MemberAutocompleteField.models = $H();
+
+
+
+
 document.observe("dom:loaded", function() {
   PartyFilter.loadObservers();
   new GameForm("game_form");
