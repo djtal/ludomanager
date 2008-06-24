@@ -3,6 +3,10 @@ class MembersController < ApplicationController
   
   def index
     @members = current_account.members.find(:all)
+    respond_to do |format|
+      format.html
+      format.json{render :json => @members}
+    end
   end
   
   def new

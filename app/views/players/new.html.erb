@@ -2,20 +2,20 @@
 
 <h4>Partie du <%= @party.created_at.to_s(:date_fr) %> &nbsp;|&nbsp;Jeu <%= @party.game.name %></h4>
 
-<% form_for :party, @party, :url => party_players_path(@party) do |form| %>
+<% form_for :party, @party, :url => party_players_path(@party), :html => {:id => "player_form"} do |form| %>
   <% @party.game.max_player.times do |t|  %>
     <% form.fields_for @party.players.build, :index => t do |p| %>
       <%= render :partial => "form", :locals => {:form => p, :t => t} %>
     <% end %>
   <% end %>
-  <%= submit_or_back_to parties_path, "Retour sur les parties" %>
+  <%= submit_or_back_to party_path(@party), "Retour sur les parties du #{@party.created_at.to_s(:date_fr)}" %>
 <% end %>
 
 <% content_for :newsbox do %>
   <% render :layout => "layouts/widget", :locals => {:title => "Parties  du #{@party.created_at.to_s(:date_fr)}"} do %>
     <ul class="strip">
       <% @parties.each do |p| %>
-        <li><%= p.game.name %></li>
+        <li><%= link_to p.game.name, new_party_player_path(p) %></li>
       <% end %>
     </ul>
   <% end  %>

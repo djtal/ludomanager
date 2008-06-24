@@ -16,4 +16,8 @@ class Member < ActiveRecord::Base
   def gravatar_url
     "http://www.gravatar.com/avatar/#{MD5::md5(email)}"
   end
+  
+  def display_name
+    "#{name} - #{nickname}"
+  end
 end

@@ -1,0 +1,23 @@
+<h3>Vos parties du <%= @date.to_s(:date_fr) %> </h3>
+
+<ul>
+  <% @parties.each do |p| %>
+    <li>
+      <%= p.game.name %> - <%= p.players.size %><br />
+      <%= p.members.map(&:display_name) * ", " %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>
+
+
+<% content_for :newsbox do %>
+  <% render :layout => "layouts/widget", :locals => {:title => "Etaient present "} do %>
+    <ul class="strip">
+      <% @members.each do |member| %>
+        <li><%= member.display_name %></li>
+      <% end %>
+    </ul>
+  <% end  %>
+<% end %>

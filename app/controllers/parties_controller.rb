@@ -38,6 +38,7 @@ class PartiesController < ApplicationController
     end
   end
   
+  
   def add_party_form
     session[:parties] += 1
     @party = Party.new(:created_at => session[:date])
@@ -64,6 +65,13 @@ class PartiesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+  
+  def show
+    party = current_account.parties.find(params[:id])
+    @parties = current_account.parties.find_all_by_created_at(party.created_at, :include => [:game, :players])
+    @members = @parties.collect{|p| p.members}.flatten.uniq
+    @date = party.created_at
   end
   
   protected

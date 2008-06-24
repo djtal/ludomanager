@@ -228,58 +228,35 @@ AccountGameForm.addMethods({
   }
 })
 
-
-
-
-PartyFilter = {
-  showMine: function(table) {
-    table.select("tbody tr").each(function(e){
-      if (!e.hasClassName("own"))
-      e.hide();     
+var PlayerForm = Class.create({
+  initialize: function(form){
+    if(!$(form)) return;
+    this.form = $(form);
+    new Ajax.Request('/members.json', {method: "get", onSuccess: this.loadMember.bind(this)});
+  },
+ 
+  loadMember: function(response){
+    this.members = response.responseJSON.inject($H(), function(acc, member){
+        acc.set(member.name + " - " + member.nickname, member.id);
+        return acc;
     });
-    TableKit.Rows.stripe(table);
+    this.loadAutocomplete();
   },
-
-  showAll : function(table){
-    $(table).select("tbody tr").invoke("show");
+  
+  loadAutocomplete: function(){
+    this.form.select(".member").each(function(field, index){
+      new Autocompleter.Local(field, field.id + "_lookup", this.members.keys(), 
+      {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updateMemberId.bind(this, index)}); 
+    }.bind(this));
   },
+  
+  updateMemberId: function(index, field){
+    $("party_player_" + index + "_member_id").value = this.members.get($F(field));
+  }
+  
+})
 
-  loadObservers: function(){
-    if ($("mine"))
-    {
-      $("mine").observe("click", function(ev){
-        elt = ev.element();
-        if (elt.hasClassName("active"))
-        {
-          elt.removeClassName("active");
-          $$("table").each(function(t){
-            PartyFilter.showAll(t);
-          });	
-        } else {
-          elt.addClassName("active");
-          $$("table").each(function(t){
-            PartyFilter.showMine(t);
-          });
-        }
-      })
 
-    }
-    if(!$("parties-filter"))
-    return;
-    $("parties-filter").observe("change", function(e){
-      if(e.element().getValue() == "ludo")
-      $$("table").each(function(t){
-        PartyFilter.showMine(t);
-      });
-      else
-      $$("table").each(function(t){
-        PartyFilter.showAll(t);
-      });
-
-    });
-    $("parties-filter").getInputs("submit").first().hide();
-  },
-}
 
 Sidebar = {
   load: function(){
@@ -484,14 +461,19 @@ var MemberAutocompleteField = Class.create({
   }
 });
 MemberAutocompleteField.models = $H();
+MemberAutocompleteField.load = function(){
+  $$(".member autocomplete").each(function(input){
+    new MemberAutocompleteField(input);
+  })
+}
 
 
 
 
 document.observe("dom:loaded", function() {
-  PartyFilter.loadObservers();
   new GameForm("game_form");
   new AccountGameForm("account_game_form")
+  new PlayerForm("player_form")
   ls = new LudoSearch("ludo-search");
   $$('.autohide').each(function(elt){
     BShow.attach(elt)

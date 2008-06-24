@@ -1,4 +1,5 @@
 <p><%= form.label :member_name, "Nom joueur #{t + 1}" %><br />
-<%= text_field_tag :name, {}, :class => "member_name", :id => "party_player_#{t}_member_name" %></p>
+<%= text_field_tag :name, {}, :class => "member autocomplete", :id => "party_player_#{t}_member_name" %></p>
+<div id="party_player_<%= t %>_member_name_lookup" class="auto_complete"></div>
 <%= form.hidden_field :member_id  %>
 <%= form.hidden_field :party_id %>

@@ -52,6 +52,10 @@ class Party < ActiveRecord::Base
     end
   end
   
+  def members
+    players.map(&:member).compact
+  end
+  
   def up_partie_cache
     ac = AccountGame.find(:first, :conditions => {:game_id => self.game_id, :account_id => self.account_id})
     if ac
