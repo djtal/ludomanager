@@ -14,8 +14,9 @@
   </tbody>
 </table>
 
-
-<%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>
+<%= link_to "Precedentes", party_path(@previous) %>&nbsp;|&nbsp;
+<%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>&nbsp;|&nbsp;
+<%= link_to "Suivantes", party_path(@next) %>
 
 
 <% content_for :newsbox do %>
