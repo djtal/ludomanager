@@ -69,7 +69,7 @@ class PartiesController < ApplicationController
   
   def show
     party = current_account.parties.find(params[:id])
-    @parties = current_account.parties.find_all_by_created_at(party.created_at, :include => [:game, :players])
+    @parties = current_account.parties.find_all_by_created_at(party.created_at, :include => [:game, :players], :order => "games.name ASC")
     @members = @parties.collect{|p| p.members}.flatten.uniq
     @date = party.created_at
   end

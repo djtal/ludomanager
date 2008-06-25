@@ -11,7 +11,7 @@
 #
 
 class Member < ActiveRecord::Base
-  validates_presence_of :name, :nickname, :account_id
+  validates_presence_of :name, :account_id
   
   def gravatar_url
     "http://www.gravatar.com/avatar/#{MD5::md5(email)}"

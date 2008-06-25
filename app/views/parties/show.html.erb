@@ -1,13 +1,19 @@
 <h3>Vos parties du <%= @date.to_s(:date_fr) %> </h3>
 
-<ul>
-  <% @parties.each do |p| %>
-    <li>
-      <%= p.game.name %> - <%= p.players.size %><br />
-      <%= p.members.map(&:display_name) * ", " %>
-    </li>
-  <% end %>
-</ul>
+
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-1 nosort"></th>
+      <th class="span-16 nosort">Description</th>
+      <th class="span-3 last nosort">Administration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => "party_full", :collection => @parties %>
+  </tbody>
+</table>
+
 
 <%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>
 
