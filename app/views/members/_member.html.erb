@@ -2,6 +2,7 @@
   <td><%= member.name %></td>
   <td><%= member.nickname %></td>
   <td></td>
+  <td><%= member.players.size %></td>
   <td><div class="function"><%= link_to "", edit_member_path(member), :class => "ss_sprite ss_folder_edit" %>
     &nbsp;|&nbsp;<%= link_to_remote "", {:url => member_path(member), :method => :delete}, :class => "ss_sprite ss_folder_delete" %>
   </div></td>

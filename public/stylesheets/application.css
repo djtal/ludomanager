@@ -300,14 +300,6 @@ div.auto_complete ul strong.highlight {
 	list-style: none;
 }
 
-.page-nav{
-	margin-top: 5px;
-	text-align: center;
-}
-
-.page-nav a{
-	font-weight: bold;
-}
 
 .meta{
 	color: #666;
@@ -522,6 +514,17 @@ ul.strip li.selected{
 
 input#smart_list_title {
 	font-size: 20px;
+	font-weight: bold;
+}
+
+
+/* Pagination */
+.pagination{
+	margin-top: 5px;
+	text-align: center;
+}
+
+.pagination a{
 	font-weight: bold;
 }
 
