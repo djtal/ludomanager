@@ -40,10 +40,6 @@ context "Game" do
     assert clean_game.respond_to?("image")
   end
   
-  specify "shoud textilize description" do
-    expected = "<p><strong>test</strong></p>"
-    assert_equal expected, clean_game(:description => "*test*").description
-  end
   
   specify "should have a can have some parties" do
     assert Party.count > 0

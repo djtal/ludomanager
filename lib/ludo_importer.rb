@@ -44,7 +44,7 @@ class LudoImporter
   end
   
   def find_or_initialize_game(name)
-    g = ::Game.find(:first, :conditions => ["LOWER(games.name) == ?", name.downcase])
+    g = ::Game.find(:first, :conditions => ["LOWER(games.name) = ?", name.downcase])
     if (!g)
       g = ::Game.new(:name => name.downcase.humanize)
       @created_games += 1
@@ -54,7 +54,7 @@ class LudoImporter
   
   def find_or_create_author(name)
     if (name && name != "_" && name != "")
-      a = ::Author.find(:first, :conditions => ["LOWER(authors.name) == ?", name.downcase])
+      a = ::Author.find(:first, :conditions => ["LOWER(authors.name) = ?", name.downcase])
       if (!a)
         a = ::Author.new(:name => name)
         a.save
