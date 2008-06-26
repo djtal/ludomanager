@@ -1,23 +1,26 @@
 <h3>Ludograhie de <%= @author.display_name%></h3>
 
-<p>
-  Il a publi&eacute; <%= pluralize(@games.size, "jeu", "jeux") %> entre <%= @games.first.publish_year %> et
-  <%= @games.last.publish_year %> 
-</p>
-<table class="sortable">
-  <thead>
-    <tr>
-      <th class="span-1 no-sort"></th>
-      <th class="span-5">Jeu</th>
-      <th class="span-11 no-sort"></th>
-      <th class="span-3">Ann&eacute;e de sortie</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render :partial => "game", :collection => @games %>
-  </tbody>
-</table>
-
+<% if @games.size > 0 %>
+  <p>
+    Il a publi&eacute; <%= pluralize(@games.size, "jeu", "jeux") %> entre <%= @games.first.publish_year %> et
+    <%= @games.last.publish_year %> 
+  </p>
+  <table class="sortable">
+    <thead>
+      <tr>
+        <th class="span-1 no-sort"></th>
+        <th class="span-5">Jeu</th>
+        <th class="span-11 no-sort"></th>
+        <th class="span-3">Ann&eacute;e de sortie</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render :partial => "game", :collection => @games %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="empty">Cet auteur n'a encore aucun jeux a son actif</p>
+<% end %>
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
