@@ -1,5 +1,10 @@
 class AccountsController < ApplicationController
 
+  
+  def show
+    
+  end
+  
   # render new.rhtml
   def new
   end
@@ -19,6 +24,17 @@ class AccountsController < ApplicationController
     else
       render :action => 'new'
     end
+  end
+
+  def edit
+    @account = current_account
+  end
+  
+  def update
+    if current_account.update_attributes(params[:account])
+      respond_to do |format|
+        format.html{ redirect_to dashboard_path}
+      end
   end
 
 end
