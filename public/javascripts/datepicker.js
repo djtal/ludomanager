@@ -229,7 +229,7 @@ Control.DatePicker.Language = {
       'Now': 'Maintenant', 
       'Today': 'today',
       'Time': 'time',
-      'Exact minutes': 'Minute preceise',
+      'Exact minutes': 'Minute precise',
       'Select Date and Time': 'Selection date et heure',
       'Open calendar': 'Ouvrir calendrier'
     }

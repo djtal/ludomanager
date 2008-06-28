@@ -1,19 +1,18 @@
 <fieldset>
   <legend>Votre Jeu</legend>
   <p><%= label_tag :account_game_game_name, "Nom du jeu" %><br />
-  <%= text_field_tag :account_game_game_name, "", :size => 50 %></p>
+  <%= text_field_tag :account_game_game_name, "", :value => @account_game.game.name, :class => "important", :disabled =>  params[:action] == "edit" %></p>
   <div id="account_game_game_name_lookup" class="auto_complete"></div>
-  <%= f.hidden_field :game_id %>
-  <p><%= label_tag :account_game_origin, "Origine"  %><br />
-  <%= f.text_field :origin, :size => 50 %></p>
-  <p><%= label_tag :account_game_price, "Prix d'achat" %><br />
-  <%= f.text_field :price %></p>
-  <p><%= label_tag :account_game_transdate, "Date d'acquisition" %><br />
-  <%= f.text_field :transdate %></p>
+  <%= form.hidden_field :game_id %>
+  <p><%= form.label :origin, "Origine"  %><br />
+  <%= form.text_field :origin, :size => 50 %></p>
+  <p><%= form.label :price, "Prix d'achat" %><br />
+  <%= form.text_field :price %></p>
+  <p><%= form.label :transdate, "Date d'acquisition" %><br />
+  <%= form.text_field :transdate %></p>
 </fieldset>
 
 <fieldset>
-	<legend>Informations Complementaires</legend>
-	<p><%= label_tag :account_game_origin, "Jeux plastique"  %>
-  	<%= f.check_box :shield %></p>
+	<legend>Status du jeux</legend>
+	<p><%= form.check_box :shield %>&nbsp;<%= form.label :shield, "Jeux plastique"  %></p>
 </fieldset>
