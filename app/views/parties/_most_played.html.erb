@@ -3,7 +3,7 @@
 		<% @most_played.each do |game, count| %>
 			<li>
 				<span class="right"><%= pluralize(count, "partie", "parties") %></span>
-				<%= image_tag(game.image.public_filename , :size => "35x35") if game.image %>
+				<%= game_box_for(game, :size =>"35x35") %>
 				<%= link_to game.name, game_path(game) %>
 			</li>
 		<% end %>
