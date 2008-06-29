@@ -29,6 +29,6 @@ module GamesHelper
     options = {
       :size => "35x35"
     }.merge(opts)
-    image_tag(game.image ? game.image.public_filename : "game_box.png" , opts)
+    image_tag(game.image ? game.image.public_filename : "game_box.png" , options)
   end
 end
