@@ -1,5 +1,5 @@
 <li>
 	<span class="right"><%= distance_of_time_in_words(last_party.created_at, Time.now) %></span>
-	<%= image_tag(last_party.game.image.public_filename , :size => "35x35") if last_party.game.image  %>
+	<%= game_box_for(last_party.game, :size =>"35x35") %>
 	<%= link_to(truncate(last_party.game.name, 18), game_path(last_party.game)) %>
 </li>
