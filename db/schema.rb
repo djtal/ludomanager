@@ -9,8 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080618213544) do
-
+ActiveRecord::Schema.define(:version => 20080629100032) do
   create_table "account_games", :force => true do |t|
     t.integer  "game_id"
     t.integer  "account_id"
@@ -73,6 +72,17 @@ ActiveRecord::Schema.define(:version => 20080618213544) do
     t.string   "editor"
     t.text     "url"
     t.float    "average",      :default => 0.0
+    t.integer  "min_age"
+    t.text     "vo_name"
+  end
+
+  create_table "members", :force => true do |t|
+    t.text     "name"
+    t.text     "nickname"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "email"
   end
 
   create_table "members", :force => true do |t|

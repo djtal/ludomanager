@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :login_from_cookie
   before_filter :set_section
   before_filter :set_path
+  before_filter :get_account_games, :if => :logged_in?
   
   
   
@@ -20,6 +21,11 @@ class ApplicationController < ActionController::Base
   end
   
   protected
+  
+  def get_account_games
+    @account_games = current_account.games.all
+    logger.debug { "PRELOAD" }
+  end
   
   def set_section
     @section = :games

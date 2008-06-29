@@ -55,7 +55,7 @@ class AccountGamesController < ApplicationController
   
   def new
     ag = current_account.account_games.map(&:game)
-    @account_game = current_account.account_games.build
+    @account_game = current_account.account_games.build(:game_id => params[:game_id])
     @games = Game.find(:all, :order => "name ASC").reject{|g| ag.include?(g) }
   end
   
@@ -99,9 +99,12 @@ class AccountGamesController < ApplicationController
   # DELETE /account_games/1
   # DELETE /account_games/1.xml
   def destroy
-    @account_game = AccountGame.find(params[:id])
+    if params[:game_id]
+      @account_game = current_account.account_games.find_by_game_id(params[:game_id])
+    else
+      @account_game = AccountGame.find(params[:id])
+    end
     @account_game.destroy
-
     respond_to do |format|
       format.html { redirect_to account_games_url }
       format.js

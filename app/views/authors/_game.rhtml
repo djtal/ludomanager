@@ -1,5 +1,5 @@
 <tr>
-  <td><%= game_box_for(game) %></td>
+  <td><%= game_box_for(game, :size =>"35x35") %></td>
   <td><%= link_to game.name, game_path(game) %></td>
   <td></td>
   <td><%= game.publish_year %></td>

@@ -3,13 +3,20 @@
 
 <% div_for @game, :class => "clear" do %>
 	<div class="column span-3">
-	 <%= image_tag(@game.image.public_filename, :size =>"100x100") if @game.image %>
+	 <%= game_box_for(@game, :size =>"80x80") %>
 	</div>
 	<div class="column last span-13">
-    	<%= parse_tag(@game.description) %>
+    	<p>
+    	  <% if !@game.description.blank? %>
+    	    <%= @game.description %>
+    	  <% else %>
+    	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
+    	  <% end %>
+    	</p>
 		<ul class="meta">
-			<li>Difficulté (1 a 5) : <span class="flash"><%= @game.difficulty %></span></li>
+			<li>Difficulté : <span class="flash"><%= @game.difficulty %> / 5</span></li>
 			<li><%= nb_player_tag(@game) %></li>
+			<li>A partir de <span class="flash"><%= @game.min_age %> ans</span></li>
 			<li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
 			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></span></li>
@@ -35,6 +42,15 @@
 		Nos membres ont joués un total de 
 		<span class='flash'><%= pluralize(@game.parties.count, "partie</span>", "parties</span>") %> de ce jeu.
 	<% end %>
+	
+	<% render :layout => "layouts/widget", :locals => {:title => "Ma ludotheque"} do %>
+	  Vous <%= account_have_game?(@game) ? "possedez" : "ne possedez pas" %> ce jeu.<br />
+	  <% if account_have_game?(@game) %>
+	    <%= link_to "Supprimez #{@game.name} de ma ludotheque", game_account_game_path(@game), :method => :delete, :class => "ss_sprite ss_folder_delete" %>
+	  <% else %>
+	    <%= link_to "Ajoutez #{@game.name} de ma ludotheque", new_game_account_game_path(@game), :class => "ss_sprite ss_folder_add " %>
+	  <% end %>
+	<% end if logged_in? %>
 <% end %>
 
 

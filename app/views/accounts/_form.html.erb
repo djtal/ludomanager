@@ -2,7 +2,7 @@
   <legend>Votre identit&eacute;</legend>
 
   <p><%= f.label :login, "Nom d'utilisateur" %><br />
-  <%= f.text_field :login , :class => 'important'%></p>
+  <%= f.text_field :login , :class => 'important', :disabled => params[:action] == "edit" %></p>
 
   <p><%= f.label :password, "Votre mote de passe" %><br/ >
   <%= f.password_field :password, :class => "important" %></p>

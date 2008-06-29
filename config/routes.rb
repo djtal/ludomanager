@@ -17,10 +17,12 @@ ActionController::Routing::Routes.draw do |map|
   #map.resources :parties, :collection => {:resume => :get}
   map.resources :account_games,
                 :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, :missing  => :get}
-  map.resources :tags, :collection => {:lookup => :get} do |t|
-    t.resources :games
-  end
-  map.resources :games, :collection => {:search => :get} 
+                
+  map.resources :tags, :collection => {:lookup => :get} 
+  
+  map.resources :games,
+                :has_many => :account_games, 
+                :collection => {:search => :get} 
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'
   map.login  '/login', :controller => 'sessions', :action => 'new'

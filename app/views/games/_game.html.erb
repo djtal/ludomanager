@@ -1,9 +1,15 @@
 <% div_for game, :class => "autohide" do %>
   <%= render :partial => 'manage', :locals => {:game => game} %>
 
-	<h2><%= link_to game.name, game_path(game) %></h2>
-	<%= image_tag(game.image.public_filename, :size =>"80x80", :class => "pull-1 left") if game.image %>
-	<p><%= parse_tag game.description %></p>
+	<h2><%= link_to game.name, game_path(game) %> <%= content_tag :span, " (" + game.vo_name + ")" unless game.vo_name.blank? %></h2>
+	<%= game_box_for(game, :size =>"80x80", :class => "pull-1 left") %>
+	<p>
+	  <% if !game.description.blank? %>
+	    <%= game.description %>
+	  <% else %>
+	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
+	  <% end %>
+	</p>
 	<span class="meta">Tags : <%= game_tags_links game %></span>
 <% end %>
 <hr />
