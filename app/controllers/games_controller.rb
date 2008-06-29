@@ -5,7 +5,6 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.xml
   def index
-    @account_games = current_account.games if current_account
     respond_to do |format|
       format.html {@games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]}
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
@@ -21,7 +20,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.xml
   def show
-    @game = Game.find(params[:id], :include => [:tags, :image])
+    @game = Game.find(params[:id], :include => [:tags, :image, :authors])
     @title = @game.name
     respond_to do |format|
       format.html # show.rhtml
