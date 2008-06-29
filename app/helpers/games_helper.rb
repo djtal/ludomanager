@@ -24,4 +24,11 @@ module GamesHelper
       link_to(a.display_name, author_path(a))
     end.join(", ")
   end
+  
+  def game_box_for(game, opts = {})
+    options = {
+      :size => "35x35"
+    }.merge(opts)
+    image_tag(game.image ? game.image.public_filename : "game_box.png" , opts)
+  end
 end

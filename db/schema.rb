@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 30) do
+ActiveRecord::Schema.define(:version => 20080629100032) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id"
@@ -73,6 +73,17 @@ ActiveRecord::Schema.define(:version => 30) do
     t.string   "editor"
     t.text     "url"
     t.float    "average",      :default => 0.0
+    t.integer  "min_age"
+    t.text     "vo_name"
+  end
+
+  create_table "members", :force => true do |t|
+    t.text     "name"
+    t.text     "nickname"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "email"
   end
 
   create_table "parties", :force => true do |t|
@@ -82,9 +93,10 @@ ActiveRecord::Schema.define(:version => 30) do
   end
 
   create_table "players", :force => true do |t|
-    t.text    "name"
-    t.text    "nickname"
-    t.integer "account_id"
+    t.integer  "party_id"
+    t.integer  "member_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|

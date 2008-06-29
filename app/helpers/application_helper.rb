@@ -18,24 +18,7 @@ module ApplicationHelper
     current_account.account_games.find_by_game_id(game.id)
   end
   
-  # Parse str searchin tag <resource:id> to render as url
-  # resource must be an allowed tag in the list
-  # if an error occur during parsing or tag ccompute tag is replace by blank
-  #
-  def parse_tag(str)
-    if str
-      str.gsub(/<([a-z]+):(\d+)>/) do |match|
-        if ALLOWED_TAGS.include?($1)
-          begin
-            object = $1.classify.constantize.find($2)
-            link_to(object.name, send("#{$1}_path", object))
-          rescue ActiveRecord::RecordNotFound
-            ""
-          end
-        end
-      end
-    end
-  end
+
   
   def comment_expire_options
     [["Bloqués", -1],
