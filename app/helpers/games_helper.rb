@@ -21,8 +21,8 @@ module GamesHelper
   
   def authors_links(authors)
     authors.collect do |a|
-      link_to(a.display_name, author_path(a))
-    end.join(", ")
+      a ? link_to(a.display_name, author_path(a)) : ""
+    end.compact.join(", ")
   end
   
   def game_box_for(game, opts = {})
