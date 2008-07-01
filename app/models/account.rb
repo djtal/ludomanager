@@ -49,7 +49,7 @@ class Account < ActiveRecord::Base
   end
   
   has_many :games, :through => :account_games
-  has_many :smart_lists
+  has_many :smart_lists, :dependent => :delete_all
   has_many :members, :dependent => :delete_all
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
