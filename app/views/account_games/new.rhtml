@@ -2,6 +2,12 @@
 
 <% form_for(@account_game, :url => account_games_path, :html => {:id => "account_game_form"}) do |f| %>
   <%= error_messages_for :account_game %>
+  <fieldset>
+    <p><%= label_tag :account_game_game_name, "Nom du jeu" %><br />
+    <%= text_field_tag :account_game_game_name, "",  :class => "important" %></p>
+    <div id="account_game_game_name_lookup" class="auto_complete"></div>
+    <%= f.hidden_field :game_id %>
+  </fieldset>  
   <%= render :partial => f %>
   <%= submit_or_back_to games_path, "Retour sur la liste des jeux" %>
 <% end %>

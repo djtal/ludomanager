@@ -1,9 +1,6 @@
 <fieldset>
   <legend>Votre Jeu</legend>
-  <p><%= label_tag :account_game_game_name, "Nom du jeu" %><br />
-  <%= text_field_tag :account_game_game_name, "", :value => @account_game.game ? @account_game.game.name : "" , :class => "important", :disabled =>  params[:action] == "edit" %></p>
-  <div id="account_game_game_name_lookup" class="auto_complete"></div>
-  <%= form.hidden_field :game_id %>
+  <%= yield :game_name %>
   <p><%= form.label :origin, "Origine"  %><br />
   <%= form.text_field :origin, :size => 50 %></p>
   <p><%= form.label :price, "Prix d'achat" %><br />

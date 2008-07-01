@@ -83,7 +83,7 @@ class AccountGamesController < ApplicationController
   end
   
   def update
-    @account_game = AccountGame.find(params[:id])
+    @account_game = current_account.account_games.find(params[:id])
     respond_to do |format|
       if @account_game.update_attributes(params[:account_game])
         flash[:notice] = 'AccountGame was successfully created.'
