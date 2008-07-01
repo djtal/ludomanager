@@ -4,3 +4,4 @@ if(@smart)
   page[dom_id(@smart)].addClassName("selected")
 end
 page << "new TableKit.load();"
+page << "Application.loadSmartForm();"

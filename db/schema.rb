@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080629100032) do
+ActiveRecord::Schema.define(:version => 20080701163309) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20080629100032) do
     t.datetime "transdate"
     t.boolean  "shield"
     t.integer  "parties_count", :default => 0
+    t.boolean  "rules"
+    t.boolean  "cheatsheet"
   end
 
   create_table "accounts", :force => true do |t|

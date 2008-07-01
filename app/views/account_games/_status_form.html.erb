@@ -1,0 +1,7 @@
+<% form_for status_form, :url => account_game_path(status_form), :index => status_form.id, :html => {:class => "smartForm"} do |f| %>
+  <ul class="horizontal">
+    <li><%= f.label :shield, "Proteg&eacute;" %>&nbsp;<%= f.check_box :shield %></li>
+    <li><%= f.label :rules, "Regles" %>&nbsp;<%= f.check_box :rules %></li>
+    <li><%= f.label :cheatsheet, "Aides" %>&nbsp;<%= f.check_box :cheatsheet %></li>
+  </ul>
+<% end %>

@@ -36,6 +36,39 @@ DOM = {
   }
 };
 
+/*
+ *  Fires "mouse:enter" and "mouse:leave" events as a substitute for the
+ *  "mouseenter" and "mouseleave" events. Simulates, in effect, the behavior
+ *  of the CSS ":hover" pseudoclass.
+ */
+
+(function() {
+  function respondToMouseOver(event) {
+    var target = event.element();
+    if (event.relatedTarget && !event.relatedTarget.descendantOf(target))
+      target.fire("mouse:enter");
+  }
+  
+  function respondToMouseOut(event) {
+    var target = event.element();
+    if (event.relatedTarget && !event.relatedTarget.descendantOf(target))
+      target.fire("mouse:leave");
+  }
+    
+  
+  if (Prototype.Browser.IE) {
+    document.observe("mouseenter", function(event) {
+      event.element().fire("mouse:enter");
+    });
+    document.observe("mouseleave", function(event) {
+      event.element().fire("mouse:leave");
+    });
+  } else {
+    document.observe("mouseover", respondToMouseOver);
+    document.observe("mouseout",  respondToMouseOut);
+  }  
+})();
+
 
 // Add them to the element mixin
 Element.addMethods(DOM);
@@ -431,6 +464,35 @@ var SmartListForm = Class.create({
 })
 
 
+var SmartForm = Class.create({
+  initialize: function(form){
+    if(!$(form)) return;
+    this.form = $(form);
+    this.loadObservers();
+  },
+  
+  loadObservers: function(){
+    this.form.observe("change", this.submit.bindAsEventListener(this))
+  },
+  
+  submit: function(ev){
+      ev.stop();
+      this.form.request({onLoaded:this.lock.bind(this),
+                          onSuccess: this.unlock.bind(this)});
+  },
+  
+  lock: function(){
+      this.form.disable();
+  },
+  
+  unlock: function(){
+      this.form.enable();
+  },
+  
+})
+
+
+
 Calendar = {
   cells: $A(),
   load: function(){
@@ -443,7 +505,13 @@ Calendar = {
     Calendar.cells.invoke("desactivate")
   }
 }
-
+Application = {
+  loadSmartForm: function(){
+      $$(".smartForm").each(function(form) {
+        new SmartForm(form);
+      });
+  },
+}
 
 document.observe("dom:loaded", function() {
   PartyFilter.loadObservers();
@@ -453,6 +521,7 @@ document.observe("dom:loaded", function() {
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
   });
+  Application.loadSmartForm();
   
   Sidebar.load();
   Calendar.load();

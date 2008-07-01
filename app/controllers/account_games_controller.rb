@@ -84,9 +84,12 @@ class AccountGamesController < ApplicationController
   
   def update
     @account_game = current_account.account_games.find(params[:id])
+    params[:account_game] = params[:account_game][@account_game.id.to_s] if params[:account_game].size == 1
+    logger.debug { "params : #{params[:account_game]}" }
     respond_to do |format|
       if @account_game.update_attributes(params[:account_game])
         flash[:notice] = 'AccountGame was successfully created.'
+        format.js{ render :json => @account_game}
         format.html { redirect_to account_games_url}
         format.xml  { head :created, :location => accout_games_url}
       else

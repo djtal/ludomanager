@@ -276,6 +276,18 @@ div.auto_complete ul strong.highlight {
 
 #party-form img{ float:none;}
 
+ul.horizontal{
+  margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.horizontal li{
+	margin: 0px 0 0 0;
+	padding: 0px 0px;
+	float: left;
+}
+
 /* ---- Games ---- */
 
 #game_form textarea{
@@ -368,6 +380,10 @@ ul.tags li{
 ul.tags li.selected{
 	color: #422100;
 	font-weight: bold;
+}
+
+#account_games_list label{
+  font-weight: normal;
 }
 
 
