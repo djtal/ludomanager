@@ -20,11 +20,14 @@ class AccountGame < ActiveRecord::Base
   belongs_to :game
   belongs_to :account
   before_create :setup_default
+  cattr_reader :per_page
+  @@per_page = 50
   
-
-  def self.search query = {}
+  def self.search(query = {})
     opts = {
-      :include => {:game => :tags}
+      :include => {:game => :tags},
+      :order => "games.name ASC",
+      :page => query.delete(:page)
     }
     if query[:search]
       @tag_list = Tag.parse(query[:search][:tags]) if query[:search][:tags]
@@ -43,7 +46,7 @@ class AccountGame < ActiveRecord::Base
       
       opts[:limit] = query[:search][:limit] if !query[:search][:limit].blank?
     end
-    @ag = self.find(:all, opts)
+    @ag = self.paginate(:all, opts)
     #filter for tags
     if @tag_list && !@tag_list.empty?
       @ag = @ag.select do |ag|
@@ -51,7 +54,7 @@ class AccountGame < ActiveRecord::Base
          query[:search][:tags_mode] == "and" ? found == @tag_list.size : found > 0
       end
     end
-    @ag  = @ag.sort_by{|a| a.game.name}
+    @ag
   end
   
   def self.last_buy(count, opts = {})

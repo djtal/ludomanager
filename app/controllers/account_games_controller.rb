@@ -6,7 +6,9 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-    query = {}
+    query = {
+      :page => params[:page]
+    }
     if params[:smart_list] && params[:smart_list][:id]
       @smart_lists = current_account.smart_lists
       @smart = @smart_lists.find(params[:smart_list][:id]) 

@@ -9,6 +9,7 @@
   <%= render_games @account_games, :mode => :overview, :id => "account_games_table" %>
 </div>
 
+<%= will_paginate @account_game %>
 
 
 <% content_for :newsbox do %>
