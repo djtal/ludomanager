@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login  '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   
-  map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
+  map.resource :dashboard
   
   map.root  :controller => "games"
 
