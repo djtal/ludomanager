@@ -3,7 +3,7 @@
 <% form_for "search" , :url => search_account_games_path, :method => :post, :html => {:id => "ludo-search"} do |f| %>
 	<div class="right ">
 	    <%= link_to "", "#", :id => "reset", :class => "form-reset" %>
-        <%= image_submit_tag "find.png", :class => "form-find" %>
+      <%= image_submit_tag "find.png", :class => "form-find" %>
     </div>
     <fieldset>	
   		<div class="left">
@@ -20,7 +20,9 @@
     <%= f.text_field :difficulty, :size => 2, :value => params[:search] ? params[:search][:difficulty] : "", :class => "important trigger" %>
     <%= f.label :parties, "Nombre de parties" %>&nbsp;<%= f.text_field :parties, :value => params[:search] ? params[:search][:parties] : "", :size => 2, :class => "important trigger" %>
 	</fieldset>
+	<div></div>
 <% end %>
+
 
 <div id="smart-list"></div>
 

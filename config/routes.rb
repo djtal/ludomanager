@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
   map.resources :parties, :collection => {:play => :post, :add_party_form => :get}
-  map.resource :session
+  
   map.resources :accounts, :authors, :authorships
   
   #map.resources :parties, :collection => {:resume => :get}
@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login  '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   
+  map.resource :session
   map.resource :dashboard
   
   map.root  :controller => "games"

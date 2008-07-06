@@ -1,0 +1,9 @@
+<% if account_have_game?(game) %>
+  Vous possedez deja ce jeu.&nbsp;
+  <%= link_to_remote "Supprimez ce jeu de ma ludotheque", :url => {:controller => "account_games", 
+  										:action => 'destroy', :game_id => game.id}, :method => :delete %>
+<% else %>
+  Vous ne possedez as ce jeu.&nbsp;
+  <%= link_to_remote "L'ajouter a ma ludotheque", 	:url => {:controller => "account_games", :action => 'create', 
+  				:account_game => {:game_id => game.id}}, :method => :post  %>
+<% end %>

@@ -1,9 +1,0 @@
-
-<div id="protoflow">
-  <% @ag.each do |ag| %>
-    <%= image_tag(ag.game.image.public_filename, :size => "150x150", :alt => ag.game.name ) if ag.game.image %>
-  
-  <% end %>
-</div>
-
-

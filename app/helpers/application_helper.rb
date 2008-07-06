@@ -1,6 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  ALLOWED_TAGS = %w(game)
 
   def render_widget(partial, title)
     render :partial => partial, :layout => "layouts/widget", :locals => {:title => title}
@@ -48,6 +47,14 @@ module ApplicationHelper
        ""
      end
     end
+    
+    # Wrap your buttons in standard app form presentation
+    # See layout _form_buttons
+    #
+    def render_buttons(&block)
+      render :partial => "/layouts/form"
+    end
+    
     
     def submit_or_back_to(back_to, back_to_text = "Annuler", opts = {})
       options = {

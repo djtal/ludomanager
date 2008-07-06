@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   
   def get_account_games
     @account_games = current_account.games.all
-    logger.debug { "PRELOAD" }
+    logger.debug { "PRELOAD ACGames" }
   end
   
   def set_section

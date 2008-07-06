@@ -71,11 +71,12 @@ class AccountGamesController < ApplicationController
   # POST /account_games.xml
   def create
     @account_game = current_account.account_games.build(params[:account_game])
-    
     respond_to do |format|
       if @account_game.save
-        flash[:notice] = 'AccountGame was successfully created.'
+        flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
+        @account_games = current_account.games.all
         format.html { redirect_to account_games_url}
+        format.js
         format.xml  { head :created, :location => account_games_url }
       else
         format.html { render :action => "new" }
@@ -106,10 +107,13 @@ class AccountGamesController < ApplicationController
   def destroy
     if params[:game_id]
       @account_game = current_account.account_games.find_by_game_id(params[:game_id])
+      @context = :game
     else
       @account_game = AccountGame.find(params[:id])
+      @context = :account_game
     end
     @account_game.destroy
+    @account_games = current_account.games.all
     respond_to do |format|
       format.html { redirect_to account_games_url }
       format.js
