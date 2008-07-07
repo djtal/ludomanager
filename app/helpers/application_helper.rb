@@ -17,16 +17,6 @@ module ApplicationHelper
     current_account.account_games.find_by_game_id(game.id)
   end
   
-
-  
-  def comment_expire_options
-    [["Bloqués", -1],
-    ["Toujours authorizé", 0],
-    ["1 jour apres publication", 1],
-    ["1 mois apres publication", 30],
-    ["3 mois apres publication", 90]]
-  end
-  
   
    # French version
    #

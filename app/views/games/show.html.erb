@@ -14,9 +14,8 @@
     	  <% end %>
     	</p>
 		<ul class="meta">
-			<li>Difficulté : <span class="flash"><%= @game.difficulty %> / 5</span></li>
+		  <li>Public : <span class="flash"><%= @game.target_str %></span></li>
 			<li><%= nb_player_tag(@game) %></li>
-			<li>A partir de <span class="flash"><%= @game.min_age %> ans</span></li>
 			<li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
 			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></span></li>
