@@ -91,6 +91,7 @@ var BMore = Behavior.create({
   },
 });
 
+
 var BCalendarCell = Behavior.create({
   initialize: function(){
     this.element.down(".play").hide();
@@ -320,17 +321,6 @@ Sidebar = {
   }
 }
 
-Game = {
-  loadStar: function(){
-    $$(".rate").each(function(elt){
-      console.debug(elt.inspect());
-      new Starbox(elt, elt.previous(".average").innerHTML, {locked: true, overlay: "big.png"});
-
-    });
-    return false;
-  }
-}
-
 var Widget = Class.create();
 Widget.addMethods({
   initialize: function(elt){
@@ -463,7 +453,9 @@ var SmartListForm = Class.create({
   }
 })
 
-
+/*
+  Used to create live unobtrusive live form
+*/
 var SmartForm = Class.create({
   initialize: function(form){
     if(!$(form)) return;
@@ -506,11 +498,16 @@ Calendar = {
   }
 }
 Application = {
+  start: function(){
+    this.loadSmartForm();
+  },
+  
   loadSmartForm: function(){
       $$(".smartForm").each(function(form) {
         new SmartForm(form);
       });
   },
+  
 }
 
 document.observe("dom:loaded", function() {
@@ -521,11 +518,10 @@ document.observe("dom:loaded", function() {
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
   });
-  Application.loadSmartForm();
+  Application.start();
   
   Sidebar.load();
   Calendar.load();
-  Game.loadStar();
   pf = new PartyForm("party-form");
   $$(".more").each(function(elt){
     BMore.attach(elt);

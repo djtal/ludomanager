@@ -23,7 +23,6 @@
 class Game < ActiveRecord::Base
   Target = [["Tous public", 0], ["Tres jeune enfant", 1], ["Jeunes enfant", 2], ["Casual", 3], ["Gamers", 4]]
 
-  
   before_destroy :check_parties, :check_accounts
   validates_presence_of :name, :difficulty, :min_player, :max_player
   validates_inclusion_of :difficulty, :in => 1..5
