@@ -14,11 +14,10 @@ module ApplicationHelper
   
   def account_have_game?(game)
     if logged_in?
-      return @account_games.include?(game) if @account_games
+      return @account_games.map(&:game_id).include?(game.id) if @account_games
       current_account.account_games.find_by_game_id(game.id)
     end
   end
-  
   
    # French version
    #

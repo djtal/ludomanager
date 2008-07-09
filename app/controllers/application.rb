@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def get_account_games
-    @account_games = current_account.games.all
+    @account_games = current_account.account_games.all
     logger.debug { "PRELOAD ACGames" }
   end
   
