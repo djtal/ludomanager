@@ -1,5 +1,3 @@
-
-
 /* ----- Structure and Layout ----- */
 
 body {
@@ -266,9 +264,7 @@ div.auto_complete ul strong.highlight {
 	margin-right: 5px;
 }
 
-#games{
-	margin-bottom: 90px;
-}
+
 
 .search_wrapper{
 	position:absolute;
@@ -294,12 +290,29 @@ ul.horizontal li{
   height: auto;
 }
 
+#games{ 
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
 #games .game{
-  margin-bottom: 5px;
-  padding: 0 5px;
+	margin-bottom: 30px;
+	border: 1px solid #6c9;
+}
+
+#games .content{
+	padding: 0 4px;
 }
 .game .account_managment{
-  margin-top: 5px;
+ 	margin-top: 5px;
+  	background-color: #eaeaea;
+	width: 100%;
+	text-align: center;
+}
+
+.game .account_managment img{
+	margin: 0;
+	vertical-align: middle;
 }
 
 .game .account_managment a{
@@ -307,9 +320,9 @@ ul.horizontal li{
 }
 
 #games h3{
-  background-color: #fff;
   border: none;
-  padding-left: 17px;
+  padding-left: 40px;
+	background-color: #eaeaea;
 }
 
 .game ul{
@@ -552,4 +565,24 @@ input#smart_list_title {
 	font-size: 20px;
 	font-weight: bold;
 }
+
+
+.pagination {
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 1em; 
+}
+.pagination a, .pagination span {
+    padding: .2em .3em; }
+.pagination span.disabled {
+    color: #AAA; }
+.pagination span.current {
+    font-weight: bold;
+    background: transparent url(apple-circle.gif) no-repeat 50% 50%; }
+.pagination a {
+    text-decoration: none;
+    color: black; }
+.pagination a:hover, .pagination a:focus {
+      text-decoration: underline; }
 

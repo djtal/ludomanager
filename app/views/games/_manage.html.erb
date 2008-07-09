@@ -1,15 +1,6 @@
 <% if logged_in? %>
-	<div class="right function">
+	<div class="left function">
 		<%= link_to "", edit_game_path(game), :class => " ss_sprite ss_database_edit" %>
 		<%= link_to "", game_path(game), :method => :delete, :class => "ss_sprite ss_database_delete" %> 
-		&nbsp;|&nbsp;
-		<% if account_have_game?(game) %>
-			<%= link_to "", {:controller => "account_games", 
-													:action => 'destroy', :game_id => game.id}, :method => :delete, :class => "ss_sprite ss_folder_delete" %>
-		<% else %>
-			<%= link_to "", 	{:controller => "account_games", :action => 'create', 
-							:account_game => {:game_id => game.id}}, :method => :post, :class => "ss_sprite ss_folder_add "  %>
-		<% end %>
-		
 	</div>
 <% end %>

@@ -1,4 +1,3 @@
-<%= render :partial => 'manage', :locals => {:game => @game} %>
 <h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
 
 <% div_for @game, :class => "clear" do %>
@@ -25,7 +24,7 @@
 			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 		</ul>
 	</div>
-	
+	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
 	
 <div class="page-nav">
