@@ -14,6 +14,7 @@ class AccountGamesController < ApplicationController
       @smart = @smart_lists.find(params[:smart_list][:id]) 
       query[:search] = @smart.query
     end
+     
     @account_games = current_account.account_games.search(query)
     @smart_lists = current_account.smart_lists
     respond_to do |format|

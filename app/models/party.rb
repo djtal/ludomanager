@@ -38,8 +38,8 @@ class Party < ActiveRecord::Base
     find(:all, options)
   end
   
-  def self.most_played(count, opts = {})
-    calculate(:count, :id, :group => :game, :order => "count_id DESC", :limit => 5)
+  def self.most_played(count)
+    calculate(:count, :id, :group => :game, :order => "count_id DESC", :limit => count)
   end
   
   def up_partie_cache
