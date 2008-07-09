@@ -36,6 +36,39 @@ DOM = {
   }
 };
 
+/*
+ *  Fires "mouse:enter" and "mouse:leave" events as a substitute for the
+ *  "mouseenter" and "mouseleave" events. Simulates, in effect, the behavior
+ *  of the CSS ":hover" pseudoclass.
+ */
+
+(function() {
+  function respondToMouseOver(event) {
+    var target = event.element();
+    if (event.relatedTarget && !event.relatedTarget.descendantOf(target))
+      target.fire("mouse:enter");
+  }
+  
+  function respondToMouseOut(event) {
+    var target = event.element();
+    if (event.relatedTarget && !event.relatedTarget.descendantOf(target))
+      target.fire("mouse:leave");
+  }
+    
+  
+  if (Prototype.Browser.IE) {
+    document.observe("mouseenter", function(event) {
+      event.element().fire("mouse:enter");
+    });
+    document.observe("mouseleave", function(event) {
+      event.element().fire("mouse:leave");
+    });
+  } else {
+    document.observe("mouseover", respondToMouseOver);
+    document.observe("mouseout",  respondToMouseOut);
+  }  
+})();
+
 
 // Add them to the element mixin
 Element.addMethods(DOM);
@@ -59,6 +92,7 @@ var BMore = Behavior.create({
     return false;
   },
 });
+
 
 var BCalendarCell = Behavior.create({
   initialize: function(){
@@ -266,17 +300,6 @@ Sidebar = {
   }
 }
 
-Game = {
-  loadStar: function(){
-    $$(".rate").each(function(elt){
-      console.debug(elt.inspect());
-      new Starbox(elt, elt.previous(".average").innerHTML, {locked: true, overlay: "big.png"});
-
-    });
-    return false;
-  }
-}
-
 var Widget = Class.create();
 Widget.addMethods({
   initialize: function(elt){
@@ -409,6 +432,37 @@ var SmartListForm = Class.create({
   }
 })
 
+/*
+  Used to create live unobtrusive live form
+*/
+var SmartForm = Class.create({
+  initialize: function(form){
+    if(!$(form)) return;
+    this.form = $(form);
+    this.loadObservers();
+  },
+  
+  loadObservers: function(){
+    this.form.observe("change", this.submit.bindAsEventListener(this))
+  },
+  
+  submit: function(ev){
+      ev.stop();
+      this.form.request({onLoaded:this.lock.bind(this),
+                          onSuccess: this.unlock.bind(this)});
+  },
+  
+  lock: function(){
+      this.form.disable();
+  },
+  
+  unlock: function(){
+      this.form.enable();
+  },
+  
+})
+
+
 
 Calendar = {
   cells: $A(),
@@ -422,7 +476,18 @@ Calendar = {
     Calendar.cells.invoke("desactivate")
   }
 }
-
+Application = {
+  start: function(){
+    this.loadSmartForm();
+  },
+  
+  loadSmartForm: function(){
+      $$(".smartForm").each(function(form) {
+        new SmartForm(form);
+      });
+  },
+  
+}
 
 document.observe("dom:loaded", function() {
   new GameForm("game_form");
@@ -432,10 +497,10 @@ document.observe("dom:loaded", function() {
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
   });
+  Application.start();
   
   Sidebar.load();
   Calendar.load();
-  Game.loadStar();
   pf = new PartyForm("party-form");
   $$(".more").each(function(elt){
     BMore.attach(elt);

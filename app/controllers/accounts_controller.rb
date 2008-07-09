@@ -35,6 +35,7 @@ class AccountsController < ApplicationController
       respond_to do |format|
         format.html{ redirect_to dashboard_path}
       end
+    end
   end
 
 end

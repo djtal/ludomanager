@@ -97,6 +97,7 @@ class GamesController < ApplicationController
     if @game.destroy
 	    respond_to do |format|
 	      format.html { redirect_to games_path }
+	      format.js
 	      format.xml  { head :ok }
     	end
 	else

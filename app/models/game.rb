@@ -21,10 +21,12 @@
 
 
 class Game < ActiveRecord::Base
+  Target = [["Tous public", 0], ["Tres jeune enfant", 1], ["Jeunes enfant", 2], ["Casual", 3], ["Gamers", 4]]
+
   before_destroy :check_parties, :check_accounts
-  
   validates_presence_of :name, :difficulty, :min_player, :max_player
   validates_inclusion_of :difficulty, :in => 1..5
+  validates_inclusion_of :target, :in => 1..5
   validates_uniqueness_of :name, :message => "Desolé ce jeu existe deja"
   
   validates_each :min_player, :max_player  do |record, attr, value|
@@ -48,6 +50,10 @@ class Game < ActiveRecord::Base
     if min_player && max_player
       self.errors.add :max_player, "le nombre maxi de joueur ne peut etre inferieur au nombre mini" if min_player > max_player
     end
+  end
+
+  def target_str
+    self.class::Target[target][0]
   end
   
   

@@ -1,6 +1,10 @@
 <li class="left"><%= link_to "Liste", games_path %></li>
 <li class="left"><%= link_to "Les Tags", tags_path %></li>
 <li class="left"><%= link_to "Ajouter", new_game_path %></li>
-<li class="right" >
-	Rechercher
+<li class="right clear">
+	<% form_tag search_games_path, :method => 'get', :class => "right" do %>
+      <%= label :search, "Nom du jeu" %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Go" %>
+  <% end %>
 </li>

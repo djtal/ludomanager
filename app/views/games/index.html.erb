@@ -11,7 +11,7 @@
 
 <%= yield :page_nav %>
 
-<div class="column prepend-1">
+<div>
 	
 	<div id="games">
 		<% if @games.size > 0 %>
@@ -24,10 +24,6 @@
 </div>
 
 <%= yield :page_nav %>
-
-<% content_for :newsbox do %>
-	<%= render_widget "search",  "Recherche" %>
-<% end %>
 
 <% content_for :subnav do %>
 	<%= render :partial => "subnav" %>

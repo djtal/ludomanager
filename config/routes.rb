@@ -8,12 +8,13 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
+
   map.resources :parties, 
                 :collection => {:play => :post, :add_party_form => :get},
                 :has_many => :players
   map.resource :session
   map.resources :accounts, :authors, :authorships, :members
-  
+
   #map.resources :parties, :collection => {:resume => :get}
   map.resources :account_games,
                 :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, :missing  => :get}
@@ -28,7 +29,8 @@ ActionController::Routing::Routes.draw do |map|
   map.login  '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   
-  map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
+  map.resource :session
+  map.resource :dashboard
   
   map.root  :controller => "games"
 

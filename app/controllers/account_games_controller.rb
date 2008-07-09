@@ -6,12 +6,15 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-    query = {}
+    query = {
+      :page => params[:page]
+    }
     if params[:smart_list] && params[:smart_list][:id]
       @smart_lists = current_account.smart_lists
       @smart = @smart_lists.find(params[:smart_list][:id]) 
       query[:search] = @smart.query
     end
+     
     @account_games = current_account.account_games.search(query)
     @smart_lists = current_account.smart_lists
     respond_to do |format|
@@ -69,11 +72,12 @@ class AccountGamesController < ApplicationController
   # POST /account_games.xml
   def create
     @account_game = current_account.account_games.build(params[:account_game])
-    
     respond_to do |format|
       if @account_game.save
-        flash[:notice] = 'AccountGame was successfully created.'
+        flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
+        @account_games = current_account.games.all
         format.html { redirect_to account_games_url}
+        format.js
         format.xml  { head :created, :location => account_games_url }
       else
         format.html { render :action => "new" }
@@ -83,10 +87,13 @@ class AccountGamesController < ApplicationController
   end
   
   def update
-    @account_game = AccountGame.find(params[:id])
+    @account_game = current_account.account_games.find(params[:id])
+    params[:account_game] = params[:account_game][@account_game.id.to_s] if params[:account_game].size == 1
+    logger.debug { "params : #{params[:account_game]}" }
     respond_to do |format|
       if @account_game.update_attributes(params[:account_game])
         flash[:notice] = 'AccountGame was successfully created.'
+        format.js{ render :json => @account_game}
         format.html { redirect_to account_games_url}
         format.xml  { head :created, :location => accout_games_url}
       else
@@ -101,10 +108,13 @@ class AccountGamesController < ApplicationController
   def destroy
     if params[:game_id]
       @account_game = current_account.account_games.find_by_game_id(params[:game_id])
+      @context = :game
     else
       @account_game = AccountGame.find(params[:id])
+      @context = :account_game
     end
     @account_game.destroy
+    @account_games = current_account.games.all
     respond_to do |format|
       format.html { redirect_to account_games_url }
       format.js

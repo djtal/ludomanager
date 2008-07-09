@@ -1,5 +1,4 @@
-<%= render :partial => 'manage', :locals => {:game => @game} %>
-<h3><%= @game.name %></h3>
+<h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
 
 <% div_for @game, :class => "clear" do %>
 	<div class="column span-3">
@@ -12,24 +11,24 @@
     	  <% else %>
     	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
     	  <% end %>
+    	  <br /><br />
+    	  Un jeu <span class="flash"><%= @game.target_str.downcase %></span> pour <%= nb_player_tag(@game) %>.<br />
+    	  
+    	  <span class="meta"><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></span>
     	</p>
 		<ul class="meta">
-			<li>Difficulté : <span class="flash"><%= @game.difficulty %> / 5</span></li>
-			<li><%= nb_player_tag(@game) %></li>
-			<li>A partir de <span class="flash"><%= @game.min_age %> ans</span></li>
-			<li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
-			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></span></li>
 			<li>Année de sortie : <span class="flash"><%= @game.publish_year %></span></li>
-			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span></li>
-			<li>Editeur <span class="flash"><%= @game.editor %></span></li>
-			<li>Tags : <%= game_tags_links @game %></li>
+			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span> chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
+		  <li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
+			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 		</ul>
 	</div>
+	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
 	
 <div class="page-nav">
-	<strong><%= link_to "Retour sur la liste des jeux", games_path %></strong>		
+	<strong><%= link_to "Retour sur la liste des jeux", request.env["HTTP_REFERER"] ? request.env["HTTP_REFERER"] : games_path %></strong>		
 </div>	
 
 

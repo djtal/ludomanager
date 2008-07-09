@@ -1,6 +1,5 @@
 <tr id="<%= dom_id(account_game) %>">
 	<td><%= status_indicator account_game %></td>
-	<td><%= shield_indicator account_game %></td>
 	<td><%= link_to_game account_game %></td>
 	
 	<% if mode == :full %>
@@ -11,8 +10,9 @@
 	<% end %>
 
 	<% if mode == :overview %>
+	  <td><%= render :partial => "status_form", :locals => {:status_form => account_game} %></td>
 	  <td><%= account_game.origin %></td>
-		<td><%= account_game.transdate.to_s(:date_fr) %></td>
+		
 		<td><%= account_game.parties_count %></td>
 		<td><span class="function">
 			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_database_edit" %>

@@ -1,6 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  ALLOWED_TAGS = %w(game)
 
   def render_widget(partial, title)
     render :partial => partial, :layout => "layouts/widget", :locals => {:title => title}
@@ -14,20 +13,11 @@ module ApplicationHelper
   end
   
   def account_have_game?(game)
-    return @account_games.include?(game) if @account_games
-    current_account.account_games.find_by_game_id(game.id)
+    if logged_in?
+      return @account_games.map(&:game_id).include?(game.id) if @account_games
+      current_account.account_games.find_by_game_id(game.id)
+    end
   end
-  
-
-  
-  def comment_expire_options
-    [["Bloqués", -1],
-    ["Toujours authorizé", 0],
-    ["1 jour apres publication", 1],
-    ["1 mois apres publication", 30],
-    ["3 mois apres publication", 90]]
-  end
-  
   
    # French version
    #
@@ -48,6 +38,14 @@ module ApplicationHelper
        ""
      end
     end
+    
+    # Wrap your buttons in standard app form presentation
+    # See layout _form_buttons
+    #
+    def render_buttons(&block)
+      render :partial => "/layouts/form"
+    end
+    
     
     def submit_or_back_to(back_to, back_to_text = "Annuler", opts = {})
       options = {

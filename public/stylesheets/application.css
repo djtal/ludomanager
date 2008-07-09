@@ -1,5 +1,3 @@
-
-
 /* ----- Structure and Layout ----- */
 
 body {
@@ -266,9 +264,7 @@ div.auto_complete ul strong.highlight {
 	margin-right: 5px;
 }
 
-#games{
-	margin-bottom: 90px;
-}
+
 
 .search_wrapper{
 	position:absolute;
@@ -276,30 +272,76 @@ div.auto_complete ul strong.highlight {
 
 #party-form img{ float:none;}
 
+ul.horizontal{
+  margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.horizontal li{
+	margin: 0px 0 0 0;
+	padding: 0px 0px;
+	float: left;
+}
+
 /* ---- Games ---- */
 
 #game_form textarea{
   height: auto;
 }
 
-#games .game img{
-	margin-left: -30px;
-	margin-right: 10px;
+#games{ 
+	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
-#innernews #search-results{
-	margin-left: 5px;
-	padding-left: 5px;
+#games .game{
+	margin-bottom: 30px;
+	border: 1px solid #6c9;
 }
 
-#search-results li{
-	list-style-type: none;
+#games .content{
+	padding: 0 4px;
+}
+.game .account_managment{
+ 	margin-top: 5px;
+  	background-color: #eaeaea;
+	width: 100%;
+	text-align: center;
+}
+
+.game .account_managment img{
+	margin: 0;
+	vertical-align: middle;
+}
+
+.game .account_managment a{
+  font-variant:small-caps;
+}
+
+#games h3{
+  border: none;
+  padding-left: 40px;
+	background-color: #eaeaea;
 }
 
 .game ul{
 	list-style: none;
 }
 
+
+.game .meta{
+  margin: 0;
+}
+
+.page-nav{
+	margin-top: 5px;
+	text-align: center;
+}
+
+.page-nav a{
+	font-weight: bold;
+}
 
 .meta{
 	color: #666;
@@ -310,6 +352,10 @@ div.auto_complete ul strong.highlight {
 	background-color: #fff;
 	color: #666;
 	font-weight: bold;
+}
+
+.meta img{
+  margin: 0 4px 0 0;
 }
 
 
@@ -360,6 +406,10 @@ ul.tags li{
 ul.tags li.selected{
 	color: #422100;
 	font-weight: bold;
+}
+
+#account_games_list label{
+  font-weight: normal;
 }
 
 
@@ -522,10 +572,27 @@ input#smart_list_title {
 .pagination{
 	margin-top: 5px;
 	text-align: center;
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 1em; 
 }
 
 .pagination a{
 	font-weight: bold;
 }
+
+.pagination a, .pagination span {
+    padding: .2em .3em; }
+.pagination span.disabled {
+    color: #AAA; }
+.pagination span.current {
+    font-weight: bold;
+    background: transparent url(apple-circle.gif) no-repeat 50% 50%; }
+.pagination a {
+    text-decoration: none;
+    color: black; }
+.pagination a:hover, .pagination a:focus {
+      text-decoration: underline; }
 
 

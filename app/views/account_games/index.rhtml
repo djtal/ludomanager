@@ -1,7 +1,7 @@
 <h3>Votre ludotheque</h3>
 
 <h4>
-	<span class="right"><%= pluralize @account_games.size, "Jeu", "Jeux" %></span>
+	<span class="right"><%= pluralize @current_account.games.count, "Jeu", "Jeux" %></span>
 	Vos Jeux
 </h4>
 
@@ -9,10 +9,13 @@
   <%= render_games @account_games, :mode => :overview, :id => "account_games_table" %>
 </div>
 
+<%= will_paginate @account_game %>
 
 
 <% content_for :newsbox do %>
   <%= render :partial => "smart_lists/widget" %>
+  
+  
 <% end %>
 
 <% content_for :subnav do %>

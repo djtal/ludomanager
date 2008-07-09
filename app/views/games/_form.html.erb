@@ -33,8 +33,12 @@
 	 	  <p><%= f.label :min_player, "De " %><%= f.text_field :min_player, :size => 2 %>
 	 	  &nbsp;<%= f.label :max_player, "A " %><%= f.text_field :max_player, :size => 2 %>
 	 	  &nbsp;joueurs</p>
+	 	  <p><%= f.label :target, "Type de public" %>
+	 	  <%= f.select :target, Game::Target  %></p>
+	 	  
 	 	  <p><%= f.label :min_age, "A partir de" %>&nbsp;
 	 	  <%= f.text_field :min_age, :size => 2 %>&nbsp;ans</p>
+	 	  
 	 	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.text_field :difficulty, :size => 4 %></p>
 	  	<p><%= f.label "Dur&eacute;e " %><%= f.text_field :time_average, :size => 10 %></p>
 	  	<p><%= f.label :editor, "Editeur " %><%= f.text_field :editor %></p>
@@ -45,7 +49,7 @@
 <fieldset>
   <legend>Les auteurs</legend>
   <div>
-    <span class="tips">Sous la forme "nom-prenom"  1 par ligne ",".</span>
+    <span class="tips">Sous la forme "prenom-nom"</span>
 	  <ul id="authors">
   		<% @authors.each_with_index do |author, index| %>
   	  	  <li>

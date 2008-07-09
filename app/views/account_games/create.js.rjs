@@ -1,0 +1,2 @@
+page[dom_id(@account_game.game)].down(".account_managment").update(render(:partial => 'games/account_managment', :locals => {:game => @account_game.game}))
+page[dom_id(@account_game.game)].down(".account_managment").highlight

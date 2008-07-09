@@ -1,6 +1,16 @@
 module GamesHelper
   def nb_player_tag(game)
-    "De <span class=\"flash\">" + game.min_player.to_s + "</span> a <span class=\"flash\">" + pluralize(game.max_player, "</span>joueur", "</span>joueurs")
+    if game.min_player < game.max_player
+      "<span class=\"flash\">" + game.min_player.to_s + "</span> a <span class=\"flash\">" + pluralize(game.max_player, "</span>joueur", "</span>joueurs")
+    else
+      "<span class='flash'>#{pluralize(game.max_player, "</span>joueur", "</span>joueurs")}"
+    end
+  end
+  
+  def game_name(game, includeVO = true)
+    name = game.name
+    game +=  content_tag(:span, " (" + game.vo_name + ")") if (!game.vo_name.blank? && includeVO)
+    
   end
 
   def tags_links(game)
@@ -20,14 +30,19 @@ module GamesHelper
   end
   
   def authors_links(authors)
-    authors.collect do |a|
-      link_to(a.display_name, author_path(a))
-    end.join(", ")
+    if authors.size > 0
+      links = authors.collect do |a|
+        a ? link_to(a.display_name, author_path(a)) : ""
+      end.compact.join(", ")
+    else
+      "-----"
+    end
   end
   
   def game_box_for(game, opts = {})
     options = {
-      :size => "35x35"
+      :size => "35x35",
+      :alt => "boite_#{game.name.gsub(/\s+/, "_").downcase}"
     }.merge(opts)
     image_tag(game.image ? game.image.public_filename : "game_box.png" , options)
   end
