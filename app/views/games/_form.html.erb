@@ -1,66 +1,62 @@
 <fieldset>
 	<legend>Le plus important</legend>
-	<div>
-	  <p><%= f.label :name, "Nom du jeu" %><br />
-	  <%= f.text_field :name, :size => 50, :class => "title" %></p>
-	  <p><%= f.label :vo_name, "Nom de la VO" %><br />
-	  <%= f.text_field :vo_name %></p>
-	  <p><%= f.label :description, "Une petite description" %><br />
-	  <%= f.text_area :description, :rows => 5, :cols => 71 %></p>
-  	<% fields_for :tag, @game  do |ff| %>
-  	  <%= render :partial => "tags/new", :locals => {:f => ff} %>
-  	<% end %>
-  	<% fields_for :game_photo do |g| %>		
-  		<div class="column">
-  		  <%= image_tag(@game.image.public_filename, :size =>"60x60") if @game.image %>
-  		</div>
-      <div class="column last">
-  			<% if @game.image %>
-  				<%= g.label :delete, "Supprimer l'image actuel" %>
-  				<%= g.check_box :delete %>
-  			<% end %>
-  			<p class="<%= @game.image ? "hide" : "" %>">
-  			  <%= g.label :uploaded_data, "Une image de la boite ?" %><br />
-    			<%= g.file_field :uploaded_data %>
-  			</p>
-      </div>
-  	<% end %>
-	</div>
+  <div class="clear">
+    <p class="left"><%= f.label :name, "Nom du jeu (Obligatoire)" %><br />
+    <%= f.text_field :name, :size => 50, :class => "title" %></p>
+    <p class="left"><%= f.label :vo_name, "Nom de la VO" %><br />
+    <%= f.text_field :vo_name, :class => "title" %></p>
+  </div>
+
+
+  <p><%= f.label :description, "Une petite description" %><br />
+  <%= f.text_area :description, :rows => 5, :cols => 71 %></p>
+	<% fields_for :tag, @game  do |ff| %>
+	  <%= render :partial => "tags/new", :locals => {:f => ff} %>
+	<% end %>
+	<% fields_for :game_photo do |g| %>		
+		<div class="column">
+		  <%= image_tag(@game.image.public_filename, :size =>"60x60") if @game.image %>
+		</div>
+    <div class="column last">
+			<% if @game.image %>
+				<%= g.label :delete, "Supprimer l'image actuel" %>
+				<%= g.check_box :delete %>
+			<% end %>
+			<p class="<%= @game.image ? "hide" : "" %>">
+			  <%= g.label :uploaded_data, "Une image de la boite ?" %><br />
+  			<%= g.file_field :uploaded_data %>
+			</p>
+    </div>
+	<% end %>
 </fieldset>
 <fieldset>
 	<legend>Le coin technique</legend>
-	<div>
-	 	  <p><%= f.label :min_player, "De " %><%= f.text_field :min_player, :size => 2 %>
-	 	  &nbsp;<%= f.label :max_player, "A " %><%= f.text_field :max_player, :size => 2 %>
-	 	  &nbsp;joueurs</p>
-	 	  <p><%= f.label :target, "Type de public" %>
-	 	  <%= f.select :target, Game::Target  %></p>
-	 	  
-	 	  <p><%= f.label :min_age, "A partir de" %>&nbsp;
-	 	  <%= f.text_field :min_age, :size => 2 %>&nbsp;ans</p>
-	 	  
-	 	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.text_field :difficulty, :size => 4 %></p>
-	  	<p><%= f.label "Dur&eacute;e " %><%= f.text_field :time_average, :size => 10 %></p>
-	  	<p><%= f.label :editor, "Editeur " %><%= f.text_field :editor %></p>
-	  	<p><%= f.label :publish_year, "Ann&eacute;e de sortie " %><%= f.text_field :publish_year, :size => 4 %></p>
-	</div>
+ 	  <p><%= f.label :min_player, "De " %><%= f.text_field :min_player, :size => 2 %>
+ 	  &nbsp;<%= f.label :max_player, "A " %><%= f.text_field :max_player, :size => 2 %>
+ 	  &nbsp;joueurs</p>
+ 	  <p><%= f.label :target, "Type de public" %>
+ 	  <%= f.select :target, Game::Target  %></p>
+ 	  <p><%= f.label :time_category, "Durée de jeu moyenne" %>
+ 	  <%= f.select :time_category, Game::TimeCategory %></p>
+ 	  
+ 	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.text_field :difficulty, :size => 4 %></p>
+  	<p><%= f.label :editor, "Editeur " %><%= f.text_field :editor %></p>
+  	<p><%= f.label :publish_year, "Ann&eacute;e de sortie " %><%= f.text_field :publish_year, :size => 4 %></p>
 </fieldset>
 
 <fieldset>
   <legend>Les auteurs</legend>
-  <div>
-    <span class="tips">Sous la forme "prenom-nom"</span>
-	  <ul id="authors">
-  		<% @authors.each_with_index do |author, index| %>
-  	  	  <li>
-  	  	  	<% fields_for :authors, author do |ffa| %>
-  	  			  <%= ffa.text_field :display_name, :index => index, :class => "author_display_name text" %>
-  	  	      <div class="auto_complete" id="authors_lookup_auto_complete"></div> 
-  	  	    <% end %>
-  	  	  </li>
-  	  	<% end %>		
-  	</ul>
-  </div>
+  <span class="tips">Sous la forme "prenom-nom"</span>
+  <ul id="authors">
+		<% @authors.each_with_index do |author, index| %>
+	  	  <li>
+	  	  	<% fields_for :authors, author do |ffa| %>
+	  			  <%= ffa.text_field :display_name, :index => index, :class => "author_display_name text" %>
+	  	      <div class="auto_complete" id="authors_lookup_auto_complete"></div> 
+	  	    <% end %>
+	  	  </li>
+	  	<% end %>		
+	</ul>
 </fieldset>
 
 <fieldset>

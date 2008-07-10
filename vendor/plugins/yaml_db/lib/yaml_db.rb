@@ -150,7 +150,7 @@ module YamlDb::Load
 		column_names = data['columns']
 		truncate_table(table)
 		load_records(table, column_names, data['records'])
-		reset_pk_sequence!(table)
+		#reset_pk_sequence!(table)
 	end
 
 	def self.load_records(table, column_names, records)

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 30
+# Schema version: 20080710200139
 #
 # Table name: game_photos
 #

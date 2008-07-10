@@ -74,8 +74,8 @@ class AccountGamesController < ApplicationController
     @account_game = current_account.account_games.build(params[:account_game])
     respond_to do |format|
       if @account_game.save
+        @account_games = current_account.account_games.all
         flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
-        @account_games = current_account.games.all
         format.html { redirect_to account_games_url}
         format.js
         format.xml  { head :created, :location => account_games_url }
@@ -114,7 +114,7 @@ class AccountGamesController < ApplicationController
       @context = :account_game
     end
     @account_game.destroy
-    @account_games = current_account.games.all
+    @account_games = current_account.account_games.all
     respond_to do |format|
       format.html { redirect_to account_games_url }
       format.js

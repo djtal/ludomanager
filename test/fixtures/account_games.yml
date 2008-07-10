@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 30
+# Schema version: 20080710200139
 #
 # Table name: account_games
 #
@@ -12,6 +12,8 @@
 #  transdate     :datetime      
 #  shield        :boolean       
 #  parties_count :integer       default(0)
+#  rules         :boolean       
+#  cheatsheet    :boolean       
 #
 
 

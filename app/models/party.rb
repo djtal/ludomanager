@@ -1,4 +1,15 @@
 # == Schema Information
+# Schema version: 20080710200139
+#
+# Table name: parties
+#
+#  id         :integer       not null, primary key
+#  game_id    :integer       
+#  created_at :datetime      
+#  account_id :integer       
+#
+
+# == Schema Information
 # Schema version: 30
 #
 # Table name: parties

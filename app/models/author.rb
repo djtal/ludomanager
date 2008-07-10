@@ -1,4 +1,14 @@
 # == Schema Information
+# Schema version: 20080710200139
+#
+# Table name: authors
+#
+#  id      :integer       not null, primary key
+#  name    :string(255)   
+#  surname :string(255)   
+#
+
+# == Schema Information
 # Schema version: 30
 #
 # Table name: authors

@@ -1,32 +1,39 @@
 # == Schema Information
-# Schema version: 30
+# Schema version: 20080710200139
 #
 # Table name: games
 #
-#  id           :integer       not null, primary key
-#  name         :string(255)   
-#  description  :text          
-#  difficulty   :integer       default(1)
-#  min_player   :integer       default(1)
-#  max_player   :integer       
-#  price        :float         
-#  time_average :string(255)   
-#  created_at   :datetime      
-#  updated_at   :datetime      
-#  publish_year :string(255)   
-#  editor       :string(255)   
-#  url          :text          
-#  average      :float         default(0.0)
+#  id            :integer       not null, primary key
+#  name          :string(255)   
+#  description   :text          
+#  difficulty    :integer       default(2)
+#  min_player    :integer       default(1)
+#  max_player    :integer       
+#  time_average  :string(255)   
+#  created_at    :datetime      
+#  updated_at    :datetime      
+#  publish_year  :string(255)   
+#  editor        :string(255)   
+#  url           :text          
+#  average       :float         default(0.0)
+#  min_age       :integer       
+#  vo_name       :text          
+#  target        :integer       default(0)
+#  time_category :integer       default(0)
+#  published_at  :date          
 #
+
 
 
 class Game < ActiveRecord::Base
   Target = [["Tous public", 0], ["Tres jeune enfant", 1], ["Jeunes enfant", 2], ["Casual", 3], ["Gamers", 4]]
+  TimeCategory = [["< 30min", 0], ["Entre 30min/1h", 1],["Entre 1h et 1h30", 2], ["> 1h30", 3]]
 
   before_destroy :check_parties, :check_accounts
   validates_presence_of :name, :difficulty, :min_player, :max_player
   validates_inclusion_of :difficulty, :in => 1..5
-  validates_inclusion_of :target, :in => 1..5
+  validates_inclusion_of :target, :in => 0..4
+  validates_inclusion_of :time_category, :in => 0..3
   validates_uniqueness_of :name, :message => "Desolé ce jeu existe deja"
   
   validates_each :min_player, :max_player  do |record, attr, value|
@@ -54,6 +61,10 @@ class Game < ActiveRecord::Base
 
   def target_str
     self.class::Target[target][0]
+  end
+  
+  def time_str
+    self.class::TimeCategory[time_category][0]
   end
   
   

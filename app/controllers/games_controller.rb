@@ -84,6 +84,13 @@ class GamesController < ApplicationController
         format.html { redirect_to game_path(@game) }
         format.xml  { head :ok }
       else
+        if !@game.authors
+          @authors = []
+          3.times{@authors << Author.new}
+        else
+          @authors = @game.authors.find(:all)
+          (3 - @authors.size).times{@authors << Author.new }
+        end
         format.html { render :action => "edit" }
         format.xml  { render :xml => @game.errors.to_xml }
       end
