@@ -1,8 +1,12 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  def render_widget(partial, title)
-    render :partial => partial, :layout => "layouts/widget", :locals => {:title => title}
+  def render_widget(title, opts = {}, &block)
+    options = {
+      :layout => "layouts/widget",
+      :locals => {:title => title}
+    }.merge(opts)
+    render options, &block
   end
 
 

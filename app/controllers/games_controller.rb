@@ -6,7 +6,11 @@ class GamesController < ApplicationController
   # GET /games.xml
   def index
     respond_to do |format|
-      format.html {@games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]}
+      format.html do 
+        @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
+        @games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]
+      end
+      
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end
   end

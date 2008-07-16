@@ -16,21 +16,6 @@
 #  cheatsheet    :boolean       
 #
 
-# == Schema Information
-# Schema version: 30
-#
-# Table name: account_games
-#
-#  id            :integer       not null, primary key
-#  game_id       :integer       
-#  account_id    :integer       
-#  created_at    :datetime      
-#  origin        :text          
-#  price         :float         
-#  transdate     :datetime      
-#  shield        :boolean       
-#  parties_count :integer       default(0)
-#
 
 class AccountGame < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
@@ -96,7 +81,6 @@ class AccountGame < ActiveRecord::Base
   
   def setup_default
     self.transdate ||= Time.now.to_date
-    self.price ||= self.game.price
   end
   
 end

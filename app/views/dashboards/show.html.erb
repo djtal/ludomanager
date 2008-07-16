@@ -1,12 +1,12 @@
 <h3><%= current_account.login.humanize%> dashboard's</h3>
 
 <div class="column span-11 append-1">
-  <%= render_widget "account_games/last", "Derniers achats" %>
-  <%= render_widget "monthly", "Parties par mois" %>
+  <%= render_widget "Derniers achats", :partial => "account_games/last" %>
+  <%= render_widget "Parties par mois", :partial => "monthly" %>
 
 </div>
 
 <div class="column span-12 last">
-  <%= render_widget "parties/last", "Derniere parties" %>
-	<%= render_widget "parties/most_played", "Top 5" %>
+  <%= render_widget "Derniere parties", :partial => "parties/last" %>
+	<%= render_widget "Top 5", :partial => "parties/most_played" %>
 </div>
