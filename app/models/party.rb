@@ -40,6 +40,11 @@ class Party < ActiveRecord::Base
     find(:all, :include => :game).group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
   end
   
+  def self.by_game
+    count(:id, :group => :game, :order => "count_id DESC")
+  end
+  
+  
   def self.last_play(count, opts = {})
     options = {
       :limit => count,

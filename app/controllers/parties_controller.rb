@@ -2,10 +2,9 @@ class PartiesController < ApplicationController
   before_filter :login_required
   
   def index
-    @parties = current_account.parties.group_by_game
-    @account_games = current_account.games
+    @parties = current_account.parties.by_game
+    @last_played = current_account.parties.maximum(:created_at, :group => :game).to_hash
     @last_parties = current_account.parties.last_play(10, :include => [:game => :image])
-    @count = @parties.inject(0){ |acc, group| acc += group[1].size}
   end
   
   #use in main view ie not in calendar
