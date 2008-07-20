@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class AuthorTest < Test::Unit::TestCase
-  fixtures :authors
+  fixtures :all
 
   
   def test_parse_str_should_extract_name_and_surname
@@ -47,5 +47,19 @@ class AuthorTest < Test::Unit::TestCase
     a.display_name = "Bruno - Cathala"
     assert_equal  "Cathala", a.name
     assert_equal "Bruno", a.surname
+  end
+  
+  def test_should_clear_games_if_deleted
+    g = games(:coloreto)
+    assert g.authors.include?(authors(:kinizia))
+    assert authors(:kinizia).destroy
+    assert !g.authors.include?(authors(:kinizia))
+  end
+  
+  def should_delete_autorships_when_destroy
+    a = authors(:kinizia)
+    assert_equal 3, Authorship.find_by_author_id(authors(:kinizia).id)
+    assert a.destroy
+    assert_equal 0, Authorship.find_by_author_id(authors(:kinizia).id)
   end
 end

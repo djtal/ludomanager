@@ -10,7 +10,7 @@ module AccountGamesHelper
     head = "<th class=\"nosort span-1\">S</th><th class=\"span-8\">Nom</th><th class=\"nosort span-8\">Statut</th
     <th class=\"span-3 text\">Origine</th><th>P</th><th class=\"nosort last\">Gerer</th>"
     
-    extended_head = "<th class=\"nosort span-1\">S</th><th class=\"nosort span-1\">P</th><th class=\"span-18 text\">Nom</th>
+    extended_head = "<th class=\"nosort span-1\">S</th><th class=\"span-18 text\">Nom</th>
     <th class=\"span-9 nosort \">Tags</th><th class=\"span-1 nosort \">Joueurs</th><th class=\"span-1\">Difficulte</th>
     <th>Parties</th>"
     if games.size > 0 

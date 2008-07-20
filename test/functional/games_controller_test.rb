@@ -40,7 +40,7 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_create_register_authors
     form = {
-      "game"=>{"name"=>"6 qui prend", "time_average"=>"30min", "publish_year"=>"", "url"=>"", "description"=>"balh", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
+      "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"balh", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
       "authors"=>{"0"=>{"display_name"=>"Wolfgang - Kramer"}, "1"=>{"display_name"=>""}, "2"=>{"display_name"=>""}}
     }
     login_as(:quentin)
@@ -52,11 +52,11 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_create_should_tag_game
     form = {
-      "game"=>{"name"=>"6 qui prend", "time_average"=>"30min", "publish_year"=>"", "url"=>"", "description"=>"boom", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
+      "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"boom", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
       "tag"=>{"tag_list"=>"cartes,calcul,hasard"}
     }
-    post :create, form
     login_as(:quentin)
+    post :create, form
     assert_response :redirect
     assert_not_nil(assigns(:game), "Cannot find @game")
     assert_equal(assigns(:game).tags.size, 3)
@@ -64,7 +64,7 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_update_should_update_authors
     form = {
-      "game"=>{"name"=>"Amyitis", "time_average"=>"1h30", "publish_year"=>"2007", "url"=>"grrr", "description"=>"kaboom", 
+      "game"=>{"name"=>"Amyitis", "publish_year"=>"2007", "url"=>"grrr", "description"=>"kaboom", 
                 "editor"=>"Ystari",
                 "min_player"=>"2",
                 "average"=>"0.0",

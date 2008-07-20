@@ -76,8 +76,7 @@ context "Game" do
       :description => "Un petit jeu sympa ou de puissant magicien s'affronte a coup de sortilege ",
       :difficulty => 2,
       :min_player => 1,
-      :max_player => 5,
-      :price => 20
+      :max_player => 5
     }.merge(overrides)
     Game.new(opts)
   end

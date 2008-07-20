@@ -30,8 +30,7 @@ class AccountGamesController < ApplicationController
   end
   
   def missing
-    account_game = current_account.account_games.find(:all, :select => :game_id)
-    @missing = Game.find(:all, :select => "id, name", :conditions => ["(id NOT IN (?))", account_game.map(&:game_id)])
+    @missing = Game.find(:all, :select => "id, name", :conditions => ["(id NOT IN (?))", @account_games.map(&:game_id)])
     respond_to do |format|
       format.json{ render :json => @missing.to_json(:only => [:id, :name])}
     end
@@ -57,15 +56,11 @@ class AccountGamesController < ApplicationController
   end
   
   def new
-    ag = current_account.account_games.map(&:game)
     @account_game = current_account.account_games.build(:game_id => params[:game_id])
-    @games = Game.find(:all, :order => "name ASC").reject{|g| ag.include?(g) }
   end
   
   def edit
-    ag = current_account.account_games
-    @account_game = ag.find(params[:id])
-    @games = Game.find(:all, :order => "name ASC").reject{|g| ag.include?(g) }
+    @account_game = current_account.account_games.find(params[:id])
   end
 
   # POST /account_games

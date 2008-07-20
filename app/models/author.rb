@@ -20,8 +20,8 @@
 
 class Author < ActiveRecord::Base
   validates_presence_of :name, :on => :create, :message => "can't be blank"
-  has_many :authorship
-  has_many :games, :through => :authorship
+  has_many :authorships
+  has_many :games, :through => :authorships
   
   def self.find_or_create_from_str str = nil
     return nil if !str

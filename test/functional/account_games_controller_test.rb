@@ -27,7 +27,6 @@ context "Logged User can have a list of games" do
     end
     a = accounts(:aaron).account_games.find_by_game_id(games(:coloreto).id)
     assert_not_nil a
-    assert_equal games(:coloreto).price, a.price
     assert_equal Time.now.to_date, a.transdate.to_date
     assert_equal 1, accounts(:aaron).account_games.size
     assert_redirected_to account_games_path
