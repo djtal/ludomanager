@@ -3,7 +3,7 @@
 <% if parties %>
 	<ul>
 		<% parties.first(4).each do |p| %>
-			<li><%= link_to(truncate(p.game.name, 12), game_path(p.game),:class => has_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
+			<li><%= link_to(truncate(p.game.name, 12), game_path(p.game),:class => account_have_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
 		<% end %>
 		<%= content_tag(:li, link_to("#{parties.size - 4} more", "", :class => "more")) if parties.size > 4 %>
 	</ul>

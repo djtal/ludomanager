@@ -68,8 +68,8 @@ class PartiesController < ApplicationController
   protected
   
   def find_yours(parties)
-    @account_games = current_account.games
-    @other = (parties.map(&:game_id) - (@account_games.map(&:id))).size
+    account_games = current_account.games
+    @other = (parties.map(&:game_id) - (account_games.map(&:id))).size
     @yours = parties.size - @other
   end
   
