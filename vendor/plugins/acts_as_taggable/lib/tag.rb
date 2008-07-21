@@ -1,5 +1,5 @@
 class Tag < ActiveRecord::Base
-  has_many :taggings
+  has_many :taggings, :dependent => :delete_all
 
   def self.parse(list)
     tag_names = []
