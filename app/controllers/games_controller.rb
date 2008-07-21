@@ -10,13 +10,13 @@ class GamesController < ApplicationController
         @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
         @games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]
       end
-      
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end
   end
   
   def search
     @games = Game.search(params[:search], params[:page])
+    @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
     render :action => :index
   end
 
