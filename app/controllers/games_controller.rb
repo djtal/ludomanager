@@ -142,7 +142,7 @@ class GamesController < ApplicationController
   
   def save_box_thumbnail!
     if params[:game_photo]
-      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo][:delete] == 1
+      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo][:delete] == "1"
       unless params[:game_photo][:uploaded_data].blank?
         @game.image.destroy if @game.image
         box = GamePhoto.create params[:game_photo]
