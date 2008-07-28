@@ -18,7 +18,8 @@
     	</p>
 		<ul class="meta">
 			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
-			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span> chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
+			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span> <%= link_to "( editez )", edit_game_authorship_path(@game) %> 
+			    chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
 		  <li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
 			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 		</ul>

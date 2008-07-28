@@ -15,7 +15,7 @@
 	<% end %>
 	<% fields_for :game_photo do |g| %>		
 		<div class="column">
-		  <%= image_tag(@game.image.public_filename, :size =>"60x60") if @game.image %>
+		  <%= game_box_for(@game, :size => "60x60") %>
 		</div>
     <div class="column last">
 			<% if @game.image %>

@@ -1,0 +1,13 @@
+<h3>Ajoutez un/des auteur a <%= @game.name %></h3>
+
+
+<%= error_messages_for :authorship %>
+
+<% form_for(:authorships, :url => game_authorships_path(@game), :method => :put, :html => {:id => "authorship_form"}) do |form| %>
+  <div id="authorships">
+    <% @game.authorships.each_with_index do |a, index| %>
+      <%= render :partial => form, :locals => {:index => index + 1, :authorship => a} %>
+    <% end %>
+  </div>
+  <%= submit_or_back_to game_path(@game), "Retour sur #{@game.name}" %>
+<% end %>

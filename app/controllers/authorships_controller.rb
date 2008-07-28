@@ -23,28 +23,34 @@ class AuthorshipsController < ApplicationController
 
   # GET /authorships/new
   def new
+    @index = params[:index].to_i || 0
+    @index += 1
+    @game = Game.find(params[:game_id])
+    @authorship = @game.authorships.new
+  end
+  
+  #used when adding via AJAX new athorship form fragment
+  def new_partial_form
+    @index = params[:index].to_i || 0
+    @index += 1
     @authorship = Authorship.new
   end
 
   # GET /authorships/1;edit
   def edit
-    @authorship = Authorship.find(params[:id])
+    @game = Game.find(params[:game_id], :include => :authorships)
+    @authorships = @game.authorships
   end
 
   # POST /authorships
   # POST /authorships.xml
   def create
-    @authorship = Authorship.new(params[:authorship])
-
+    @game = Game.find(params[:game_id])
+    @game.authorships.create_from_names(params[:authorship])
     respond_to do |format|
-      if @authorship.save
-        flash[:notice] = 'Authorship was successfully created.'
-        format.html { redirect_to authorship_url(@authorship) }
+        flash[:notice] = 'Les autheurs sont enregistres'
+        format.html { redirect_to game_path(@game) }
         format.xml  { head :created, :location => authorship_url(@authorship) }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @authorship.errors.to_xml }
-      end
     end
   end
 

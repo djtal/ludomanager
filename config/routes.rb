@@ -8,7 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
   map.resources :parties, :collection => {:play => :post, :add_party_form => :get}
   
-  map.resources :accounts, :authors, :authorships
+  map.resources :accounts, :authors
+  map.resources :authorships, :collection => {:new_partial_form => :get}
   
   #map.resources :parties, :collection => {:resume => :get}
   map.resources :account_games,
@@ -16,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :collection => {:lookup => :get} 
   
   map.resources :games,
-                :has_many => :account_games, 
+                :has_many => [:account_games, :authorships] ,
                 :collection => {:search => :get} 
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'

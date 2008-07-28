@@ -264,6 +264,17 @@ div.auto_complete ul strong.highlight {
 	margin-right: 5px;
 }
 
+form img.btn{
+  float: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+#authorship_form p{
+  margin: 0;
+}
+
 
 
 .search_wrapper{
