@@ -36,20 +36,14 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
-    @authors = []
-    3.times{@authors << Author.new}
+    @authorships = []
+    3.times{@authorships << @game.authorships.new}
   end
 
   # GET /games/1;edit
   def edit
     @game = Game.find(params[:id])
-    if !@game.authors
-      @authors = []
-      3.times{@authors << Author.new}
-    else
-      @authors = @game.authors.find(:all)
-      (3 - @authors.size).times{@authors << Author.new }
-    end
+    @authorships = @game.authorships
   end
 
   # POST /games

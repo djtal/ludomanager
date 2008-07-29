@@ -44,19 +44,13 @@
   	<p><%= f.label :publish_year, "Ann&eacute;e de sortie " %><%= f.text_field :publish_year, :size => 4 %></p>
 </fieldset>
 
-<fieldset>
+<fieldset id="authorship_form">
   <legend>Les auteurs</legend>
-  <span class="tips">Sous la forme "prenom-nom"</span>
-  <ul id="authors">
-		<% @authors.each_with_index do |author, index| %>
-	  	  <li>
-	  	  	<% fields_for :authors, author do |ffa| %>
-	  			  <%= ffa.text_field :display_name, :index => index, :class => "author_display_name text" %>
-	  	      <div class="auto_complete" id="authors_lookup_auto_complete"></div> 
-	  	    <% end %>
-	  	  </li>
-	  	<% end %>		
-	</ul>
+  <div id="authorships">
+		<% @authorships.each_with_index do |authorship, index| %>
+      <%= render :partial => "authorships/form", :locals => {:index => index + 1, :authorship => authorship } %>
+	  <% end %>		
+	</div>
 </fieldset>
 
 <fieldset>
