@@ -20,6 +20,10 @@ class AccountGamesController < ApplicationController
     respond_to do |format|
       format.html # index.rhtml
       format.js
+      format.csv do 
+        @account_games = current_account.games.group_by(&:target)
+        render :layout => false
+      end  
       format.xml  { render :xml => @account_games.to_xml }
     end
   end

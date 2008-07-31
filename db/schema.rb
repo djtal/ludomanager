@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080710200139) do
+ActiveRecord::Schema.define(:version => 20080731203551) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20080710200139) do
   create_table "authors", :force => true do |t|
     t.string "name"
     t.string "surname"
+    t.string "homepage"
   end
 
   create_table "authorships", :force => true do |t|

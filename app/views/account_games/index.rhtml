@@ -15,7 +15,10 @@
 <% content_for :newsbox do %>
   <%= render :partial => "smart_lists/widget" %>
   
-  
+  <% render_widget "Vous pouvez aussi..." do %>
+    <%= image_tag("agt_update_misc.png", :size => "20x20") %>&nbsp;<%=  link_to "Telecharger cette liste", formatted_account_games_path(:format => :csv)  %>
+    <span class="tips"> en csv(compatible excel)</span>
+  <% end %>
 <% end %>
 
 <% content_for :subnav do %>
