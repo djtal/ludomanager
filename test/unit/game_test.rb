@@ -68,6 +68,10 @@ context "Game" do
     assert_equal 0, Authorship.find(:all, :conditions => {:game_id => g.id}).size
   end
   
+  specify "must check if VO ever exist" do
+   flunk
+  end
+  
   protected
   
   def clean_game(overrides = {})

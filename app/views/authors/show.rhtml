@@ -2,8 +2,7 @@
 
 <% if @games.size > 0 %>
   <p>
-    Il a publi&eacute; <%= pluralize(@games.size, "jeu", "jeux") %> entre <%= @games.first.publish_year %> et
-    <%= @games.last.publish_year %> 
+    Il a publi&eacute; <%= pluralize(@games.size, "jeu", "jeux") %> <%= published_game_date_range_for(@games) %>
   </p>
   <table class="sortable">
     <thead>
