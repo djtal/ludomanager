@@ -1,3 +1,4 @@
+<%= image_tag("modified.png", :class => "ac_status right") if account_have_game?(@game)  %>
 <h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
 
 <% div_for @game, :class => "clear" do %>

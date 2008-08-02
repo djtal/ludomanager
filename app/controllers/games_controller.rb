@@ -124,6 +124,7 @@ class GamesController < ApplicationController
   	@section = :games
   end
   
+  
   def add_game_authors!
     if params[:authors]
       @game.authorships.delete_all

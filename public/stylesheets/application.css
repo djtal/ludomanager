@@ -345,6 +345,12 @@ ul.horizontal li{
   margin: 0;
 }
 
+img.ac_status {
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
 .page-nav{
 	margin-top: 5px;
 	text-align: center;

@@ -1,4 +1,5 @@
 <% div_for game, :class => "autohide clear" do %>
+	<%= image_tag("modified.png", :class => "ac_status right") if account_have_game?(game)  %>
 	<h3><%= link_to game.name, game_path(game) %> <%= content_tag :span, " (" + game.vo_name + ")" unless game.vo_name.blank? %></h3>
   <div class="clear content">
     <div class="column span-3 last"><%= game_box_for(game, :size =>"80x80") %></div>
