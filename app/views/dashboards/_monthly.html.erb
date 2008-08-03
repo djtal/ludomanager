@@ -7,7 +7,7 @@
 	</thead>
 	<tbody>
 		<% @parties_overview.each do |month, data|  %>
-    		<tr class="<%= cycle("roweven", "rowodd")  %>">
+    		<tr class=" <%= month == @date.month ? "selected" : cycle("roweven", "rowodd") %>">
     			<td><%= month_name(month) %></td>
 				  <td><%= data[0] != 0 ? link_to(data[0], parties_resume_path(:date => [month, @start.year]), :class => "empty") : "--" %></td>
 				  <td><%= data[1] != 0 ? link_to(data[1], parties_resume_path(:date => [month, @end.year]), :class => "empty") : "--" %></td>

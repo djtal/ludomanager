@@ -14,6 +14,7 @@ class DashboardsController < ApplicationController
     @years_total = [0, 0]
     all_parties = current_account.parties.find(:all, :select => "id, created_at", :conditions => ["created_at BETWEEN ? AND ?", @start, @end])
     if (all_parties.size > 0)
+      @date = Date.today
       parties = all_parties.group_by{ |p| p.created_at.year}
       cur_year = parties[@end.year] || {}
       last_year = parties[@start.year] || {}

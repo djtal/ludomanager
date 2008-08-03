@@ -547,6 +547,7 @@ li.roweven {
 	background-color: #F2F2F2;
 }
 
+tr.selected,
 ul.strip li.selected{
   background-color: #ffb;
 }
