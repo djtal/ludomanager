@@ -23,6 +23,10 @@ module ApplicationHelper
     end
   end
   
+  def ac_game_status_for(game)
+    image_tag("modified.png", :class => "ac_status right") if account_have_game?(game)
+  end
+  
    # French version
    #
    def error_messages_for(object_name, options = {})

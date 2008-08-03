@@ -4,8 +4,8 @@
   <td><%= author.authorships.size %></td>
   <% if logged_in? %>
     <td><div class="function">
-      <%= link_to "", edit_author_path(author), :class => "ss_sprite ss_database_edit" %>&nbsp;|&nbsp;
-      <%= link_to_remote "", {:url => author_path(author), :method => :delete},  :class => "ss_sprite ss_database_delete"  %>
+      <%= link_to "", edit_author_path(author), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
+      <%= link_to_remote "", {:url => author_path(author), :method => :delete},  :class => "ss_sprite ss_bin"  %>
     </div></td>
   <% end %>
 </tr>

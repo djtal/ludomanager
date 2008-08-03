@@ -1,4 +1,14 @@
 # == Schema Information
+# Schema version: 20080731203551
+#
+# Table name: authorships
+#
+#  id        :integer       not null, primary key
+#  author_id :integer(11)   
+#  game_id   :integer(11)   
+#
+
+# == Schema Information
 # Schema version: 20080710200139
 #
 # Table name: authorships

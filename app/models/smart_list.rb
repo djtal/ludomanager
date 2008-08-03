@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20080710200139
+# Schema version: 20080731203551
 #
 # Table name: smart_lists
 #
 #  id         :integer       not null, primary key
 #  title      :text          
 #  query      :text          
-#  account_id :integer       
+#  account_id :integer(11)   
 #  created_at :datetime      
 #  updated_at :datetime      
 #

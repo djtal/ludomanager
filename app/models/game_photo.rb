@@ -1,4 +1,20 @@
 # == Schema Information
+# Schema version: 20080731203551
+#
+# Table name: game_photos
+#
+#  id           :integer       not null, primary key
+#  content_type :string(255)   
+#  filename     :string(255)   
+#  size         :integer(11)   
+#  parent_id    :integer(11)   
+#  thumbnail    :string(255)   
+#  width        :integer(11)   
+#  height       :integer(11)   
+#  game_id      :integer(11)   
+#
+
+# == Schema Information
 # Schema version: 20080710200139
 #
 # Table name: game_photos

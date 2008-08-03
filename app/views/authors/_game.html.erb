@@ -1,6 +1,10 @@
 <tr>
   <td><%= game_box_for(game, :size =>"35x35") %></td>
   <td><%= link_to game.name, game_path(game) %></td>
+  <td><%= game.target_str %></td>
   <td></td>
   <td><%= game.publish_year %></td>
+  <% if logged_in? %>
+    <td><%= ac_game_status_for(game) %></td>
+  <% end %>
 </tr>

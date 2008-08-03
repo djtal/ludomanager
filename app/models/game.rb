@@ -1,4 +1,28 @@
 # == Schema Information
+# Schema version: 20080731203551
+#
+# Table name: games
+#
+#  id            :integer       not null, primary key
+#  name          :string(255)   
+#  description   :text          
+#  difficulty    :integer(11)   default(2)
+#  min_player    :integer(11)   default(1)
+#  max_player    :integer(11)   
+#  created_at    :datetime      
+#  updated_at    :datetime      
+#  publish_year  :string(255)   
+#  editor        :string(255)   
+#  url           :text          
+#  average       :float         default(0.0)
+#  min_age       :integer(11)   
+#  vo_name       :text          
+#  target        :integer       default(0)
+#  time_category :integer       default(0)
+#  published_at  :date          
+#
+
+# == Schema Information
 # Schema version: 20080710200139
 #
 # Table name: games
@@ -58,7 +82,7 @@ class Game < ActiveRecord::Base
       self.errors.add :max_player, "le nombre maxi de joueur ne peut etre inferieur au nombre mini" if min_player > max_player
     end
   end
-
+  
   def target_str
     self.class::Target[target][0]
   end

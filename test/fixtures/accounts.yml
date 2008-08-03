@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080710200139
+# Schema version: 20080731203551
 #
 # Table name: accounts
 #

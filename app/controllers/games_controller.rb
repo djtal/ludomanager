@@ -55,7 +55,7 @@ class GamesController < ApplicationController
         @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully created.'
         save_box_thumbnail!
-        add_game_authors!
+        @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
         format.xml  { head :created, :location => game_path(@game) }
       else
@@ -78,7 +78,7 @@ class GamesController < ApplicationController
         @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully updated.'
         save_box_thumbnail!
-        add_game_authors!
+        @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
         format.xml  { head :ok }
       else
@@ -124,16 +124,6 @@ class GamesController < ApplicationController
   	@section = :games
   end
   
-  
-  def add_game_authors!
-    if params[:authors]
-      @game.authorships.delete_all
-      params[:authors].each do |key, value|
-        a = Author.find_or_create_from_str(value[:display_name])
-        @game.authors << a if a && !@game.authors.include?(a)
-      end
-    end
-  end
   
   def save_box_thumbnail!
     if params[:game_photo]
