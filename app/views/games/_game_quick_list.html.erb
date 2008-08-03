@@ -1,0 +1,10 @@
+<tr>
+  <td><%= game_box_for(game_quick_list, :size =>"35x35") %></td>
+  <td><%= link_to game_quick_list.name, game_path(game_quick_list) %></td>
+  <td><%= game_quick_list.target_str %></td>
+  <td></td>
+  <td><%= game_quick_list.publish_year %></td>
+  <% if logged_in? %>
+    <td><%= ac_game_status_for(game_quick_list) %></td>
+  <% end %>
+</tr>

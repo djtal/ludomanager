@@ -4,13 +4,17 @@
   <thead>
     <tr>
       <th class="span-1 nosort"></th>
-      <th class="span-5">Jeu</th>
-      <th class="span-11 nosort"></th>
-      <th class="span-3 integer">Ann&eacute;e de sortie</th>
+      <th class="span-7">Jeu</th>
+      <th class="span-2">Public</th>
+      <th class="span-<%= logged_in? ? "5" : "7" %> no-sort"></th>
+      <th class="span-3">Ann&eacute;e de sortie</th>
+      <% if logged_in? %>
+        <th class="nosort">Status ludotheque</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
-    <%= render :partial => "game", :collection => @games %>
+    <%= render :partial => "games/game_quick_list", :collection => @games %>
   </tbody>
 </table>
 
