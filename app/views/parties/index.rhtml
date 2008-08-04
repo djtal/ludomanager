@@ -4,6 +4,7 @@
   <table class="sortable">
     <thead>
       <tr>
+        <th class="nosort"></th>
         <th class="span-11">Nom</th>
         <th class="span-3">Derniere partie</th>
         <th class="span-2">Nb Parties</th>
@@ -22,6 +23,7 @@
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
+    <%= render_widget "Vos statistiques...",  :partial => "legend" %>
   </div>
   <div id="placeholder-2">
     <%= render_widget "Vos derniers parties", :partial => "last" %>

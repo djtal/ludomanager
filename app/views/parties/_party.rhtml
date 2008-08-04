@@ -1,4 +1,5 @@
 <tr class="<%= account_have_game?(game) ? "own green color" : "orange" %>" id="<%= dom_id(game) %>">
+	<td><%= account_game_status_for(game) %></td>
 	<td><%= link_to_remote game.name, :url  => game_path(game), :method => :get %></td>
 	<td><%= last_play_date_table_cell(game) %></td>
 	<td><%= parties %></td>

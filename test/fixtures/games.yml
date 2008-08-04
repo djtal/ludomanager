@@ -22,31 +22,6 @@
 #  published_at  :date          
 #
 
-# == Schema Information
-# Schema version: 20080710200139
-#
-# Table name: games
-#
-#  id            :integer       not null, primary key
-#  name          :string(255)   
-#  description   :text          
-#  difficulty    :integer       default(2)
-#  min_player    :integer       default(1)
-#  max_player    :integer       
-#  time_average  :string(255)   
-#  created_at    :datetime      
-#  updated_at    :datetime      
-#  publish_year  :string(255)   
-#  editor        :string(255)   
-#  url           :text          
-#  average       :float         default(0.0)
-#  min_age       :integer       
-#  vo_name       :text          
-#  target        :integer       default(0)
-#  time_category :integer       default(0)
-#  published_at  :date          
-#
-
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 coloreto:

@@ -4,7 +4,7 @@ class AccountTest < Test::Unit::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
   # Then, you can remove it from this and the functional test.
   include AuthenticatedTestHelper
-  fixtures :accounts
+  fixtures :all
 
   def test_should_create_account
     assert_difference 'Account.count' do
@@ -92,6 +92,11 @@ class AccountTest < Test::Unit::TestCase
     assert_not_nil accounts(:quentin).remember_token
     assert_not_nil accounts(:quentin).remember_token_expires_at
     assert accounts(:quentin).remember_token_expires_at.between?(before, after)
+  end
+  
+  def test_split_mine_should_count_parties_in_2_groups
+    result = accounts(:quentin).parties.split_mine(accounts(:quentin).games)
+    assert_equal [1, 2], result
   end
 
 protected

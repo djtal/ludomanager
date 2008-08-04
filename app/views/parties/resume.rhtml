@@ -24,7 +24,7 @@ end  %>
 
 <% content_for :newsbox do %>
     <div id="placeholder-1">
-      <%= render :partial => 'legend' %>
+      <%= render_widget "Statistiques #{month_name(@date.month)} #{@date.year}", :partial => 'legend' %>
     </div>
     <div id="placeholder-2">
     </div>

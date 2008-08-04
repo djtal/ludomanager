@@ -35,3 +35,15 @@ thrid:
   account: aaron
   game: ever_played
   created_at: <%= 2.month.ago.to_s(:db)  %>
+  
+q1:
+  account: quentin
+  game: battlelore
+
+q2:
+  account: quentin
+  game: coloreto  
+
+q3:
+  account: quentin
+  game: coloreto

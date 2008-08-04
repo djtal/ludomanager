@@ -47,6 +47,15 @@ class Account < ActiveRecord::Base
     def played_games
       self.group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
     end
+    
+    # return array containing 2 values
+    # => total of parties played with game i own
+    # => total of parties played with other game
+    def split_mine(games)
+      ids = games.map{|g| g.id}
+      mine = count(:conditions => {:game_id => ids})
+      [mine , count - mine]
+    end
   end
   
   has_many :games, :through => :account_games
