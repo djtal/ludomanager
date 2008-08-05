@@ -70,9 +70,13 @@ end
 
 module YamlDb::Dump
 	def self.dump(io)
-		ActiveRecord::Base.connection.tables.each do |table|
+		tables.each do |table|
 			dump_table(io, table)
 		end
+	end
+
+	def self.tables
+		ActiveRecord::Base.connection.tables.reject { |table| ['schema_info', 'schema_migrations'].include?(table) }
 	end
 
 	def self.dump_table(io, table)
@@ -113,8 +117,10 @@ module YamlDb::Dump
 		boolean_columns = YamlDb::Utils.boolean_columns(table)
 		
 		(0..pages).to_a.each do |page|
-			sql_limit = "LIMIT #{records_per_page} OFFSET #{records_per_page*page}"
-			records = ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} ORDER BY #{id} #{sql_limit}")
+			sql = ActiveRecord::Base.connection.add_limit_offset!("SELECT * FROM #{table} ORDER BY #{id}",
+				:limit => records_per_page, :offset => records_per_page * page
+			)
+			records = ActiveRecord::Base.connection.select_all(sql)
 			records = YamlDb::Utils.convert_booleans(records, boolean_columns)
 			yield records
 		end
@@ -150,7 +156,7 @@ module YamlDb::Load
 		column_names = data['columns']
 		truncate_table(table)
 		load_records(table, column_names, data['records'])
-		#reset_pk_sequence!(table)
+		reset_pk_sequence!(table)
 	end
 
 	def self.load_records(table, column_names, records)
@@ -161,7 +167,7 @@ module YamlDb::Load
 	end
 
 	def self.reset_pk_sequence!(table_name)
-		if ActiveRecord::Base.connection.kind_of?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
+		if ActiveRecord::Base.connection.respond_to?(:reset_pk_sequence!)
 			ActiveRecord::Base.connection.reset_pk_sequence!(table_name)
 		end
 	end
