@@ -15,6 +15,22 @@ class Member < ActiveRecord::Base
   has_many :players
   has_many :parties, :through => :players
   
+  
+  # Import member data from csv file
+  # format : name(mandatory);nickname(mandatory);email(optional)
+  def self.import(data)
+    imported = 0
+    errors = []
+    CSV::Reader.parse(data, ";") do |row|
+      member = self.build(:name => row[0], :nickname => row[0])
+      if member.save
+        imported += 1
+      else
+        errors += member.errors
+      end
+    end
+  end
+  
   def gravatar_url
     "http://www.gravatar.com/avatar/#{MD5::md5(email)}"
   end

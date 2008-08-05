@@ -1,32 +1,3 @@
-# == Schema Information
-<<<<<<< HEAD:app/models/authorship.rb
-=======
-# Schema version: 20080731203551
->>>>>>> master:app/models/authorship.rb
-#
-# Table name: authorships
-#
-#  id        :integer       not null, primary key
-<<<<<<< HEAD:app/models/authorship.rb
-#  author_id :integer       
-#  game_id   :integer       
-=======
-#  author_id :integer(11)   
-#  game_id   :integer(11)   
->>>>>>> master:app/models/authorship.rb
-#
-
-# == Schema Information
-# Schema version: 20080710200139
-#
-# Table name: authorships
-#
-#  id        :integer       not null, primary key
-#  author_id :integer       
-#  game_id   :integer       
-#
-
-
 class Authorship < ActiveRecord::Base
   validates_presence_of :author_id, :game_id
   validates_uniqueness_of :author_id, :scope => :game_id
