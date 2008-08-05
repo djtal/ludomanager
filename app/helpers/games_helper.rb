@@ -42,7 +42,7 @@ module GamesHelper
   def game_box_for(game, opts = {})
     options = {
       :size => "35x35",
-      :alt => "boite_#{game.name.gsub(/\s+/, "_").downcase}"
+      :alt => "boite_#{!game.new_record? ? game.name.gsub(/\s+/, "_").downcase : ''}"
     }.merge(opts)
     image_tag(game.image ? game.image.public_filename : "game_box.png" , options)
   end

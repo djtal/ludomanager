@@ -13,7 +13,6 @@ class AccountGameTest < Test::Unit::TestCase
     a = clean_game_account({:price => nil})
     assert_equal nil, a.price
     assert a.save
-    assert_equal games(:coloreto).price, a.price
   end
   
   def test_should_set_date_to_now_if_not_set

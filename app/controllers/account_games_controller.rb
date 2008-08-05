@@ -20,6 +20,10 @@ class AccountGamesController < ApplicationController
     respond_to do |format|
       format.html # index.rhtml
       format.js
+      format.csv do 
+        @account_games = current_account.games.group_by(&:target)
+        render :layout => false
+      end  
       format.xml  { render :xml => @account_games.to_xml }
     end
   end
@@ -30,8 +34,7 @@ class AccountGamesController < ApplicationController
   end
   
   def missing
-    account_game = current_account.account_games.find(:all, :select => :game_id)
-    @missing = Game.find(:all, :select => "id, name", :conditions => ["(id NOT IN (?))", account_game.map(&:game_id)])
+    @missing = Game.find(:all, :select => "id, name", :conditions => ["(id NOT IN (?))", @account_games.map(&:game_id)])
     respond_to do |format|
       format.json{ render :json => @missing.to_json(:only => [:id, :name])}
     end
@@ -57,15 +60,11 @@ class AccountGamesController < ApplicationController
   end
   
   def new
-    ag = current_account.account_games.map(&:game)
     @account_game = current_account.account_games.build(:game_id => params[:game_id])
-    @games = Game.find(:all, :order => "name ASC").reject{|g| ag.include?(g) }
   end
   
   def edit
-    ag = current_account.account_games
-    @account_game = ag.find(params[:id])
-    @games = Game.find(:all, :order => "name ASC").reject{|g| ag.include?(g) }
+    @account_game = current_account.account_games.find(params[:id])
   end
 
   # POST /account_games
@@ -74,8 +73,8 @@ class AccountGamesController < ApplicationController
     @account_game = current_account.account_games.build(params[:account_game])
     respond_to do |format|
       if @account_game.save
+        @account_games = current_account.account_games.all
         flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
-        @account_games = current_account.games.all
         format.html { redirect_to account_games_url}
         format.js
         format.xml  { head :created, :location => account_games_url }
@@ -114,7 +113,7 @@ class AccountGamesController < ApplicationController
       @context = :account_game
     end
     @account_game.destroy
-    @account_games = current_account.games.all
+    @account_games = current_account.account_games.all
     respond_to do |format|
       format.html { redirect_to account_games_url }
       format.js

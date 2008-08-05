@@ -5,7 +5,7 @@ require 'dashboards_controller'
 class DashboardsController; def rescue_action(e) raise e end; end
 
 context "Dashboard for non logged" do
-  fixtures :accounts, :games, :parties
+  fixtures :all
   
   def setup
     @controller = DashboardsController.new
@@ -23,7 +23,7 @@ context "Dashboard for non logged" do
 end
 
 context "Dashboard for logged user" do
-  fixtures :accounts, :games, :parties
+  fixtures :all
   
   def setup
     @controller = DashboardsController.new
@@ -35,7 +35,6 @@ context "Dashboard for logged user" do
   specify "index is accesible" do
     get :show
     assert_response :success
-    assert_template 'index'
   end
   
 end

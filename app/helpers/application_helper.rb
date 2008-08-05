@@ -1,8 +1,12 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  def render_widget(partial, title)
-    render :partial => partial, :layout => "layouts/widget", :locals => {:title => title}
+  def render_widget(title, opts = {}, &block)
+    options = {
+      :layout => "layouts/widget",
+      :locals => {:title => title}
+    }.merge(opts)
+    render options, &block
   end
 
 
@@ -17,6 +21,10 @@ module ApplicationHelper
       return @account_games.map(&:game_id).include?(game.id) if @account_games
       current_account.account_games.find_by_game_id(game.id)
     end
+  end
+  
+  def ac_game_status_for(game)
+    image_tag("modified.png", :class => "ac_status right") if account_have_game?(game)
   end
   
    # French version

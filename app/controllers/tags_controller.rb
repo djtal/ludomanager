@@ -1,15 +1,7 @@
 class TagsController < ApplicationController
   def index
-    @tag_cloud = {}
-    # can join game list here to scope game àor account game directly i the query
-    @data = Tagging.find(:all, :include => :tag,
-                         :conditions => ["taggings.taggable_type = ?", Game.acts_as_taggable_options[:taggable_type]])
-    # to scope this to only auser account_game just reject taggings with game not include in account_games
-    @cloud = {}
-    @data.group_by(&:tag).each do |tag, taggings|
-      @cloud[tag.name] = taggings.size
-    end
-    @cloud = @cloud.sort
+    @cloud = Tagging.count(:id, :group => :tag, :order => "count_id DESC",
+                            :conditions => ["taggings.taggable_type = ?", Game.acts_as_taggable_options[:taggable_type]])
   end
   
   def lookup
@@ -36,6 +28,16 @@ class TagsController < ApplicationController
       redirect_to tags_path
     else
       render :action => :edit
+    end
+  end
+
+  def destroy
+    @tag = Tag.find_by_name(params[:id])
+    if @tag.destroy
+      respond_to do |format|
+        format.js
+        format.html {redirect_to tags_path}
+      end
     end
   end
 

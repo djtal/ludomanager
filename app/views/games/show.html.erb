@@ -1,3 +1,4 @@
+<%= image_tag("modified.png", :class => "ac_status right") if account_have_game?(@game)  %>
 <h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
 
 <% div_for @game, :class => "clear" do %>
@@ -13,13 +14,13 @@
     	  <% end %>
     	  <br /><br />
     	  Un jeu <span class="flash"><%= @game.target_str.downcase %></span> pour <%= nb_player_tag(@game) %>.<br />
+    	  D'une durée de <span class="flash"><%= @game.time_str %></span><br />
     	  
-    	  <span class="meta"><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></span>
     	</p>
 		<ul class="meta">
-			<li>Temps d'une partie <span class="flash"><%= @game.time_average %></span></li>
-			<li>Année de sortie : <span class="flash"><%= @game.publish_year %></span></li>
-			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span> chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
+			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
+			<li>Un jeu de :<span class="flash"><%= authors_links(@game.authors) %></span> <%= link_to "( editez )", edit_game_authorship_path(@game) %> 
+			    chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
 		  <li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
 			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
 		</ul>

@@ -2,10 +2,23 @@ class PartiesController < ApplicationController
   before_filter :login_required
   
   def index
-    @parties = current_account.parties.group_by_game
-    @account_games = current_account.games
+    parties = current_account.parties
+    @count = parties.count
+    @yours, @other = parties.split_mine(current_account.games)
+    @parties = parties.by_game
+    @last_played = current_account.parties.maximum(:created_at, :group => :game).to_hash
     @last_parties = current_account.parties.last_play(10, :include => [:game => :image])
-    @count = @parties.inject(0){ |acc, group| acc += group[1].size}
+  end
+  
+  def resume
+    @date = Time.now
+    @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
+    @date = @date.to_time
+    @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
+    @count = @parties.size
+    @days = @parties.group_by{ |p| p.created_at.mday}
+    find_played(@parties)
+    find_yours(@parties)
   end
   
   #use in main view ie not in calendar
@@ -47,16 +60,6 @@ class PartiesController < ApplicationController
     end
   end
   
-  def resume
-    @date = Time.now
-    @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
-    @date = @date.to_time
-    @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
-    @days = @parties.group_by{ |p| p.created_at.mday}
-    find_played(@parties)
-    find_yours(@parties)
-  end
-  
   def new
     session[:parties] = 1
     @date = Date.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i)
@@ -79,8 +82,8 @@ class PartiesController < ApplicationController
   protected
   
   def find_yours(parties)
-    @account_games = current_account.games
-    @other = (parties.map(&:game_id) - (@account_games.map(&:id))).size
+    account_games = current_account.games
+    @other = (parties.map(&:game_id) - (account_games.map(&:id))).size
     @yours = parties.size - @other
   end
   
@@ -92,20 +95,6 @@ class PartiesController < ApplicationController
       @games << [g, !previous_played_games.include?(g.id), @parties.select{ |p| p.game_id == g.id}.size ]
     end
     @games = @games.sort_by{ |set| set[2]}.reverse
-  end
-  
-  def split_parties(parties)
-  	high, medium, low = [], [], []
-  	parties.each do |group|
-      if (group[1].size >= 10)
-        high << group
-      elsif (group[1].size >= 4)
-        medium << group
-      else
-        low << group
-      end
-    end
-    return high, medium, low
   end
   
   def set_section

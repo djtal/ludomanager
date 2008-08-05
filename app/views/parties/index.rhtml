@@ -1,14 +1,32 @@
-<h3>Vos parties <%= "(Jeux de votre ludotheque seulement)" if @filter == :ludo %></h3>
+<h3>Vos parties</h3>
 
-
-<%= render_parties @parties, :id => "high"  %>
+<% if @parties.size > 0 %>
+  <table class="sortable">
+    <thead>
+      <tr>
+        <th class="nosort"></th>
+        <th class="span-11">Nom</th>
+        <th class="span-3">Derniere partie</th>
+        <th class="span-2">Nb Parties</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @parties.each do |game| %>
+        <%= render(:partial => "party", :locals => {:game => game[0], :parties => game[1]}) %>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="empty"> Vous n'avez encore saisie aucune partie.</p>
+<% end %>
 
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
+    <%= render_widget "Vos statistiques...",  :partial => "legend" %>
   </div>
   <div id="placeholder-2">
-    <%= render_widget "last", "Vos derniers parties" %>
+    <%= render_widget "Vos derniers parties", :partial => "last" %>
   </div>
   <div id="placeholder-3">
   </div>

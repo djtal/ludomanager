@@ -1,14 +1,23 @@
 # == Schema Information
+<<<<<<< HEAD:app/models/authorship.rb
+=======
+# Schema version: 20080731203551
+>>>>>>> master:app/models/authorship.rb
 #
 # Table name: authorships
 #
 #  id        :integer       not null, primary key
+<<<<<<< HEAD:app/models/authorship.rb
 #  author_id :integer       
 #  game_id   :integer       
+=======
+#  author_id :integer(11)   
+#  game_id   :integer(11)   
+>>>>>>> master:app/models/authorship.rb
 #
 
 # == Schema Information
-# Schema version: 30
+# Schema version: 20080710200139
 #
 # Table name: authorships
 #
@@ -19,7 +28,16 @@
 
 
 class Authorship < ActiveRecord::Base
+  validates_presence_of :author_id, :game_id
   validates_uniqueness_of :author_id, :scope => :game_id
   belongs_to :author
   belongs_to :game
+  
+  # come from form under [{:display_name => "test"}, {:dislpay_name => "test1"}, {:display_name => "test2"}]
+  def self.create_from_names(names = {})
+    self.delete_all
+    names.values.map{|h| h.values}.flatten.each do |name|
+      self.create!(:author => Author.find_or_create_from_str(name))
+    end
+  end
 end

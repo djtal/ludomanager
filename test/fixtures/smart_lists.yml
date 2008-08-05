@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: smart_lists
-#
-#  id         :integer       not null, primary key
-#  title      :text          
-#  query      :text          
-#  account_id :integer       
-#  created_at :datetime      
-#  updated_at :datetime      
-#
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 

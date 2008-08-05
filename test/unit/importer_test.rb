@@ -51,7 +51,6 @@ class ImporterTest < Test::Unit::TestCase
     assert g.authors.include?(authors(:fraga)) 
     assert_equal 2, g.min_player
     assert_equal 4, g.max_player
-    assert_equal "30mn", g.time_average
   end
   
   def test_should_not_update_authors_if_ever_exist_in_game

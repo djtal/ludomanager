@@ -1,0 +1,11 @@
+<% fields_for :authorship, :index => index do |a| %>
+<div class="authorship" id="<%= index %>">
+  <p><%= label_tag "display_name_#{index}", "Auteur #{index}" %>
+  <span class="tips">(Sous la forme "prenom-nom")</span><br />
+  <%= text_field_tag "authorships_display_name_#{index}", authorship && authorship.author ? authorship.author.display_name : "", :name => "authorship[#{index}][display_name]", :class => "author_display_name text" %>
+  <%= image_tag("cd_store_up.gif", :class => "add btn") %>
+  <%= image_tag("cd_store_down.gif", :class => "remove btn") %>
+  </p>
+  <div class="auto_complete" id="authorship_<%= index %>_auto_complete"></div>
+</div>
+<% end %>

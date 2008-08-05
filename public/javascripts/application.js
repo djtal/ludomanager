@@ -87,8 +87,13 @@ var BShow = Behavior.create({
 });
 
 var BMore = Behavior.create({
+  initialize: function(){
+    this.target = this.element.up("td").down(".extended");
+  },
+  
   onclick : function() { 
-    this.element.up("td").down(".extended").toggle();
+    if (this.target)
+      this.target.toggle();
     return false;
   },
 });
@@ -502,7 +507,7 @@ document.observe("dom:loaded", function() {
   Sidebar.load();
   Calendar.load();
   pf = new PartyForm("party-form");
-  $$(".more").each(function(elt){
+  $$("a.more").each(function(elt){
     BMore.attach(elt);
   });
   

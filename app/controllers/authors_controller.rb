@@ -4,7 +4,7 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.xml
   def index
-    @authors = Author.find(:all, :include => :authorship)
+    @authors = Author.find(:all, :include => :authorships, :order => "surname ASC")
 
     respond_to do |format|
       format.html # index.rhtml

@@ -2,7 +2,7 @@
 	<%= stylesheet_link_tag "calendar/big/style.css" %>
 <% end %>
 
-<h3>Vos partie de <%= month_name(@date.month)%>  <%= @date.year %></h3>
+<h3>Vos parties de <%= month_name(@date.month)%>  <%= @date.year %></h3>
 
 <%= calendar(:year => @date.year, :month => @date.month, :abbrev => (0..-1),
 			 :show_today => true, :first_day_of_week => 1,
@@ -24,12 +24,12 @@ end  %>
 
 <% content_for :newsbox do %>
     <div id="placeholder-1">
-      <%= render :partial => 'legend' %>
+      <%= render_widget "Statistiques #{month_name(@date.month)} #{@date.year}", :partial => 'legend' %>
     </div>
     <div id="placeholder-2">
     </div>
     <div id="placeholder-3">
-      <%= render_widget 'discovered', "Les jeux du mois" %>
+      <%= render_widget "Les jeux du mois", :partial => 'discovered' %>
     </div>
     
 

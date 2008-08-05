@@ -1,3 +1,30 @@
+<<<<<<< HEAD:app/models/party.rb
+=======
+# == Schema Information
+# Schema version: 20080731203551
+#
+# Table name: parties
+#
+#  id         :integer       not null, primary key
+#  game_id    :integer(11)   
+#  created_at :datetime      
+#  account_id :integer(11)   
+#
+
+# == Schema Information
+# Schema version: 20080710200139
+#
+# Table name: parties
+#
+#  id         :integer       not null, primary key
+#  game_id    :integer       
+#  created_at :datetime      
+#  account_id :integer       
+#
+
+# == Schema Information
+# Schema version: 30
+>>>>>>> master:app/models/party.rb
 #
 # Table name: parties
 #
@@ -27,6 +54,11 @@ class Party < ActiveRecord::Base
   def self.group_by_game
     find(:all, :include => :game).group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
   end
+  
+  def self.by_game
+    count(:id, :group => :game, :order => "count_id DESC")
+  end
+  
   
   def self.last_play(count, opts = {})
     options = {

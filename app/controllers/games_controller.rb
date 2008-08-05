@@ -6,13 +6,17 @@ class GamesController < ApplicationController
   # GET /games.xml
   def index
     respond_to do |format|
-      format.html {@games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]}
+      format.html do 
+        @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
+        @games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]
+      end
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end
   end
   
   def search
     @games = Game.search(params[:search], params[:page])
+    @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
     render :action => :index
   end
 
@@ -32,20 +36,14 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
-    @authors = []
-    3.times{@authors << Author.new}
+    @authorships = []
+    3.times{@authorships << @game.authorships.new}
   end
 
   # GET /games/1;edit
   def edit
     @game = Game.find(params[:id])
-    if !@game.authors
-      @authors = []
-      3.times{@authors << Author.new}
-    else
-      @authors = @game.authors.find(:all)
-      (3 - @authors.size).times{@authors << Author.new }
-    end
+    @authorships = @game.authorships
   end
 
   # POST /games
@@ -57,7 +55,7 @@ class GamesController < ApplicationController
         @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully created.'
         save_box_thumbnail!
-        add_game_authors!
+        @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
         format.xml  { head :created, :location => game_path(@game) }
       else
@@ -80,10 +78,17 @@ class GamesController < ApplicationController
         @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully updated.'
         save_box_thumbnail!
-        add_game_authors!
+        @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
         format.xml  { head :ok }
       else
+        if !@game.authors
+          @authors = []
+          3.times{@authors << Author.new}
+        else
+          @authors = @game.authors.find(:all)
+          (3 - @authors.size).times{@authors << Author.new }
+        end
         format.html { render :action => "edit" }
         format.xml  { render :xml => @game.errors.to_xml }
       end
@@ -119,19 +124,10 @@ class GamesController < ApplicationController
   	@section = :games
   end
   
-  def add_game_authors!
-    if params[:authors]
-      @game.authorships.delete_all
-      params[:authors].each do |key, value|
-        a = Author.find_or_create_from_str(value[:display_name])
-        @game.authors << a if a && !@game.authors.include?(a)
-      end
-    end
-  end
   
   def save_box_thumbnail!
     if params[:game_photo]
-      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo][:delete] == 1
+      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo][:delete] == "1"
       unless params[:game_photo][:uploaded_data].blank?
         @game.image.destroy if @game.image
         box = GamePhoto.create params[:game_photo]

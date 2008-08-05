@@ -8,19 +8,21 @@
 #
 
 # == Schema Information
-# Schema version: 30
+# Schema version: 20080731203551
 #
 # Table name: authors
 #
-#  id      :integer       not null, primary key
-#  name    :string(255)   
-#  surname :string(255)   
+#  id       :integer       not null, primary key
+#  name     :string(255)   
+#  surname  :string(255)   
+#  homepage :string(255)   
 #
+
 
 class Author < ActiveRecord::Base
   validates_presence_of :name, :on => :create, :message => "can't be blank"
-  has_many :authorship
-  has_many :games, :through => :authorship
+  has_many :authorships
+  has_many :games, :through => :authorships
   
   def self.find_or_create_from_str str = nil
     return nil if !str

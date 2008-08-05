@@ -5,12 +5,13 @@ require 'authors_controller'
 class AuthorsController; def rescue_action(e) raise e end; end
 
 class AuthorsControllerTest < Test::Unit::TestCase
-  fixtures :authors
+  fixtures :all
 
   def setup
     @controller = AuthorsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    login_as(:quentin)
   end
 
   def test_should_get_index

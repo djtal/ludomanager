@@ -1,22 +1,3 @@
-# == Schema Information
-#
-# Table name: authors
-#
-#  id      :integer       not null, primary key
-#  name    :string(255)   
-#  surname :string(255)   
-#
-
-# == Schema Information
-# Schema version: 29
-#
-# Table name: authors
-#
-#  id      :integer       not null, primary key
-#  name    :string(255)   
-#  surname :string(255)   
-#
-
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 kinizia:
   name: Kinizia

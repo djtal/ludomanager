@@ -2,33 +2,43 @@
 
 <% if @games.size > 0 %>
   <p>
-    Il a publi&eacute; <%= pluralize(@games.size, "jeu", "jeux") %> entre <%= @games.first.publish_year %> et
-    <%= @games.last.publish_year %> 
+    Il a publi&eacute; <%= pluralize(@games.size, "jeu", "jeux") %> <%= published_game_date_range_for(@games) %>. 
+    <% if @author.homepage %>
+      <%= link_to "Son site internet", @author.homepage %>
+    <% end %>
   </p>
+  
   <table class="sortable">
     <thead>
       <tr>
-        <th class="span-1 no-sort"></th>
-        <th class="span-5">Jeu</th>
-        <th class="span-11 no-sort"></th>
+        <th class="span-1 nosort"></th>
+        <th class="span-7">Jeu</th>
+        <th class="span-2">Public</th>
+        <th class="span-<%= logged_in? ? "5" : "7" %> no-sort"></th>
         <th class="span-3">Ann&eacute;e de sortie</th>
+        <% if logged_in? %>
+          <th class="nosort">Status ludotheque</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
-      <%= render :partial => "game", :collection => @games %>
+      <%= render :partial => "games/game_quick_list", :collection => @games %>
     </tbody>
   </table>
 <% else %>
   <p class="empty">Cet auteur n'a encore aucun jeux a son actif</p>
 <% end %>
 
+<div class="page-nav">
+  <strong><%= link_to "Retour sur la liste des auteurs", authors_path %></strong>
+</div>
+
 <% content_for :newsbox do %>
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
       <ul>
-        <li><%= link_to "Editer", edit_author_path(@author) %></li>
-        <li><%= link_to "Effacer", author_path(@author), :method => :delete %></li>
-    		<li><%= link_to "Retour sur la liste des auteurs", authors_path %></li>
+        <li><%= link_to "Editer", edit_author_path(@author), :class => "ss_sprite ss_pencil" %></li>
+        <li><%= link_to "Effacer", author_path(@author), :method => :delete, :class => "ss_sprite ss_bin" %></li>
     	</ul>
     <% end %>
   </div>

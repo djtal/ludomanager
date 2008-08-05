@@ -28,3 +28,16 @@
 <% content_for :subnav do %>
 	<%= render :partial => "subnav" %>
 <% end %>
+
+<% content_for :newsbox do %>
+  <% render_widget "Les derniers ajouts" do %>
+    <ul>
+      <% @last.each do |game| %>
+        <li>
+        	<%= game_box_for game %>
+        	<%= link_to(truncate(game.name, 30), game_path(game)) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
