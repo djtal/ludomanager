@@ -13,6 +13,13 @@ class MembersController < ApplicationController
     @member = current_account.members.new
   end
   
+  def import
+    if params[:import] && params[:import][:file]
+      total, errors = current_account.members.import(params[:import][:file].read)
+    end
+    render :action => "importer"
+  end
+  
   def create
     @member = current_account.members.build(params[:member])
     if @member.save

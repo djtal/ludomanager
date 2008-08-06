@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   before_filter :get_account_games, :if => :logged_in?
   
   
-  
   def rescue_action_in_public(exception)
     case exception
     when ::ActionController::UnknownAction, ::ActionController::RoutingError

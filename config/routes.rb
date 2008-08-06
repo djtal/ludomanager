@@ -6,8 +6,9 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => {:play => :post, :add_party_form => :get},
                 :has_many => :players
   
-  map.resources :accounts, :authors, :members, :players, :smart_lists
+  map.resources :accounts, :authors, :players, :smart_lists
   map.resources :authorships, :collection => {:new_partial_form => :get}
+  map.resources :members, :collection => {:importer => :get, :import => :post}
   
   map.resources :account_games,
                 :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, :missing  => :get}

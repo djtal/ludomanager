@@ -14,22 +14,8 @@ class Member < ActiveRecord::Base
   validates_presence_of :name, :account_id
   has_many :players
   has_many :parties, :through => :players
+  belongs_to :account
   
-  
-  # Import member data from csv file
-  # format : name(mandatory);nickname(mandatory);email(optional)
-  def self.import(data)
-    imported = 0
-    errors = []
-    CSV::Reader.parse(data, ";") do |row|
-      member = self.build(:name => row[0], :nickname => row[0])
-      if member.save
-        imported += 1
-      else
-        errors += member.errors
-      end
-    end
-  end
   
   def gravatar_url
     "http://www.gravatar.com/avatar/#{MD5::md5(email)}"

@@ -13,3 +13,5 @@ module ActiveSupport::CoreExtensions::Time::Calculations
     change(:month => 12,:day => 31,:hour => 23, :min => 59, :sec => 59, :usec => 0)
   end
 end
+
+require "csv"
