@@ -1,5 +1,12 @@
-<p><%= form.label :member_name, "Nom joueur #{t + 1}" %><br />
-<%= text_field_tag :name, {}, :class => "member autocomplete", :id => "party_player_#{t}_member_name" %></p>
-<div id="party_player_<%= t %>_member_name_lookup" class="auto_complete"></div>
-<%= form.hidden_field :member_id  %>
-<%= form.hidden_field :party_id %>
+<% form.fields_for @party.players.build, :index => index do |p| %>
+  <div id="<%= index %>" class="player">
+    <p><%= p.label :member_name, "Nom joueur #{index}" %><br />
+    <%= text_field_tag :member_name, nil, :class => "member autocomplete", :id => "party_player_#{index}_member_name" %>
+    <%= image_tag("cd_store_up.gif", :class => "add btn") if index >= @party.game.min_player %>
+    <%= image_tag("cd_store_down.gif", :class => "remove btn") if index > @party.game.min_player %>
+    </p>
+    <div id="member_name_<%= index %>_auto_complete" class="auto_complete"></div>
+    <%= p.hidden_field :member_id  %>
+    <%= p.hidden_field :party_id %>
+  </div>
+<% end %>

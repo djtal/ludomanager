@@ -15,9 +15,9 @@
 </table>
 
 <div class="pagination">
-  <%= link_to "Precedentes", party_path(@previous) %>&nbsp;|&nbsp;
+  <%= @previous ? link_to("Precedentes", party_path(@previous)) : "<span class='disable'>Precedentes</span>" %>&nbsp;|&nbsp;
   <%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>&nbsp;|&nbsp;
-  <%= link_to "Suivantes", party_path(@next) %>
+  <%= @next ? link_to("Suivantes", party_path(@next)) : "<span class='disable'>Suivantes</span>" %>
 </div>
 
 

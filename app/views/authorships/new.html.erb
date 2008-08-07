@@ -5,7 +5,7 @@
 
 <% form_for(:authorships, :url => game_authorships_path(@game), :html => {:id => "authorship_form"}) do |form| %>
   <div id="authorships">
-    <%= render:partial => form, :locals => {:index => @index} %>
+    <%= render :partial => form, :locals => {:index => @index} %>
   </div>
   <%= submit_or_back_to game_path(@game), "Retour sur #{@game.name}" %>
 <% end %>
