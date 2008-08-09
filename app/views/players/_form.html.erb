@@ -1,4 +1,4 @@
-<% form.fields_for @party.players.build, :index => index do |p| %>
+<% fields_for @party.players.build, :index => index do |p| %>
   <div id="<%= index %>" class="player">
     <p><%= p.label :member_name, "Nom joueur #{index}" %><br />
     <%= text_field_tag :member_name, nil, :class => "member autocomplete", :id => "party_player_#{index}_member_name" %>

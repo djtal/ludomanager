@@ -61,16 +61,21 @@ var PlayerForm = Class.create({
   
   bindUI: function(){
     this.form.getInputs("text", "member_name").each(function(input, index){
-      autocomplete = "member_name_#{index}_auto_complete".interpolate({ index: index + 1});
-      new Autocompleter.Local(input, autocomplete, this.members.keys(), 
-      {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updateMemberId.bind(this, index + 1)}); 
-      btn = input.next(".add");
+      this.setupPlayer(input, index + 1);
+    }.bind(this));
+  },
+  
+  setupPlayer: function(player, index){
+      autocomplete = "member_name_#{index}_auto_complete".interpolate({ index: index});
+      new Autocompleter.Local(player, autocomplete, this.members.keys(), 
+      {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updateMemberId.bind(this, index)}); 
+      btn = player.next(".add");
       if (btn)
         btn.observe("click", this.newMember.bindAsEventListener(this)).addClassName("link")
-      btn = input.next(".remove");
+      btn = player.next(".remove");
       if (btn)
         btn.observe("click", this.removeMember.bindAsEventListener(this, index)).addClassName("link")
-    }.bind(this));
+      this.last_index = index;
   },
   
   newMember: function(ev){
@@ -79,11 +84,11 @@ var PlayerForm = Class.create({
   },
   
   removeMember: function(ev, index){
-      //Your code here
+      $(index.toPaddedString(1)).fade().remove();
   },
   
   updateMemberId: function(index, field){
-    $("party_player_" + index + "_member_id").value = this.members.get($F(field));
+    $("player_" + index + "_member_id").value = this.members.get($F(field));
   }
   
 });
@@ -91,5 +96,5 @@ var PlayerForm = Class.create({
 
 document.observe("dom:loaded", function() {
     asf = new AuthorshipForm("authorship_form");
-    pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc});
+    pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc})[0];
 });
