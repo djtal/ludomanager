@@ -12,6 +12,8 @@
     </div>
   </td>
   <td><div class="function">
-  <%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_database_delete"  %>
+  <%= link_to "", edit_party_player_path(party_full),  :class => "ss_sprite ss_pencil"  %>&nbsp;|&nbsp;
+  <%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_bin"  %>
+  
   </div></td>
 </tr>

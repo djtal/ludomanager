@@ -27,13 +27,12 @@ class PlayersController < ApplicationController
     end
   end
   
-  def show
-    @authorship = Authorship.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render :xml => @authorship.to_xml }
-    end
+  
+  def update
+    @party = Party.find(params[:party_id])
+    @party.players.delete_all
+    Player.create(params[:player].values.select{|player| player[:member_id] != ""})
+    redirect_to party_path(@party)
   end
   
 end

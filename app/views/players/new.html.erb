@@ -1,11 +1,10 @@
-<h3>Gerer les joueurs</h3>
+<h3>Partie du <%= @party.created_at.to_s(:date_fr) %> &nbsp;|&nbsp;Jeu : <%= @party.game.name %></h3>
 
-<h4>Partie du <%= @party.created_at.to_s(:date_fr) %> &nbsp;|&nbsp;Jeu <%= @party.game.name %></h4>
 
 <% form_for :players, :url => party_players_path(@party), :html => {:class => "member", :id => "party_#{@party.id}_members"} do |form| %>
   <div id="party_players">
     <% @party.game.min_player.times do |t|  %>
-        <%= render :partial => form, :locals => {:index => t + 1} %>
+        <%= render :partial => form, :locals => {:index => t + 1, :player => @party.players.build } %>
     <% end %>
   </div>
   <%= form.hidden_field :party_id, :value => @party.id %>
