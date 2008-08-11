@@ -25,3 +25,11 @@ q2:
 q3:
   account: quentin
   game: coloreto
+  
+party_full_player:
+  game: battlelore
+  account: quentin
+  
+party_empty_player:
+  game: battlelore
+  account: quentin

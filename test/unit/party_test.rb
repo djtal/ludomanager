@@ -27,6 +27,11 @@ class PartyTest < Test::Unit::TestCase
     end
   end
   
+  
+  def test_allow_more_player
+    assert !parties(:party_full_player).allow_more_players?
+    assert parties(:party_empty_player).allow_more_players?
+  end
 
   
   private

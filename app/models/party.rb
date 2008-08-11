@@ -56,4 +56,8 @@ class Party < ActiveRecord::Base
     end
   end
   
+  def allow_more_players?
+    players.count < game.max_player
+  end
+  
 end
