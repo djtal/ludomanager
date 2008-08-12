@@ -21,9 +21,17 @@ class PlayersController < ApplicationController
   
   def create
     Player.create(params[:player].values.select{|player| player[:member_id] != ""})
-    party = Party.find(params[:player].values.first[:party_id])
+    @party = Party.find(params[:player].values.first[:party_id])
+    if (params[:players][:save_and_next] == "1")
+      index = @parties.rindex(@party)
+      next_party = @parties[index + 1] ? @parties[index + 1] : @parties.first
+      redirect_path = next_party.players.size > 0 ? edit_party_player_url(next_party, next_party) : new_party_player_url(next_party, next_party) 
+    else
+      redirect_path = party_path(@party)
+    end
+    redirect_to
     respond_to do |format|
-      format.html{ redirect_to party_path(party)}
+      format.html{ redirect_to redirect_path}
     end
   end
   
@@ -32,7 +40,17 @@ class PlayersController < ApplicationController
     @party = Party.find(params[:party_id])
     @party.players.delete_all
     Player.create(params[:player].values.select{|player| player[:member_id] != ""})
-    redirect_to party_path(@party)
+    @parties = current_account.parties.find_all_by_created_at(@party.created_at, :order => "created_at DESC")
+    if (params[:players][:save_and_next] == "1")
+      index = @parties.rindex(@party)
+      next_party = @parties[index + 1] ? @parties[index + 1] : @parties.first
+      redirect_path = next_party.players.size > 0 ? edit_party_player_url(next_party, next_party) : new_party_player_url(next_party, next_party) 
+    else
+      redirect_path = party_path(@party)
+    end
+    redirect_to redirect_path
   end
+  
+  
   
 end
