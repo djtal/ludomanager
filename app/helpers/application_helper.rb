@@ -51,7 +51,7 @@ module ApplicationHelper
     # See layout _form_buttons
     #
     def render_buttons(&block)
-      render :partial => "/layouts/form"
+      render :partial => "/layouts/form", &block
     end
     
     

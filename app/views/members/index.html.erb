@@ -1,0 +1,25 @@
+<h3>Les membres</h3>
+
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-3">Nom</th>
+      <th class="span-3">Prenom</th>
+      <th class="span-9">Commentaire</th>
+      <th class="span-1">Parties</th>
+      <th class="span-2">Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial =>  @members %>
+  </tbody>
+</table>
+
+
+<% content_for :newsbox do %>
+  <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
+    <ul>
+      <li><%= link_to "Ajouter...", new_member_path %></li>
+    </ul>
+  <% end %>
+<% end %>

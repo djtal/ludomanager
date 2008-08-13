@@ -198,7 +198,7 @@ Object.extend(TableKit, {
 
 TableKit.Rows = {
 	stripe : function(table) {
-		var rows = TableKit.getBodyRows(table);
+		var rows = TableKit.getBodyRows(table).reject(function(r){ return r.hasClassName("nostrip")});
 		rows.each(function(r,i) {
 			TableKit.Rows.addStripeClass(table,r,i);
 		});
@@ -209,12 +209,12 @@ TableKit.Rows = {
 		var css = ((i+1)%2 === 0 ? op[0] : op[1]);
 		// using prototype's assClassName/RemoveClassName was not efficient for large tables, hence:
 		var cn = r.className.split(/\s+/);
-		var newCn = [];
-		for(var x = 0, l = cn.length; x < l; x += 1) {
-			if(cn[x] !== op[0] && cn[x] !== op[1]) { newCn.push(cn[x]); }
-		}
-		newCn.push(css);
-		r.className = newCn.join(" ");
+	  var newCn = [];
+	  for(var x = 0, l = cn.length; x < l; x += 1) {
+		  if(cn[x] !== op[0] && cn[x] !== op[1]) { newCn.push(cn[x]); }
+	  }
+	  newCn.push(css);
+	  r.className = newCn.join(" ");
 	}
 };
 

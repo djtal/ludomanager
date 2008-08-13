@@ -1,5 +1,3 @@
-require "csv"
-
 class LudoImporter
   attr_accessor :account, :created_games, :imported_account_games
   

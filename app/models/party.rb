@@ -1,41 +1,8 @@
-# == Schema Information
-# Schema version: 20080731203551
-#
-# Table name: parties
-#
-#  id         :integer       not null, primary key
-#  game_id    :integer(11)   
-#  created_at :datetime      
-#  account_id :integer(11)   
-#
-
-# == Schema Information
-# Schema version: 20080710200139
-#
-# Table name: parties
-#
-#  id         :integer       not null, primary key
-#  game_id    :integer       
-#  created_at :datetime      
-#  account_id :integer       
-#
-
-# == Schema Information
-# Schema version: 30
-#
-# Table name: parties
-#
-#  id         :integer       not null, primary key
-#  game_id    :integer       
-#  created_at :datetime      
-#  account_id :integer       
-#
-
-
 class Party < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
   belongs_to :game
   belongs_to :account
+  has_many :players
   after_create :up_partie_cache
   after_destroy :down_partie_cache
   
@@ -69,6 +36,10 @@ class Party < ActiveRecord::Base
     calculate(:count, :id, :group => :game, :order => "count_id DESC", :limit => count)
   end
   
+  def members
+    players.map(&:member).compact
+  end
+  
   def up_partie_cache
     ac = AccountGame.find(:first, :conditions => {:game_id => self.game_id, :account_id => self.account_id})
     if ac
@@ -83,6 +54,10 @@ class Party < ActiveRecord::Base
       ac.parties_count -= 1
       ac.save
     end
+  end
+  
+  def allow_more_players?
+    players.count < game.max_player
   end
   
 end

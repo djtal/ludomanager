@@ -1,19 +1,20 @@
 ActionController::Routing::Routes.draw do |map|
-
-  map.resources :smart_lists
-
-
   # The priority is based upon order of creation: first created -> highest priority.
   
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
-  map.resources :parties, :collection => {:play => :post, :add_party_form => :get}
+  map.resources :parties, 
+                :collection => {:play => :post, :add_party_form => :get},
+                :has_many => :players
   
-  map.resources :accounts, :authors
+  map.resources :accounts, :authors, :smart_lists
+  map.resources :players, :collection => {:new_partial_form => :get}
   map.resources :authorships, :collection => {:new_partial_form => :get}
+  map.resources :members, 
+                :collection => {:importer => :get, :import => :post}
   
-  #map.resources :parties, :collection => {:resume => :get}
   map.resources :account_games,
                 :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, :missing  => :get}
+                
   map.resources :tags, :collection => {:lookup => :get} 
   
   map.resources :games,

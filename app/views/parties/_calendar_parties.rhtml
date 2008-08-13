@@ -1,5 +1,5 @@
 <%= link_to_remote("jouer", {:url =>  {:action => "new", :day => day, :month => @date.month, :year => @date.year}, :method => :get}, :class => "right play" ) %>
-<span class="mday"><%= day %></span>
+<span class="mday"><%= !parties ?  day : link_to(day, party_path(parties.first)) %></span>
 <% if parties %>
 	<ul>
 		<% parties.first(4).each do |p| %>
@@ -10,9 +10,9 @@
 	<% if parties.size > 4 %>
 		<div class="extended" style="display : none;">
 		    <ul>
-		       <% parties.last(parties.size - 4).each do |p| %>
-                   <li><%= link_to(truncate(p.game.name, 12), game_path(p.game), :class => account_have_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
-               <% end %> 
+		      <% parties.last(parties.size - 4).each do |p| %>
+              <li><%= link_to(truncate(p.game.name, 12), game_path(p.game), :class => account_have_game?(p.game) ? "color green bzoom" : "color orange bzoom" ) %></li>
+          <% end %> 
 		    </ul>     
 		</div>		
 	<% end %>

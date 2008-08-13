@@ -1,0 +1,33 @@
+<h3>Vos parties du <%= @date.to_s(:date_fr) %> </h3>
+
+
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-1 nosort"></th>
+      <th class="span-16 nosort">Description</th>
+      <th class="span-3 last nosort">Administration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => "party_full", :collection => @parties %>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <%= @previous ? link_to("Precedentes", party_path(@previous)) : "<span class='disable'>Precedentes</span>" %>&nbsp;|&nbsp;
+  <%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>&nbsp;|&nbsp;
+  <%= @next ? link_to("Suivantes", party_path(@next)) : "<span class='disable'>Suivantes</span>" %>
+</div>
+
+
+
+<% content_for :newsbox do %>
+  <% render :layout => "layouts/widget", :locals => {:title => "Etaient present "} do %>
+    <ul class="strip">
+      <% @members.each do |member| %>
+        <li><%= member.display_name %></li>
+      <% end %>
+    </ul>
+  <% end  %>
+<% end %>

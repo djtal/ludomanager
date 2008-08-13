@@ -341,6 +341,7 @@ ul.horizontal li{
 	list-style: none;
 }
 
+
 .game .meta{
   margin: 0;
 }
@@ -586,12 +587,20 @@ input#smart_list_title {
 }
 
 
-.pagination {
+/* Pagination */
+.pagination{
+	margin-top: 5px;
+	text-align: center;
   background: #F1F1F1;
   border: 1px solid #E5E5E5;
   text-align: center;
   padding: 1em; 
 }
+
+.pagination a{
+	font-weight: bold;
+}
+
 .pagination a, .pagination span {
     padding: .2em .3em; }
 .pagination span.disabled {
@@ -604,4 +613,5 @@ input#smart_list_title {
     color: black; }
 .pagination a:hover, .pagination a:focus {
       text-decoration: underline; }
+
 

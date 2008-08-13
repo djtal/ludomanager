@@ -76,12 +76,14 @@ Element.addMethods(DOM);
 
 var BShow = Behavior.create({
   initialize: function(){
-    this.element.down(".function");
     this.target = this.element.down(".function"); 
-    if (this.target) this.target.hide()
+    if (this.target) this.target.hide();
+
   },
+
   onmouseover : function() { if (this.target) this.target.show();},
   onmouseout : function() { if (this.target) this.target.hide();}
+
 });
 
 var BMore = Behavior.create({
@@ -266,57 +268,6 @@ AccountGameForm.addMethods({
 })
 
 
-
-
-PartyFilter = {
-  showMine: function(table) {
-    table.select("tbody tr").each(function(e){
-      if (!e.hasClassName("own"))
-      e.hide();     
-    });
-    TableKit.Rows.stripe(table);
-  },
-
-  showAll : function(table){
-    $(table).select("tbody tr").invoke("show");
-  },
-
-  loadObservers: function(){
-    if ($("mine"))
-    {
-      $("mine").observe("click", function(ev){
-        elt = ev.element();
-        if (elt.hasClassName("active"))
-        {
-          elt.removeClassName("active");
-          $$("table").each(function(t){
-            PartyFilter.showAll(t);
-          });	
-        } else {
-          elt.addClassName("active");
-          $$("table").each(function(t){
-            PartyFilter.showMine(t);
-          });
-        }
-      })
-
-    }
-    if(!$("parties-filter"))
-    return;
-    $("parties-filter").observe("change", function(e){
-      if(e.element().getValue() == "ludo")
-      $$("table").each(function(t){
-        PartyFilter.showMine(t);
-      });
-      else
-      $$("table").each(function(t){
-        PartyFilter.showAll(t);
-      });
-
-    });
-    $("parties-filter").getInputs("submit").first().hide();
-  },
-}
 
 Sidebar = {
   load: function(){
@@ -516,7 +467,6 @@ Application = {
 }
 
 document.observe("dom:loaded", function() {
-  PartyFilter.loadObservers();
   new GameForm("game_form");
   new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");

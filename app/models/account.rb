@@ -1,5 +1,6 @@
-# == Schema Information
+
 # Schema version: 20080731203551
+
 #
 # Table name: accounts
 #
@@ -59,7 +60,27 @@ class Account < ActiveRecord::Base
   end
   
   has_many :games, :through => :account_games
-  has_many :smart_lists
+  has_many :smart_lists, :dependent => :delete_all
+  has_many :members, :dependent => :delete_all do
+    # Import member data from csv file
+    # format : name(mandatory);nickname(mandatory);email(optional)
+    def import(data)
+      imported = 0
+      errors = {}
+      line = 1
+      ::CSV::Reader.parse(data, ";") do |row|
+        member = self.new(:name => row[0], :nickname => row[1], :email => row[2], :account => proxy_owner)
+        if member.save
+          imported += 1
+        else
+          errors[line] = member.errors
+        end
+        line += 1
+      end
+      return imported, errors
+    end
+    
+  end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
@@ -71,6 +92,8 @@ class Account < ActiveRecord::Base
   def self.encrypt(password, salt)
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
   end
+
+
 
   # Encrypts the password with the user salt
   def encrypt(password)
