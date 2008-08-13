@@ -30,3 +30,11 @@ coloreto_ext:
   difficulty: 2
   created_at: <%= 2.month.ago.to_s(:db)  %>
   
+no_played:
+  name: Vineta
+  description: test
+  difficulty: 2
+  min_player: 2
+  max_player: 6
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+  

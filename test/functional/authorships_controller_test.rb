@@ -13,44 +13,7 @@ class AuthorshipsControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
 
-  def test_should_get_index
-    get :index
-    assert_response :success
-    assert assigns(:authorships)
-  end
-
-  def test_should_get_new
-    get :new
-    assert_response :success
-  end
-  
-  def test_should_create_authorship
-    old_count = Authorship.count
-    post :create, :authorship => { }
-    assert_equal old_count+1, Authorship.count
-    assert_redirected_to authorship_path(assigns(:authorship))
-  end
-
-  def test_should_show_authorship
-    get :show, :id => authorships(:one).id
-    assert_response :success
-  end
-
-  def test_should_get_edit
-    get :edit, :id => authorships(:one).id
-    assert_response :success
-  end
-  
-  def test_should_update_authorship
-    put :update, :id => authorships(:one).id, :authorship => { }
-    assert_redirected_to authorship_path(assigns(:authorship))
-  end
-  
-  def test_should_destroy_authorship
-    old_count = Authorship.count
-    delete :destroy, :id => authorships(:one).id
-    assert_equal old_count-1, Authorship.count
-    
-    assert_redirected_to authorships_path
+  def test_truth
+    assert true
   end
 end

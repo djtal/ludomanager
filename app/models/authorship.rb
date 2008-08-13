@@ -8,7 +8,7 @@ class Authorship < ActiveRecord::Base
   def self.create_from_names(names = {})
     self.delete_all
     names.values.map{|h| h.values}.flatten.each do |name|
-      self.create!(:author => Author.find_or_create_from_str(name))
+      self.create!(:author => Author.find_or_create_from_str(name)) unless name.blank?
     end
   end
 end
