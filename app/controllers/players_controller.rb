@@ -29,7 +29,6 @@ class PlayersController < ApplicationController
     else
       redirect_path = party_path(@party)
     end
-    redirect_to
     respond_to do |format|
       format.html{ redirect_to redirect_path}
     end
