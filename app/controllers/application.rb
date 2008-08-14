@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   # If you want "remember me" functionality, add this before_filter to Application Controller
   before_filter :login_from_cookie
   before_filter :set_section
-  before_filter :set_path
   before_filter :get_account_games, :if => :logged_in?
   
   
@@ -29,7 +28,4 @@ class ApplicationController < ActionController::Base
     @section = :games
   end
   
-  def set_path
-    @path = [@section]
-  end
 end

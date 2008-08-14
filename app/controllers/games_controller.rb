@@ -1,6 +1,5 @@
 class GamesController < ApplicationController  
   before_filter :login_required, :except => [:index, :show, :search]
-  before_filter :set_section
   
   # GET /games
   # GET /games.xml
