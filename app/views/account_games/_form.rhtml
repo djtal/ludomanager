@@ -12,4 +12,8 @@
 <fieldset>
 	<legend>Status du jeux</legend>
 	<p><%= form.check_box :shield %>&nbsp;<%= form.label :shield, "Jeux plastique"  %></p>
+	<p><%= form.label :parties_count, "nombre de parties" %><br />
+  <span class='tips'>Attention cela a juste une valeur informative pour votre ludotheque. 
+    Ces parties n'exsiteront pas dans le calendrier des parties.</span><br />
+	<%= form.text_field :parties_count, :size => 4 %></p>
 </fieldset>
