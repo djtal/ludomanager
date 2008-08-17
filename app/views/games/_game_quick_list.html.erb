@@ -3,7 +3,7 @@
   <td><%= link_to game_quick_list.name, game_path(game_quick_list) %></td>
   <td><%= game_quick_list.target_str %></td>
   <td></td>
-  <td><%= game_quick_list.publish_year %></td>
+  <td><%= game_quick_list.published_at.year %></td>
   <% if logged_in? %>
     <td><%= ac_game_status_for(game_quick_list) %></td>
   <% end %>
