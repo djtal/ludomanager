@@ -11,20 +11,7 @@
 <body>
 <div class="container"> 
 	<div id="header" class="column span-24">
-		<ul>
-			<%= main_nav_section_for("Les Jeux", games_path, :games, :class => "left") %>
-			<%= main_nav_section_for("Les Auteurs", authors_path, :authors, :class => "left") %>
-			<% if logged_in? %>
-			  <%= main_nav_section_for "Dashboard", dashboard_path, :dashboard, :class => "left" %>
-			  <%= main_nav_section_for "Ma ludotheque", account_games_path, :account_games, :class => "left" %>
-				<%= main_nav_section_for "Mes parties", parties_path, :parties, :class => "left" %>
-				<%= main_nav_section_for "Mes List", smart_lists_path, :parties, :class => "left" %>
-				<%= main_nav_section_for "Mes membres", members_path, :members, :class => "left" %>
-				<%= main_nav_section_for "Deconnexion", logout_path, :logout, :class => "right" %>
-			<% else %>
-			  <%= main_nav_section_for "Connexion", login_path, :login, :class => "right" %>
-			<% end %>
-		</ul>
+    <%= render :partial => 'layouts/main_nav_bar' %>
 	</div>
 	<div id="sub-nav" class="column span-24">
 	  <ul>
