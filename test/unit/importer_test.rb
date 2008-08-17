@@ -41,14 +41,12 @@ class ImporterTest < Test::Unit::TestCase
     assert_equal "Ehrhard", a.name
   end
   
-  def test_should_create_game_with_authors_if_game_not_exist
+  def test_should_create_game_not_exist
     assert_difference "Game.count", 1 do
       LudoImporter.new.import(@raw)
     end
     g = Game.find_by_name("Rapidcroco")
     assert_equal "Cocktail Games", g.editor
-    assert_equal 1, g.authors.size
-    assert g.authors.include?(authors(:fraga)) 
     assert_equal 2, g.min_player
     assert_equal 4, g.max_player
   end

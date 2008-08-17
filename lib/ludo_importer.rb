@@ -8,43 +8,41 @@ class LudoImporter
     @imported_account_games = 0
   end
   
+  # format is 0             ;1   ;2;3    ;5;6;7;8      ;
+  # =>        type(jeux/tag);name;-;price;-;-;-;editeur;
+  #
+  #
   def import(data = "")
-    curTag = ""
     CSV::Reader.parse(data, ";") do |row|
-      type = row[0].gsub(/\s+/, "").downcase.to_sym if row[0]
-      if type == :tag
-        curTag = row[1].downcase if row[1]
+      game = find_or_initialize_game(row[1])
+      if (game && game.new_record?)
+        game.editor = row[9] if row[9]
+        game.publish_year = row[10] if row[10]
+        game.average = row[16] if row[16]
+        game.min_player, game.max_player = findPlayerRange(row) 
+        game.min_player = 2 if game.min_player == 0
+        game.max_player = 4 if game.max_player == 0
+        game.save
       end
-      if type == :jeux
-        g = find_or_initialize_game(row[1])
-        if (g.new_record?)
-          g.editor = row[7] if row[7]
-          g.publish_year = row[8] if row[8]
-          g.average = row[14] if row[14]
-          g.min_player, g.max_player = findPlayerRange(row) 
-          if (g.save)
-            a = find_or_create_author(row[5])
-            g.authors << a if a && !g.authors.include?(a)
-            g.tag_with curTag if !curTag.blank?
-          end
-        end
-        if @account && !@account.games.include?(g)
-          ag = AccountGame.new
+      if @account && !@account.games.include?(game)
+        ac = ::AccountGame.new do |ag|
+          ag.price = row[3]
+          ag.origin = row[4]
+          ag.game_id = game.id
           ag.account = @account
-          ag.origin = row[3]
-          ag.game = g
-          ag.save
         end
-
+        ac.save
       end
     end
   end
   
   def find_or_initialize_game(name)
-    g = ::Game.find(:first, :conditions => ["LOWER(games.name) = ?", name.downcase])
-    if (!g)
-      g = ::Game.new(:name => name.downcase.humanize)
-      @created_games += 1
+    unless name.blank?
+      g = ::Game.find(:first, :conditions => ["LOWER(games.name) = ?", name.downcase])
+      if (!g)
+        g = ::Game.new(:name => name.downcase.humanize)
+        @created_games += 1
+      end
     end
     g
   end
@@ -70,7 +68,7 @@ class LudoImporter
   def findPlayerRange(row)
     min = 0
     max = 0
-    (20...33).each do |col|
+    (22...34).each do |col|
       if (row[col].to_i > 0)
         min =row[col].to_i if min == 0
         min =  row[col].to_i if row[col].to_i <  min
