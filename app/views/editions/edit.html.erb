@@ -1,0 +1,12 @@
+<h1>Editing edition</h1>
+
+<% form_for(@edition) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @edition %> |
+<%= link_to 'Back', editions_path %>

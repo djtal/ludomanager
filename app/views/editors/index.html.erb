@@ -1,0 +1,32 @@
+<% content_for:head do %>
+	<title>Les editeurs</title>
+<% end %>
+
+
+<h3>Les editeurs</h3>
+
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-6">Nom</th>
+      <th class="span-<%= logged_in? ? "9" : "11" %> no-sort"></th>
+      <th class="span-2">Nb Jeux</th>
+      <% if logged_in? %>
+        <th class="span-2">Administration</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => @editors %>
+  </tbody>
+</table>
+
+<% content_for :newsbox do %>
+  <div id="placeholder-1">
+    <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
+      <ul>
+    		<li><%= link_to "Ajouter un auteur", new_editor_path %></li>
+    	</ul>
+    <% end %>
+  </div>
+<% end if logged_in? %>

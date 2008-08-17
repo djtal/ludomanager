@@ -1,0 +1,11 @@
+<tr class="autohide" id="<%= dom_id(editor) %>">
+  <td><%= link_to editor.name.humanize, editor_path(editor) %></td>
+  <td></td>
+  <td>--</td>
+  <% if logged_in? %>
+    <td><div class="function">
+      <%= link_to "", edit_editor_path(editor), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
+      <%= link_to_remote "", {:url => editor_path(editor), :method => :delete},  :class => "ss_sprite ss_bin"  %>
+    </div></td>
+  <% end %>
+</tr>

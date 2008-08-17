@@ -1,0 +1,12 @@
+<% content_for:head do %>
+	<title>Ajout d'un editeurs</title>
+<% end %>
+
+
+<h3>Ajouter un editeur</h3>
+
+<% form_for(@editor) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => f %>
+  <%= submit_or_back_to editors_path, "Annuler" %>
+<% end %>
