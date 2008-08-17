@@ -43,6 +43,7 @@ class GamesController < ApplicationController
   def edit
     @game = Game.find(params[:id])
     @authorships = @game.authorships
+    @authorships << @game.authorships.new if @authorships.size == 0
   end
 
   # POST /games

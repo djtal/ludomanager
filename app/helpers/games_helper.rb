@@ -29,13 +29,13 @@ module GamesHelper
     "<span class=\"hide average\">#{@game.average}</span><span class=\"rate\"></span>"
   end
   
-  def authors_links(authors)
-    if authors.size > 0
-      links = authors.collect do |a|
+  def authors_links(game)
+    if game.authorships.size > 0
+      links = game.authors.collect do | a|
         a ? link_to(a.display_name, author_path(a)) : ""
-      end.compact.join(", ")
+      end.push(link_to("( editez )", edit_game_authorship_path(game))).compact.join(", ")
     else
-      "-----"
+      links = link_to("Ajouter des auteurs", new_game_authorship_path(game))
     end
   end
   

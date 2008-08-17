@@ -61,6 +61,16 @@ class GamesControllerTest < Test::Unit::TestCase
     end
   end
   
+  def test_create_with_no_authors_part_should_create_game
+    form = {
+      "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"balh", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"}
+    }
+    assert_nothing_raised do
+      login_as(:quentin)
+      post :create, form
+    end
+  end
+  
   def test_create_should_tag_game
     form = {
       "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"boom", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},

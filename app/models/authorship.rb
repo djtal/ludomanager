@@ -6,9 +6,11 @@ class Authorship < ActiveRecord::Base
   
   # come from form under [{:display_name => "test"}, {:dislpay_name => "test1"}, {:display_name => "test2"}]
   def self.create_from_names(names = {})
-    self.delete_all
-    names.values.map{|h| h.values}.flatten.each do |name|
-      self.create!(:author => Author.find_or_create_from_str(name)) unless name.blank?
+    if names
+      self.delete_all
+      names.values.map{|h| h.values}.flatten.each do |name|
+        self.create!(:author => Author.find_or_create_from_str(name)) unless name.blank?
+      end
     end
   end
 end

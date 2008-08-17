@@ -5,7 +5,7 @@
 
 <% form_for(:authorships, :url => game_authorships_path(@game), :method => :put, :html => {:id => "authorship_form"}) do |form| %>
   <div id="authorships">
-    <% @game.authorships.each_with_index do |a, index| %>
+    <% @authorships.each_with_index do |a, index| %>
       <%= render :partial => form, :locals => {:index => index + 1, :authorship => a} %>
     <% end %>
   </div>

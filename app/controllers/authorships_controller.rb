@@ -40,6 +40,7 @@ class AuthorshipsController < ApplicationController
   def edit
     @game = Game.find(params[:game_id], :include => :authorships)
     @authorships = @game.authorships
+    @authorships << @game.authorships.new if @authorships.size == 0
   end
 
   # POST /authorships
