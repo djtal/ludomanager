@@ -20,6 +20,7 @@
   <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
     <ul>
       <li><%= link_to "Ajouter...", new_member_path %></li>
+      <li><%= link_to "Importer", importer_members_path %></li>
     </ul>
   <% end %>
 <% end %>
