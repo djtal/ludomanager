@@ -52,10 +52,6 @@ ul#search-results {
 	margin-top: 3px;
 }
 
-.box{
-	background: none;
-}
-
 .empty{
 	text-align: center;
 	font-weight: bold;
@@ -310,6 +306,15 @@ ul.horizontal li{
 #games .game{
 	margin-bottom: 30px;
 	border: 1px solid #6c9;
+}
+
+.game p{
+  padding: 4px;
+}
+
+.game h4{
+  font-size: 1em;
+  text-align: center;
 }
 
 #games .content{

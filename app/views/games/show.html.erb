@@ -2,28 +2,37 @@
 <h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
 
 <% div_for @game, :class => "clear" do %>
-	<div class="column span-3">
-	 <%= game_box_for(@game, :size =>"80x80") %>
+	<div class="column span-4">
+	 <%= game_box_for(@game, :size =>"100x100", :class => "box") %>
+	 <div class="resume">
+	   <h4><%= @game.name %> en bref</h4>
+   	 <ul class="meta">
+   	    <li class="ss_sprite ss_date">Sortie en : <span class="flash"><%= @game.published_at.year %></span></li>
+   			<li class="ss_sprite ss_clock">Dur&eacute;e : <span class="flash"><%= @game.time_str %></span></li>
+   			<li class="ss_sprite ss_user">Joueurs : <span class="flash"><%= @game.min_player %> a <%= @game.max_player %></span></li>
+   		  <li class="ss_sprite ss_group">Public : <span class="flash"><%= @game.target_str.downcase %></span></li>
+   	</ul>
+	 </div>
 	</div>
-	<div class="column last span-13">
+	<div class="column span-12 last">
     	<p>
     	  <% if !@game.description.blank? %>
     	    <%= @game.description %>
     	  <% else %>
     	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
     	  <% end %>
-    	  <br /><br />
-    	  Un jeu <span class="flash"><%= @game.target_str.downcase %></span> pour <%= nb_player_tag(@game) %>.<br />
-    	  D'une durée de <span class="flash"><%= @game.time_str %></span><br />
     	  
     	</p>
 		<ul class="meta">
 			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
-			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span>
-			    chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
-		  <li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
-			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
+			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span></li>
 		</ul>
+		<div>Un jeu edité par (<%= @game.editions.size %>):
+		<ul>
+		  <%= render :partial => "editions/list", :collection => @game.editions %>
+		</ul>  
+		</div>
+		
 	</div>
 	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>

@@ -1,7 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :editions
-
-  map.resources :editors
+  map.resources :editors, :editions
 
   # The priority is based upon order of creation: first created -> highest priority.
   
@@ -22,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :collection => {:lookup => :get} 
   
   map.resources :games,
-                :has_many => [:account_games, :authorships] ,
+                :has_many => [:account_games, :authorships, :editions] ,
                 :collection => {:search => :get} 
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'

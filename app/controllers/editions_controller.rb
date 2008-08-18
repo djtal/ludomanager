@@ -24,6 +24,7 @@ class EditionsController < ApplicationController
   # GET /editions/new
   # GET /editions/new.xml
   def new
+    @game = Game.find(params[:game_id])
     @edition = Edition.new
 
     respond_to do |format|
@@ -40,12 +41,13 @@ class EditionsController < ApplicationController
   # POST /editions
   # POST /editions.xml
   def create
-    @edition = Edition.new(params[:edition])
+    @game = Game.find(params[:game_id])
+    @edition = @game.editions.build(params[:edition])
 
     respond_to do |format|
       if @edition.save
         flash[:notice] = 'Edition was successfully created.'
-        format.html { redirect_to(@edition) }
+        format.html { redirect_to(@game) }
         format.xml  { render :xml => @edition, :status => :created, :location => @edition }
       else
         format.html { render :action => "new" }

@@ -1,0 +1,6 @@
+<p><%= form.label :editor_id, "Editeur" %><br />
+<%= form.collection_select :editor_id, Editor.all, :id, :name %></p>
+<p><%= form.label :lang, "Langue" %><br />
+<%= form.select :lang, Edition::Lang %></p>
+<p><%= form.label :published_at, "Date de parution" %><br />
+<%= form.date_select :published_at, :discard_day => true %></p>
