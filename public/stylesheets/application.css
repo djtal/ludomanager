@@ -46,7 +46,10 @@ h4{
 .orange a{ color: inherit;}
 .color a{ color: inherit; font-weight: bold;}
 
-
+p.info{
+  background: transparent url(../images/info.png) no-repeat  center left;
+  padding-left : 30px;
+}
 
 ul#search-results {
 	margin-top: 3px;

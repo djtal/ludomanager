@@ -45,6 +45,10 @@ class GamesController < ApplicationController
     @authorships = @game.authorships
     @authorships << @game.authorships.new if @authorships.size == 0
   end
+  
+  def replace
+    @game = Game.find(params[:id])
+  end
 
   # POST /games
   # POST /games.xml

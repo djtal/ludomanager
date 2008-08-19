@@ -32,6 +32,15 @@ class PartyTest < Test::Unit::TestCase
     assert !parties(:party_full_player).allow_more_players?
     assert parties(:party_empty_player).allow_more_players?
   end
+  
+  def test_replace_should_replace_all_old_game_occurance_by_new_game
+    3.times do
+      clean_party(:game_id => games(:coloreto_ext).id).save
+    end
+    Party.replace(games(:coloreto_ext), games(:agricola))
+    assert_equal 0, Party.count(:all, :conditions => {:game_id => games(:coloreto_ext).id})
+    assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
+  end
 
   
   private

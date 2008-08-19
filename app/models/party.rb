@@ -7,6 +7,10 @@ class Party < ActiveRecord::Base
   after_destroy :down_partie_cache
   
   
+  def self.replace(old_game, new_game)
+    
+  end
+  
   def self.find_by_month(date = Time.now, opts = {})
     options = {
       :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_month, date.end_of_month]
