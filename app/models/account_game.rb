@@ -23,6 +23,9 @@ class AccountGame < ActiveRecord::Base
   belongs_to :game
   belongs_to :account
   before_create :setup_default
+  #need to play with named_scope
+  named_scope :recent, lambda { { :conditions => ['created_at > ?', 2.month.ago] } }
+  
   cattr_reader :per_page
   @@per_page = 50
   
