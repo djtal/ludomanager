@@ -93,8 +93,42 @@ var PlayerForm = Class.create({
   
 });
 
+var GameForm = Class.create();
+GameForm.addMethods({
+  initialize: function(form){
+    if (!$(form)) return;
+    this.form = $(form);
+    new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
+    new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
+    this.bindUI();
+  },
+
+  loadTags: function(response){
+    this.tags = response.responseJSON;
+    new Autocompleter.Local('tag_tag_list', 'tags_lookup_auto_complete', this.tags, 
+    {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+  },
+
+  loadAuthor: function(response){
+    this.authorsName = response.responseJSON;
+    this.form.select("#authors input[type=text]").each(function(input){
+      new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
+      {fullSearch: true, frequency: 0, minChars: 1});  
+    }.bind(this));  
+  },
+  
+  bindUI: function(){
+      $("game_photo_delete").observe("click", this.toggleFileSelector.bindAsEventListener(this))
+  },
+  
+  toggleFileSelector: function(ev){
+      $("box_file_selector").toggleClassName("hide");  
+  },
+});
+
 
 document.observe("dom:loaded", function() {
     asf = new AuthorshipForm("authorship_form");
     pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc})[0];
+    new GameForm("game_form");
 });
