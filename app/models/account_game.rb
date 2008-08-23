@@ -29,6 +29,13 @@ class AccountGame < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 50
   
+  def self.replace_game(old_game, new_game)
+    if new_game && !new_game.new_record?
+      update_all("game_id = #{new_game.id}", :game_id => old_game.id) 
+    end
+  end
+  
+  
   def self.search(query = {})
     opts = {
       :include => {:game => :tags},

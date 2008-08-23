@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class AccountGameTest < Test::Unit::TestCase
-  fixtures :account_games, :accounts, :games
+  fixtures :all
   
   
   def test_can_own_only_once_a_game
@@ -15,11 +15,10 @@ class AccountGameTest < Test::Unit::TestCase
     assert a.save
   end
   
-  def test_should_set_date_to_now_if_not_set
-    a = clean_game_account({:price => nil})
-    assert_equal nil, a.transdate
-    assert a.save
-    assert_equal Time.now.to_date, a.transdate
+  def test_replace_should_replace_old_game_witout_change_to_other_att
+    assert AccountGame.replace_game(games(:battlelore), games(:agricola))
+    assert_equal 0, AccountGame.count(:conditions => {:game_id => games(:battlelore).id})
+    assert_equal 1, AccountGame.count(:conditions => {:game_id => games(:agricola).id})
   end
   
   private

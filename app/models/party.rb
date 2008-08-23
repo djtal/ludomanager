@@ -7,8 +7,10 @@ class Party < ActiveRecord::Base
   after_destroy :down_partie_cache
   
   
-  def self.replace(old_game, new_game)
-    
+  def self.replace_game(old_game, new_game)
+    if new_game && !new_game.new_record?
+      update_all("game_id = #{new_game.id}", :game_id => old_game.id) 
+    end
   end
   
   def self.find_by_month(date = Time.now, opts = {})
