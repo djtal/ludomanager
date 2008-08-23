@@ -21,8 +21,8 @@
 			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
 			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span>
 			    chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
-		  <li>Moyenne TricTrac: <span class="hide average"><%= @game.average %></span><span class="rate"></span></li>
-			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url ? @game.url : "#" %></li>
+		  <li>Moyenne TricTrac: <%= @game.average %></li>
+			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url if @game.url %></li>
 		</ul>
 	</div>
 	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
