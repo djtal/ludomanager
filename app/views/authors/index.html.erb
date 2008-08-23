@@ -20,6 +20,10 @@
   </tbody>
 </table>
 
+<div class="page-nav">
+  <%= will_paginate @authors %>
+</div>
+
 <% content_for :newsbox do %>
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
