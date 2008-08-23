@@ -1,4 +1,4 @@
-<tr class="autohide">
+<tr class="autohide" id="<%= dom_id(party_full) %>">
   <td><%= game_box_for party_full.game %></td>
   <td>
     <span class="right"><%= party_full.players.size %> / <%= pluralize(party_full.game.max_player, "joueur", "joueurs") %></span>

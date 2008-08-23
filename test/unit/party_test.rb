@@ -33,6 +33,12 @@ class PartyTest < Test::Unit::TestCase
     assert parties(:party_empty_player).allow_more_players?
   end
   
+  def test_destroy_shold_delete_players_too
+    assert_difference "Player.count", -2 do
+      assert parties(:party_full_player).destroy
+    end
+  end
+  
   def test_replace_should_replace_all_old_game_occurance_by_new_game
     3.times do
       clean_party(:game_id => games(:coloreto_ext).id).save

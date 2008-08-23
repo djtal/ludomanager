@@ -2,7 +2,7 @@ class Party < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
   belongs_to :game
   belongs_to :account
-  has_many :players
+  has_many :players, :dependent => :destroy
   after_create :up_partie_cache
   after_destroy :down_partie_cache
   
