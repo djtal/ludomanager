@@ -19,8 +19,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :games,
                 :has_many => [:account_games, :authorships] ,
-                :collection => {:search => :get, :merge => :post},
-                :member => {:replace => :get} 
+                :collection => {:search => :get},
+                :member => {:replace => :get, :merge => :post} 
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'
   map.login  '/login', :controller => 'sessions', :action => 'new'

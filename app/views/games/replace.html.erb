@@ -1,6 +1,6 @@
 <h3>Remplacer et effacer</h3>
 
-<% form_for :replace, :url => merge_games_path  do |f| %>
+<% form_for :replace, :url => merge_game_path(@game), :html => {:id => "replace_game"}  do |f| %>
 
   <fieldset>
     <p class="info">Cette action va remplacer toutes le occurences du jeu <strong><%= @game.name %>(ID : <%= @game.id %>)</strong> dans la base.
@@ -9,6 +9,7 @@
     <p>Remplacer <em><%= @game.name %>(ID : <%= @game.id %>)</em>
     <%= f.label :destination, "Par " %>&nbsp;
     <%= f.text_field :destination %></p>
+    <div class="auto_complete" id="replace_destination_auto_complete"></div>
     <%= f.hidden_field :destination_id %>
   </fieldset>
   <%= submit_or_back_to game_path(@game), "Retour sur #{@game.name}" %>

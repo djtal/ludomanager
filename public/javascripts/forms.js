@@ -126,9 +126,33 @@ GameForm.addMethods({
   },
 });
 
+var ReplaceGameForm = Class.create({
+  initialize: function(form){
+    if (!$(form)) return;
+    this.form = $(form);
+    new Ajax.Request('/games.json', {method: "get", onSuccess: this.loadGames.bind(this)});
+  },
+  
+  loadGames: function(response){
+      this.games = response.responseJSON.inject($H(), function(acc, game){
+          acc.set(game.name , game.id);
+          return acc;
+      });
+      this.nameInput = $("replace_destination")
+      autocomplete = $("replace_destination_auto_complete")
+      new Autocompleter.Local(this.nameInput, autocomplete, this.games.keys(), 
+      {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updateGameId.bind(this)});
+  },
+  
+  updateGameId: function(){
+      $("replace_destination_id").value = this.games.get($F(this.nameInput));
+  },
+})
+
 
 document.observe("dom:loaded", function() {
     asf = new AuthorshipForm("authorship_form");
     pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc})[0];
+    rpgf = new ReplaceGameForm("replace_game");
     new GameForm("game_form");
 });
