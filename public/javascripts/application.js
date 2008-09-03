@@ -443,7 +443,6 @@ Application = {
 }
 
 document.observe("dom:loaded", function() {
-  new GameForm("game_form");
   new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
   $$('.autohide').each(function(elt){

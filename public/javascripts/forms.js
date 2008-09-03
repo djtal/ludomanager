@@ -154,5 +154,6 @@ document.observe("dom:loaded", function() {
     asf = new AuthorshipForm("authorship_form");
     pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc})[0];
     rpgf = new ReplaceGameForm("replace_game");
+    gf = new GameForm("game_form");
     new GameForm("game_form");
 });
