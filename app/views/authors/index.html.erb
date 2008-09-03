@@ -7,11 +7,11 @@
 <table class="sortable">
   <thead>
     <tr>
-      <th class="span-6">Nom Prenom</th>
-      <th class="span-<%= logged_in? ? "9" : "11" %> no-sort"></th>
-      <th class="span-2">Nb Jeux</th>
+      <th class="span-6 nosort">Nom Prenom</th>
+      <th class="span-<%= logged_in? ? "9" : "11" %> nosort"></th>
+      <th class="span-2 nosort">Nb Jeux</th>
       <% if logged_in? %>
-        <th class="span-2">Administration</th>
+        <th class="span-2 nosort">Administration</th>
       <% end %>
     </tr>
   </thead>
@@ -19,6 +19,10 @@
     <%= render :partial => @authors %>
   </tbody>
 </table>
+
+<div class="page-nav">
+  <%= will_paginate @authors %>
+</div>
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">

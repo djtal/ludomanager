@@ -79,6 +79,14 @@ class PartiesController < ApplicationController
     @date = party.created_at
   end
   
+  def destroy
+    @party = current_account.parties.find(params[:id])
+    @party.destroy
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   protected
   
   def find_yours(parties)

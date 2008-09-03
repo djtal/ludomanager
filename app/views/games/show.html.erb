@@ -26,6 +26,7 @@
 		<ul class="meta">
 			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
 			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span></li>
+
 		</ul>
 		<div>Un jeu edité par (<%= @game.editions.size %>):
 		<ul>

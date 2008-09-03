@@ -23,8 +23,18 @@ class AccountGame < ActiveRecord::Base
   belongs_to :game
   belongs_to :account
   before_create :setup_default
+  #need to play with named_scope
+  named_scope :recent, lambda { { :conditions => ['created_at > ?', 2.month.ago] } }
+  
   cattr_reader :per_page
   @@per_page = 50
+  
+  def self.replace_game(old_game, new_game)
+    if new_game && !new_game.new_record?
+      update_all("game_id = #{new_game.id}", :game_id => old_game.id) 
+    end
+  end
+  
   
   def self.search(query = {})
     opts = {

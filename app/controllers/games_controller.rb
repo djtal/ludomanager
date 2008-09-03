@@ -7,7 +7,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html do 
         @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
-        @games = Game.paginate :page => params[:page], :order => 'games.name ASC', :include => [:tags, :image]
+        @games = Game.paginate(:page => params[:page], :order => 'games.name ASC', :include => [:tags, :image])
       end
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end
@@ -44,6 +44,23 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @authorships = @game.authorships
     @authorships << @game.authorships.new if @authorships.size == 0
+  end
+  
+  def replace
+    @game = Game.find(params[:id])
+  end
+  
+  
+  def merge
+    @source = Game.find(params[:id])
+    @destination = Game.find(params[:replace][:destination_id]) if params[:replace][:destination_id] != ""
+    if (@source && @destination)
+      AccountGame.replace_game(@source, @destination)
+      Party.replace_game(@source, @destination)
+      @source.destroy
+      return redirect_to game_path(@destination)
+    end
+    redirect_to game_path(@source)
   end
 
   # POST /games
@@ -113,8 +130,7 @@ class GamesController < ApplicationController
       	  end
 	      format.xml  { head :ok }
     	end
-		
-	end
+	  end
   end
   
   protected
@@ -127,7 +143,7 @@ class GamesController < ApplicationController
   
   def save_box_thumbnail!
     if params[:game_photo]
-      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo][:delete] == "1"
+      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo].delete(:delete) == "1"
       unless params[:game_photo][:uploaded_data].blank?
         @game.image.destroy if @game.image
         box = GamePhoto.create params[:game_photo]

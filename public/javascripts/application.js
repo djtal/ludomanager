@@ -220,30 +220,6 @@ PartyForm.addMethods({
   }
 });
 
-var GameForm = Class.create();
-GameForm.addMethods({
-  initialize: function(form){
-    if (!$(form)) return;
-    this.form = $(form);
-    new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
-    new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
-  },
-
-  loadTags: function(response){
-    this.tags = response.responseJSON;
-    new Autocompleter.Local('tag_tag_list', 'tags_lookup_auto_complete', this.tags, 
-    {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
-  },
-
-  loadAuthor: function(response){
-    this.authorsName = response.responseJSON;
-    this.form.select("#authors input[type=text]").each(function(input){
-      new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
-      {fullSearch: true, frequency: 0, minChars: 1});  
-    }.bind(this));  
-  },
-});
-
 var AccountGameForm = Class.create()
 AccountGameForm.addMethods({
   initialize: function(form){
@@ -467,7 +443,6 @@ Application = {
 }
 
 document.observe("dom:loaded", function() {
-  new GameForm("game_form");
   new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
   $$('.autohide').each(function(elt){

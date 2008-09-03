@@ -4,7 +4,7 @@ class DashboardsController < ApplicationController
   
   
   def show
-    @last_buyed = current_account.account_games.find(:all, :include => {:game => :image}, :order => "account_games.created_at DESC", :limit  =>  5)
+    @last_buyed = current_account.account_games.find(:all, :include => {:game => :image}, :order => "account_games.transdate DESC", :limit  =>  5)
     @last_parties = current_account.parties.last_play(5)
     @most_played = current_account.parties.most_played(5)
     

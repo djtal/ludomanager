@@ -13,22 +13,27 @@
 	<% fields_for :tag, @game  do |ff| %>
 	  <%= render :partial => "tags/new", :locals => {:f => ff} %>
 	<% end %>
-	<% fields_for :game_photo do |g| %>		
+</fieldset>
+
+<fieldset>
+  <legend>Associer une image de la boite</legend>
+  <% fields_for :game_photo do |g| %>		
 		<div class="column">
 		  <%= game_box_for(@game, :size => "60x60") %>
 		</div>
     <div class="column last">
 			<% if @game.image %>
-				<%= g.label :delete, "Supprimer l'image actuel" %>
 				<%= g.check_box :delete %>
+				<%= g.label :delete, "Supprimer l'image actuel" %>
 			<% end %>
-			<p class="<%= @game.image ? "hide" : "" %>">
+			<p id="box_file_selector" class="<%= @game.image ? "hide" : "" %>">
 			  <%= g.label :uploaded_data, "Une image de la boite ?" %><br />
   			<%= g.file_field :uploaded_data %>
 			</p>
     </div>
 	<% end %>
 </fieldset>
+
 <fieldset>
 	<legend>Le coin technique</legend>
  	  <p><%= f.label :min_player, "De " %><%= f.text_field :min_player, :size => 2 %>
@@ -39,7 +44,7 @@
  	  <p><%= f.label :time_category, "Durée de jeu moyenne" %>
  	  <%= f.select :time_category, Game::TimeCategory %></p>
  	  
- 	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.text_field :difficulty, :size => 4 %></p>
+ 	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.select :difficulty, (1..5) %></p>
   	<p><%= f.label :editor, "Editeur " %><%= f.text_field :editor %></p>
   	<p><%= f.label :published_at, "Ann&eacute;e de sortie " %><%= f.date_select :published_at, :discard_month => true, 
   	                                                              :start_year => 1980 %></p>

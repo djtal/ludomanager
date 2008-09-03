@@ -93,8 +93,67 @@ var PlayerForm = Class.create({
   
 });
 
+var GameForm = Class.create();
+GameForm.addMethods({
+  initialize: function(form){
+    if (!$(form)) return;
+    this.form = $(form);
+    new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
+    new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
+    this.bindUI();
+  },
+
+  loadTags: function(response){
+    this.tags = response.responseJSON;
+    new Autocompleter.Local('tag_tag_list', 'tags_lookup_auto_complete', this.tags, 
+    {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+  },
+
+  loadAuthor: function(response){
+    this.authorsName = response.responseJSON;
+    this.form.select("#authors input[type=text]").each(function(input){
+      new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
+      {fullSearch: true, frequency: 0, minChars: 1});  
+    }.bind(this));  
+  },
+  
+  bindUI: function(){
+      $("game_photo_delete").observe("click", this.toggleFileSelector.bindAsEventListener(this))
+  },
+  
+  toggleFileSelector: function(ev){
+      $("box_file_selector").toggleClassName("hide");  
+  },
+});
+
+var ReplaceGameForm = Class.create({
+  initialize: function(form){
+    if (!$(form)) return;
+    this.form = $(form);
+    new Ajax.Request('/games.json', {method: "get", onSuccess: this.loadGames.bind(this)});
+  },
+  
+  loadGames: function(response){
+      this.games = response.responseJSON.inject($H(), function(acc, game){
+          acc.set(game.name , game.id);
+          return acc;
+      });
+      this.nameInput = $("replace_destination")
+      autocomplete = $("replace_destination_auto_complete")
+      new Autocompleter.Local(this.nameInput, autocomplete, this.games.keys(), 
+      {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updateGameId.bind(this)});
+  },
+  
+  updateGameId: function(){
+      $("replace_destination_id").value = this.games.get($F(this.nameInput));
+  },
+})
+
 
 document.observe("dom:loaded", function() {
     asf = new AuthorshipForm("authorship_form");
     pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc})[0];
+    rpgf = new ReplaceGameForm("replace_game");
+    gf = new GameForm("game_form");
+    new GameForm("game_form");
 });

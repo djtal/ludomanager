@@ -2,10 +2,16 @@ class Party < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
   belongs_to :game
   belongs_to :account
-  has_many :players
+  has_many :players, :dependent => :destroy
   after_create :up_partie_cache
   after_destroy :down_partie_cache
   
+  
+  def self.replace_game(old_game, new_game)
+    if new_game && !new_game.new_record?
+      update_all("game_id = #{new_game.id}", :game_id => old_game.id) 
+    end
+  end
   
   def self.find_by_month(date = Time.now, opts = {})
     options = {

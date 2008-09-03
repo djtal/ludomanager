@@ -107,4 +107,18 @@ class GamesControllerTest < Test::Unit::TestCase
     assert_equal 1, assigns(:game).authors.size
   end
   
+  def test_merge_games
+    login_as(:quentin)
+    post :merge, {"replace"=>{"destination"=>"", "destination_id"=> games(:coloreto).id}, "id"=> games(:battlelore).id}
+    assert_redirected_to game_path(games(:coloreto).id)
+    assert_equal 0, Party.find_all_by_game_id(games(:battlelore).id).size
+    assert_equal 0, AccountGame.find_all_by_game_id(games(:battlelore).id).size
+  end
+  
+  def test_merge_without_destination_game
+    login_as(:quentin)
+    post :merge, {"replace"=>{"destination"=>"", "destination_id"=> ""}, "id"=> games(:battlelore).id}
+    assert_redirected_to game_path(games(:battlelore).id)
+  end
+  
 end

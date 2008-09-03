@@ -46,6 +46,10 @@ class Game < ActiveRecord::Base
   has_many :editions
   
   acts_as_taggable
+  named_scope :without_text, :conditions => {:description => nil}
+  named_scope :for_two, :conditions => {:min_player => 2, :max_player => 2}
+  
+  
   
   def self.search(query, page)
     paginate :per_page => 5, :page => page,

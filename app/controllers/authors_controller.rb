@@ -4,11 +4,14 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.xml
   def index
-    @authors = Author.find(:all, :include => :authorships, :order => "surname ASC")
-
     respond_to do |format|
-      format.html # index.rhtml
-      format.json{ render :json => @authors.map{|a| a.display_name}.to_json}
+      format.html do
+          @authors = Author.paginate(:page => params[:page], :include => :authorships, :order => "surname ASC")
+      end
+      format.json do
+          @authors = Author.find(:all, :order => "surname ASC")
+          render :json => @authors.map{|a| a.display_name}.to_json
+      end
       format.xml  { render :xml => @authors.to_xml }
     end
   end
