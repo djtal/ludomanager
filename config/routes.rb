@@ -21,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :games,
                 :has_many => [:account_games, :authorships, :editions] ,
-                :collection => {:search => :get} 
+                :collection => {:search => :get}, 
                 :member => {:replace => :get, :merge => :post} 
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'

@@ -595,6 +595,29 @@ input#smart_list_title {
 }
 
 
+/* Tabs */
+
+ul.tabsContainer{
+  border-bottom: solid 1px;
+  margin: 0;
+}
+
+li.tabs{
+  float: left;
+  list-style-type: none;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-top: solid 1px;
+  border-left: solid 1px;
+  border-right: solid 1px;
+  padding: 3px;
+  
+}
+
+li.tabs a{
+  text-decoration: none;
+}
+
 /* Pagination */
 .pagination{
 	margin-top: 5px;

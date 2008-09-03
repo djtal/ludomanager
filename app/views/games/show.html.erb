@@ -15,25 +15,31 @@
 	 </div>
 	</div>
 	<div class="column span-12 last">
-    	<p>
-    	  <% if !@game.description.blank? %>
-    	    <%= @game.description %>
-    	  <% else %>
-    	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
-    	  <% end %>
-    	  
-    	</p>
-		<ul class="meta">
-			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
-			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span></li>
+	  <ul class="tabsContainer clear" id="gameTabs">
+	   <li class="tabs active"><a href="#overview">Vue d'ensemble</a></li>
+	   <li class="tabs"><a href="#editions">Les &eacute;ditions</a></li>
+	  </ul>
+	  <div id ="overview" class="tabsBody">
+	    	<p>
+      	  <% if !@game.description.blank? %>
+      	    <%= @game.description %>
+      	  <% else %>
+      	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
+      	  <% end %>
 
-		</ul>
-		<div>Un jeu edité par (<%= @game.editions.size %>):
-		<ul>
-		  <%= render :partial => "editions/list", :collection => @game.editions %>
-		</ul>  
-		</div>
-		
+      	</p>
+  		<ul class="meta">
+  			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
+  			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span></li>
+  		</ul>
+	  </div>
+	  <div id="editions" class="tabsBody">
+	    Un jeu edité par (<%= @game.editions.size %>):
+  		<ul>
+  		  <%= render :partial => "editions/list", :collection => @game.editions %>
+  		</ul>
+	  </div>
+
 	</div>
 	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
