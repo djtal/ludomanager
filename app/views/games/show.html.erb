@@ -28,25 +28,21 @@
       	  <% end %>
 
       	</p>
+      	<p class="block">
+      	 <h4>Les Tags</h4>
+      	 <%= game_tags_links @game %>
+      	</p>
   		<ul class="meta">
-  			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
   			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span></li>
   		</ul>
 	  </div>
 	  <div id="editions" class="tabsBody">
-	    Un jeu edité par (<%= @game.editions.size %>):
-  		<ul>
-  		  <%= render :partial => "editions/list", :collection => @game.editions %>
-  		</ul>
+    		<%= render :partial => "editions/show" %>
 	  </div>
 
 	</div>
-	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
 	
-<div class="page-nav">
-	<strong><%= link_to "Retour sur la liste des jeux", request.env["HTTP_REFERER"] ? request.env["HTTP_REFERER"] : games_path %></strong>		
-</div>	
 
 
 

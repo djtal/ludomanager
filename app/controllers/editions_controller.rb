@@ -35,6 +35,7 @@ class EditionsController < ApplicationController
 
   # GET /editions/1/edit
   def edit
+    @game = Game.find(params[:game_id])
     @edition = Edition.find(params[:id])
   end
 
@@ -59,12 +60,13 @@ class EditionsController < ApplicationController
   # PUT /editions/1
   # PUT /editions/1.xml
   def update
+    @game = Game.find(params[:game_id])
     @edition = Edition.find(params[:id])
 
     respond_to do |format|
       if @edition.update_attributes(params[:edition])
         flash[:notice] = 'Edition was successfully updated.'
-        format.html { redirect_to(@edition) }
+        format.html { redirect_to(@game) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

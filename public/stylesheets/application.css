@@ -320,6 +320,17 @@ ul.horizontal li{
   text-align: center;
 }
 
+.block h4{
+  text-align : left;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+img.flag{
+  margin: 0;
+  vertical-align: middle;
+}
+
 #games .content{
 	padding: 0 4px;
 }
@@ -611,12 +622,24 @@ li.tabs{
   border-left: solid 1px;
   border-right: solid 1px;
   padding: 3px;
-  
+}
+
+li.tabs.active{
+  background-color: #EAEAEA;
 }
 
 li.tabs a{
   text-decoration: none;
 }
+
+/* Editions */
+
+ul#editions_list{
+  padding: 0;
+  margin: 7px 0 15px 0;
+}
+
+
 
 /* Pagination */
 .pagination{

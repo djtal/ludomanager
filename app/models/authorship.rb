@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20080817160324
+#
+# Table name: authorships
+#
+#  id        :integer       not null, primary key
+#  author_id :integer(11)   
+#  game_id   :integer(11)   
+#
+
 class Authorship < ActiveRecord::Base
   validates_presence_of :author_id, :game_id
   validates_uniqueness_of :author_id, :scope => :game_id

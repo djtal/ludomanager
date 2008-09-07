@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20080817160324
+#
+# Table name: players
+#
+#  id         :integer       not null, primary key
+#  party_id   :integer       
+#  member_id  :integer       
+#  created_at :datetime      
+#  updated_at :datetime      
+#
+
 class Player < ActiveRecord::Base
   validates_presence_of :party_id, :member_id
   belongs_to :party

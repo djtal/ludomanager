@@ -1,12 +1,7 @@
-<h1>Editing edition</h1>
+<h3>Modification d'un edition de <%= @game.name %></h3>
 
-<% form_for(@edition) do |f| %>
+<% form_for(@edition, :url => game_edition_path(@game, @edition)) do |f| %>
   <%= f.error_messages %>
-
-  <p>
-    <%= f.submit "Update" %>
-  </p>
+  <%= render :partial => f %>
+  <%= submit_or_back_to game_path(@game), "retour sur #{@game.name}" %>
 <% end %>
-
-<%= link_to 'Show', @edition %> |
-<%= link_to 'Back', editions_path %>
