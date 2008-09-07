@@ -1,4 +1,4 @@
-<li class="autohide">
+<li class="autohide" id="<%= dom_id(list) %>">
   <% if logged_in? %>
     <div class="function right">
       <%= link_to "", edit_game_edition_path(@game, list), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
