@@ -46,6 +46,11 @@ h4{
 .orange a{ color: inherit;}
 .color a{ color: inherit; font-weight: bold;}
 
+.small,
+.small a{
+  color: #666;
+}
+
 p.info{
   background: transparent url(../images/info.png) no-repeat  center left;
   padding-left : 30px;
@@ -320,10 +325,20 @@ ul.horizontal li{
   text-align: center;
 }
 
+.block{
+  margin-bottom: 20px;
+}
+
 .block h4{
   text-align : left;
-  font-size: 1em;
+  font-size: 11px;
   text-transform: uppercase;
+  margin: 0 0 5px 0;
+}
+
+.block a{
+  text-decoration: none;
+  border-bottom: 1px dotted;
 }
 
 img.flag{
@@ -609,27 +624,35 @@ input#smart_list_title {
 /* Tabs */
 
 ul.tabsContainer{
-  border-bottom: solid 1px;
+  border-bottom: solid 2px #6CAB54;
   margin: 0;
 }
 
 li.tabs{
+  background-color: #EEEEEE;
   float: left;
   list-style-type: none;
   margin-right: 5px;
   margin-left: 5px;
-  border-top: solid 1px;
-  border-left: solid 1px;
-  border-right: solid 1px;
-  padding: 3px;
+  border-top: solid 1px #6CAB54;
+  border-left: solid 1px #6CAB54;
+  border-right: solid 1px #6CAB54;
+  padding: 3px 5px;
 }
 
 li.tabs.active{
-  background-color: #EAEAEA;
+  font-weight: bold;
+  background-color: #E6F7D4;
 }
 
 li.tabs a{
+  font-size: 12px;
+  color: #422100;
   text-decoration: none;
+}
+
+.tabsBody{
+  margin-top: 5px;
 }
 
 /* Editions */

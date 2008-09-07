@@ -10,9 +10,8 @@ class ApplicationController < ActionController::Base
   before_filter :get_account_games, :if => :logged_in?
   
   
-
-  
   protected
+  
   
   def get_account_games
     @account_games = current_account.account_games.all

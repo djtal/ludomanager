@@ -33,7 +33,7 @@ module GamesHelper
     if game.authorships.size > 0
       links = game.authors.collect do | a|
         a ? link_to(a.display_name, author_path(a)) : ""
-      end.push(link_to("( editez )", edit_game_authorship_path(game))).compact.join(", ")
+      end.compact.join(", ")
     else
       links = link_to("Ajouter des auteurs", new_game_authorship_path(game))
     end

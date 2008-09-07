@@ -1,10 +1,11 @@
-<%= image_tag("modified.png", :class => "ac_status right") if account_have_game?(@game)  %>
-<h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
+<h3>
+  <%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %>
+</h3>
 
 <% div_for @game, :class => "clear" do %>
 	<div class="column span-4">
 	 <%= game_box_for(@game, :size =>"100x100", :class => "box") %>
-	 <div class="resume">
+	 <div class="block">
 	   <h4><%= @game.name %> en bref</h4>
    	 <ul class="meta">
    	    <li class="ss_sprite ss_date">Sortie en : <span class="flash"><%= @game.published_at.year %></span></li>
@@ -16,25 +17,26 @@
 	</div>
 	<div class="column span-12 last">
 	  <ul class="tabsContainer clear" id="gameTabs">
-	   <li class="tabs active"><a href="#overview">Vue d'ensemble</a></li>
-	   <li class="tabs"><a href="#editions">Les &eacute;ditions</a></li>
+	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
+	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
-	    	<p>
+	    	<div class="block">
+	    	  <h4>Descrition</h4>
       	  <% if !@game.description.blank? %>
       	    <%= @game.description %>
       	  <% else %>
       	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
       	  <% end %>
-
-      	</p>
-      	<p class="block">
+      	</div>
+      	<div class="block">
+      	 <h4>Les auteurs <span class="functions small"><%= link_to("Editez", edit_game_authorship_path(@game)) %></span></h4>
+      	 <%= authors_links(@game) %>
+      	</div>
+      	<div class="block">
       	 <h4>Les Tags</h4>
       	 <%= game_tags_links @game %>
-      	</p>
-  		<ul class="meta">
-  			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span></li>
-  		</ul>
+      	</div>
 	  </div>
 	  <div id="editions" class="tabsBody">
     		<%= render :partial => "editions/show" %>
@@ -42,8 +44,6 @@
 
 	</div>
 <% end %>
-	
-
 
 
 <% content_for :newsbox do %>
