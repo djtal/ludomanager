@@ -30,7 +30,7 @@
       	  <% end %>
       	</div>
       	<div class="block">
-      	 <h4>Les auteurs <span class="functions small"><%= link_to("Editez", edit_game_authorship_path(@game)) %></span></h4>
+      	 <h4>Les auteurs <span class="functions small"><%= link_to("Editer", edit_game_authorship_path(@game)) if @game.authors.size > 0 %></span></h4>
       	 <%= authors_links(@game) %>
       	</div>
       	<div class="block">
@@ -43,11 +43,34 @@
 	  </div>
 
 	</div>
+	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
 
 
 <% content_for :newsbox do %>
-	<% render :layout => "layouts/widget", :locals => {:title => "Statistiques"} do %>
+	
+	<% render :layout => "layouts/widget", :locals => {:title => "Mon Compte"} do %>
+
+    <div class="block">
+      <h4>Date d'acquisition&nbsp;</h4>
+          <% if account_have_game?(@game) %>
+      	      <%= link_to "supprimer", game_account_game_path(@game), :method => :delete, :class => "small right" if account_have_game?(@game) %>
+      	      25/05/2008
+      	  <% else %>
+      	    <p class="empty">
+      	      Vous ne possedez pas actuellement ce jeu.<br />
+      	      <%= link_to "Ajouter", new_game_account_game_path(@game) %>
+      	    </p>
+      	  <% end %>
+    </div>
+    <div class="block">
+      <h4>parties jou&eacute;es</h4>
+        10 en 2007<br />
+        15 en 2008
+    </div>
+	<% end if logged_in? %>
+
+  <% render :layout => "layouts/widget", :locals => {:title => "Statistiques"} do %>
 		<span class="flash"><%= pluralize(@game.account_games.size, "membre</span> a", "membres</span> ont") %>
 		ce jeu dans leurs ludotheque.
     <br />
@@ -55,14 +78,6 @@
 		<span class='flash'><%= pluralize(@game.parties.count, "partie</span>", "parties</span>") %> de ce jeu.
 	<% end %>
 	
-	<% render :layout => "layouts/widget", :locals => {:title => "Ma ludotheque"} do %>
-	  Vous <%= account_have_game?(@game) ? "possedez" : "ne possedez pas" %> ce jeu.<br />
-	  <% if account_have_game?(@game) %>
-	    <%= link_to "Supprimez #{@game.name} de ma ludotheque", game_account_game_path(@game), :method => :delete, :class => "ss_sprite ss_folder_delete" %>
-	  <% else %>
-	    <%= link_to "Ajoutez #{@game.name} de ma ludotheque", new_game_account_game_path(@game), :class => "ss_sprite ss_folder_add " %>
-	  <% end %>
-	<% end if logged_in? %>
 <% end %>
 
 

@@ -136,9 +136,6 @@ ul#search-results {
 	list-style: none;	
 }
 
-#innernews a{
-	font-weight: bold;
-}
 
 
 
@@ -351,9 +348,11 @@ img.flag{
 }
 .game .account_managment{
  	margin-top: 5px;
-  	background-color: #eaeaea;
+  background-color: #E6F7D4;
 	width: 100%;
 	text-align: center;
+	padding : 2px 0; 
+	border-bottom: 1px solid #6CAB54;
 }
 
 .game .account_managment img{
@@ -395,10 +394,7 @@ img.ac_status {
 	font-weight: bold;
 }
 
-.meta{
-	color: #666;
-	font-style: italic;
-}
+
 .meta .flash,
 .meta a {
 	background-color: #fff;
