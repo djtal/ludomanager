@@ -46,4 +46,10 @@ module GamesHelper
     }.merge(opts)
     image_tag(game.image ? game.image.public_filename : "game_box.png" , options)
   end
+  
+  # Return all foreign game name for an editions list
+  #
+  def other_name_for(game, editions )
+    editions.map{|e| e.name unless e.name.blank? }.uniq. * " / "
+  end
 end

@@ -45,9 +45,6 @@
  	  <%= f.select :time_category, Game::TimeCategory %></p>
  	  
  	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.select :difficulty, (1..5) %></p>
-  	<p><%= f.label :editor, "Editeur " %><%= f.text_field :editor %></p>
-  	<p><%= f.label :published_at, "Ann&eacute;e de sortie " %><%= f.date_select :published_at, :discard_month => true, 
-  	                                                              :start_year => 1980 %></p>
 </fieldset>
 
 <fieldset id="authorship_form">

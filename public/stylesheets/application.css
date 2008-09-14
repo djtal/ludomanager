@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/application.css?1220797423 */
+
 /* ----- Structure and Layout ----- */
 
 body {
@@ -308,14 +310,20 @@ ul.horizontal li{
 	margin-top: 20px;
 }
 
-#games .game{
-	margin-bottom: 30px;
-	border: 1px solid #6c9;
+#game .game{
+  margin-bottom: 30px;
+  list-style: none;
 }
 
-.game p{
-  padding: 4px;
+.game{
+	border-bottom: 1px solid #6CAB54;
 }
+
+.game ul{
+  margin: 0;
+  list-style: none;
+}
+
 
 .game h4{
   font-size: 1em;
@@ -348,11 +356,10 @@ img.flag{
 }
 .game .account_managment{
  	margin-top: 5px;
-  background-color: #E6F7D4;
+  	background-color: #E6F7D4;
 	width: 100%;
 	text-align: center;
 	padding : 2px 0; 
-	border-bottom: 1px solid #6CAB54;
 }
 
 .game .account_managment img{
@@ -365,19 +372,16 @@ img.flag{
 }
 
 #games h3{
-  border: none;
-  padding-left: 40px;
-	background-color: #eaeaea;
+	background-color: #E6F7D4;
+	border-bottom: 1px solid #6CAB54;
+	border-top: 1px solid #6CAB54;
+	padding-left: 10px;
+	font-size: 16px;
 }
 
 .game ul{
-	list-style: none;
 }
 
-
-.game .meta{
-  margin: 0;
-}
 
 img.ac_status {
   vertical-align: middle;
@@ -395,15 +399,10 @@ img.ac_status {
 }
 
 
-.meta .flash,
-.meta a {
-	background-color: #fff;
+
+.meta{
 	color: #666;
 	font-weight: bold;
-}
-
-.meta img{
-  margin: 0 4px 0 0;
 }
 
 

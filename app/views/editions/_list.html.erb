@@ -5,7 +5,7 @@
       <%= link_to_remote "", {:url => game_edition_path(@game, list), :method => :delete},  :class => "ss_sprite ss_bin"  %>
     </div>
   <% end %>
-  <%= flag_for_lang(list.lang.to_i) %> - 
-  <%= list.editor.name %> - 
-  <%= "#{month_name(list.published_at.month)} #{list.published_at.year}" %>
+  <%= link_to list.editor.name, editor_path(list.editor) %> en  
+  <%= "#{month_name(list.published_at.month)} #{list.published_at.year}" %><br />
+  <%= flag_for_lang(list.lang.to_i) %> - <span class="meta"><%= list.name != "" ? list.name : @game.name %></span>
 </li>
