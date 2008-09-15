@@ -10,6 +10,7 @@ module GamesHelper
   def game_name(game, includeVO = true)
     name = game.name
     game +=  content_tag(:span, " (" + game.vo_name + ")") if (!game.vo_name.blank? && includeVO)
+    
   end
 
   def tags_links(game)
@@ -24,6 +25,9 @@ module GamesHelper
     end.join(", ")
   end
   
+  def average_for(game)
+    "<span class=\"hide average\">#{@game.average}</span><span class=\"rate\"></span>"
+  end
   
   def authors_links(game)
     if game.authorships.size > 0
@@ -42,13 +46,4 @@ module GamesHelper
     }.merge(opts)
     image_tag(game.image ? game.image.public_filename : "game_box.png" , options)
   end
-<<<<<<< master:app/helpers/games_helper.rb
-=======
-  
-  # Return all foreign game name for an editions list
-  #
-  def other_name_for(game, editions )
-    editions.map{|e| e.name if e.name != "" }.compact.uniq. * " , "
-  end
->>>>>>> local:app/helpers/games_helper.rb
 end

@@ -1,30 +1,3 @@
-<<<<<<< master:test/fixtures/games.yml
-=======
-# == Schema Information
-# Schema version: 20080817160324
-#
-# Table name: games
-#
-#  id            :integer       not null, primary key
-#  name          :string(255)   
-#  description   :text          
-#  difficulty    :integer(11)   default(2)
-#  min_player    :integer(11)   default(1)
-#  max_player    :integer(11)   
-#  created_at    :datetime      
-#  updated_at    :datetime      
-#  publish_year  :string(255)   
-#  editor        :string(255)   
-#  url           :text          
-#  average       :float         default(0.0)
-#  min_age       :integer       
-#  vo_name       :text          
-#  target        :integer       default(0)
-#  time_category :integer       default(0)
-#  published_at  :date          
-#
-
->>>>>>> local:test/fixtures/games.yml
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 coloreto:
   name: coloreto
@@ -40,20 +13,6 @@ battlelore:
   min_player: 2
   max_player: 2
   created_at: <%= 1.days.ago %>
-  
-agricola:
-  name: Agricola
-  description: test
-  difficulty: 2
-  created_at: <%= 2.month.ago.to_s(:db)  %>
-
-
-funkenshlag:
-  name: Funkenshlag
-  description: test
-  difficulty: 2
-  created_at: <%= 2.month.ago.to_s(:db)  %>    
-  
 game_with_comment_expired:
   name: Du Balais
   description: test
@@ -67,6 +26,12 @@ ever_played:
   
 coloreto_ext:
   name: Coloreto Ext
+  description: test
+  difficulty: 2
+  created_at: <%= 2.month.ago.to_s(:db)  %>
+
+agricola:
+  name: Agricola
   description: test
   difficulty: 2
   created_at: <%= 2.month.ago.to_s(:db)  %>

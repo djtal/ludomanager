@@ -1,18 +1,10 @@
-<<<<<<< master:app/views/games/show.html.erb
 <%= image_tag("modified.png", :class => "ac_status right") if account_have_game?(@game)  %>
 <h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
-=======
-<h3>
-  <%= @game.name %>
-  <span class="small"><%= content_tag(:span, "(" + other_name_for(@game, @editions) + ")") if @editions.size > 0 %></span>
-</h3>
->>>>>>> local:app/views/games/show.html.erb
 
 <% div_for @game, :class => "clear" do %>
 	<div class="column span-3">
 	 <%= game_box_for(@game, :size =>"80x80") %>
 	</div>
-<<<<<<< master:app/views/games/show.html.erb
 	<div class="column last span-13">
     	<p>
     	  <% if !@game.description.blank? %>
@@ -32,48 +24,6 @@
 		  <li>Moyenne TricTrac: <%= @game.average %></li>
 			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url if @game.url %></li>
 		</ul>
-=======
-	<div class="column span-12 last">
-	  <ul class="tabsContainer clear" id="gameTabs">
-	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
-	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
-	   <li class="tabs"><a href="#links">Divers</a></li>
-	  </ul>
-	  <div id ="overview" class="tabsBody">
-	    	<div class="block">
-	    	  <h4>Descrition</h4>
-      	  <% if !@game.description.blank? %>
-      	    <%= @game.description %>
-      	  <% else %>
-      	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
-      	  <% end %>
-      	</div>
-      	<div class="block">
-      	  <h4>
-      	    Les auteurs 
-      	    <span class="functions small"><%= link_to("Editer", edit_game_authorship_path(@game)) if @game.authors.size > 0 %></span>
-      	  </h4>
-      	  <%= authors_links(@game) %>
-      	</div>
-      	
-      	<div class="block" id="tags">
-      	 <h4>
-      	   Les Tags
-      	 </h4>
-      	 <%= game_tags_links @game %>
-      	</div>
-	  </div>
-	  <div id="editions" class="tabsBody">
-    		<%= render :partial => "editions/show" %>
-	  </div>
-    <div id="links", class="tabsBody">
-      <div class="block">
-        <h4>Ils en parlent aussi...</h4>
-        Sa fiche sur TricTrac : <%= @game.url != "" ? link_to("Allez voir", @game.url) : "----" %>
-      </div>
-    </div>
-
->>>>>>> local:app/views/games/show.html.erb
 	</div>
 	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>

@@ -233,7 +233,6 @@ legend{
 #content hr{
   background: transparent url('../images/divider.png') no-repeat center center;
   height: 16px;
-  margin: 20px 0;
 }
 
 /* ---- Forms ----*/
@@ -341,13 +340,10 @@ ul.horizontal li{
 	background-color: #eaeaea;
 }
 
-<<<<<<< master:public/stylesheets/application.css
 .game ul{
 	list-style: none;
 }
 
-=======
->>>>>>> local:public/stylesheets/application.css
 
 .game .meta{
   margin: 0;
@@ -545,7 +541,6 @@ tr img,
 
 ul.strip li{
   border-bottom: 1px solid #DDDDDD;
-  padding: 4px 0;
 }
 
 li.rowodd {
@@ -554,15 +549,6 @@ li.rowodd {
 
 li.roweven {
 	background-color: #F2F2F2;
-}
-
-.count{
-  text-align: center;
-  padding: 0 6px;
-  background-color: #6CAB54;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  color: #fff;
 }
 
 tr.selected,
