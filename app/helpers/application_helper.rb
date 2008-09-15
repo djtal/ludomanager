@@ -55,6 +55,27 @@ module ApplicationHelper
     end
     
     
+<<<<<<< master:app/helpers/application_helper.rb
+=======
+    def flag_for_lang(lang, opts = {})
+      options = {
+        :size => "16x16",
+        :class => "flag"
+      }.merge(opts)
+      case lang
+      when 0
+        image = "France.png"
+      when 1
+        image = "United-States.png"
+      when 2
+        image = "Germany.png"
+      when 3
+        image = "Multi.png"
+      end
+      image_tag("flag/#{image}", options)
+    end
+    
+>>>>>>> local:app/helpers/application_helper.rb
     def submit_or_back_to(back_to, back_to_text = "Annuler", opts = {})
       options = {
         :submit_text => "Enregistrer"

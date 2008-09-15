@@ -1,5 +1,9 @@
 # == Schema Information
+<<<<<<< master:app/models/game.rb
 # Schema version: 20080731203551
+=======
+# Schema version: 20080817160324
+>>>>>>> local:app/models/game.rb
 #
 # Table name: games
 #
@@ -15,14 +19,21 @@
 #  editor        :string(255)   
 #  url           :text          
 #  average       :float         default(0.0)
+<<<<<<< master:app/models/game.rb
 #  min_age       :integer(11)   
+=======
+#  min_age       :integer       
+>>>>>>> local:app/models/game.rb
 #  vo_name       :text          
 #  target        :integer       default(0)
 #  time_category :integer       default(0)
 #  published_at  :date          
 #
 
+<<<<<<< master:app/models/game.rb
 
+=======
+>>>>>>> local:app/models/game.rb
 class Game < ActiveRecord::Base
   Target = [["Tous public", 0], ["Tres jeune enfant", 1], ["Jeunes enfant", 2], ["Casual", 3], ["Gamers", 4]]
   TimeCategory = [["< 30min", 0], ["Entre 30min/1h", 1],["Entre 1h et 1h30", 2], ["> 1h30", 3]]
@@ -49,8 +60,9 @@ class Game < ActiveRecord::Base
   named_scope :for_two, :conditions => {:min_player => 2, :max_player => 2}
   
   
-  
-  def self.search(query, page)
+  #
+  def self.search(query, page = 1)
+    return [] if query.blank?
     paginate :per_page => 5, :page => page,
              :conditions => ['LOWER(name) like ?', "%#{query}%"], :order => 'name'
   end
