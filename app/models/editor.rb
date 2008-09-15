@@ -11,4 +11,5 @@
 #
 
 class Editor < ActiveRecord::Base
+  has_one :logo, :as => :attachable, :class_name => "Asset"
 end
