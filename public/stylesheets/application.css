@@ -567,6 +567,7 @@ tr img,
 
 ul.strip li{
   border-bottom: 1px solid #DDDDDD;
+  padding: 5px 0;
 }
 
 li.rowodd {
@@ -575,6 +576,15 @@ li.rowodd {
 
 li.roweven {
 	background-color: #F2F2F2;
+}
+
+.round{
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #6CAB54;
+  padding: 1px 4px;
+  text-align: center;
+  color: #fff;
 }
 
 tr.selected,
@@ -647,7 +657,7 @@ li.tabs a{
 }
 
 .tabsBody{
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 /* Editions */

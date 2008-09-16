@@ -1,6 +1,6 @@
 <h3>
   <%= @game.name %>
-  <%= other_name_for(@game, @editions) %>
+  <span class="small"><%= other_name_for(@game, @editions) %></span>
 </h3>
 
 <% div_for @game, :class => "clear" do %>

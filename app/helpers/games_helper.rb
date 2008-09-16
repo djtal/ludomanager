@@ -50,6 +50,7 @@ module GamesHelper
   # Return all foreign game name for an editions list
   #
   def other_name_for(game, editions )
-    editions.map{|e| e.name unless e.name.blank? }.uniq. * " / "
+    txt = editions.map{|e| e.name unless e.name.blank? }.uniq.compact * " , "
+    txt = "(#{txt})" if txt
   end
 end
