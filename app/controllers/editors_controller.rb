@@ -44,6 +44,7 @@ class EditorsController < ApplicationController
 
     respond_to do |format|
       if @editor.save
+        create_logo!
         flash[:notice] = 'Editor was successfully created.'
         format.html { redirect_to(@editor) }
         format.xml  { render :xml => @editor, :status => :created, :location => @editor }
@@ -61,6 +62,7 @@ class EditorsController < ApplicationController
 
     respond_to do |format|
       if @editor.update_attributes(params[:editor])
+        create_logo!
         flash[:notice] = 'Editor was successfully updated.'
         format.html { redirect_to(@editor) }
         format.xml  { head :ok }
@@ -81,6 +83,23 @@ class EditorsController < ApplicationController
       format.html { redirect_to(editors_url) }
       format.js
       format.xml  { head :ok }
+    end
+  end
+  
+  def set_section
+  	@section = :editors
+  end
+
+  protected
+  
+  def create_logo!
+    if params[:logo]
+      @editor.logo.destroy if params[:logo][:delete] && params[:logo].delete(:delete) == "1"
+      unless params[:logo][:uploaded_data].blank?
+        @editor.logo.destroy if @editor.logo
+        box = Asset.create params[:logo]
+        @editor.logo = box
+      end
     end
   end
 end

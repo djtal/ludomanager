@@ -5,7 +5,7 @@
 
 <h3>Ajouter un editeur</h3>
 
-<% form_for(@editor) do |f| %>
+<% form_for(@editor, :html => {:multipart => true}) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => f %>
   <%= submit_or_back_to editors_path, "Annuler" %>
