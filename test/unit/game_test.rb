@@ -68,6 +68,11 @@ context "Game" do
     assert_equal 0, Authorship.find(:all, :conditions => {:game_id => g.id}).size
   end
   
+  specify "should_return array of uniq availble language based on edition" do
+    assert_equal [], games(:coloreto).available_lang
+    assert_equal ["fr","en"], games(:battlelore).available_lang
+  end
+  
   
   protected
   

@@ -78,6 +78,12 @@ class Game < ActiveRecord::Base
   end
   
   
+  def available_lang
+    langs = []
+    langs = editions.map(&:lang).compact.uniq if editions.any?
+    langs
+  end
+  
   protected
   
   def check_parties

@@ -61,13 +61,13 @@ module ApplicationHelper
         :class => "flag"
       }.merge(opts)
       case lang
-      when 0
+      when "fr"
         image = "France.png"
-      when 1
+      when "en"
         image = "United-States.png"
-      when 2
+      when "de"
         image = "Germany.png"
-      when 3
+      when "multi"
         image = "Multi.png"
       end
       image_tag("flag/#{image}",options)

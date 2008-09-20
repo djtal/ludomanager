@@ -233,6 +233,7 @@ legend{
 #content hr{
   background: transparent url('../images/divider.png') no-repeat center center;
   height: 16px;
+  margin: 20px 0;
 }
 
 /* ---- Forms ----*/

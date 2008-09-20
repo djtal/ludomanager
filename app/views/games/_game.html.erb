@@ -7,7 +7,6 @@
     	  <div class="block">
     	    <h4>Description</h4>
     	    <% if !game.description.blank? %>
-
       	    <%=truncate(h(game.description), 215, "... " + link_to("Voir la suite", game_path(game))) %>
       	  <% else %>
       	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
@@ -16,6 +15,10 @@
         <div class="block">
           <h4>Les tags</h4>
           <%= game_tags_links game %>
+        </div>
+        <div class="block">
+          <h4>Disponible en :</h4>
+          <%= langs_flag_for(game) %>
         </div>
   	</div>
   </div>

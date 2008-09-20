@@ -53,4 +53,11 @@ module GamesHelper
     txt = editions.map{|e| e.name unless e.name.blank? }.uniq.compact * " , "
     txt = "(#{txt})" if txt
   end
+  
+  def langs_flag_for(game)
+    game.available_lang.inject("") do |acc, lang|
+      acc << flag_for_lang(lang, :size => "20x20")
+    end
+  end
+  
 end
