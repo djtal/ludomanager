@@ -1,5 +1,5 @@
 <p><%= form.label :editor_id, "Editeur" %><br />
-<%= form.collection_select :editor_id, Editor.all, :id, :name %></p>
+<%= form.collection_select :editor_id, @editors, :id, :name %></p>
 
 <p><%= form.label :name, "Nom du jeu" %><br />
 <span class="tips">Seullement si le nom est different de celui de la fiche.</span><br />

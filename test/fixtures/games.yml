@@ -37,6 +37,23 @@ battlelore:
   min_player: 2
   max_player: 2
   created_at: <%= 1.days.ago %>
+
+funkenshlag:
+  name: Funkenshlag
+  description: test
+  difficulty: 3
+  min_player: 2
+  max_player: 6
+  created_at: <%= 1.days.ago %>
+  
+megamix:
+  name: Mega Mix
+  description: test
+  difficulty: 3
+  min_player: 2
+  max_player: 6
+  created_at: <%= 1.days.ago %> 
+  
 game_with_comment_expired:
   name: Du Balais
   description: test

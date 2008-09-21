@@ -51,12 +51,12 @@ module GamesHelper
   #
   def other_name_for(game, editions )
     txt = editions.map{|e| e.name unless e.name.blank? }.uniq.compact * " , "
-    txt = "(#{txt})" if txt
+    txt = "(#{txt})" unless txt.blank?
   end
   
   def langs_flag_for(game)
     game.available_lang.inject("") do |acc, lang|
-      acc << flag_for_lang(lang, :size => "20x20")
+      acc << flag_for_lang(lang, :size => "18x18")
     end
   end
   

@@ -73,6 +73,16 @@ context "Game" do
     assert_equal ["fr","en"], games(:battlelore).available_lang
   end
   
+  specify "search should be case insensitive" do
+    assert_equal [], Game.search
+    assert_equal [games(:battlelore)], Game.search("battle")
+    assert_equal [games(:battlelore)], Game.search("BaTtLe")
+  end
+  
+  specify "search should lookup throught editions game and editions name " do
+    assert_equal [games(:funkenshlag), games(:megamix)], Game.search("mega")
+  end
+  
   
   protected
   

@@ -25,6 +25,7 @@ class EditionsController < ApplicationController
   # GET /editions/new.xml
   def new
     @game = Game.find(params[:game_id])
+    @editors = Editor.all(:order => "name ASC")
     @edition = Edition.new
 
     respond_to do |format|
@@ -36,6 +37,7 @@ class EditionsController < ApplicationController
   # GET /editions/1/edit
   def edit
     @game = Game.find(params[:game_id])
+    @editors = Editor.all(:order => "name ASC")
     @edition = Edition.find(params[:id])
   end
 

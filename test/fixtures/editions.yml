@@ -24,3 +24,15 @@ battlelore_en:
   game: battlelore
   editor: dow
   lang: en
+
+powergrid_en:
+  game: funkenshlag
+  name: Powergrid
+  editor: 2fspiele
+  lang: en
+
+megawatt_en:
+  game: funkenshlag
+  name: MegaWatt
+  editor: filosofia
+  lang: en

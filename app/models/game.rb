@@ -49,9 +49,12 @@ class Game < ActiveRecord::Base
   
   
   
-  def self.search(query, page)
-    paginate :per_page => 5, :page => page,
-             :conditions => ['LOWER(name) like ?', "%#{query}%"], :order => 'name'
+  def self.search(query = "", page = 1)
+    return [] if query.blank?
+    games = find(:all, :conditions => ['LOWER(name) like ?', "%#{query.downcase}%"], :order => 'name')
+    editions = Edition.find(:all, :conditions => ['LOWER(name) like ?', "%#{query.downcase}%"], :order => 'name').map(&:game)
+    (games + editions).uniq.compact.sort_by(&:name).paginate(:per_page => 10, :page => page)
+             
   end
   
   def min_max_player?
