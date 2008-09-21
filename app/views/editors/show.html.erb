@@ -6,3 +6,42 @@
 <h3><%= @editor.name %></h3>
 
 <%= image_tag @editor.logo.public_filename if @editor.logo %>
+
+<% if @editor.games.size > 0 %>
+  
+  <table class="sortable">
+    <thead>
+      <tr>
+        <th class="span-1 nosort"></th>
+        <th class="span-7">Jeu</th>
+        <th class="span-2">Public</th>
+        <th class="span-<%= logged_in? ? "5" : "7" %> no-sort"></th>
+        <th class="span-3">Ann&eacute;e de sortie</th>
+        <% if logged_in? %>
+          <th class="nosort">Status ludotheque</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render :partial => "games/game_quick_list", :collection => @editor.games.uniq %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="empty">Cet &eacute;diteur n'a publi&eacute; aucun jeux.</p>
+<% end %>
+
+<div class="page-nav">
+  <strong><%= link_to "Retour sur la liste des auteurs", authors_path %></strong>
+</div>
+
+
+<% content_for :newsbox do %>
+  <div id="placeholder-1">
+    <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
+      <ul>
+        <li><%= link_to "Editer", edit_editor_path(@editor), :class => "ss_sprite ss_pencil" %></li>
+        <li><%= link_to "Effacer", editor_path(@editor), :method => :delete, :class => "ss_sprite ss_bin" %></li>
+    	</ul>
+    <% end if logged_in? %>
+  </div>
+<% end %>

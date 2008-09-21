@@ -21,11 +21,15 @@
   </tbody>
 </table>
 
+<div class="page-nav">
+  <%= will_paginate @editors %>
+</div>
+
 <% content_for :newsbox do %>
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
       <ul>
-    		<li><%= link_to "Ajouter un auteur", new_editor_path %></li>
+    		<li><%= link_to "Ajouter un editeur", new_editor_path %></li>
     	</ul>
     <% end %>
   </div>

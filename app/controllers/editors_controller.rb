@@ -2,7 +2,9 @@ class EditorsController < ApplicationController
   # GET /editors
   # GET /editors.xml
   def index
-    @editors = Editor.find(:all)
+    @editors = Editor.paginate(:all, :page => params[:page],
+                                :order => "editors.name ASC",
+                                :include => :editions)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +15,7 @@ class EditorsController < ApplicationController
   # GET /editors/1
   # GET /editors/1.xml
   def show
-    @editor = Editor.find(params[:id])
+    @editor = Editor.find(params[:id], :include => :games)
 
     respond_to do |format|
       format.html # show.html.erb

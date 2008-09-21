@@ -12,4 +12,6 @@
 
 class Editor < ActiveRecord::Base
   has_one :logo, :as => :attachable, :class_name => "Asset"
+  has_many :editions
+  has_many :games, :through => :editions
 end
