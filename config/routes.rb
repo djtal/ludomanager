@@ -15,7 +15,8 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => {:importer => :get, :import => :post}
   
   map.resources :account_games,
-                :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, :missing  => :get}
+                :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, 
+                                :missing  => :get, :group => :get}
                 
   map.resources :tags, :collection => {:lookup => :get} 
   

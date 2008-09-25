@@ -486,4 +486,13 @@ document.observe("dom:loaded", function() {
   $$(".bzoom").each(function(elt){
     BZoomOn.attach(elt);
   });
+  if ($("piechart"))
+  {
+    new Ajax.Request("/account_games/group.json", {method: "get", onSuccess: function(response){
+      new Proto.Chart($('piechart'), response.responseJSON,
+      	{pies: {show: true, radius: 80, autoScale: false}, legend: {show: true, noColumns: 3, container:"chart-legend"}});
+    }});
+  }
+
+  
 })

@@ -13,6 +13,12 @@
 
 
 <% content_for :newsbox do %>
+  <% render_widget "Repartition de vos jeux" do %>
+    <div id="piechart" style="width: 200px; height:200px; left:40px;">
+      
+    </div>
+    <div id="chart-legend"></div>
+  <% end %>
   <%= render :partial => "smart_lists/widget" %>
   
   <% render_widget "Vous pouvez aussi..." do %>
