@@ -9,7 +9,7 @@
 	 <div class="block">
 	   <h4><%= @game.name %> en bref</h4>
    	 <ul>
-   	    <li class="ss_sprite ss_date">Sortie en : <span class="meta"><%= @editions.size > 0 ? @editions.first.published_at.year : "----" %></span></li>
+   	    <li class="ss_sprite ss_date">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></li>
    			<li class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></li>
    			<li class="ss_sprite ss_user">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></li>
    		  <li class="ss_sprite ss_group">Public : <span class="meta"><%= @game.target_str.downcase %></span></li>

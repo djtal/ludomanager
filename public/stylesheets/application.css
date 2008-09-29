@@ -234,6 +234,10 @@ legend{
 	float: left;
 }
 
+.center{
+  text-align: center;
+}
+
 #content hr{
   background: transparent url('../images/divider.png') no-repeat center center;
   height: 16px;
@@ -324,6 +328,10 @@ ul.horizontal li{
 	border-bottom: 1px solid #6CAB54;
 }
 
+.name{
+	
+}
+
 .game ul{
   margin: 0;
   list-style: none;
@@ -354,6 +362,12 @@ ul.horizontal li{
 img.flag{
   margin: 0;
   vertical-align: middle;
+}
+
+img.mini{
+  padding: 2px;
+  background-color: #fff;
+  border: solid 1px #ddd;
 }
 
 #games .content{
@@ -580,7 +594,7 @@ tr img,
 
 ul.strip li{
   border-bottom: 1px solid #DDDDDD;
-  padding: 5px 0;
+  padding: 3px;
 }
 
 li.rowodd {
@@ -597,6 +611,20 @@ li.roweven {
   background-color: #6CAB54;
   padding: 1px 4px;
   text-align: center;
+  color: #fff;
+}
+
+a.tag{
+  -moz-border-radius: 17px;
+  -webkit-border-radius: 8px;
+  padding: 0 6px;
+  background-color: #EEEEEE;
+  border: 1px solid #DDDDDD;
+  margin-right: 5px;
+}
+
+a.tag:hover{
+  background-color: #666;
   color: #fff;
 }
 

@@ -1,10 +1,5 @@
 <h3>Votre ludotheque</h3>
 
-<h4>
-	<span class="right" id="ac_counts"><%= pluralize current_account.games.count, "Jeu", "Jeux" %></span>
-	Vos Jeux
-</h4>
-
 <div id="account_games_list">
   <%= render_games @account_games, :mode => :overview, :id => "account_games_table" %>
 </div>

@@ -1,5 +1,5 @@
 <li class="autohide" id="<%= dom_id(list) %>">
-  <div class="right round"><%= list.published_at.year %></div>
+  <div class="right round"><%= list.published_at.year if list.published_at %></div>
   <% if logged_in? %>
     <div class="function right">
       <%= link_to "", edit_game_edition_path(@game, list), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;

@@ -1,5 +1,5 @@
 <li>
 	<span class="right"><%= distance_of_time_in_words(last_party.created_at, Time.now) %></span>
-	<%= game_box_for(last_party.game, :size =>"35x35") %>
+	<%= game_box_for(last_party.game, :size =>"35x35", :class => "mini") %>
 	<%= link_to(truncate(last_party.game.name, 18), game_path(last_party.game)) %>
 </li>

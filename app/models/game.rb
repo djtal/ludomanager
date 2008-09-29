@@ -42,7 +42,7 @@ class Game < ActiveRecord::Base
   has_many :account_games
   has_many :authorships, :dependent => :destroy
   has_many :authors, :through => :authorships
-  has_many :editions
+  has_many :editions, :dependent => :destroy
   
   acts_as_taggable
 
