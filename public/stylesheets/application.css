@@ -35,9 +35,6 @@ h3{
 	padding: 5px 10px;
 }
 
-h3 .small{
-  margin: 0;
-}
 
 h4{
 	font-weight: bold;
@@ -55,15 +52,14 @@ h4{
 .small,
 .small a{
   color: #666;
+  margin: 0;
 }
+
+td, th{vertical-align:middle;}
 
 p.info{
   background: transparent url(../images/info.png) no-repeat  center left;
   padding-left : 30px;
-}
-
-ul#search-results {
-	margin-top: 3px;
 }
 
 .empty{
@@ -236,6 +232,7 @@ legend{
 
 .center{
   text-align: center;
+  vertical-align: middle;
 }
 
 #content hr{
@@ -351,7 +348,9 @@ ul.horizontal li{
   text-align : left;
   font-size: 11px;
   text-transform: uppercase;
-  margin: 0 0 5px 0;
+  margin: 2px 0 5px 0;
+  background: url('../images/arrow-small.png') no-repeat left center;
+	padding-left: 15px;
 }
 
 .block a{
@@ -574,8 +573,8 @@ ul.function li{
 }
 
 tr img,
-.list img,
-.widget img{
+td img,
+li img{
 	margin: 0;
 	vertical-align: middle;
 }
@@ -583,6 +582,7 @@ tr img,
 .widget table{
   width: 100%;
 }
+
 
 #chart-legend table{
   width: auto;

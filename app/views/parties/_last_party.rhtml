@@ -1,5 +1,6 @@
-<li>
-	<span class="right"><%= distance_of_time_in_words(last_party.created_at, Time.now) %></span>
-	<%= game_box_for(last_party.game, :size =>"35x35", :class => "mini") %>
-	<%= link_to(truncate(last_party.game.name, 18), game_path(last_party.game)) %>
-</li>
+<tr>
+  <td class="span-1"><%= game_box_for(last_party[0], :class => "mini") %></td>
+  <td><%= link_to(last_party[0].name, game_path(last_party[0])) %><%= content_tag(:span, "&nbsp;(x#{last_party[1].size})") if last_party[1].size > 1 %>
+  <br />
+	<span><%= last_party[1].first.created_at.to_s(:date_fr) %></span></td>
+</tr>

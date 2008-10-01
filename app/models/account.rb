@@ -58,8 +58,10 @@ class Account < ActiveRecord::Base
   
   has_many :parties, :dependent => :delete_all do
     def last_played(limit = 5)
+      
       find(:all, :limit => limit, :order => "parties.created_at DESC")
     end
+    
     
     def played_games
       self.group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
