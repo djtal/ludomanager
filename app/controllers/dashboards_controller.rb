@@ -6,14 +6,15 @@ class DashboardsController < ApplicationController
   def show
     @last_buyed = current_account.account_games.find(:all, :include => {:game => :image}, :order => "account_games.transdate DESC", :limit  =>  5)
     @last_parties = current_account.parties.last_play(5).group_by(&:game)
-    #@last_played_game - current_account.parties.last_played_game
     @most_played = current_account.parties.most_played(5)
     
+    #parties by year
     @parties_overview = {}
     @start = 1.years.ago.beginning_of_year
     @end = Time.now.end_of_year
     @years_total = [0, 0]
-    all_parties = current_account.parties.find(:all, :select => "id, created_at", :conditions => ["created_at BETWEEN ? AND ?", @start, @end])
+    all_parties = current_account.parties.find(:all, :select => "id, created_at", 
+                  :conditions => ["created_at BETWEEN ? AND ?", @start, @end])
     if (all_parties.size > 0)
       @date = Date.today
       parties = all_parties.group_by{ |p| p.created_at.year}

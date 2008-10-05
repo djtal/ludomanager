@@ -1,9 +1,14 @@
-<h3><%= current_account.login.humanize%> dashboard's</h3>
-
-<div class="column span-11 append-6">
-  <%= render_widget "Top 5", :partial => "parties/most_played" %>
-  <%= render_widget "Parties par mois", :partial => "monthly" %>
-
+<div class="column span-17">
+  <div class="clear">
+    <div class="column span-9">
+      <%= render_widget "Mon profil", :partial => "profile" %>
+    </div>
+    <div class="column span-8 last">
+      <%= render_widget "Top 5", :partial => "parties/most_played" %>
+    </div>
+  </div>
+  
+  <%= render_widget "Evolutions des parties par mois", :partial => "monthly" %>
 </div>
 
 <div class="column span-7 last">
