@@ -57,6 +57,13 @@
 
 <% content_for :newsbox do %>
 
+  <% render_widget "Administration" do %>
+    <ul>
+      <li><%= link_to "Edition", edit_game_path(@game), :class => "ss_sprite ss_page_white_edit" %></li>
+      <li><%= link_to "Effacer", game_path(@game), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></p>
+    </ul>
+  <% end %>
+
   <% render :layout => "layouts/widget", :locals => {:title => "Statistiques"} do %>
 		<span class="flash"><%= pluralize(@game.account_games.size, "membre</span> a", "membres</span> ont") %>
 		ce jeu dans leurs ludotheque.

@@ -16,7 +16,7 @@ a {
 }
 
 #content {
-	background: #FFF;
+  background: #FFF;
 	margin-bottom: 15px;
 }
 
@@ -545,15 +545,29 @@ ul.function li{
 	margin-top: 0;
 	margin-bottom: 20px;
 	background: #FFF;
+	border-bottom: 1px solid #6CAB54;
+	border-left: 1px solid #6CAB54;
+	border-right: 1px solid #6CAB54;
+	-moz-border-radius-topright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
 }
 
 .widget h3{
 	padding-top: 1px;
 	padding-bottom: 1px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 8px;
+	border-top: 1px solid #6CAB54;
+	border-right: 1px solid #6CAB54;
+	margin: 0;
 }
 
 .widget .w-content{
-	padding: 2px 4px;
+	padding: 4px 4px;	
+	margin-top: 4px;
+	margin-bottom: 4px;
 }
 
 .list ul,
