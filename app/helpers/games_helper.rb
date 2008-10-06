@@ -9,18 +9,33 @@ module GamesHelper
 
   
   def game_tags_links(game)
-    game.tags.collect do |tag|
-      link_to(tag.name, tag_path(tag.name), :class => "tag")
+    if game.tags.size > 0
+      game.tags.collect do |tag|
+        link_to(tag.name, tag_path(tag.name), :class => "tag")
+      end
+    else
+      content_tag(:span,"Ce jeux n'est pas encore categoris&eacute;", :class => "empty")
     end
   end
 
   def authors_links(game)
     if game.authorships.size > 0
-      links = game.authors.collect do | a|
+      game.authors.collect do | a|
         a ? link_to(a.display_name, author_path(a)) : ""
       end.compact.join(", ")
     else
-      links = link_to("Ajouter des auteurs", new_game_authorship_path(game))
+      content_tag(:span, "Ce jeu ne possede pas encore d'auteurs;", :class => "empty")
+    end
+  end
+  
+  # use a new or edit path for games authors if have any
+  #
+  def manage_authors_link(game)
+
+    if game.authorships.size > 0
+      link_to("Gerer les auteur", edit_game_authorship_path(@game), :class => "ss_sprite ss_page_white_add")
+    else
+      link_to("Gerer les auteur", new_game_authorship_path(@game), :class => "ss_sprite ss_page_white_add")
     end
   end
   
@@ -42,6 +57,14 @@ module GamesHelper
   def langs_flag_for(game)
     game.available_lang.inject("") do |acc, lang|
       acc << flag_for_lang(lang, :size => "18x18")
+    end
+  end
+  
+  def external_game_link(game)
+    if (!game.url.blank?)
+      link_to("Allez voir", @game.url)
+    else
+      "--"
     end
   end
   

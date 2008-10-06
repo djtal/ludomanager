@@ -4,8 +4,8 @@
 </h3>
 
 <% div_for @game, :class => "clear" do %>
-	<div class="column span-4">
-	 <%= game_box_for(@game, :size =>"100x100", :class => "box") %>
+	<div class="column span-4 last">
+	 <%= game_box_for(@game, :size =>"90x90", :class => "box") %>
 	 <div class="block">
 	   <h4><%= @game.name %> en bref</h4>
    	 <ul>
@@ -16,7 +16,7 @@
    	</ul>
 	 </div>
 	</div>
-	<div class="column span-12 last">
+	<div class="column span-13 last">
 	  <ul class="tabsContainer clear" id="gameTabs">
 	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
 	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
@@ -32,7 +32,7 @@
       	  <% end %>
       	</div>
       	<div class="block">
-      	 <h4>Les auteurs <span class="functions small"><%= link_to("Editer", edit_game_authorship_path(@game)) if @game.authors.size > 0 %></span></h4>
+      	 <h4>Les auteurs</h4>
       	 <%= authors_links(@game) %>
       	</div>
       	<div class="block">
@@ -46,7 +46,7 @@
     <div id="links", class="tabsBody">
       <div class="block">
         <h4>Ils en parlent aussi...</h4>
-        Sa fiche sur TricTrac : <%= @game.url != "" ? link_to("Allez voir", @game.url) : "----" %>
+        Sa fiche sur TricTrac : <%= external_game_link(@game) %>
       </div>
     </div>
 
@@ -59,8 +59,11 @@
 
   <% render_widget "Administration" do %>
     <ul>
-      <li><%= link_to "Edition", edit_game_path(@game), :class => "ss_sprite ss_page_white_edit" %></li>
-      <li><%= link_to "Effacer", game_path(@game), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></p>
+      <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_page_white_edit" %></li>
+      <li><%= link_to "Supprimer la fiche", game_path(@game), 
+              :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+      <li><%= manage_authors_link(@game) %></li>
+      <li><%= link_to "Ajouter une edition", new_game_edition_path(@game), :class => "ss_sprite ss_page_white_add" %></li>
     </ul>
   <% end %>
 
