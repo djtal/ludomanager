@@ -2,5 +2,6 @@
 	<td><%= account_game_status_for(game) %></td>
 	<td><%= link_to_remote game.name, :url  => game_path(game), :method => :get %></td>
 	<td><%= last_play_date_table_cell(game) %></td>
-	<td class="center"><span class="round"><%= parties %></span></td>
+	<td class="center"><div class="round"><%= parties %></div></td>
 </tr>
+

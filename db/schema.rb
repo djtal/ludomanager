@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080921144221) do
+ActiveRecord::Schema.define(:version => 20081005145845) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20080921144221) do
     t.integer  "parties_count", :limit => 11, :default => 0
     t.boolean  "rules"
     t.boolean  "cheatsheet"
+    t.integer  "edition_id"
   end
 
   create_table "accounts", :force => true do |t|
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20080921144221) do
     t.integer  "target",                      :default => 0
     t.integer  "time_category",               :default => 0
     t.date     "published_at"
+    t.boolean  "extension"
   end
 
   create_table "members", :force => true do |t|

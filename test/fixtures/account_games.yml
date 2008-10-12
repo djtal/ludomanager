@@ -24,3 +24,10 @@ one:
   transdate: <%= Time.now.to_s(:db)  %>
   created_at: <%= Time.now.to_s(:db)  %>
   parties_count: 0
+  
+quention_coloreto:
+  game: coloreto
+  account: quentin
+  transdate: <%= Time.now.to_s(:db)  %>
+  created_at: <%= Time.now.to_s(:db)  %>
+  parties_count: 0

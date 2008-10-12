@@ -87,10 +87,15 @@ class AccountGame < ActiveRecord::Base
     return self.transdate > 3.month.ago
   end
   
+  def parties_played_count
+    Party.count(:conditions => {:game_id => game_id, :account_id => account_id})
+  end
+  
   protected
   
   def setup_default
     self.transdate ||= Time.now.to_date
+    self.parties_count = self.parties_played_count
   end
   
 end

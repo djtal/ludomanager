@@ -37,6 +37,14 @@ q3:
   account: quentin
   game: coloreto
   
+q4:
+  account: quentin
+  game: funkenshlag
+
+q5:
+  account: quentin
+  game: funkenshlag
+  
 party_full_player:
   game: battlelore
   account: quentin
