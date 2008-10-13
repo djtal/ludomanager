@@ -3,8 +3,8 @@
 <% form_for(@account_game, :url => account_games_path, :html => {:id => "account_game_form"}) do |f| %>
   <%= error_messages_for :account_game %>
   <fieldset>
-    <p><%= label_tag :account_game_game_name, "Nom du jeu" %><br />
-    <%= text_field_tag :account_game_game_name, "",  :class => "important" %></p>
+    <p><%= label_tag :account_game_game_name, "Nom du jeu" %><span class="ss_sprite ss_help">(1)</span><br />
+    <%= text_field_tag :account_game_game_name, "",  :class => "title" %></p>
     <div id="account_game_game_name_lookup" class="auto_complete"></div>
     <%= f.hidden_field :game_id %>
   </fieldset>  
@@ -14,4 +14,15 @@
 
 <% content_for :subnav do %>
 	<%= render :partial => "subnav" %>
+<% end %>
+
+<% content_for :newsbox do %>
+  <% render_widget "Aide" do %>
+    <div class="block">
+      <h4>(1) Nom de votre jeu</h4>
+      Commencez a taper le nom de votre jeu. L'application vous proposera automatiquement les jeux correspondant que vous
+      ne possedez pas encore.
+    </div>
+  <% end %>
+  
 <% end %>

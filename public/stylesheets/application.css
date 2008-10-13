@@ -57,6 +57,12 @@ h4{
 
 td, th{vertical-align:middle;}
 
+.calendar td,
+.calendar th{
+  text-align: left;
+  vertical-align: top;
+}
+
 p.info{
   background: transparent url(../images/info.png) no-repeat  center left;
   padding-left : 30px;
