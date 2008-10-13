@@ -39,8 +39,8 @@
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
       <ul>
-        <li><%= link_to "Editer", edit_editor_path(@editor), :class => "ss_sprite ss_pencil" %></li>
-        <li><%= link_to "Effacer", editor_path(@editor), :method => :delete, :class => "ss_sprite ss_bin" %></li>
+        <li><%= link_to "Editer", edit_editor_path(@editor), :class => "ss_sprite ss_page_white_edit" %></li>
+        <li><%= link_to "Effacer", editor_path(@editor), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
     	</ul>
     <% end if logged_in? %>
   </div>

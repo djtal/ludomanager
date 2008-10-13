@@ -4,8 +4,8 @@
   <td><%= editor.editions.size %></td>
   <% if logged_in? %>
     <td><div class="function">
-      <%= link_to "", edit_editor_path(editor), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
-      <%= link_to_remote "", {:url => editor_path(editor), :method => :delete},  :class => "ss_sprite ss_bin"  %>
+      <%= link_to "", edit_editor_path(editor), :class => "ss_sprite ss_page_white_edit" %>&nbsp;|&nbsp;
+      <%= link_to_remote "", {:url => editor_path(editor), :method => :delete},  :class => "ss_sprite ss_page_white_delete"  %>
     </div></td>
   <% end %>
 </tr>
