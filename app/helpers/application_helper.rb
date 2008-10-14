@@ -70,7 +70,7 @@ module ApplicationHelper
       when "multi"
         image = "Multi.png"
       end
-      image_tag("flag/#{image}",options)
+      image_tag("flag/#{image}",options) unless image.blank?
     end
     
     def submit_or_back_to(back_to, back_to_text = "Annuler", opts = {})
