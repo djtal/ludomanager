@@ -11,13 +11,6 @@ module ActiveRecord
         add_method_tracer find_method, 'ActiveRecord/all', :push_scope => false
       end
       
-      # misc
-#      [:columns].each do |method|
-#        add_method_tracer method, 'ActiveRecord/misc', :push_scope => false
-#        add_method_tracer method, 'ActiveRecord/all', :push_scope => false
-#        add_method_tracer method, 'ActiveRecord/#{self.name}/misc'
-#      end
-      
     end
     [:save, :save!].each do |save_method|
       add_method_tracer save_method, 'ActiveRecord/#{self.class.name}/save'
@@ -37,6 +30,20 @@ module ActiveRecord
       @@my_sql_defined = defined? ActiveRecord::ConnectionAdapters::MysqlAdapter
       @@postgres_defined = defined? ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
       
+      def log_with_newrelic_instrumentation(sql, name, &block)
+        # if we aren't in a blamed context, then add one so that we can see that
+        # controllers are calling SQL directly
+        # we check scope_depth vs 2 since the controller is 1, and the 
+        #      
+        if NewRelic::Agent.instance.transaction_sampler.scope_depth < 2
+          self.class.trace_method_execution "Database/DirectSQL", true, true, true do
+            log_with_capture_sql(sql, name, &block)
+          end
+        else
+          log_with_capture_sql(sql, name, &block)
+        end
+      end
+      
       def log_with_capture_sql(sql, name, &block)
         if @@my_sql_defined && self.is_a?(ActiveRecord::ConnectionAdapters::MysqlAdapter)
           config = @config
@@ -45,35 +52,22 @@ module ActiveRecord
         else
           config = nil
         end
-          
-        result = log_without_capture_sql(sql, name, &block)
-
+        
+        result = log_without_newrelic_instrumentation(sql, name, &block)
+        
         NewRelic::Agent.instance.transaction_sampler.notice_sql(sql, config)
-
+        
         result
       end
       
-      alias_method_chain :log, :capture_sql
-
+      # Compare with #alias_method_chain, which is not available in 
+      # Rails 1.1:
+      alias_method :log_without_newrelic_instrumentation, :log
+      alias_method :log, :log_with_newrelic_instrumentation
+      protected :log
+      
       add_method_tracer :log, 'Database/#{adapter_name}/#{args[1]}', :metric => false
       add_method_tracer :log, 'Database/all', :push_scope => false
-      
-      
-      def log_with_add_scope(sql, name, &block)
-        # if we aren't in a blamed context, then add one so that we can see that
-        # controllers are calling SQL directly
-        # we check scope_depth vs 3 since the controller is 1, and the 
-        #      
-        if NewRelic::Agent.instance.transaction_sampler.scope_depth < 2
-          self.class.trace_method_execution "Database/DirectSQL", true, true do
-            log_without_add_scope(sql, name, &block)
-          end
-        else
-          log_without_add_scope(sql, name, &block)
-        end
-      end
-      
-      alias_method_chain :log, :add_scope
       
     end
   end
