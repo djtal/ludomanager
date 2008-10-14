@@ -1,4 +1,5 @@
 # == Schema Information
+# Schema version: 20080817160324
 #
 # Table name: members
 #
@@ -8,6 +9,7 @@
 #  account_id :integer       
 #  created_at :datetime      
 #  updated_at :datetime      
+#  email      :text          
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

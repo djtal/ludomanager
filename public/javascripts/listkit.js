@@ -8,7 +8,7 @@ var ListKit = Class.create({
   
   strip: function(){
     this.childs.each(function(li, i){
-      li.addClassName(i % 2 === 0 ? "rowodd" : "roweven");
+      li.addClassName(i % 2 === 0 ? "roweven" : "rowodd");
     })
   },
 });

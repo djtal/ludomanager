@@ -64,7 +64,7 @@ Object.extend(TableKit, {
 		table = $(table);
 		var id = table.id;
 		if(!TableKit.rows[id]) {
-			TableKit.rows[id] = (table.tHead && table.tHead.rows.length > 0) ? $A(table.tBodies[0].rows) : $A(table.rows).without(table.rows[0]);
+			TableKit.rows[id] = (table.tHead && table.tHead.rows.length > 0) ? $A(table.tBodies[0].rows) : $A(table.rows);
 		}
 		return TableKit.rows[id];
 	},
@@ -150,6 +150,7 @@ Object.extend(TableKit, {
 		editable : true,
 		rowEvenClass : 'roweven',
 		rowOddClass : 'rowodd',
+		stripeSelector: ['table.stripe'],
 		sortableSelector : ['table.sortable'],
 		columnClass : 'sortcol',
 		descendingClass : 'sortdesc',
@@ -192,7 +193,16 @@ Object.extend(TableKit, {
 					});
 				});
 			}
+			if(TableKit.options.stripe) {
+				$A(TableKit.options.stripeSelector).each(function(s){
+					$$(s).each(function(t) {
+						TableKit.Rows.stripe(t);
+					});
+				});
+			}
+		
 		}
+		
 	}
 });
 

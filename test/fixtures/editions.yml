@@ -1,0 +1,38 @@
+# == Schema Information
+# Schema version: 20080817160324
+#
+# Table name: editions
+#
+#  id           :integer       not null, primary key
+#  game_id      :integer       
+#  editor_id    :integer       
+#  lang         :text          
+#  name         :text          
+#  published_at :date          
+#  created_at   :datetime      
+#  updated_at   :datetime      
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+battlelore_fr:
+  game: battlelore
+  editor: dow
+  lang: fr
+
+battlelore_en:
+  game: battlelore
+  editor: dow
+  lang: en
+
+powergrid_en:
+  game: funkenshlag
+  name: Powergrid
+  editor: 2fspiele
+  lang: en
+
+megawatt_en:
+  game: funkenshlag
+  name: MegaWatt
+  editor: filosofia
+  lang: en

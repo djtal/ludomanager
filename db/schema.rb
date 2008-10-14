@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080731203551) do
+ActiveRecord::Schema.define(:version => 20081005145845) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20080731203551) do
     t.integer  "parties_count", :limit => 11, :default => 0
     t.boolean  "rules"
     t.boolean  "cheatsheet"
+    t.integer  "edition_id"
   end
 
   create_table "accounts", :force => true do |t|
@@ -35,6 +36,18 @@ ActiveRecord::Schema.define(:version => 20080731203551) do
     t.datetime "remember_token_expires_at"
   end
 
+  create_table "assets", :force => true do |t|
+    t.string   "content_type"
+    t.string   "filename"
+    t.integer  "size",            :limit => 11
+    t.integer  "width",           :limit => 11
+    t.integer  "height",          :limit => 11
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "authors", :force => true do |t|
     t.string "name"
     t.string "surname"
@@ -44,6 +57,23 @@ ActiveRecord::Schema.define(:version => 20080731203551) do
   create_table "authorships", :force => true do |t|
     t.integer "author_id", :limit => 11
     t.integer "game_id",   :limit => 11
+  end
+
+  create_table "editions", :force => true do |t|
+    t.integer  "game_id"
+    t.integer  "editor_id"
+    t.text     "lang"
+    t.text     "name"
+    t.date     "published_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "editors", :force => true do |t|
+    t.text     "name"
+    t.text     "homepage"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "game_extensions", :force => true do |t|
@@ -79,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20080731203551) do
     t.integer  "target",                      :default => 0
     t.integer  "time_category",               :default => 0
     t.date     "published_at"
+    t.boolean  "extension"
   end
 
   create_table "members", :force => true do |t|
@@ -109,8 +140,8 @@ ActiveRecord::Schema.define(:version => 20080731203551) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "smart_lists", :force => true do |t|
     t.text     "title"

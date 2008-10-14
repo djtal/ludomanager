@@ -1,6 +1,5 @@
-
-# Schema version: 20080731203551
-
+# == Schema Information
+# Schema version: 20080817160324
 #
 # Table name: accounts
 #
@@ -14,6 +13,7 @@
 #  remember_token            :string(255)   
 #  remember_token_expires_at :datetime      
 #
+
 
 require 'digest/sha1'
 class Account < ActiveRecord::Base
@@ -42,8 +42,10 @@ class Account < ActiveRecord::Base
   
   has_many :parties, :dependent => :delete_all do
     def last_played(limit = 5)
+      
       find(:all, :limit => limit, :order => "parties.created_at DESC")
     end
+    
     
     def played_games
       self.group_by(&:game).sort_by{ |game, parties| parties.size}.reverse

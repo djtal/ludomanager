@@ -13,10 +13,11 @@
 	  <td><%= render :partial => "status_form", :locals => {:status_form => account_game} %></td>
 	  <td><%= account_game.origin %></td>
 		
-		<td><%= account_game.parties_count %></td>
+		
 		<td><span class="function">
-			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_database_edit" %>
-			<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, {:class => "ss_sprite ss_database_delete"} %>
+			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_page_white_edit" %>
+			<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, {:class => "ss_sprite ss_page_white_delete"} %>
 		</span></td>
+		<td><div class="round"><%= account_game.parties_count %></div></td>
 	<% end %>
 </tr>

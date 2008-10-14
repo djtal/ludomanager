@@ -7,7 +7,8 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html do 
         @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
-        @games = Game.paginate(:page => params[:page], :order => 'games.name ASC', :include => [:tags, :image])
+        @games = Game.paginate(:page => params[:page], :per_page => 15, :order => 'games.name ASC', 
+                  :include => [:tags, :image,:editions])
       end
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end
@@ -24,6 +25,7 @@ class GamesController < ApplicationController
   # GET /games/1.xml
   def show
     @game = Game.find(params[:id], :include => [:tags, :image, :authors])
+    @editions = @game.editions.all(:order => "published_at ASC", :include => :editor)
     @title = @game.name
     respond_to do |format|
       format.html # show.rhtml

@@ -1,0 +1,19 @@
+<fieldset>
+  <legend>Le plus important</legend>
+  <p><%= form.label :name, "Nom" %><br />
+  <%= form.text_field :name, :class => "text" %></p>
+  <p><%= form.label :homepage, "Site internet" %><br />
+  <%= form.text_field :homepage %></p>
+</fieldset>
+
+<fieldset>
+  <legend>Un logo</legend>
+  <% fields_for :logo do |g| %>
+    <%= g.label :uploaded_data, "Le logo" %><br />
+		<%= g.file_field :uploaded_data %>
+		<%= g.check_box :delete %>
+		<%= g.label :delete, "Supprimer l'image actuel" %>
+  <% end %>
+</fieldset>
+
+

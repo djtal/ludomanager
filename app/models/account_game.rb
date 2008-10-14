@@ -1,17 +1,17 @@
 # == Schema Information
-# Schema version: 20080710200139
+# Schema version: 20080817160324
 #
 # Table name: account_games
 #
 #  id            :integer       not null, primary key
-#  game_id       :integer       
-#  account_id    :integer       
+#  game_id       :integer(11)   
+#  account_id    :integer(11)   
 #  created_at    :datetime      
 #  origin        :text          
 #  price         :float         
 #  transdate     :datetime      
 #  shield        :boolean       
-#  parties_count :integer       default(0)
+#  parties_count :integer(11)   default(0)
 #  rules         :boolean       
 #  cheatsheet    :boolean       
 #
@@ -87,10 +87,15 @@ class AccountGame < ActiveRecord::Base
     return self.transdate > 3.month.ago
   end
   
+  def parties_played_count
+    Party.count(:conditions => {:game_id => game_id, :account_id => account_id})
+  end
+  
   protected
   
   def setup_default
     self.transdate ||= Time.now.to_date
+    self.parties_count = self.parties_played_count
   end
   
 end

@@ -1,41 +1,74 @@
-<%= image_tag("modified.png", :class => "ac_status right") if account_have_game?(@game)  %>
-<h3><%= @game.name %> <%= content_tag(:span, " (" + @game.vo_name + ")") unless @game.vo_name.blank? %></h3>
+<h3>
+  <%= @game.name %>
+  <span class="small"><%= other_name_for(@game, @editions) %></span>
+</h3>
 
 <% div_for @game, :class => "clear" do %>
-	<div class="column span-3">
-	 <%= game_box_for(@game, :size =>"80x80") %>
+	<div class="column span-4 last">
+	 <%= game_box_for(@game, :size =>"90x90", :class => "box") %>
+	 <div class="block">
+	   <h4><%= @game.name %> en bref</h4>
+   	 <ul>
+   	    <li class="ss_sprite ss_date">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></li>
+   			<li class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></li>
+   			<li class="ss_sprite ss_user">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></li>
+   		  <li class="ss_sprite ss_group">Public : <span class="meta"><%= @game.target_str.downcase %></span></li>
+   	</ul>
+	 </div>
 	</div>
-	<div class="column last span-13">
-    	<p>
-    	  <% if !@game.description.blank? %>
-    	    <%= @game.description %>
-    	  <% else %>
-    	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
-    	  <% end %>
-    	  <br /><br />
-    	  Un jeu <span class="flash"><%= @game.target_str.downcase %></span> pour <%= nb_player_tag(@game) %>.<br />
-    	  D'une durée de <span class="flash"><%= @game.time_str %></span><br />
-    	  
-    	</p>
-		<ul class="meta">
-			<li><%= image_tag "tag_green.png", :size => "14x14" %>Tags : <%= game_tags_links @game %></li>
-			<li>Un jeu de :<span class="flash"><%= authors_links(@game) %></span>
-			    chez <span class="flash"><%= @game.editor ? @game.editor : "-----"  %></span></li>
-		  <li>Moyenne TricTrac: <%= @game.average %></li>
-			<li>Fiche sur TricTrac : <%= link_to "#{@game.name} => TricTrac", @game.url if @game.url %></li>
-		</ul>
+	<div class="column span-13 last">
+	  <ul class="tabsContainer clear" id="gameTabs">
+	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
+	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
+	   <li class="tabs"><a href="#links">Divers</a></li>
+	  </ul>
+	  <div id ="overview" class="tabsBody">
+	    	<div class="block">
+	    	  <h4>Descrition</h4>
+      	  <% if !@game.description.blank? %>
+      	    <%= @game.description %>
+      	  <% else %>
+      	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
+      	  <% end %>
+      	</div>
+      	<div class="block">
+      	 <h4>Les auteurs</h4>
+      	 <%= authors_links(@game) %>
+      	</div>
+      	<div class="block">
+      	 <h4>Les Tags</h4>
+      	 <%= game_tags_links @game %>
+      	</div>
+	  </div>
+	  <div id="editions" class="tabsBody">
+    		<%= render :partial => "editions/show" %>
+	  </div>
+    <div id="links", class="tabsBody">
+      <div class="block">
+        <h4>Ils en parlent aussi...</h4>
+        Sa fiche sur TricTrac : <%= external_game_link(@game) %>
+      </div>
+    </div>
+
 	</div>
 	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
-	
-<div class="page-nav">
-	<strong><%= link_to "Retour sur la liste des jeux", request.env["HTTP_REFERER"] ? request.env["HTTP_REFERER"] : games_path %></strong>		
-</div>	
-
 
 
 <% content_for :newsbox do %>
-	<% render :layout => "layouts/widget", :locals => {:title => "Statistiques"} do %>
+
+  <% render_widget "Administration" do %>
+    <ul>
+      <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_page_white_edit" %></li>
+      <li><%= link_to "Supprimer la fiche", game_path(@game), 
+              :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+      <li><%= manage_authors_link(@game) %></li>
+      <li><%= link_to "Ajouter une edition", new_game_edition_path(@game), :class => "ss_sprite ss_page_white_add" %></li>
+      <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_arrow_undo" %></li>
+    </ul>
+  <% end %>
+
+  <% render :layout => "layouts/widget", :locals => {:title => "Statistiques"} do %>
 		<span class="flash"><%= pluralize(@game.account_games.size, "membre</span> a", "membres</span> ont") %>
 		ce jeu dans leurs ludotheque.
     <br />
@@ -43,14 +76,6 @@
 		<span class='flash'><%= pluralize(@game.parties.count, "partie</span>", "parties</span>") %> de ce jeu.
 	<% end %>
 	
-	<% render :layout => "layouts/widget", :locals => {:title => "Ma ludotheque"} do %>
-	  Vous <%= account_have_game?(@game) ? "possedez" : "ne possedez pas" %> ce jeu.<br />
-	  <% if account_have_game?(@game) %>
-	    <%= link_to "Supprimez #{@game.name} de ma ludotheque", game_account_game_path(@game), :method => :delete, :class => "ss_sprite ss_folder_delete" %>
-	  <% else %>
-	    <%= link_to "Ajoutez #{@game.name} de ma ludotheque", new_game_account_game_path(@game), :class => "ss_sprite ss_folder_add " %>
-	  <% end %>
-	<% end if logged_in? %>
 <% end %>
 
 

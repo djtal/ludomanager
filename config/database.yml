@@ -1,6 +1,6 @@
 development:
   adapter: sqlite3
-  database: db/24gameday_development.sqlite3
+  database: db/ludomanager_editor_development.sqlite3
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.

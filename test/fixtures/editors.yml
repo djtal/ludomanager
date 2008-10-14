@@ -1,0 +1,25 @@
+# == Schema Information
+# Schema version: 20080817160324
+#
+# Table name: editors
+#
+#  id         :integer       not null, primary key
+#  name       :text          
+#  homepage   :text          
+#  created_at :datetime      
+#  updated_at :datetime      
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+dow:
+  name: Days of Wonder
+
+ystari:
+  name: Ystari
+  
+filosofia:
+  name: Filosofia
+
+2fspiel:
+  name : 2F Spiele

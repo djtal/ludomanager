@@ -1,10 +1,12 @@
 # == Schema Information
+# Schema version: 20080817160324
 #
 # Table name: authors
 #
-#  id      :integer       not null, primary key
-#  name    :string(255)   
-#  surname :string(255)   
+#  id       :integer       not null, primary key
+#  name     :string(255)   
+#  surname  :string(255)   
+#  homepage :string(255)   
 #
 
 # == Schema Information

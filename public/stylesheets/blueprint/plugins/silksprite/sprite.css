@@ -1,4 +1,4 @@
-.ss_sprite{ display: inline;  overflow: hidden; height: 18px; padding-left:18px; padding-bottom: 2px; background-repeat: no-repeat;  background-image: url( sprites.png);} 
+.ss_sprite{ display: inline;  overflow: hidden; height: 18px; padding-left:20px; padding-bottom: 2px; background-repeat: no-repeat;  background-image: url( sprites.png);} 
 .ss_accept { background-position: 0px 0px} 
 .ss_add { background-position: 0px -19px} 
 .ss_anchor { background-position: 0px -37px} 

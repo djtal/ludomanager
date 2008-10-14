@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20080817160324
+#
+# Table name: authorships
+#
+#  id        :integer       not null, primary key
+#  author_id :integer(11)   
+#  game_id   :integer(11)   
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   author: kinizia

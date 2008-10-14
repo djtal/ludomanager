@@ -2,9 +2,7 @@
 	<legend>Le plus important</legend>
   <div class="clear">
     <p class="left"><%= f.label :name, "Nom du jeu (Obligatoire)" %><br />
-    <%= f.text_field :name, :size => 50, :class => "title" %></p>
-    <p class="left"><%= f.label :vo_name, "Nom de la VO" %><br />
-    <%= f.text_field :vo_name, :class => "title" %></p>
+    <%= f.text_field :name, :size => 60, :class => "title" %></p>
   </div>
 
 
@@ -45,9 +43,6 @@
  	  <%= f.select :time_category, Game::TimeCategory %></p>
  	  
  	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.select :difficulty, (1..5) %></p>
-  	<p><%= f.label :editor, "Editeur " %><%= f.text_field :editor %></p>
-  	<p><%= f.label :published_at, "Ann&eacute;e de sortie " %><%= f.date_select :published_at, :discard_month => true, 
-  	                                                              :start_year => 1980 %></p>
 </fieldset>
 
 <fieldset id="authorship_form">

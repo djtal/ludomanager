@@ -1,0 +1,36 @@
+<h3>Votre ludotheque</h3>
+
+<div id="account_games_list">
+  <%= render_games @account_games, :mode => :overview, :id => "account_games_table" %>
+</div>
+
+<%= will_paginate @account_game %>
+
+
+<% content_for :newsbox do %>
+  <% render_widget "Vous pouvez aussi..." do %>
+    <ul>
+      <li><%= link_to "Ajouter un jeu dans votre ludotheque", new_account_game_path, :class => "ss_page_white_add ss_sprite" %></li>
+      <li><%= link_to "Exporter cette liste", formatted_account_games_path(:format => :csv), :class => "ss_page_white_put ss_sprite"  %>
+      <span class="tips"> en csv(compatible excel)</span></li>
+      <li><%= link_to "Importer vos jeux directement", importer_account_games_path, :class => "ss_sprite ss_page_white_get" %></li>
+    </ul>
+  
+    
+    
+  <% end %>
+  
+  <% render_widget "Repartition de vos jeux" do %>
+    <div id="piechart" style="width: 200px; height:200px; left:40px;">
+      
+    </div>
+    <div id="chart-legend"></div>
+  <% end %>
+  <%= render :partial => "smart_lists/widget" %>
+  
+
+<% end %>
+
+<% content_for :subnav do %>
+	<%= render :partial => "subnav" %>
+<% end %>

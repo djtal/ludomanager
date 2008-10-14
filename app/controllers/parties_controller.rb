@@ -6,8 +6,9 @@ class PartiesController < ApplicationController
     @count = parties.count
     @yours, @other = parties.split_mine(current_account.games)
     @parties = parties.by_game
+    #used to find las played date for each game you've played
     @last_played = current_account.parties.maximum(:created_at, :group => :game).to_hash
-    @last_parties = current_account.parties.last_play(10, :include => [:game => :image])
+    @last_parties = current_account.parties.last_play(10).group_by(&:game)
   end
   
   def resume

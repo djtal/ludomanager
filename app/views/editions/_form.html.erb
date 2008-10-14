@@ -1,0 +1,13 @@
+<p><%= form.label :editor_id, "Editeur" %><br />
+<%= form.collection_select :editor_id, @editors, :id, :name %></p>
+
+<p><%= form.label :name, "Nom du jeu" %><br />
+<span class="tips">Seullement si le nom est different de celui de la fiche.</span><br />
+<%= form.text_field :name %></p>
+
+<p><%= form.label :lang, "Langue" %><br />
+<%= form.select :lang, Edition::Lang %></p>
+
+
+<p><%= form.label :published_at, "Date de parution" %><br />
+<%= form.date_select :published_at, :start_year => 1960, :default => Time.now, :discard_day => true %></p>

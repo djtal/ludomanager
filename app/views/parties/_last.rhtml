@@ -1,7 +1,9 @@
 <% if @last_parties.size > 0 %>
-<ul class="strip">
-	<%= render :partial => "parties/last_party", :collection => @last_parties %>
-</ul>
+  <table class="stripe">
+    <tbody>
+      <%= render :partial => "parties/last_party", :collection => @last_parties %>
+    </tbody>
+  </table>
 <% else %>
   	<p class="empty">Vous n'avez jouez/saisie encore aucune parties actuellement</p>
 <% end %>

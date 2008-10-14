@@ -1,11 +1,12 @@
 <tr class="autohide" id="<%= dom_id(author) %>">
   <td><%= link_to "#{author.surname} - #{author.name}", author_path(author) %></td>
   <td></td>
-  <td><%= author.authorships.size %></td>
+  
   <% if logged_in? %>
     <td><div class="function">
-      <%= link_to "", edit_author_path(author), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
-      <%= link_to_remote "", {:url => author_path(author), :method => :delete},  :class => "ss_sprite ss_bin"  %>
+      <%= link_to "", edit_author_path(author), :class => "ss_sprite ss_page_white_edit" %>&nbsp;|&nbsp;
+      <%= link_to_remote "", {:url => author_path(author), :method => :delete},  :class => "ss_sprite ss_page_white_delete"  %>
     </div></td>
   <% end %>
+  <td class="center"><%= author.authorships.size %></td>
 </tr>

@@ -29,16 +29,14 @@
   <p class="empty">Cet auteur n'a encore aucun jeux a son actif</p>
 <% end %>
 
-<div class="page-nav">
-  <strong><%= link_to "Retour sur la liste des auteurs", authors_path %></strong>
-</div>
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
       <ul>
-        <li><%= link_to "Editer", edit_author_path(@author), :class => "ss_sprite ss_pencil" %></li>
-        <li><%= link_to "Effacer", author_path(@author), :method => :delete, :class => "ss_sprite ss_bin" %></li>
+        <li><%= link_to "Editer", edit_author_path(@author), :class => "ss_sprite ss_page_white_edit" %></li>
+        <li><%= link_to "Effacer", author_path(@author), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+    	  <li><%= link_to "Retour a la liste des auteur", authors_path, :class => "ss_sprite ss_arrow_undo" %></li>
     	</ul>
     <% end %>
   </div>

@@ -1,0 +1,22 @@
+<div class="block">
+  <h4>Profil Ludomanager</h4>
+  <ul>
+    <li>Nom : <span class="empty"><%= current_account.login %></span></li>
+    <li>Inscrit depuis : <span class="empty"><%= current_account.created_at.to_s(:date_fr) %></span></li>
+    <li>Nombre de parties total : <span class="empty"><%= current_account.parties.count %></span></li>
+    <li>Nombre de jeux en ludotheque : <span class="empty"><%= current_account.account_games.count %></span></li>
+  </ul>
+</div>
+<div class="block">
+  <h4>Gestion de mon compte</h4>
+  <ul>
+    <li>
+      <% form_for current_account do |f| %>
+        <p><%= f.label :login, "Changer de nom" %><br />
+        <%= f.text_field :login %></p>
+        <%= f.submit "Mettre a jour" %>
+      <% end %>
+    </li>
+  </ul>
+  
+</div>

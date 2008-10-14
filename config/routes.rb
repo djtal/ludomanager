@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :editors, :editions
+
   # The priority is based upon order of creation: first created -> highest priority.
   
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
@@ -13,13 +15,14 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => {:importer => :get, :import => :post}
   
   map.resources :account_games,
-                :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, :missing  => :get}
+                :collection => {:all => :get, :search => :post, :import => :post, :importer => :get, 
+                                :missing  => :get, :group => :get}
                 
   map.resources :tags, :collection => {:lookup => :get} 
   
   map.resources :games,
-                :has_many => [:account_games, :authorships] ,
-                :collection => {:search => :get},
+                :has_many => [:account_games, :authorships, :editions] ,
+                :collection => {:search => :get}, 
                 :member => {:replace => :get, :merge => :post} 
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'

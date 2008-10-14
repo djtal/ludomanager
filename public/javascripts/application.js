@@ -442,7 +442,33 @@ Application = {
   
 }
 
+var Tabs = Class.create({
+  initialize: function(header){
+    if(!$(header)) return;
+    this.tabs = $(header).select("li.tabs");
+    this.tabs = this.tabs.inject($H(), function(acc, tab){
+      tab.identify();
+      tab.observe("click", this.toggleTab.bind(this, tab));
+      body = $(tab.down("a").href.match(/#(\w.+)/)[1]);
+      acc.set(tab.id, body);
+      if (!tab.hasClassName("active"))
+        body.hide();
+      return acc;
+    }.bind(this));
+  },
+  
+  toggleTab: function(tab){
+    b = this.tabs.clone()
+    b.unset(tab.id)
+    b.values().invoke("hide")
+    this.tabs.get(tab.id).show()
+    tab.addClassName("active");
+    this.tabs.keys().without(tab.id).collect(function(id){ return $(id);}).invoke("removeClassName", "active");
+  },
+})
+
 document.observe("dom:loaded", function() {
+  new Tabs("gameTabs")
   new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
   $$('.autohide').each(function(elt){
@@ -460,4 +486,13 @@ document.observe("dom:loaded", function() {
   $$(".bzoom").each(function(elt){
     BZoomOn.attach(elt);
   });
+  if ($("piechart"))
+  {
+    new Ajax.Request("/account_games/group.json", {method: "get", onSuccess: function(response){
+      new Proto.Chart($('piechart'), response.responseJSON,
+      	{pies: {show: true, radius: 80, autoScale: false}, legend: {show: true, noColumns: 3, container:"chart-legend"}});
+    }});
+  }
+
+  
 })

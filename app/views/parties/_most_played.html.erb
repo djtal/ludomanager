@@ -2,9 +2,10 @@
 	<ul class="strip">
 		<% @most_played.each do |game, count| %>
 			<li>
-				<span class="right"><%= pluralize(count, "partie", "parties") %></span>
-				<%= game_box_for(game, :size =>"35x35") %>
+				<div class="right round"><%= count %></div>
+				<%= game_box_for(game, :size =>"35x35", :class => "mini") %>
 				<%= link_to game.name, game_path(game) %>
+				
 			</li>
 		<% end %>
 	</ul>

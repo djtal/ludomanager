@@ -1,6 +1,5 @@
 if(@context == :account_game)
   page[dom_id(@account_game)].fade();
-  page["ac_counts"].update(pluralize(current_account.games.count, "Jeu", "Jeux"))
 elsif (@context == :game)
   page[dom_id(@account_game.game)].down(".account_managment").replace(render(:partial => 'games/account_managment', :locals => {:game => @account_game.game}))
   page[dom_id(@account_game.game)].down(".account_managment").highlight

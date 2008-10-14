@@ -28,6 +28,16 @@ class AccountGamesController < ApplicationController
     end
   end
   
+  def group
+    @ac_games = current_account.games.count(:group => :target)
+    respond_to do |format|
+      format.json do
+        data = @ac_games.inject([]){ |acc, group| acc << {:data => [[1,group[1]]], :label => Game::Target[group[0]][0]}}
+        render :json => data
+      end
+    end
+  end
+  
   def all
     @ag = current_account.account_games.search(params)
     render :action => :all, :layout => "simple"

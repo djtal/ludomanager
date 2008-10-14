@@ -6,36 +6,36 @@ module GamesHelper
       "<span class='flash'>#{pluralize(game.max_player, "</span>joueur", "</span>joueurs")}"
     end
   end
-  
-  def game_name(game, includeVO = true)
-    name = game.name
-    game +=  content_tag(:span, " (" + game.vo_name + ")") if (!game.vo_name.blank? && includeVO)
-    
-  end
 
-  def tags_links(game)
-    game.tags.collect do |tag|
-      link_to(tag.name, :action => "tags", :tag => tag.name)
-    end.join(", ")
-  end
   
   def game_tags_links(game)
-    game.tags.collect do |tag|
-      link_to(tag.name, tag_path(tag.name))
-    end.join(", ")
+    if game.tags.size > 0
+      game.tags.collect do |tag|
+        link_to(tag.name, tag_path(tag.name), :class => "tag")
+      end
+    else
+      content_tag(:span,"Ce jeux n'est pas encore categoris&eacute;", :class => "empty")
+    end
   end
-  
-  def average_for(game)
-    "<span class=\"hide average\">#{@game.average}</span><span class=\"rate\"></span>"
-  end
-  
+
   def authors_links(game)
     if game.authorships.size > 0
-      links = game.authors.collect do | a|
+      game.authors.collect do | a|
         a ? link_to(a.display_name, author_path(a)) : ""
-      end.push(link_to("( editez )", edit_game_authorship_path(game))).compact.join(", ")
+      end.compact.join(", ")
     else
-      links = link_to("Ajouter des auteurs", new_game_authorship_path(game))
+      content_tag(:span, "Ce jeu ne possede pas encore d'auteurs;", :class => "empty")
+    end
+  end
+  
+  # use a new or edit path for games authors if have any
+  #
+  def manage_authors_link(game)
+
+    if game.authorships.size > 0
+      link_to("Gerer les auteur", edit_game_authorship_path(@game), :class => "ss_sprite ss_page_white_add")
+    else
+      link_to("Gerer les auteur", new_game_authorship_path(@game), :class => "ss_sprite ss_page_white_add")
     end
   end
   
@@ -46,4 +46,26 @@ module GamesHelper
     }.merge(opts)
     image_tag(game.image ? game.image.public_filename : "game_box.png" , options)
   end
+  
+  # Return all foreign game name for an editions list
+  #
+  def other_name_for(game, editions )
+    txt = editions.map{|e| e.name unless e.name.blank? }.uniq.compact * " , "
+    txt = "(#{txt})" unless txt.blank?
+  end
+  
+  def langs_flag_for(game)
+    game.available_lang.inject("") do |acc, lang|
+      acc << flag_for_lang(lang, :size => "18x18")
+    end
+  end
+  
+  def external_game_link(game)
+    if (!game.url.blank?)
+      link_to("Allez voir", @game.url)
+    else
+      "--"
+    end
+  end
+  
 end

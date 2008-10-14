@@ -1,0 +1,14 @@
+<% if @editions.size > 0 %>
+    <div class="block">
+      <h4>Un jeu paru chez : </h4>
+      <ul class="strip" id="editions_list">
+        <%= render :partial => "editions/list", :collection => @editions %>
+      </ul>
+      <%= link_to "Ajoutez une edition", new_game_edition_path(@game) ,:class => "ss_sprite ss_note_add" %>
+    </div>
+<% else %>
+  <p class="empty">
+    Aucune editions n'existe pour le moment.<br />
+    <%= link_to "Ajoutez une edition", new_game_edition_path(@game) %>
+  </p>
+<% end %>

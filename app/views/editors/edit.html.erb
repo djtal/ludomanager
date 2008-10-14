@@ -1,0 +1,13 @@
+<% content_for:head do %>
+	<title>Edition d'un editeurs</title>
+<% end %>
+
+
+<h3>Edition d'un editeur</h3>
+
+<% form_for(@editor, :html => {:multipart => true}) do |f| %>
+  <%= f.error_messages %>
+  <%= f.error_messages %>
+  <%= render :partial => f %>
+  <%= submit_or_back_to editor_path(@editor), "retour sur #{@editor.name}" %>
+<% end %>

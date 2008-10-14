@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080731203551
+# Schema version: 20080817160324
 #
 # Table name: games
 #
@@ -15,13 +15,12 @@
 #  editor        :string(255)   
 #  url           :text          
 #  average       :float         default(0.0)
-#  min_age       :integer(11)   
+#  min_age       :integer       
 #  vo_name       :text          
 #  target        :integer       default(0)
 #  time_category :integer       default(0)
 #  published_at  :date          
 #
-
 
 class Game < ActiveRecord::Base
   Target = [["Tous public", 0], ["Tres jeune enfant", 1], ["Jeunes enfant", 2], ["Casual", 3], ["Gamers", 4]]
@@ -43,16 +42,19 @@ class Game < ActiveRecord::Base
   has_many :account_games
   has_many :authorships, :dependent => :destroy
   has_many :authors, :through => :authorships
+  has_many :editions, :dependent => :destroy
   
   acts_as_taggable
-  named_scope :without_text, :conditions => {:description => nil}
-  named_scope :for_two, :conditions => {:min_player => 2, :max_player => 2}
+
   
   
   
-  def self.search(query, page)
-    paginate :per_page => 5, :page => page,
-             :conditions => ['LOWER(name) like ?', "%#{query}%"], :order => 'name'
+  def self.search(query = "", page = 1)
+    return [] if query.blank?
+    games = find(:all, :conditions => ['LOWER(name) like ?', "%#{query.downcase}%"], :order => 'name')
+    editions = Edition.find(:all, :conditions => ['LOWER(name) like ?', "%#{query.downcase}%"], :order => 'name').map(&:game)
+    (games + editions).uniq.compact.sort_by(&:name).paginate(:per_page => 10, :page => page)
+             
   end
   
   def min_max_player?
@@ -78,6 +80,12 @@ class Game < ActiveRecord::Base
     account_games.size > 0
   end
   
+  
+  def available_lang
+    langs = []
+    langs = editions.map(&:lang).compact.uniq if editions.any?
+    langs
+  end
   
   protected
   

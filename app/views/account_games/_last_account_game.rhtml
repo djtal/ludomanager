@@ -1,5 +1,6 @@
-<li>
-	<span class="right"><%= last_account_game.created_at.to_s(:date_fr) %></span>
-	<%= game_box_for(last_account_game.game) %>
-	<%= link_to(truncate(last_account_game.game.name, 18), game_path(last_account_game.game)) %>
-</li>
+<tr>
+  <td class="span-1"><%= game_box_for(last_account_game.game, :class => "mini") %></td>
+  <td><%= link_to(last_account_game.game.name, game_path(last_account_game.game), :class => "empty") %><br />
+	<span><%= last_account_game.created_at.to_s(:date_fr) %></span></td>
+  <td class="center"><span class="round"><%= last_account_game.parties_count %></td>
+</tr>

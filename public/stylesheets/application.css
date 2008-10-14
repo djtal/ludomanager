@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/stylesheets/application.css?1220797423 */
+
 /* ----- Structure and Layout ----- */
 
 body {
@@ -14,7 +16,7 @@ a {
 }
 
 #content {
-	background: #FFF;
+  background: #FFF;
 	margin-bottom: 15px;
 }
 
@@ -33,6 +35,7 @@ h3{
 	padding: 5px 10px;
 }
 
+
 h4{
 	font-weight: bold;
 	font-size: 1.3em;
@@ -46,17 +49,23 @@ h4{
 .orange a{ color: inherit;}
 .color a{ color: inherit; font-weight: bold;}
 
+.small,
+.small a{
+  color: #666;
+  margin: 0;
+}
+
+td, th{vertical-align:middle;}
+
+.calendar td,
+.calendar th{
+  text-align: left;
+  vertical-align: top;
+}
+
 p.info{
   background: transparent url(../images/info.png) no-repeat  center left;
   padding-left : 30px;
-}
-
-ul#search-results {
-	margin-top: 3px;
-}
-
-.box{
-	background: none;
 }
 
 .empty{
@@ -135,9 +144,6 @@ ul#search-results {
 	list-style: none;	
 }
 
-#innernews a{
-	font-weight: bold;
-}
 
 
 
@@ -230,9 +236,15 @@ legend{
 	float: left;
 }
 
+.center{
+  text-align: center;
+  vertical-align: middle;
+}
+
 #content hr{
   background: transparent url('../images/divider.png') no-repeat center center;
   height: 16px;
+  margin: 20px 0;
 }
 
 /* ---- Forms ----*/
@@ -310,9 +322,54 @@ ul.horizontal li{
 	margin-top: 20px;
 }
 
-#games .game{
-	margin-bottom: 30px;
-	border: 1px solid #6c9;
+#game .game{
+  margin-bottom: 30px;
+  list-style: none;
+}
+
+.game{
+	border-bottom: 1px solid #6CAB54;
+}
+
+
+.game ul{
+  margin: 0;
+  list-style: none;
+}
+
+
+.game h4{
+  font-size: 1em;
+  text-align: center;
+}
+
+.block{
+  margin-bottom: 20px;
+}
+
+.block h4{
+  text-align : left;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin: 2px 0 5px 0;
+  background: url('../images/arrow-small.png') no-repeat left center;
+	padding-left: 15px;
+}
+
+.block a{
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
+img.flag{
+  margin: 0;
+  vertical-align: middle;
+}
+
+img.mini{
+  padding: 2px;
+  background-color: #fff;
+  border: solid 1px #ddd;
 }
 
 #games .content{
@@ -320,9 +377,10 @@ ul.horizontal li{
 }
 .game .account_managment{
  	margin-top: 5px;
-  	background-color: #eaeaea;
+  	background-color: #E6F7D4;
 	width: 100%;
 	text-align: center;
+	padding : 2px 0; 
 }
 
 .game .account_managment img{
@@ -335,19 +393,16 @@ ul.horizontal li{
 }
 
 #games h3{
-  border: none;
-  padding-left: 40px;
-	background-color: #eaeaea;
+	background-color: #E6F7D4;
+	border-bottom: 1px solid #6CAB54;
+	border-top: 1px solid #6CAB54;
+	padding-left: 10px;
+	font-size: 16px;
 }
 
 .game ul{
-	list-style: none;
 }
 
-
-.game .meta{
-  margin: 0;
-}
 
 img.ac_status {
   vertical-align: middle;
@@ -364,19 +419,11 @@ img.ac_status {
 	font-weight: bold;
 }
 
+
+
 .meta{
 	color: #666;
-	font-style: italic;
-}
-.meta .flash,
-.meta a {
-	background-color: #fff;
-	color: #666;
 	font-weight: bold;
-}
-
-.meta img{
-  margin: 0 4px 0 0;
 }
 
 
@@ -504,15 +551,29 @@ ul.function li{
 	margin-top: 0;
 	margin-bottom: 20px;
 	background: #FFF;
+	border-bottom: 1px solid #6CAB54;
+	border-left: 1px solid #6CAB54;
+	border-right: 1px solid #6CAB54;
+	-moz-border-radius-topright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
 }
 
 .widget h3{
 	padding-top: 1px;
 	padding-bottom: 1px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 8px;
+	border-top: 1px solid #6CAB54;
+	border-right: 1px solid #6CAB54;
+	margin: 0;
 }
 
 .widget .w-content{
-	padding: 2px 4px;
+	padding: 4px 4px;	
+	margin-top: 4px;
+	margin-bottom: 4px;
 }
 
 .list ul,
@@ -529,8 +590,8 @@ ul.function li{
 }
 
 tr img,
-.list img,
-.widget img{
+td img,
+li img{
 	margin: 0;
 	vertical-align: middle;
 }
@@ -539,8 +600,18 @@ tr img,
   width: 100%;
 }
 
+
+#chart-legend table{
+  width: auto;
+}
+
+#chart-legend td{
+  border:none;
+}
+
 ul.strip li{
   border-bottom: 1px solid #DDDDDD;
+  padding: 3px;
 }
 
 li.rowodd {
@@ -549,6 +620,29 @@ li.rowodd {
 
 li.roweven {
 	background-color: #F2F2F2;
+}
+
+.round{
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #6CAB54;
+  padding: 1px 4px;
+  text-align: center;
+  color: #fff;
+}
+
+a.tag{
+  -moz-border-radius: 17px;
+  -webkit-border-radius: 8px;
+  padding: 0 6px;
+  background-color: #EEEEEE;
+  border: 1px solid #DDDDDD;
+  margin-right: 5px;
+}
+
+a.tag:hover{
+  background-color: #666;
+  color: #fff;
 }
 
 tr.selected,
@@ -588,6 +682,49 @@ input#smart_list_title {
 	font-size: 20px;
 	font-weight: bold;
 }
+
+
+/* Tabs */
+
+ul.tabsContainer{
+  border-bottom: solid 2px #6CAB54;
+  margin: 0;
+}
+
+li.tabs{
+  background-color: #EEEEEE;
+  float: left;
+  list-style-type: none;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-top: solid 1px #6CAB54;
+  border-left: solid 1px #6CAB54;
+  border-right: solid 1px #6CAB54;
+  padding: 3px 5px;
+}
+
+li.tabs.active{
+  font-weight: bold;
+  background-color: #E6F7D4;
+}
+
+li.tabs a{
+  font-size: 12px;
+  color: #422100;
+  text-decoration: none;
+}
+
+.tabsBody{
+  margin-top: 10px;
+}
+
+/* Editions */
+
+ul#editions_list{
+  padding: 0;
+  margin: 7px 0 15px 0;
+}
+
 
 
 /* Pagination */

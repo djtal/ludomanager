@@ -9,10 +9,11 @@
     <tr>
       <th class="span-6 nosort">Nom Prenom</th>
       <th class="span-<%= logged_in? ? "9" : "11" %> nosort"></th>
-      <th class="span-2 nosort">Nb Jeux</th>
+      
       <% if logged_in? %>
-        <th class="span-2 nosort">Administration</th>
+        <th class="span-2 nosort">Gerer</th>
       <% end %>
+      <th class="nosort center">Nb Jeux</th>
     </tr>
   </thead>
   <tbody>
@@ -28,7 +29,7 @@
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
       <ul>
-    		<li><%= link_to "Ajouter un auteur", new_author_path %></li>
+    		<li><%= link_to "Ajouter un auteur", new_author_path, :class => "ss_sprite ss_page_white_add" %></li>
     	</ul>
     <% end %>
   </div>

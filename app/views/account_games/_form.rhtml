@@ -1,6 +1,5 @@
 <fieldset>
   <legend>Votre Jeu</legend>
-  <%= yield :game_name %>
   <p><%= form.label :origin, "Origine"  %><br />
   <%= form.text_field :origin, :size => 50 %></p>
   <p><%= form.label :price, "Prix d'achat" %><br />
@@ -11,7 +10,11 @@
 
 <fieldset>
 	<legend>Status du jeux</legend>
-	<p><%= form.check_box :shield %>&nbsp;<%= form.label :shield, "Jeux plastique"  %></p>
+	<ul class="horizontal clear">
+    <li><%= form.label :shield, "Proteg&eacute;" %>&nbsp;<%= form.check_box :shield %></li>
+    <li><%= form.label :rules, "Regles" %>&nbsp;<%= form.check_box :rules %></li>
+    <li><%= form.label :cheatsheet, "Aides" %>&nbsp;<%= form.check_box :cheatsheet %></li>
+  </ul><br />
 	<p><%= form.label :parties_count, "nombre de parties" %><br />
   <span class='tips'>Attention cela a juste une valeur informative pour votre ludotheque. 
     Ces parties n'exsiteront pas dans le calendrier des parties.</span><br />

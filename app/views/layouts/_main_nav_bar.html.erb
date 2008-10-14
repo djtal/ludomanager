@@ -1,6 +1,7 @@
 <ul>
 	<%= main_nav_section_for("Les Jeux", games_path, :games, :class => "left") %>
 	<%= main_nav_section_for("Les Auteurs", authors_path, :authors, :class => "left") %>
+	<%= main_nav_section_for("Les Editeurs", editors_path, :editors, :class => "left") %>
 	<% if logged_in? %>
 	  <%= main_nav_section_for "Dashboard", dashboard_path, :dashboard, :class => "left" %>
 	  <%= main_nav_section_for "Ma ludotheque", account_games_path, :account_games, :class => "left" %>
