@@ -9,10 +9,11 @@
     <tr>
       <th class="span-6 nosort">Nom Prenom</th>
       <th class="span-<%= logged_in? ? "9" : "11" %> nosort"></th>
-      <th class="span-2 nosort">Nb Jeux</th>
+      
       <% if logged_in? %>
-        <th class="span-2 nosort">Administration</th>
+        <th class="span-2 nosort">Gerer</th>
       <% end %>
+      <th class="nosort center">Nb Jeux</th>
     </tr>
   </thead>
   <tbody>
