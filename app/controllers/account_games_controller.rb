@@ -75,6 +75,7 @@ class AccountGamesController < ApplicationController
   
   def edit
     @account_game = current_account.account_games.find(params[:id])
+    @editions = Edition.find(:all, :order => "published_at ASC", :conditions => {:game_id => @account_game.game_id})
   end
 
   # POST /account_games
@@ -98,7 +99,6 @@ class AccountGamesController < ApplicationController
   def update
     @account_game = current_account.account_games.find(params[:id])
     params[:account_game] = params[:account_game][@account_game.id.to_s] if params[:account_game].size == 1
-    logger.debug { "params : #{params[:account_game]}" }
     respond_to do |format|
       if @account_game.update_attributes(params[:account_game])
         flash[:notice] = 'AccountGame was successfully created.'

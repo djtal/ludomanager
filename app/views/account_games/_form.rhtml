@@ -1,5 +1,9 @@
 <fieldset>
   <legend>Votre Jeu</legend>
+  <% if @editions %>
+    <p><%= form.label :edition_id, "Edition" %><br />
+    <%= form.collection_select :edition_id, @editions, :id, :select_name %></p>
+  <% end %>
   <p><%= form.label :origin, "Origine"  %><br />
   <%= form.text_field :origin, :size => 50 %></p>
   <p><%= form.label :price, "Prix d'achat" %><br />

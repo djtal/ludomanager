@@ -467,7 +467,7 @@ var Tabs = Class.create({
   },
 })
 
-var GamePieChart = Class.create({
+var RemotePieChart = Class.create({
   initialize: function(elm, url){
     if (!$(elm) || url == "") return;
     new Ajax.Request(url, {method: "get", onSuccess: function(response){
@@ -496,7 +496,7 @@ document.observe("dom:loaded", function() {
   $$(".bzoom").each(function(elt){
     BZoomOn.attach(elt);
   });
-  new GamePieChart("ac_games_piechart", "/account_games/group.json");
-  new GamePieChart("parties_piechart", "/parties/group.json");
+  new RemotePieChart("ac_games_piechart", "/account_games/group.json");
+  new RemotePieChart("parties_piechart", "/parties/group.json");
   
 })

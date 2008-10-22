@@ -20,6 +20,9 @@ class Edition < ActiveRecord::Base
   validates_presence_of :game_id, :editor_id
   validates_inclusion_of :lang, :in => Lang, :allow_nil => true, :allow_blank => true
   
+  def select_name
+    "#{editor.name} - #{lang} - #{published_at.year if published_at}"
+  end
   
 
 end
