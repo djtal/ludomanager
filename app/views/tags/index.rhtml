@@ -18,8 +18,8 @@
         <td><%= t[1] %></td>
         <% if logged_in? %>
           <td><div class="function">
-            <%= link_to "Editer", edit_tag_path(t[0].name), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
-            <%= link_to_remote "Effacer", :url => tag_path(t[0].name), :method => :delete, :html => {:class => "ss_sprite ss_bin"} %>
+            <%= link_to "", edit_tag_path(t[0].name), :class => "ss_sprite ss_page_white_edit" %>&nbsp;|&nbsp;
+            <%= link_to_remote "", :url => tag_path(t[0].name), :method => :delete, :html => {:class => "ss_sprite ss_page_white_delete"} %>
           </div></td>
         <% end %>
       </tr>

@@ -5,10 +5,20 @@ class PartiesController < ApplicationController
     parties = current_account.parties
     @count = parties.count
     @yours, @other = parties.split_mine(current_account.games)
-    @parties = parties.by_game
-    #used to find las played date for each game you've played
+    @parties = parties.by_game.to_a.paginate(:page => params[:page])
+    #used to find last played date for each game you've played
     @last_played = current_account.parties.maximum(:created_at, :group => :game).to_hash
     @last_parties = current_account.parties.last_play(10).group_by(&:game)
+  end
+  
+  def group
+    @games = current_account.parties.count(:group => 'games.target', :include => :game)
+    respond_to do |format|
+      format.json do
+        data = @games.inject([]){ |acc, group| acc << {:data => [[1,group[1]]], :label => Game::Target[group[0].to_i][0]}}
+        render :json => data
+      end
+    end
   end
   
   def resume

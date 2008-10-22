@@ -467,6 +467,16 @@ var Tabs = Class.create({
   },
 })
 
+var GamePieChart = Class.create({
+  initialize: function(elm, url){
+    if (!$(elm) || url == "") return;
+    new Ajax.Request(url, {method: "get", onSuccess: function(response){
+      new Proto.Chart(elm, response.responseJSON,
+      	{pies: {show: true, radius: 80, autoScale: false}, legend: {show: true, noColumns: 3, container:"chart-legend"}});
+    }});
+  },
+})
+
 document.observe("dom:loaded", function() {
   new Tabs("gameTabs")
   new AccountGameForm("account_game_form")
@@ -486,13 +496,7 @@ document.observe("dom:loaded", function() {
   $$(".bzoom").each(function(elt){
     BZoomOn.attach(elt);
   });
-  if ($("piechart"))
-  {
-    new Ajax.Request("/account_games/group.json", {method: "get", onSuccess: function(response){
-      new Proto.Chart($('piechart'), response.responseJSON,
-      	{pies: {show: true, radius: 80, autoScale: false}, legend: {show: true, noColumns: 3, container:"chart-legend"}});
-    }});
-  }
-
+  new GamePieChart("ac_games_piechart", "/account_games/group.json");
+  new GamePieChart("parties_piechart", "/parties/group.json");
   
 })

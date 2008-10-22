@@ -16,6 +16,10 @@
       <% end %>
     </tbody>
   </table>
+  
+  <div class="page-nav">
+    <%= will_paginate @parties %>
+	</div>
 <% else %>
   <p class="empty"> Vous n'avez encore saisie aucune partie.</p>
 <% end %>
@@ -25,10 +29,18 @@
   <div id="placeholder-1">
     <%= render_widget "Vos statistiques...",  :partial => "legend" %>
   </div>
+
   <div id="placeholder-2">
-    <%= render_widget "Vos derniers parties", :partial => "last" %>
+    <% render_widget "Repartition de vos parties" do %>
+      <div id="parties_piechart" style="width: 200px; height:200px; left:40px;">
+
+      </div>
+      <div id="chart-legend"></div>
+    <% end %>
   </div>
+  
   <div id="placeholder-3">
+    <%= render_widget "Vos derniers parties", :partial => "last" %>
   </div>
 <% end %>
 
