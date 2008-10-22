@@ -34,3 +34,8 @@
     <% end %>
   </div>
 <% end if logged_in? %>
+
+
+<% content_for :subnav do %>
+	<%= render :partial => "subnav" %>
+<% end %>

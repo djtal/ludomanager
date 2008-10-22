@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :editors, :editions
+  map.resources :editors,
+                :collection => {:search => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
   
@@ -8,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => {:play => :post, :add_party_form => :get},
                 :has_many => :players
   
-  map.resources :accounts, :authors, :smart_lists
+  map.resources :accounts, :authors, :smart_lists, :editions
   map.resources :players, :collection => {:new_partial_form => :get}
   map.resources :authorships, :collection => {:new_partial_form => :get}
   map.resources :members, 

@@ -47,8 +47,6 @@ class Game < ActiveRecord::Base
   acts_as_taggable
 
   
-  
-  
   def self.search(query = "", page = 1)
     return [] if query.blank?
     games = find(:all, :conditions => ['LOWER(name) like ?', "%#{query.downcase}%"], :order => 'name')

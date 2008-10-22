@@ -34,8 +34,10 @@
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
       <ul>
-        <li><%= link_to "Editer", edit_author_path(@author), :class => "ss_sprite ss_page_white_edit" %></li>
-        <li><%= link_to "Effacer", author_path(@author), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+        <% if logged_in? %>
+          <li><%= link_to "Editer", edit_author_path(@author), :class => "ss_sprite ss_page_white_edit" %></li>
+          <li><%= link_to "Effacer", author_path(@author), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+    	  <% end %>
     	  <li><%= link_to "Retour a la liste des auteur", authors_path, :class => "ss_sprite ss_arrow_undo" %></li>
     	</ul>
     <% end %>

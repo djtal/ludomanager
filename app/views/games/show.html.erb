@@ -59,14 +59,16 @@
 
   <% render_widget "Administration" do %>
     <ul>
-      <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_page_white_edit" %></li>
-      <li><%= link_to "Supprimer la fiche", game_path(@game), 
-              :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
-      <li><%= manage_authors_link(@game) %></li>
-      <li><%= link_to "Ajouter une edition", new_game_edition_path(@game), :class => "ss_sprite ss_page_white_add" %></li>
+      <% if logged_in? %>
+        <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_page_white_edit" %></li>
+        <li><%= link_to "Supprimer la fiche", game_path(@game), 
+                :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+        <li><%= manage_authors_link(@game) %></li>
+        <li><%= link_to "Ajouter une edition", new_game_edition_path(@game), :class => "ss_sprite ss_page_white_add" %></li>
+      <% end %>
       <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_arrow_undo" %></li>
     </ul>
-  <% end %>
+  <% end  %>
 
   <% render :layout => "layouts/widget", :locals => {:title => "Statistiques"} do %>
 		<span class="flash"><%= pluralize(@game.account_games.size, "membre</span> a", "membres</span> ont") %>

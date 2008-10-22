@@ -30,18 +30,17 @@
   <p class="empty">Cet &eacute;diteur n'a publi&eacute; aucun jeux.</p>
 <% end %>
 
-<div class="page-nav">
-  <strong><%= link_to "Retour sur la liste des auteurs", authors_path %></strong>
-</div>
-
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
     <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
       <ul>
-        <li><%= link_to "Editer", edit_editor_path(@editor), :class => "ss_sprite ss_page_white_edit" %></li>
-        <li><%= link_to "Effacer", editor_path(@editor), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+        <% if logged_in? %>
+          <li><%= link_to "Editer", edit_editor_path(@editor), :class => "ss_sprite ss_page_white_edit" %></li>
+          <li><%= link_to "Effacer", editor_path(@editor), :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+    	  <% end %>
+    	    <li><%= link_to "Retour sur la liste des editeur", editors_path, :class => "ss_sprite ss_arrow_undo" %></li>
     	</ul>
-    <% end if logged_in? %>
+    <% end  %>
   </div>
 <% end %>

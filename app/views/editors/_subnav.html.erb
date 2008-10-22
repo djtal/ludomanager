@@ -1,0 +1,7 @@
+<li class="right clear">
+	<% form_tag search_editors_path, :method => 'get', :class => "right" do %>
+      <%= label :search, "Nom de l'editeur" %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Go" %>
+  <% end %>
+</li>

@@ -12,6 +12,13 @@ class EditorsController < ApplicationController
     end
   end
 
+  def search
+    @editors = Editor.paginate( :page => params[:page], 
+                                :conditions => ["LOWER(name) LIKE ?","%#{params[:search].downcase}%"],
+                                :order => "name ASC")
+    render :action => :index
+  end
+
   # GET /editors/1
   # GET /editors/1.xml
   def show

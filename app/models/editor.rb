@@ -11,6 +11,8 @@
 #
 
 class Editor < ActiveRecord::Base
+  validates_uniqueness_of :name
+  
   has_one :logo, :as => :attachable, :class_name => "Asset"
   has_many :editions
   has_many :games, :through => :editions
