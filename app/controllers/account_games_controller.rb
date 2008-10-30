@@ -98,6 +98,7 @@ class AccountGamesController < ApplicationController
   
   def update
     @account_game = current_account.account_games.find(params[:id])
+    #why this line
     params[:account_game] = params[:account_game][@account_game.id.to_s] if params[:account_game].size == 1
     respond_to do |format|
       if @account_game.update_attributes(params[:account_game])
