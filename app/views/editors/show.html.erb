@@ -5,7 +5,7 @@
 
 <h3><%= @editor.name %></h3>
 
-<%= image_tag @editor.logo.public_filename if @editor.logo %>
+<%= image_tag @editor.logo.public_filename, :class => "box" if @editor.logo %>
 
 <% if @editor.games.size > 0 %>
   

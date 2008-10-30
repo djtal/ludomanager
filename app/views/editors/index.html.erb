@@ -8,12 +8,13 @@
 <table class="sortable">
   <thead>
     <tr>
-      <th class="span-6">Nom</th>
-      <th class="span-<%= logged_in? ? "9" : "11" %> no-sort"></th>
-      <th class="span-2">Nb Jeux</th>
+      <th class="span-6 nosort">Nom</th>
+      <th class="span-<%= logged_in? ? "9" : "11" %> nosort"></th>
       <% if logged_in? %>
-        <th class="span-2">Administration</th>
+        <th class="span-2 nosort">Gerer</th>
       <% end %>
+      <th class="center nosort">Nb Jeux</th>
+
     </tr>
   </thead>
   <tbody>

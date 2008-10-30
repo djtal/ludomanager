@@ -26,7 +26,7 @@
 	    	<div class="block">
 	    	  <h4>Descrition</h4>
       	  <% if !@game.description.blank? %>
-      	    <%= @game.description %>
+      	    <%=h @game.description %>
       	  <% else %>
       	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
       	  <% end %>

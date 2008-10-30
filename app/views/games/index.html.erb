@@ -30,6 +30,10 @@
 <% end %>
 
 <% content_for :newsbox do %>
+  <% render_widget "Administration" do %>
+    <%= link_to "Ajouter un jeu", new_game_path, :class => "ss_sprite ss_page_white_add" %>
+  <% end if logged_in? %>
+
   <% render_widget "Les derniers ajouts" do %>
     <ul class="strip">
       <% @last.each do |game| %>

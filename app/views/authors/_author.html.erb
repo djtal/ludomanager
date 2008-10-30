@@ -8,5 +8,5 @@
       <%= link_to_remote "", {:url => author_path(author), :method => :delete},  :class => "ss_sprite ss_page_white_delete"  %>
     </div></td>
   <% end %>
-  <td class="center"><%= author.authorships.size %></td>
+  <td class="center"><div class="round"><%= author.authorships.size %></div></td>
 </tr>
