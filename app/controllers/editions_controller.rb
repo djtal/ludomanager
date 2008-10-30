@@ -2,7 +2,9 @@ class EditionsController < ApplicationController
   # GET /editions
   # GET /editions.xml
   def index
-    @editions = Edition.find(:all)
+    @editions = Edition.paginate( :all, 
+                                  :include => [:game, :editor], :order => "games.name",
+                                  :page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,10 +1,11 @@
 # Include your application configuration below
 # DateTiem extra format see http://hittingthebuffers.com/2006/08/11/date-formats/ for more info
-ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
-  :date_fr => "%d/%m/%Y",
-  :date_time_fr => "%d/%m/%Y at %H:%M",
-  :time_fr => "%H:%M"
-)
+
+Date::DATE_FORMATS[:month] = "%m/%Y"
+Date::DATE_FORMATS[:date_time_fr] = "%d/%m/%Y - %H:%M"
+Date::DATE_FORMATS[:date_fr] = "%d/%m/%Y"
+
+
 
 ActionView::Helpers::AssetTagHelper.register_javascript_include_default "behavior"
 

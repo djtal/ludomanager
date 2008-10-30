@@ -1,18 +1,33 @@
-<h1>Listing editions</h1>
-
-<table>
-  <tr>
-  </tr>
-
-<% for edition in @editions %>
-  <tr>
-    <td><%= link_to 'Show', edition %></td>
-    <td><%= link_to 'Edit', edit_edition_path(edition) %></td>
-    <td><%= link_to 'Destroy', edition, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% content_for:head do %>
+	<title>Les editeurs</title>
 <% end %>
+
+<h3>Gestion des &eacute;ditions</h3>
+
+
+<table class="sortable">
+  <thead>
+    <tr>
+      <th class="span-1">Lang</th>
+      <th class="span-6 nosort">Jeux</th>
+      <th class="span-6">Editeur</th>
+      <th class"span-2">Sortie le</th>
+      <th class="span-<%= logged_in? ? "2" : "4" %> nosort"></th>
+      <% if logged_in? %>
+        <th class="span-2 nosort">Gerer</th>
+      <% end %>
+
+    </tr>
+  </thead>
+  <tbody>
+    <%= render :partial => @editions %>
+  </tbody>
 </table>
 
-<br />
+<div class="page-nav">
+  <%= will_paginate @editions %>
+</div>
 
-<%= link_to 'New edition', new_edition_path %>
+<% content_for :subnav do %>
+	<%= render :partial => "games/subnav" %>
+<% end %>

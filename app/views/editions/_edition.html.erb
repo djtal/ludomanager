@@ -1,0 +1,13 @@
+<tr class="autohide" id="<%= dom_id(edition) %>">
+  <td><%= flag_for_lang(edition.lang, :size => "20x20") %></td>
+  <td><%= link_to edition.name ? edition.name : edition.game.name , edition_path(edition) %></td>
+  <td><%= link_to edition.editor.name, edition.editor %></td>
+  <td><%= edition.published_at ? edition.published_at.to_s(:month) : "NA" %></td>
+  <td><%= edition.created_at.to_date.to_s(:date_fr) %></td>
+  <% if logged_in? %>
+    <td><div class="function">
+      <%= link_to "", edit_edition_path(edition), :class => "ss_sprite ss_page_white_edit" %>&nbsp;|&nbsp;
+      <%= link_to_remote "", {:url => edition_path(edition), :method => :delete},  :class => "ss_sprite ss_page_white_delete"  %>
+    </div></td>
+  <% end %>
+</tr>
