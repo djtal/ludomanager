@@ -1,0 +1,12 @@
+<tr>
+  <td><%= game_box_for(edition.game, :size =>"35x35", :class => "mini") %></td>
+  <td>
+    <%= link_to edition.name, game_path(edition.game) %><br />
+    Aussi edite par : <%= other_editor_for edition, @editor %>
+  </td>
+  <td><%= edition.game.target_str %></td>
+  <td></td>
+  <td><%= edition.published_at.year if edition.published_at  %></td>
+  <td><%= link_to "", edit_game_edition_path(edition.game, edition), :class => "ss_sprite ss_note_edit" %>|
+  <%= link_to_remote "", {:url => game_edition_path(edition.game, edition), :method => :delete},  :class => "ss_sprite ss_note_delete"  %></td>
+</tr>

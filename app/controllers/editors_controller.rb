@@ -22,8 +22,8 @@ class EditorsController < ApplicationController
   # GET /editors/1
   # GET /editors/1.xml
   def show
-    @editor = Editor.find(params[:id], :include => :games)
-
+    @editor = Editor.find(params[:id], :include => [:editions])
+    @editions = @editor.editions.find(:all,  :order => "published_at", :include => {:game => [:image, :editors]})
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @editor }
