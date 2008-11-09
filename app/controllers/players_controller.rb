@@ -50,6 +50,10 @@ class PlayersController < ApplicationController
     redirect_to redirect_path
   end
   
+  protected
   
+  def set_section
+    @section = :parties
+  end
   
 end
