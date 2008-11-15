@@ -60,15 +60,23 @@ module ApplicationHelper
         :size => "16x16",
         :class => "flag"
       }.merge(opts)
-      case lang
+      image = case lang
       when "fr"
-        image = "France.png"
+        "France.png"
       when "en"
-        image = "United-States.png"
+        "United-States.png"
       when "de"
-        image = "Germany.png"
+        "Germany.png"
+      when "it"
+        "Italy.png"
+      when "es"
+        "Spain.png"
+      when "ru"
+        "Russia.png"
+      when "cz"
+        "Czech-Republic.png"
       when "multi"
-        image = "Multi.png"
+        "Multi.png"
       end
       image_tag("flag/#{image}",options) unless image.blank?
     end

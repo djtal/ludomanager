@@ -14,7 +14,7 @@
 #
 
 class Edition < ActiveRecord::Base
-  Lang = ["fr", "en", "de", "multi"]
+  Lang = ["fr", "en", "de", "it", "es", "ru", "cz", "multi"]
   belongs_to :game
   belongs_to :editor
   validates_presence_of :game_id, :editor_id
