@@ -40,7 +40,7 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_create_should_register_authors
     form = {
-      "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"balh", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
+      "game"=>{"name"=>"6 qui prend", "url"=>"", "description"=>"balh", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
       "authorship"=>{"0"=>{"display_name"=>"Wolfgang - Kramer"}}
     }
     login_as(:quentin)
@@ -52,7 +52,7 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_create_with_blank_authors_name_should_skip_blank
     form = {
-      "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"balh", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
+      "game"=>{"name"=>"6 qui prend", "url"=>"", "description"=>"balh",  "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
       "authorship"=>{"0"=>{"display_name"=>"Wolfgang - Kramer"}, "1" => {"display_name"=>" "}}
     }
     assert_nothing_raised do
@@ -63,7 +63,7 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_create_with_no_authors_part_should_create_game
     form = {
-      "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"balh", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"}
+      "game"=>{"name"=>"6 qui prend", "url"=>"", "description"=>"balh", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"}
     }
     assert_nothing_raised do
       login_as(:quentin)
@@ -73,7 +73,7 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_create_should_tag_game
     form = {
-      "game"=>{"name"=>"6 qui prend", "publish_year"=>"", "url"=>"", "description"=>"boom", "editor"=>"Amigo", "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
+      "game"=>{"name"=>"6 qui prend", "url"=>"", "description"=>"boom",  "min_player"=>"2", "average"=>"0.0", "difficulty"=>"1", "max_player"=>"10"},
       "tag"=>{"tag_list"=>"cartes,calcul,hasard"},
       "authorship"=>{"0"=>{"display_name"=>"zz-top"}}
     }
@@ -86,8 +86,7 @@ class GamesControllerTest < Test::Unit::TestCase
   
   def test_update_should_update_authors
     form = {
-      "game"=>{"name"=>"Amyitis", "publish_year"=>"2007", "url"=>"grrr", "description"=>"kaboom", 
-                "editor"=>"Ystari",
+      "game"=>{"name"=>"Amyitis", "url"=>"grrr", "description"=>"kaboom", 
                 "min_player"=>"2",
                 "average"=>"0.0",
                 "difficulty"=>"4",
