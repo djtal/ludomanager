@@ -20,7 +20,7 @@ class AuthorsController < ApplicationController
   # GET /authors/1.xml
   def show
     @author = Author.find(params[:id])
-    @games = @author.games.find(:all, :include => [:image, :tags], :order => "games.publish_year ASC")
+    @games = @author.games.find(:all, :include => :image, :order => "games.name ASC")
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @author.to_xml }
@@ -43,8 +43,6 @@ class AuthorsController < ApplicationController
     @author = Author.new(params[:author])
     respond_to do |format|
       if @author.save
-        @games = @author.games.find(:all, :order => "games.publish_year ASC")
-        flash[:notice] = 'Author was successfully created.'
         format.html { redirect_to author_url(@author) }
         format.xml  { head :created, :location => author_url(@author) }
       else

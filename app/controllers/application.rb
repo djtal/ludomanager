@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   helper :all
   include AuthenticatedSystem
   include HoptoadNotifier::Catcher
+  protect_from_forgery
+  filter_parameter_logging :password
+  
   # If you want "remember me" functionality, add this before_filter to Application Controller
   before_filter :login_from_cookie
   before_filter :set_section

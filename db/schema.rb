@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081005145845) do
+ActiveRecord::Schema.define(:version => 20081115135948) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20081005145845) do
     t.boolean  "rules"
     t.boolean  "cheatsheet"
     t.integer  "edition_id"
+    t.string   "status"
   end
 
   create_table "accounts", :force => true do |t|
@@ -76,11 +77,6 @@ ActiveRecord::Schema.define(:version => 20081005145845) do
     t.datetime "updated_at"
   end
 
-  create_table "game_extensions", :force => true do |t|
-    t.integer "game_id",      :limit => 11
-    t.integer "extension_id", :limit => 11
-  end
-
   create_table "game_photos", :force => true do |t|
     t.string  "content_type"
     t.string  "filename"
@@ -100,16 +96,10 @@ ActiveRecord::Schema.define(:version => 20081005145845) do
     t.integer  "max_player",    :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "publish_year"
-    t.string   "editor"
     t.text     "url"
     t.float    "average",                     :default => 0.0
-    t.integer  "min_age"
-    t.text     "vo_name"
     t.integer  "target",                      :default => 0
     t.integer  "time_category",               :default => 0
-    t.date     "published_at"
-    t.boolean  "extension"
   end
 
   create_table "members", :force => true do |t|
@@ -133,15 +123,6 @@ ActiveRecord::Schema.define(:version => 20081005145845) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "sessions", :force => true do |t|
-    t.string   "session_id"
-    t.text     "data"
-    t.datetime "updated_at"
-  end
-
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "smart_lists", :force => true do |t|
     t.text     "title"
