@@ -30,9 +30,10 @@
 
 <% content_for :newsbox do %>
   <% render_widget "Les dernieres editions" do %>
-    <ul>
+    <ul class="strip">
       <% @last.each do |edition| %>
-        <li><%= flag_for_lang(edition.lang) %><b><%= edition.name.blank? ? edition.game.name : edition.name %></b> chez <em><%= edition.editor.name %></em></li>
+        <li><%= flag_for_lang(edition.lang) %><b><%= edition.name.blank? ? edition.game.name : edition.name %></b>
+           chez <span class="empty"><%= edition.editor.name %></span></li>
       <% end %>
     </ul>
   <% end %>

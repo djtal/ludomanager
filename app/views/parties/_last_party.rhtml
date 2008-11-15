@@ -2,5 +2,5 @@
   <td class="span-1"><%= game_box_for(last_party[0], :class => "mini") %></td>
   <td><%= link_to(last_party[0].name, game_path(last_party[0]), :class => "empty") %><%= content_tag(:span, "&nbsp;(x#{last_party[1].size})") if last_party[1].size > 1 %>
   <br />
-	<span><%= last_party[1].first.created_at.to_s(:date_fr) %></span></td>
+	<span><%= last_party[1].first.created_at.to_date.to_s(:date_fr) %></span></td>
 </tr>
