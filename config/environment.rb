@@ -22,10 +22,11 @@ Rails::Initializer.run do |config|
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
-
-  # Use the database for sessions instead of the file system
-  # (create the session table with 'rake db:sessions:create')
-  config.action_controller.session_store = :active_record_store
+  
+  config.action_controller.session = {
+    :session_key => '_ludomanager_session',
+    :secret      => '2cf8a0f58a5c99a57e6a326a6937971da5797cecb67c9e438a59d000de921e1eeb90796a7eadc6e84c9e3dfe21ba11b0e8dcd7df03761ef8d30d16083d8b6870'
+  }
   
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
@@ -36,9 +37,10 @@ Rails::Initializer.run do |config|
   #config.active_record.observers = :game_observer
 
   # Make Active Record use UTC-base instead of local time
-  # config.active_record.default_timezone = :utc
+  #config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
+  config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
 end
 
 # Add new inflection rules using the following format 
