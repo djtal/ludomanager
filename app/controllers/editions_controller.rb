@@ -5,6 +5,7 @@ class EditionsController < ApplicationController
     @editions = Edition.paginate( :all, 
                                   :include => [:game, :editor], :order => "games.name",
                                   :page => params[:page])
+    @last = Edition.find(:all, :include => [:game, :editor], :limit => 10, :order => "created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb

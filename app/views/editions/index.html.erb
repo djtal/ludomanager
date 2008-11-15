@@ -9,8 +9,8 @@
   <thead>
     <tr>
       <th class="span-1">Lang</th>
-      <th class="span-6 nosort">Jeux</th>
-      <th class="span-6">Editeur</th>
+      <th class="span-9 nosort">Jeux</th>
+      <th class="span-3">Editeur</th>
       <th class"span-2">Sortie le</th>
       <th class="span-<%= logged_in? ? "2" : "4" %> nosort"></th>
       <% if logged_in? %>
@@ -27,6 +27,16 @@
 <div class="page-nav">
   <%= will_paginate @editions %>
 </div>
+
+<% content_for :newsbox do %>
+  <% render_widget "Les dernieres editions" do %>
+    <ul>
+      <% @last.each do |edition| %>
+        <li><%= flag_for_lang(edition.lang) %><b><%= edition.name.blank? ? edition.game.name : edition.name %></b> chez <em><%= edition.editor.name %></em></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
 
 <% content_for :subnav do %>
 	<%= render :partial => "games/subnav" %>

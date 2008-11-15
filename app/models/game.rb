@@ -86,6 +86,7 @@ class Game < ActiveRecord::Base
     langs
   end
   
+  
   protected
   
   def check_parties
