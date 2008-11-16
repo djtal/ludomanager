@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(account_game) %>">
 	<td><%= status_indicator account_game %></td>
-	<td><%= link_to_game account_game %></td>
+	<td><%= link_to account_game.game.name, account_game %></td>
 	
 	<% if mode == :full %>
     <td><%= selectable_tag_list account_game.game %></td>

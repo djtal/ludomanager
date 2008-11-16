@@ -1,3 +1,27 @@
+<h3>Mes Jeux > <%= @account_game.game.name %></h3>
 
-<%= link_to 'Edit', edit_account_game_path(@account_game) %> |
-<%= link_to 'Back', account_games_path %>
+
+<div class="column span-17 last">
+  <div class="column span-12">
+    <p>
+      Vous avez jouez <%= pluralize(@parties.size, "partie", "parties") %>
+      depuis le <%= @parties.first.created_at.to_date.to_s(:date_fr) %>.
+       
+      Votre derniere parties date du <%= @parties.last.created_at.to_date.to_s(:date_fr) %> 
+    </p>
+  </div>
+  <div class="column span-5 last">
+    Repartition par anne&eacute:
+    <ul>
+      <%  @yearly.each do |year, parties| %>
+        <li><%= year %> : <%= parties.size %></li>
+      <% end %>
+    </ul>
+  </div>
+  
+  <div id="breakdown-play" class="column span-17 last">
+
+  </div>
+</div>
+
+

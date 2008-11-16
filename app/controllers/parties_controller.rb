@@ -21,6 +21,23 @@ class PartiesController < ApplicationController
     end
   end
   
+  def breakdown
+    @to = 1.year.ago.end_of_year
+    @from = 1.year.ago.beginning_of_year
+    @monthly = current_account.parties.find_all_by_game_id(params[:game_id],
+                                      :conditions => {:created_at  => (@from..@to)})
+    @monthly = @monthly.group_by{|p| p.created_at.month}
+    logger.debug { "monthly #{@monthly.size}" }
+    respond_to do |format|
+      format.json do
+        data = (1..12).inject([]) do |acc, month|
+          acc << [month, (@monthly[month].nil? ? 0 : @monthly[month].size)] 
+        end
+        render :json => data
+      end
+    end
+  end
+  
   def resume
     @date = Time.now
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2

@@ -467,15 +467,6 @@ var Tabs = Class.create({
   },
 })
 
-var RemotePieChart = Class.create({
-  initialize: function(elm, url){
-    if (!$(elm) || url == "") return;
-    new Ajax.Request(url, {method: "get", onSuccess: function(response){
-      new Proto.Chart(elm, response.responseJSON,
-      	{pies: {show: true, radius: 80, autoScale: false}, legend: {show: true, noColumns: 3, container:"chart-legend"}});
-    }});
-  },
-})
 
 document.observe("dom:loaded", function() {
   new Tabs("gameTabs")
@@ -496,7 +487,4 @@ document.observe("dom:loaded", function() {
   $$(".bzoom").each(function(elt){
     BZoomOn.attach(elt);
   });
-  new RemotePieChart("ac_games_piechart", "/account_games/group.json");
-  new RemotePieChart("parties_piechart", "/parties/group.json");
-  
 })
