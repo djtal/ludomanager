@@ -290,7 +290,7 @@ LudoSearch.addMethods({
     this.tagField = $("search_tags");
     this.searchedTags = [];
     this.results = $("search-results")
-    new Ajax.Request('/tags/lookup', {onSuccess: this.loadTags.bind(this)});
+    new Ajax.Request('/tags/lookup', {method: "get", onSuccess: this.loadTags.bind(this)});
     this.loadObservers();
   },
 
