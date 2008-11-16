@@ -12,9 +12,10 @@ var RemotePieChart = Class.create({
 var RemoteBreakdownPlayChart = Class.create({
   initialize: function(elm, url){
     if (!$(elm) || url == "") return;
-    this.wrapper = elm;
+    this.wrapper = $(elm);
     this.dataUrl = url;
-    new Ajax.Request(this.dataUrl, {parameters: {game_id: 11},
+    game_id = this.wrapper.select("#game_id").first().innerHTML;
+    new Ajax.Request(this.dataUrl, {parameters: {game_id: game_id},
                                     method: "get", onSuccess: this.loadChart.bind(this),
                                     onFailure: this.displayError.bind(this)});
   },
@@ -25,7 +26,7 @@ var RemoteBreakdownPlayChart = Class.create({
                                     [{data: data, label: "2008"}],
                                     { xaxis: {'min': 1, 'max': 12, 'tickSize': 1},
                                       yaxis: {min: 0, 'tickSize': 1},
-                                      legend: {show: false}});
+                                      legend: {show: true}});
   },
   
   displayError: function(methsArgs){
