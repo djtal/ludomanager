@@ -23,8 +23,9 @@ var RemoteBreakdownPlayChart = Class.create({
   loadChart: function(response){
       data = response.responseJSON
       this.chart = new Proto.Chart( this.wrapper,
-                                    [{data: data, label: "2008"}],
-                                    { xaxis: {'min': 1, 'max': 12, 'tickSize': 1},
+                                    data,
+                                    { bars: {show: true},
+                                      xaxis: {'min': 1, 'max': 12, 'tickSize': 1},
                                       yaxis: {min: 0, 'tickSize': 1},
                                       legend: {show: true}});
   },

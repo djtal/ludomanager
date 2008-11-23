@@ -70,13 +70,6 @@ class AccountGamesController < ApplicationController
   end
   
   
-  def show
-    @account_game = current_account.account_games.find(params[:id])
-    @parties = current_account.parties.find_all_by_game_id(@account_game.game_id, :order => "created_at ASC")
-    @yearly = @parties.group_by{|p| p.created_at.year}
-
-  end
-  
   def new
     @account_game = current_account.account_games.build(:game_id => params[:game_id])
   end

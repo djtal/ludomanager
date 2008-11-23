@@ -22,18 +22,24 @@ class PartiesController < ApplicationController
   end
   
   def breakdown
-    @to = 1.year.ago.end_of_year
-    @from = 1.year.ago.beginning_of_year
-    @monthly = current_account.parties.find_all_by_game_id(params[:game_id],
-                                      :conditions => {:created_at  => (@from..@to)})
-    @monthly = @monthly.group_by{|p| p.created_at.month}
-    logger.debug { "monthly #{@monthly.size}" }
+    @game = Game.find(params[:game_id])
+    @parties = current_account.parties.find_all_by_game_id(@game.id, :order => "created_at ASC")
+    @yearly = @parties.group_by{|p| p.created_at.year}
+    
+
     respond_to do |format|
+      format.html
       format.json do
-        data = (1..12).inject([]) do |acc, month|
-          acc << [month, (@monthly[month].nil? ? 0 : @monthly[month].size)] 
+        @breakdown = @yearly.inject([]) do |acc, set|
+          logger.debug { "year : #{set[0]} - parties : #{set[1].size}" }
+          parties = set[1].group_by{|p| p.created_at.month}
+          data = (1..12).inject([]) do |a, month|
+            a << [month, (parties[month].nil? ? 0 : parties[month].size)] 
+          end
+          acc << {:data => data, :label => set[0]}
         end
-        render :json => data
+
+        render :json => @breakdown
       end
     end
   end
