@@ -20,7 +20,7 @@ class AuthorsController < ApplicationController
   # GET /authors/1.xml
   def show
     @author = Author.find(params[:id])
-    @games = @author.games.find(:all, :include => :image, :order => "games.name ASC")
+    @games = @author.games.find(:all, :include => [:image, :editions], :order => "editions.created_at ASC")
     respond_to do |format|
       format.html # show.rhtml
       format.xml  { render :xml => @author.to_xml }
