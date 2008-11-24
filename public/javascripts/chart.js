@@ -1,11 +1,15 @@
 var RemotePieChart = Class.create({
-  initialize: function(elm, url){
+  initialize: function(elm, url, readyCallback){
     if (!$(elm) || url == "") return;
+    if (!readyCallback)
+      readyCallback = K();
     new Ajax.Request(url, {method: "get", onSuccess: function(response){
-      new Proto.Chart(elm, response.responseJSON,
+      this.chart = new Proto.Chart(elm, response.responseJSON,
       	{pies: {show: true, radius: 80, autoScale: false}, legend: {show: true, noColumns: 3, container:"chart-legend"}});
+      readyCallback(this.chart);
     }});
   },
+  
 })
 
 
@@ -35,8 +39,23 @@ var RemoteBreakdownPlayChart = Class.create({
   },
 })
 
+var ACGamePage = Class.create({
+  initialize: function(){
+    this.targetChart = new RemotePieChart("ac_games_piechart", "/account_games/group.json", this.colorizeLabel.bind(this)); 
+  },
+  
+  colorizeLabel: function(chart){
+    labels = chart.getLabels();
+    labels.each(function(label){
+      css = label.label.toLowerCase().gsub(/\s+/, "_");
+      $$("div.#{target}".interpolate({target: css })).invoke("writeAttribute", {style: "background-color: #{color};".interpolate({color: label.color})});
+      
+    })
+  },
+})
+
 document.observe("dom:loaded", function() {
-  new RemotePieChart("ac_games_piechart", "/account_games/group.json");
+  new ACGamePage();
   new RemotePieChart("parties_piechart", "/parties/group.json");
   new RemoteBreakdownPlayChart("breakdown-play", "/parties/breakdown.json")
   

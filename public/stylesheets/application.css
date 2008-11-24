@@ -631,13 +631,15 @@ li.roweven {
   color: #fff;
 }
 
-a.tag{
+a.tag,
+div.tag{
   -moz-border-radius: 17px;
   -webkit-border-radius: 8px;
   padding: 0 6px;
   background-color: #EEEEEE;
   border: 1px solid #DDDDDD;
   margin-right: 5px;
+  text-align: center;
 }
 
 a.tag:hover{

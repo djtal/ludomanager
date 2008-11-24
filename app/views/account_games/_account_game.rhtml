@@ -11,7 +11,7 @@
 
 	<% if mode == :overview %>
 	  <td><%= render :partial => "status_form", :locals => {:status_form => account_game} %></td>
-	  <td><%= account_game.origin %></td>
+	  <td><div class="tag <%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></div></td>
 		
 		
 		<td><span class="function">

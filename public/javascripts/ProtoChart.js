@@ -2592,7 +2592,14 @@ Proto.Chart = Class.create({
 
 		return new Proto.Color(100,100,100, 1);
 					
-	}		
+	},
+	
+	getLabels: function(){
+	    return this.graphData.inject($A(), function(acc, gd){
+	       acc.push({label: gd.label, color: gd.color});
+	       return acc;
+	    });
+	},
 });
 
 if(!Proto) var Proto = {};
