@@ -48,7 +48,7 @@ var ACGamePage = Class.create({
     labels = chart.getLabels();
     labels.each(function(label){
       css = label.label.toLowerCase().gsub(/\s+/, "_");
-      $$("div.#{target}".interpolate({target: css })).invoke("writeAttribute", {style: "background-color: #{color};".interpolate({color: label.color})});
+      $$("strong.#{target}".interpolate({target: css })).invoke("writeAttribute", {style: "color: #{color};".interpolate({color: label.color})});
       
     })
   },

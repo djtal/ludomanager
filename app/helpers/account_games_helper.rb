@@ -35,9 +35,9 @@ module AccountGamesHelper
                           :class => account_game.shield ? "ss_sprite  ss_shield " : "")
   end
   
-  def link_to_game(a)
+  def link_to_game(a, url)
     css = a.recenty_acquired? ? "bold" : ""
-    link_to a.game.name, game_path(a.game), :class => css
+    link_to a.game.name, url, :class => css
     
   end
   

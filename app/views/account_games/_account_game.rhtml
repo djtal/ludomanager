@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(account_game) %>">
 	<td><%= status_indicator account_game %></td>
-	<td><%= link_to account_game.game.name, breakdown_parties_path(:game_id => account_game.game.id) %></td>
+	<td><%= link_to_game account_game, breakdown_parties_path(:game_id => account_game.game.id) %></td>
 	
 	<% if mode == :full %>
     <td><%= selectable_tag_list account_game.game %></td>
@@ -11,7 +11,7 @@
 
 	<% if mode == :overview %>
 	  <td><%= render :partial => "status_form", :locals => {:status_form => account_game} %></td>
-	  <td><div class="tag <%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></div></td>
+	  <td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
 		
 		
 		<td><span class="function">
