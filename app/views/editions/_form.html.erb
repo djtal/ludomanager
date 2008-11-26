@@ -5,8 +5,8 @@
 <span class="tips">Seullement si le nom est different de celui de la fiche.</span><br />
 <%= form.text_field :name %></p>
 
-<p><%= form.label :lang, "Langue" %><br />
-<%= form.select :lang, Edition::Lang %></p>
+<p><%= form.label :lang, "Pays" %><br />
+<%= form.select :lang, Ludomanager::COUNTRIES %></p>
 
 
 <p><%= form.label :published_at, "Date de parution" %><br />

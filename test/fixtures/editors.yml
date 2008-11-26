@@ -14,12 +14,16 @@
 
 dow:
   name: Days of Wonder
-
+  lang: fr
+  
 ystari:
   name: Ystari
+  lang: fr
   
 filosofia:
   name: Filosofia
-
+  lang: fr
+  
 2fspiel:
-  name : 2F Spiele
+  name: 2F Spiele
+  lang: de

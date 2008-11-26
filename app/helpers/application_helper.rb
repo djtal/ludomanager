@@ -60,25 +60,7 @@ module ApplicationHelper
         :size => "16x16",
         :class => "flag"
       }.merge(opts)
-      image = case lang
-      when "fr"
-        "France.png"
-      when "en"
-        "United-States.png"
-      when "de"
-        "Germany.png"
-      when "it"
-        "Italy.png"
-      when "es"
-        "Spain.png"
-      when "ru"
-        "Russia.png"
-      when "cz"
-        "Czech-Republic.png"
-      when "multi"
-        "Multi.png"
-      end
-      image_tag("flag/#{image}",options) unless image.blank?
+      image_tag("flag/#{lang}.png",options) if lang
     end
     
     def submit_or_back_to(back_to, back_to_text = "Annuler", opts = {})

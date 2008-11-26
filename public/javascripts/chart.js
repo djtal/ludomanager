@@ -2,7 +2,7 @@ var RemotePieChart = Class.create({
   initialize: function(elm, url, readyCallback){
     if (!$(elm) || url == "") return;
     if (!readyCallback)
-      readyCallback = K();
+      readyCallback = Prototype.K();
     new Ajax.Request(url, {method: "get", onSuccess: function(response){
       this.chart = new Proto.Chart(elm, response.responseJSON,
       	{pies: {show: true, radius: 80, autoScale: false}, legend: {show: true, noColumns: 3, container:"chart-legend"}});

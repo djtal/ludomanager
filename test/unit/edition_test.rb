@@ -10,6 +10,14 @@ class EditionTest < ActiveSupport::TestCase
   end
 
 
+  def test_should_take_lang_from_editor_if_not_set
+    a =  clean_edition
+    assert_equal nil, a.lang
+    assert a.save
+    assert_equal a.lang, a.editor.lang
+  end
+
+
   def clean_edition(overrides = {})
     opts = {
       :game_id => games(:agricola).id,

@@ -10,7 +10,11 @@
 	<% end %>
 
 	<% if mode == :overview %>
-	  <td><%= render :partial => "status_form", :locals => {:status_form => account_game} %></td>
+	  <td>
+	    <div class="edit"><%= render :partial => "status_form", :locals => {:status_form => account_game} %></div>
+	    <div class="view">
+	    </div>
+	  </td>
 	  <td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
 		
 		

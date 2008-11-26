@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081115135948) do
+ActiveRecord::Schema.define(:version => 20081126174637) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(:version => 20081115135948) do
     t.boolean  "rules"
     t.boolean  "cheatsheet"
     t.integer  "edition_id"
-    t.string   "status"
   end
 
   create_table "accounts", :force => true do |t|
@@ -43,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20081115135948) do
     t.integer  "size",            :limit => 11
     t.integer  "width",           :limit => 11
     t.integer  "height",          :limit => 11
-    t.integer  "attachable_id"
+    t.integer  "attachable_id",   :limit => 11
     t.string   "attachable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -61,13 +60,17 @@ ActiveRecord::Schema.define(:version => 20081115135948) do
   end
 
   create_table "editions", :force => true do |t|
-    t.integer  "game_id"
-    t.integer  "editor_id"
+    t.integer  "game_id",          :limit => 11
+    t.integer  "editor_id",        :limit => 11
     t.text     "lang"
     t.text     "name"
     t.date     "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "box_file_name"
+    t.string   "box_content_type"
+    t.integer  "box_file_size"
+    t.datetime "box_updated_at"
   end
 
   create_table "editors", :force => true do |t|
@@ -75,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20081115135948) do
     t.text     "homepage"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "lang"
   end
 
   create_table "game_photos", :force => true do |t|
@@ -98,14 +102,14 @@ ActiveRecord::Schema.define(:version => 20081115135948) do
     t.datetime "updated_at"
     t.text     "url"
     t.float    "average",                     :default => 0.0
-    t.integer  "target",                      :default => 0
-    t.integer  "time_category",               :default => 0
+    t.integer  "target",        :limit => 11, :default => 0
+    t.integer  "time_category", :limit => 11, :default => 0
   end
 
   create_table "members", :force => true do |t|
     t.text     "name"
     t.text     "nickname"
-    t.integer  "account_id"
+    t.integer  "account_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "email"
@@ -118,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20081115135948) do
   end
 
   create_table "players", :force => true do |t|
-    t.integer  "party_id"
-    t.integer  "member_id"
+    t.integer  "party_id",   :limit => 11
+    t.integer  "member_id",  :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
