@@ -49,14 +49,16 @@ class EditionsController < ApplicationController
   def create
     @game = Game.find(params[:game_id])
     @edition = @game.editions.build(params[:edition])
-
     respond_to do |format|
       if @edition.save
         flash[:notice] = 'Edition was successfully created.'
         format.html { redirect_to(@game) }
         format.xml  { render :xml => @edition, :status => :created, :location => @edition }
       else
-        format.html { render :action => "new" }
+        format.html do
+          @editors = Editor.all(:order => "name ASC")
+          render :action => "new" 
+        end
         format.xml  { render :xml => @edition.errors, :status => :unprocessable_entity }
       end
     end
