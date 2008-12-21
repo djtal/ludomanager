@@ -3,8 +3,8 @@ class PlayersController < ApplicationController
   
   
   def new
-    @party = current_account.parties.find(params[:party_id])
-    @parties = current_account.parties.find_all_by_created_at(@party.created_at)
+    @party = current_account.parties.find(params[:party_id], :include => :game)
+    @parties = current_account.parties.find_all_by_created_at(@party.created_at, :include => [:players, :game])
   end
   
   def new_partial_form
@@ -15,8 +15,9 @@ class PlayersController < ApplicationController
   end
   
   def edit
-    @party = current_account.parties.find(params[:party_id])
-    @parties = current_account.parties.find_all_by_created_at(@party.created_at)
+    @party = current_account.parties.find(params[:party_id], :include => :game)
+    @game = @party.game
+    @parties = current_account.parties.find_all_by_created_at(@party.created_at, :include => [:players, :game])
   end
   
   def create

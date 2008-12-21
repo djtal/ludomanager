@@ -1,19 +1,22 @@
 <tr class="autohide" id="<%= dom_id(party_full) %>">
-  <td><%= game_box_for party_full.game %></td>
+  <td><%= game_box_for party_full.game, :class => "mini" %></td>
   <td>
-    <span class="right"><%= party_full.players.size %> / <%= pluralize(party_full.game.max_player, "joueur", "joueurs") %></span>
-    <strong><%= party_full.game.name %></strong>
-    <div class="players more">
+    <strong><%= party_full.game.name %></strong><br />
       <% if party_full.players.size > 0 %>
-        <%= party_full.members.map(&:display_name) * ", " %>
+        <span class="players more">
+          <%= party_full.members.map(&:display_name) * ", " %>
+        </span>
       <% else %>
-        <%= link_to "Ajoutez les joueurs", new_party_player_path(party_full) %>
+        <span class="empty">Vous n'avez pas saisie de joueurs pour cette partie.</span>
       <% end %>
-    </div>
   </td>
+  <td><%= party_full.players.size %> / <%= pluralize(party_full.game.max_player, "joueur", "joueurs") %></td>
   <td><div class="function">
-  <%= link_to "", edit_party_player_path(party_full),  :class => "ss_sprite ss_pencil"  %>&nbsp;|&nbsp;
-  <%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_bin"  %>
-  
+    <% if party_full.players.size > 0 %>
+      <%= link_to "", edit_party_player_path(party_full),  :class => "ss_sprite ss_group_edit"  %>|
+      <%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_group_delete"  %>
+    <% else %>
+      <%= link_to "", new_party_player_path(party_full), :class => "ss_sprite ss_group_add" %>
+    <% end %>
   </div></td>
 </tr>

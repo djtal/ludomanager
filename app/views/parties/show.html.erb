@@ -5,8 +5,10 @@
   <thead>
     <tr>
       <th class="span-1 nosort"></th>
-      <th class="span-16 nosort">Description</th>
-      <th class="span-3 last nosort">Administration</th>
+      <th class="span-15 nosort">Description</th>
+      <th class="span-2 nosort"><span class="ss_sprite ss_group">Joueurs</span></th>
+      <th class="span-2 last nosort">Gerer</th>
+      
     </tr>
   </thead>
   <tbody>
@@ -23,12 +25,16 @@
 
 
 <% content_for :newsbox do %>
-  <% render :layout => "layouts/widget", :locals => {:title => "Etaient present "} do %>
-    <ul class="strip">
-      <% @members.each do |member| %>
-        <li><%= member.display_name %></li>
-      <% end %>
-    </ul>
+  <% render_widget "Etaient present" do %>
+    <% if @members.size > 0 %>
+      <ul class="strip">
+        <% @members.each do |member| %>
+          <li><%= member.display_name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="empty">Vous n'avez pas encore saisies les joueurs sur les parties du <%= @date.to_s(:date_fr) %></p>
+    <% end %>
   <% end  %>
 <% end %>
 
