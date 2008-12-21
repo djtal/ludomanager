@@ -46,7 +46,7 @@ h4{
 .red{ color: red;}
 .orange{color: orange;}
 .green{color: green;}
-.orange a{ color: inherit;}
+.red{color: red;}
 .color a{ color: inherit; font-weight: bold;}
 
 .small,
@@ -727,6 +727,23 @@ ul#editions_list{
   margin: 7px 0 15px 0;
 }
 
+
+/* Legend */
+
+.legendColorBox{
+  border: 1px solid #ddd;
+  padding: 1px;
+  margin-right: 10px;
+}
+
+.legendColorBox div{
+  width: 14px; 
+  height: 10px;
+}
+
+.legendColorBox.orange div{ background-color: orange;}
+.legendColorBox.green div{ background-color: green;}
+.legendColorBox.red div{ background-color: red;}
 
 
 /* Pagination */

@@ -3,9 +3,8 @@
     <tbody>
         <% @games.each do |g| %>
           <tr>
-            <td><%= content_tag(:span, "&nbsp;", :class => "ss_sprite ss_star") if g[1] %></span></td>
-            <td><%= image_tag(g[0].image.public_filename, :size => "35x35")  if g[0].image %></td>
-            <td><%= link_to g[0].name, game_path(g[0]) %></td>
+            <td><%= game_box_for(g[0], :class => "mini") %></td>
+            <td><%= link_to g[0].name, game_path(g[0]), :class => g[1] ? " color red" : "" %></td>
             <td><%= g[2] %></td>
           </tr>
         <% end %>
@@ -13,5 +12,5 @@
   </table>			
 
 <% else %>
-    <p class="empty">Vous n'avez jouez a aucun nouveau ce mois ci.</p>
+    <p class="empty">Vous n'avez jouez a aucun jeux ce mois ci.</p>
 <% end %>
