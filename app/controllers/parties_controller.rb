@@ -110,7 +110,7 @@ class PartiesController < ApplicationController
     @previous = current_account.parties.find(:first, :conditions => ["created_at < ?", party.created_at], :order => "created_at DESC")
     @next = current_account.parties.find(:first, :conditions => ["created_at > ?", party.created_at], :order => "created_at ASC")
     @members = @parties.collect{|p| p.members}.flatten.uniq
-    @date = party.created_at
+    @date = party.created_at.to_date
   end
   
   def destroy
