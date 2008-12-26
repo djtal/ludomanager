@@ -27,7 +27,7 @@ module AccountGamesHelper
 
   def status_indicator(account_game)
     content_tag(:span, account_game.recenty_acquired? ? "" : "&nbsp;", 
-                          :class => account_game.recenty_acquired? ? "ss_star status ss_sprite" : "")
+                          :class => account_game.recenty_acquired? ? "ss_new ss_sprite" : "")
   end
   
   def shield_indicator(account_game)
