@@ -1,2 +1,0 @@
-page["parties"].insert(render :partial => "form")
-page << "pf.newFieldAutocomplete(\"party_game_#{session[:parties]}\", #{session[:parties]})"

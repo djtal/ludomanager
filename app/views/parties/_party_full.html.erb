@@ -1,4 +1,4 @@
-<tr class="autohide" id="<%= dom_id(party_full) %>">
+<tr id="<%= dom_id(party_full) %>">
   <td><%= game_box_for party_full.game, :class => "mini" %></td>
   <td>
     <strong><%= party_full.game.name %></strong><br />
@@ -10,13 +10,13 @@
         <span class="empty">Vous n'avez pas saisie de joueurs pour cette partie.</span>
       <% end %>
   </td>
-  <td><%= party_full.players.size %> / <%= pluralize(party_full.game.max_player, "joueur", "joueurs") %></td>
+  <td class="center"><%= party_full.players.size %> / <%= party_full.game.max_player %></td>
   <td><div class="function">
     <% if party_full.players.size > 0 %>
-      <%= link_to "", edit_party_player_path(party_full),  :class => "ss_sprite ss_group_edit"  %>|
-      <%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_group_delete"  %>
+      <%= link_to "", edit_party_player_path(party_full),  :class => "ss_sprite ss_group_edit"  %>
     <% else %>
       <%= link_to "", new_party_player_path(party_full), :class => "ss_sprite ss_group_add" %>
     <% end %>
+    |<%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_joystick_delete"  %>
   </div></td>
 </tr>

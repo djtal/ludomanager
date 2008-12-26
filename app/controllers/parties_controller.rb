@@ -57,27 +57,11 @@ class PartiesController < ApplicationController
   
   #use in main view ie not in calendar
   def create
-    @game = Game.find params[:game_id]
-    party = current_account.parties.build
-    party.game = @game
-    party.save
-    @account_games = current_account.games
-    @count = current_account.parties.count
-    @last_parties = current_account.parties.last(5)
-    @parties = Party.find(:all, :conditions => {:account_id => current_account.id, :game_id => @game.id})
-    respond_to do |format|
-      format.html{ redirect_to parties_path }
-      format.js
-    end  
-  end
-  
-  #used for playing a game in calendar context
-  # can be merged with create but how to differentiate render type taht are the same mime type
-  def play
     current_account.parties.create(params[:parties].values)
-    @date = params[:parties]["1"][:created_at].to_time
+    @date = params[:parties].values.first[:created_at].to_time
     @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
     @daily = @parties.select{|p| p.created_at.to_date == @date.to_date}
+    @count = @parties.size
     find_yours(@parties)
     find_played(@parties)
     respond_to do |format|
@@ -85,20 +69,18 @@ class PartiesController < ApplicationController
     end
   end
   
-  
-  def add_party_form
-    session[:parties] += 1
-    @party = Party.new(:created_at => session[:date])
+  #reder new partie widget in calendar sidebar
+  def new
+    @date = params[:date].to_date
+    @index = params[:index] || 1
+    @party = Party.new(:created_at => @date)
     respond_to do |format|
       format.js
     end
   end
   
-  def new
-    session[:parties] = 1
-    @date = Date.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i)
-    @party = Party.new(:created_at => @date)
-    session[:date] = @date
+  def add_party_form
+    @party = Party.new(:created_at => params[:date])
     respond_to do |format|
       format.js
     end

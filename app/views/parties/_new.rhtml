@@ -1,19 +1,15 @@
-<div class="widget">
-    <span class="right close link">X</span>
-    <h3>Vos parties du <%= @date.to_s(:date_fr) %></h3>
-    <div class="w-content">
-       <% remote_form_for :parties, @party, :url => play_parties_path , :html => {:id => "party-form"} do |f| %>
-            <strong>Jeu</strong><br />
-            <ul id="parties">
-              <%= render :partial => "form", :locals  => {:f => f} %>
-            </ul>
-            <div class="buttons clear">
-                <div class="right">
-                    <strong><span class="link" id="reset">Reset</span> ou <%= submit_tag "Jouer" %></strong>
-                </div>
-            </div>
-            
-        <% end %> 
-    </div>
-</div>    
-    
+<% render_widget "Ajouter des parties" do  %>
+  Le <%= @date.to_s(:date_fr) %> vous avez jouez a :
+  <% remote_form_for @party , :html => {:id => "party-form"} do |f| %>
+       <strong>Jeu</strong><br />
+       <ul id="parties">
+         <%= render :partial => "form", :locals  => {:f => f} %>
+       </ul>
+       <div class="buttons clear">
+           <div class="right">
+               <strong><span class="link" id="reset">Annuler</span> ou <%= submit_tag "Jouer" %></strong>
+           </div>
+       </div>
+       
+   <% end %>
+<% end %>

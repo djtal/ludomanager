@@ -1,0 +1,2 @@
+page["parties"].insert(render :partial => "form")
+page << "pf.updateDataField();"

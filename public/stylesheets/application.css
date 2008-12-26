@@ -59,7 +59,6 @@ td, th{vertical-align:middle;}
 
 .calendar td,
 .calendar th{
-  text-align: left;
   vertical-align: top;
 }
 
@@ -530,19 +529,8 @@ ul#accounts li{
 	font-variant: small-caps;
 }
 
-.extended{
-    position: absolute;
-    background-color: #fff;
-}
-
-ul.function{
-    list-style: none;
-}
-
-ul.function li{
-    float: left;
-    padding: 0 2px;
-    margin-top: 5px;
+.function{
+  text-align: center;
 }
 
 /* Widget Styles */

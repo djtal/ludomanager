@@ -147,22 +147,22 @@ var PartyForm = Class.create();
 PartyForm.addMethods({
   initialize: function(form){
     if(!$(form) && !$("party_game"))
-    return;
+      return;
     this.form = $(form);
-    this.detect_game_fields();
+    this.data_fields = $H();
     Widget.prototype.closeWidget = Widget.prototype.closeWidget.wrap(function(proceed){
       Calendar.clearAll();
       proceed();
     });
     this.widget = new Widget(this.form.up(".widget"));
     new Ajax.Request("/games.json", {method: "get", onSuccess: this.loadGames.bind(this)}); 
-    $("reset").observe("click", this.clearForm.bindAsEventListener(this));
+    $("reset").observe("click", this.close.bindAsEventListener(this));
   },
   
-  detect_game_fields: function(){
-    this.games_name = this.form.select(".party_game_name");
-    this.games_id = this.form.select(".party_game_id");
-    this.parties_li = $("parties").select("li.party")
+  updateDataField: function(){
+    this.form.select(".party_game_name").each(function(field){
+      this.newFieldAutocomplete(field);
+    }.bind(this));
   },
 
   loadGames: function(response){
@@ -170,29 +170,27 @@ PartyForm.addMethods({
       acc.set(game.name, game.id);
       return acc;
     });
-    this.addAutocomplete();
-  },
-
-  addAutocomplete: function(){
-    this.games_name.each(function(field, index){
-        this.newFieldAutocomplete(field, index + 1);
-    }.bind(this));
-
+    this.updateDataField();
   },
     
-  newFieldAutocomplete: function(field, index){
-      field_ac = "#{field_id}_auto_complete".interpolate({field_id: $(field).id})
-      new Autocompleter.Local(field, field_ac, this.games.keys(), 
+  newFieldAutocomplete: function(field){
+    txts = this.data_fields.keys(); 
+    if (!txts.include(field.id)){
+      ac = new Autocompleter.Local(field, field.next("div.auto_complete"), this.games.keys(), 
                             {fullSearch: true, frequency: 0, minChars: 1,
-                              afterUpdateElement: this.updateForm.bind(this, field, index )});
-      $(field).up("li").down(".remove_game").observe("click", this.removeGame.bindAsEventListener(this))
-      this.detect_game_fields();
-      $(field).focus();
-    },
+                              afterUpdateElement: this.updateForm.bind(this)});
+      if (ac){
+        this.data_fields.set(field.id, field.next("input.party_game_id"));
+        $(field).up("li").down(".remove_game").observe("click", this.removeGame.bindAsEventListener(this));
+        $(field).focus();
+      }
+    }
+  },
 
-  updateForm: function(elt, index){
-      field_id = "parties_#{field_id}_game_id".interpolate({field_id: index})
-      $(field_id).value = this.games.get($F(elt));
+  updateForm: function(elt){
+      game_id_input = this.data_fields.get(elt.id)
+      if (game_id_input)
+        game_id_input.value = this.games.get($F(elt));
   },
   
   removeGame: function(ev){
@@ -479,7 +477,6 @@ document.observe("dom:loaded", function() {
   
   Sidebar.load();
   Calendar.load();
-  pf = new PartyForm("party-form");
   $$("a.more").each(function(elt){
     BMore.attach(elt);
   });

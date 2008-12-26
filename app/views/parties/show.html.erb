@@ -5,9 +5,9 @@
   <thead>
     <tr>
       <th class="span-1 nosort"></th>
-      <th class="span-15 nosort">Description</th>
+      <th class="span-14 nosort">Description</th>
       <th class="span-2 nosort"><span class="ss_sprite ss_group">Joueurs</span></th>
-      <th class="span-2 last nosort">Gerer</th>
+      <th class="span-2 last nosort center">Gerer</th>
       
     </tr>
   </thead>
@@ -17,9 +17,9 @@
 </table>
 
 <div class="pagination">
-  <%= @previous ? link_to("Precedentes", party_path(@previous)) : "<span class='disable'>Precedentes</span>" %>&nbsp;|&nbsp;
+  <%= @previous ? link_to("Precedentes", party_path(@previous)) : "<span class='disabled'>Precedentes</span>" %>&nbsp;|&nbsp;
   <%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>&nbsp;|&nbsp;
-  <%= @next ? link_to("Suivantes", party_path(@next)) : "<span class='disable'>Suivantes</span>" %>
+  <%= @next ? link_to("Suivantes", party_path(@next)) : "<span class='disabled'>Suivantes</span>" %>
 </div>
 
 

@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
   map.resources :parties, 
-                :collection => {:play => :post, :add_party_form => :get, :group => :get, :breakdown => :get},
+                :collection => {:add_party_form => :get, :group => :get, :breakdown => :get},
                 :has_many => :players
   
   map.resources :accounts, :authors, :smart_lists, :editions
