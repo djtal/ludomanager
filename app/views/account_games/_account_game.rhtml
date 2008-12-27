@@ -1,5 +1,5 @@
 <tr id="<%= dom_id(account_game) %>">
-	<td><%= status_indicator account_game %></td>
+	<td class="center"><%= status_indicator account_game %></td>
 	<td><%= link_to_game account_game, breakdown_parties_path(:game_id => account_game.game.id) %></td>
 	
 	<% if mode == :full %>

@@ -5,6 +5,6 @@ module PartiesHelper
  end
  
  def  account_game_status_for(game)
-   image_tag("modified.png", :size => "16x16") if account_have_game?(game)
+   content_tag(:span, "", :class => "ss_sprite ss_flag_green") if account_have_game?(game)
  end
 end
