@@ -6,17 +6,16 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-    query = {
+    opts = {
+      :include => :game,
+      :order => "games.name ASC",
       :page => params[:page]
     }
-    if params[:smart_list] && params[:smart_list][:id]
-      @smart_lists = current_account.smart_lists
-      @smart = @smart_lists.find(params[:smart_list][:id]) 
-      query[:search] = @smart.query
+    if params[:start]
+      cdn = ["LOWER(games.name) LIKE ?", params[:start].downcase + "%"]
+      opts.merge!({:conditions => cdn}) 
     end
-     
-    @account_games = current_account.account_games.search(query)
-    @smart_lists = current_account.smart_lists
+    @account_games = current_account.account_games.paginate(opts)
     respond_to do |format|
       format.html # index.rhtml
       format.js

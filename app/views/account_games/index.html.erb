@@ -1,10 +1,18 @@
-<h3>Votre ludotheque</h3>
+<h3>Vos jeux de A a Z</h3>
+
+<div class="pagination clear">
+    <span><%= link_to "Tous", account_games_path %></span>
+    <% ("A".."Z").each do |letter| %>
+      <span class="<%= params[:start] && params[:start].downcase == letter.downcase ? "current" : "" %>"><%= link_to letter, account_games_path(:start => letter) %></span>
+    <% end %>
+</div>
 
 <div id="account_games_list">
   <%= render_games @account_games, :mode => :overview, :id => "account_games_table" %>
 </div>
 
-<%= will_paginate @account_game %>
+<%= will_paginate @accout_games %>
+
 
 
 <% content_for :newsbox do %>
@@ -26,7 +34,6 @@
     </div>
     <div id="chart-legend"></div>
   <% end %>
-  <%= render :partial => "smart_lists/widget" %>
   
 
 <% end %>
