@@ -35,17 +35,6 @@ module AccountGamesHelper
                           :class => account_game.parties_count == 0 ? "ss_sprite ss_exclamation" : "")
   end
   
-  def shield_indicator(account_game)
-    content_tag(:span, "&nbsp;", 
-                          :class => account_game.shield ? "ss_sprite  ss_shield " : "")
-  end
-  
-  def link_to_game(a, url)
-    css = a.recenty_acquired? ? "bold" : ""
-    link_to a.game.name, url, :class => css
-    
-  end
-  
   def highlighted_tag_list(game)
       search_tags = @tag_list ? @tag_list : []
       game.tags.collect{|t| search_tags.include?(t.name) ? content_tag(:strong, t.name) : t.name}.join(", ")
