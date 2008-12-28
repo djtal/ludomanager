@@ -16,6 +16,9 @@ class AccountGamesController < ApplicationController
       opts.merge!({:conditions => cdn}) 
     end
     @account_games = current_account.account_games.paginate(opts)
+    ["recent", "no_played", "all"].each do |var|
+      eval("@#{var}=#{current_account.account_games.send(var).size}")
+    end
     respond_to do |format|
       format.html # index.rhtml
       format.js

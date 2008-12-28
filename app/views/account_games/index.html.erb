@@ -1,7 +1,7 @@
 <h3>Vos jeux de A a Z</h3>
 
 <div class="pagination clear">
-    <span><%= link_to "Tous", account_games_path %></span>
+  <span><%= link_to "Tous", account_games_path %></span>
     <% ("A".."Z").each do |letter| %>
       <span class="<%= params[:start] && params[:start].downcase == letter.downcase ? "current" : "" %>"><%= link_to letter, account_games_path(:start => letter) %></span>
     <% end %>
@@ -33,6 +33,11 @@
       
     </div>
     <div id="chart-legend"></div>
+    <ul>
+      <li><span class="ss_sprite ss_folder">Total : <span class="empty"><%= @all %></span></li>
+      <li><span class="ss_sprite ss_new"></span>Recement ajout&eacute : <span class="empty"><%= @recent %></span></li>
+      <li><span class="ss_sprite ss_exclamation">Non jou&eacute : <span class="empty"><%= @no_played %></span></li>
+    </ul>
   <% end %>
   
 

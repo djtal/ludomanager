@@ -1,5 +1,5 @@
 <tr id="<%= dom_id(account_game) %>">
-	<td class="center"><%= status_indicator account_game %></td>
+	<td class="center"><%= status_indicator account_game %><%= parties_indicator account_game %></td>
 	<td><%= link_to_game account_game, breakdown_parties_path(:game_id => account_game.game.id) %></td>
 	
 	<% if mode == :full %>
@@ -11,9 +11,7 @@
 
 	<% if mode == :overview %>
 	  <td>
-	    <div class="edit"><%= render :partial => "status_form", :locals => {:status_form => account_game} %></div>
-	    <div class="view">
-	    </div>
+
 	  </td>
 	  <td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
 		
@@ -22,6 +20,6 @@
 			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_page_white_edit" %>
 			<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, {:class => "ss_sprite ss_page_white_delete"} %>
 		</span></td>
-		<td><div class="round"><%= account_game.parties_count %></div></td>
+		<td><div class="round <%= account_game.parties_count == 0 ? "orange" : "" %>"><%= account_game.parties_count %></div></td>
 	<% end %>
 </tr>

@@ -49,6 +49,10 @@ h4{
 .red{color: red;}
 .color a{ color: inherit; font-weight: bold;}
 
+div.round.orange{
+  background-color: orange;
+}
+
 .small,
 .small a{
   color: #666;

@@ -30,6 +30,11 @@ module AccountGamesHelper
                           :class => account_game.recenty_acquired? ? "ss_new ss_sprite" : "")
   end
   
+  def parties_indicator(account_game)
+    content_tag(:span, account_game.parties_count == 0 ? "" : "&nbsp;", 
+                          :class => account_game.parties_count == 0 ? "ss_sprite ss_exclamation" : "")
+  end
+  
   def shield_indicator(account_game)
     content_tag(:span, "&nbsp;", 
                           :class => account_game.shield ? "ss_sprite  ss_shield " : "")
