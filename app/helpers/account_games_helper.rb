@@ -31,8 +31,8 @@ module AccountGamesHelper
   end
   
   def parties_indicator(account_game)
-    content_tag(:span, account_game.parties_count == 0 ? "" : "&nbsp;", 
-                          :class => account_game.parties_count == 0 ? "ss_sprite ss_exclamation" : "")
+    content_tag(:span, !account_game.played? ? "" : "&nbsp;", 
+                          :class => !account_game.played? ? "ss_sprite ss_exclamation" : "")
   end
   
   def highlighted_tag_list(game)

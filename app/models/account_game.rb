@@ -24,7 +24,7 @@ class AccountGame < ActiveRecord::Base
   belongs_to :account
   before_create :setup_default
   #need to play with named_scope
-  named_scope :recent, lambda { { :conditions => ['created_at > ?', 2.month.ago] } }
+  named_scope :recent, lambda { { :conditions => ['created_at > ?', 3.month.ago] } }
   named_scope :no_played, :conditions => {:parties_count => 0}
   
   cattr_reader :per_page
@@ -86,6 +86,10 @@ class AccountGame < ActiveRecord::Base
   
   def recenty_acquired?
     return self.transdate > 3.month.ago
+  end
+  
+  def played?
+    parties_count > 0
   end
   
   def parties_played_count
