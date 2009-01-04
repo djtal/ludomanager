@@ -48,9 +48,16 @@ class PartiesController < ApplicationController
     @date = Time.now
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
     @date = @date.to_time
+    @prev_date = @date - 1.month - 1.day
+    @next_date = @date + 1.month - 1.day
     @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
     @count = @parties.size
     @days = @parties.group_by{ |p| p.created_at.mday}
+    #need to group by game to reduce number of line in calendar
+    @days = @days.inject({}) do |acc, data|
+      acc[data[0]] = data[1]  ? data[1].group_by{|p| p.game} : {}
+      acc
+    end
     find_played(@parties)
     find_yours(@parties)
   end
