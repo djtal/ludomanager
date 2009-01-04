@@ -26,4 +26,12 @@ class Member < ActiveRecord::Base
   def display_name
     "#{name} - #{nickname}"
   end
+  
+  def last_play_date
+    parties.find(:first, :select => "parties.created_at", :order => "parties.created_at DESC").created_at.to_date
+  end
+  
+  def played_game
+    parties.count(:all, :group => :game)
+  end
 end
