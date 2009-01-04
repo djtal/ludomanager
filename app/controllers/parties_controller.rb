@@ -25,7 +25,6 @@ class PartiesController < ApplicationController
     @game = Game.find(params[:game_id])
     @parties = current_account.parties.find_all_by_game_id(@game.id, :order => "created_at ASC")
     @yearly = @parties.group_by{|p| p.created_at.year}
-    
 
     respond_to do |format|
       format.html

@@ -10,7 +10,7 @@
 			:next_month_text => link_to("Suivant", parties_resume_path(:date => [@next_date.month, @next_date.year]), :class => "right")) do |d|
 	
 	if (d.month == @date.month)
-		[render(:partial => "calendar_parties", :locals => {:parties => @days[d.mday], :date => d}), {:class => "day", :id => "day_#{d.mday}"}]
+		[render(:partial => "calendar_cell", :locals => {:parties => @days[d.mday], :date => d}), {:class => "day", :id => "day_#{d.mday}"}]
 
 	end
 
