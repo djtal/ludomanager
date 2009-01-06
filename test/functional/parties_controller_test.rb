@@ -13,7 +13,7 @@ class PartiesControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
   end
   
-  def test_play_should_create_multiple_parties_at_once
+  def test_create_should_handle_multiple_parties_at_once
     login_as :quentin
     data = {}
     data["parties"] = {
@@ -21,7 +21,7 @@ class PartiesControllerTest < Test::Unit::TestCase
       "2"=>{"game_id"=>games(:coloreto).id, "created_at"=>"2008-04-04"}
     }
     assert_difference "Party.count", 2 do
-      post "play", data
+      post "create", data
       assert_response :success
       assert_template "play"
       assert_equal("2008-04-04".to_time, assigns(:date), "Cannot find @date")
@@ -29,12 +29,12 @@ class PartiesControllerTest < Test::Unit::TestCase
     end
   end
   
-  def test_play_should_create_one_party
+  def test_create_should_handle_one_party
     login_as :quentin
     data = {}
     data["parties"] = {"1"=>{"game_id"=>games(:coloreto).id, "created_at"=>"2008-04-04"}}
     assert_difference "Party.count", 1 do
-      post "play", data
+      post "create", data
       assert_response :success
       assert_template "play"
       assert_equal("2008-04-04".to_time, assigns(:date), "Cannot find @date")
