@@ -23,7 +23,7 @@ class PartiesControllerTest < Test::Unit::TestCase
     assert_difference "Party.count", 2 do
       post "create", data
       assert_response :success
-      assert_template "play"
+      assert_template "create"
       assert_equal("2008-04-04".to_time, assigns(:date), "Cannot find @date")
       assert_equal(2, assigns(:parties).size, "Cannot find @parties")
     end
@@ -36,7 +36,7 @@ class PartiesControllerTest < Test::Unit::TestCase
     assert_difference "Party.count", 1 do
       post "create", data
       assert_response :success
-      assert_template "play"
+      assert_template "create"
       assert_equal("2008-04-04".to_time, assigns(:date), "Cannot find @date")
       assert_equal(1, assigns(:parties).size, "Cannot find @parties")
     end

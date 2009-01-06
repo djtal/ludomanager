@@ -66,7 +66,7 @@ class PartiesController < ApplicationController
     current_account.parties.create(params[:parties].values)
     @date = params[:parties].values.first[:created_at].to_time
     @parties = current_account.parties.find_by_month(@date, :include => [:game => :image])
-    @daily = @parties.select{|p| p.created_at.to_date == @date.to_date}
+    @daily = @parties.select{|p| p.created_at.to_date == @date.to_date}.group_by(&:game)
     @count = @parties.size
     find_yours(@parties)
     find_played(@parties)
