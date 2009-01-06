@@ -12,6 +12,7 @@
 
 class Editor < ActiveRecord::Base
   validates_uniqueness_of :name
+  validates_inclusion_of :lang, :in => ::Ludomanager::ISOCODES, :allow_nil => true, :allow_blank => true
   
   has_one :logo, :as => :attachable, :class_name => "Asset"
   has_many :editions
