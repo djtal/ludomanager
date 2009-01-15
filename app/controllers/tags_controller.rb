@@ -2,6 +2,7 @@ class TagsController < ApplicationController
   def index
     @cloud = Tagging.count(:id, :group => :tag, :order => "count_id DESC",
                             :conditions => ["taggings.taggable_type = ?", Game.acts_as_taggable_options[:taggable_type]])
+    @cloud = @cloud.to_a.paginate(:page => params[:page])
   end
   
   def lookup
