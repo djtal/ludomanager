@@ -10,4 +10,4 @@
 
 
 <p><%= form.label :published_at, "Date de parution" %><br />
-<%= form.date_select :published_at, :start_year => 1960, :default => Time.now, :discard_day => true %></p>
+<%= form.date_select :published_at, :start_year => 1960, :default => Time.now, :discard_day => true, :discard_month => true %></p>
