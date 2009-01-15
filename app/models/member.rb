@@ -28,7 +28,8 @@ class Member < ActiveRecord::Base
   end
   
   def last_play_date
-    parties.find(:first, :select => "parties.created_at", :order => "parties.created_at DESC").created_at.to_date
+    last_play = parties.find(:first, :select => "parties.created_at", :order => "parties.created_at DESC")
+    last_play.created_at.to_date if last_play
   end
   
   def played_game
