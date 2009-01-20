@@ -43,6 +43,14 @@ class PartiesController < ApplicationController
     end
   end
   
+  def most_played
+    year = params[:year] || nil
+    @most_played = current_account.parties.most_played(5, year)
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def resume
     @date = Time.now
     @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2

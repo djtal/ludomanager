@@ -1,3 +1,8 @@
+<ul class="horizontal">
+  <% ((Time.now.year - 3)..(Time.now.year)).each do |year| %>
+    <%= link_to_remote year, :url => most_played_parties_path(:year => year) %>
+  <% end %>
+</ul>
 <% if @most_played.size > 0 %>
 	<ul class="strip">
 		<% @most_played.each do |game, count| %>

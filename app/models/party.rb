@@ -49,8 +49,36 @@ class Party < ActiveRecord::Base
     find(:all, options)
   end
   
-  def self.most_played(count)
-    calculate(:count, :id, :group => :game, :order => "count_id DESC", :limit => count)
+  def self.most_played(count, year = nil)
+    opts = {
+      :group => :game,
+      :order => "count_id DESC",
+      :limit => count
+    }
+    if year != nil && year.to_i > 0
+      
+      start_date = Time.now.in((year.to_i - Time.now.year).year).beginning_of_year
+      end_date = start_date.end_of_year
+      opts[:conditions] = ["parties.created_at BETWEEN ? AND ?", start_date, end_date]
+    end
+    calculate(:count, :id, opts)
+  end
+  
+  def self.parties_for(year = nil)
+    opts = {
+      #:group => :game,
+      #:order => "count_id DESC",
+      :limit => count
+    }
+    
+    if year != nil && year.to_i > 0
+      
+      start_date = Time.now.in((year.to_i - Time.now.year).year).beginning_of_year
+      end_date = start_date.end_of_year
+      logger.debug { "start #{start_date} end #{end_date}" }
+      opts[:conditions] = ["parties.created_at BETWEEN ? AND ?", start_date, end_date]
+    end
+    find(:all, opts)
   end
   
   def members

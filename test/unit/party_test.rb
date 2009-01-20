@@ -48,10 +48,10 @@ class PartyTest < Test::Unit::TestCase
     assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
   end
 
-
-  def test_find_by_month_should_find_all_parties_for_one_month
+  def test_most_played_should_work_with_year
     
   end
+  
   
   private
   

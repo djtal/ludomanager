@@ -2,9 +2,10 @@
 module ApplicationHelper
 
   def render_widget(title, opts = {}, &block)
+    html_opts = opts.delete(:html) || {}
     options = {
       :layout => "layouts/widget",
-      :locals => {:title => title}
+      :locals => {:title => title, :html_opts => html_opts}
     }.merge(opts)
     render options, &block
   end
