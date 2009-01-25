@@ -44,8 +44,8 @@ class PartiesController < ApplicationController
   end
   
   def most_played
-    year = params[:year] || nil
-    @most_played = current_account.parties.most_played(5, year)
+    @year = params[:year] || nil
+    @most_played = current_account.parties.most_played(5, @year)
     respond_to do |format|
       format.js
     end

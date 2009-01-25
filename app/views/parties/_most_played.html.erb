@@ -1,7 +1,8 @@
-<ul class="horizontal">
+<ul id="years" class="clear">
   <% ((Time.now.year - 3)..(Time.now.year)).each do |year| %>
-    <%= link_to_remote year, :url => most_played_parties_path(:year => year) %>
+    <li class="tabs flat <%= "active" if @year.to_s == year.to_s %>"><%= link_to_remote year, :url => most_played_parties_path(:year => year) %></li>
   <% end %>
+  <li class="tabs flat <%= "active" unless @year %>"><%= link_to_remote "Toutes", :url => most_played_parties_path() %></li>
 </ul>
 <% if @most_played.size > 0 %>
 	<ul class="strip">

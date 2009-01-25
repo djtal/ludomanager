@@ -677,6 +677,9 @@ input#smart_list_title {
 	font-weight: bold;
 }
 
+#years{ margin-bottom: 10px;  margin-left:auto; margin-right: auto; width: 210px;}
+
+
 
 /* Tabs */
 
@@ -711,6 +714,26 @@ li.tabs a{
 .tabsBody{
   margin-top: 10px;
 }
+
+
+/* Flat Tabs */
+ul.tabs.flat{
+  border-collaspse: collapse;
+}
+
+li.tabs.flat{
+  background-color: #EEEEEE;
+  float: left;
+  list-style-type: none;
+  border-top: solid 1px #6CAB54;
+  border-left: solid 1px #6CAB54;
+  border-right: solid 1px #6CAB54;
+  border-bottom: solid 1px #6CAB54;
+  padding: 3px 5px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
 
 /* Editions */
 
