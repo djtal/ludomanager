@@ -1,4 +1,7 @@
 module GamesHelper
+  
+  
+  
   def nb_player_tag(game)
     if game.min_player < game.max_player
       "<span class=\"flash\">" + game.min_player.to_s + "</span> a <span class=\"flash\">" + pluralize(game.max_player, "</span>joueur", "</span>joueurs")

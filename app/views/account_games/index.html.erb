@@ -3,7 +3,7 @@
 <div class="pagination clear">
   <span><%= link_to "Tous", account_games_path %></span>
     <% ("A".."Z").each do |letter| %>
-      <span class="<%= params[:start] && params[:start].downcase == letter.downcase ? "current" : "" %>"><%= link_to letter, account_games_path(:start => letter) %></span>
+      <%= tag_for_letter letter %>
     <% end %>
 </div>
 

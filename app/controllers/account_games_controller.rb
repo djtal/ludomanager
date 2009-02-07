@@ -15,6 +15,10 @@ class AccountGamesController < ApplicationController
       cdn = ["LOWER(games.name) LIKE ?", params[:start].downcase + "%"]
       opts.merge!({:conditions => cdn}) 
     end
+    #need to know wich letter have games or not
+    games = current_account.games.group_by{ |g| g.name.first.downcase}
+    @first_letters = games.keys
+    
     @account_games = current_account.account_games.paginate(opts)
     ["recent", "no_played", "all"].each do |var|
       eval("@#{var}=#{current_account.account_games.send(var).size}")
