@@ -25,3 +25,13 @@
 </div>
 
 
+<% content_for :newsbox do %>
+  <% render_widget "Ils y ont joué" do %>
+    <ul class="strip">
+      <% @members.each do |p| %>
+        <li><%= p.display_name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+<% end %>

@@ -23,9 +23,11 @@ class PartiesController < ApplicationController
   
   def breakdown
     @game = Game.find(params[:game_id])
-    @parties = current_account.parties.find_all_by_game_id(@game.id, :order => "created_at ASC")
+    @parties = current_account.parties.find_all_by_game_id(@game.id, :order => "created_at ASC", :include => {:players => :member})
     @yearly = @parties.group_by{|p| p.created_at.year}
-
+    # grab all player for the game
+    @members = @parties.map(&:players).flatten.map(&:member).uniq
+    
     respond_to do |format|
       format.html
       format.json do
