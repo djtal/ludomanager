@@ -2,7 +2,7 @@ class MembersController < ApplicationController
   before_filter :login_required
   
   def index
-    @members = current_account.members.find(:all, :include => :players)
+    @members = current_account.members.find(:all, :include => :players, :order => "members.name ASC")
     respond_to do |format|
       format.html
       format.json{render :json => @members}

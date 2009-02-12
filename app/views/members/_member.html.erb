@@ -1,7 +1,7 @@
 <tr id="<%= dom_id member %>" class="autohide">
   <td><%= member.name %></td>
   <td><%= member.nickname %></td>
-  <td></td>
+  <td><%= member.active? ? "<em>active</em>" : "" %></td>
   <td><%= member.last_play_date ? member.last_play_date.to_s(:date_fr) : "--" %></td>
   <td><div class="round"><%= member.players.size %></div></td>
   <td><%= member.played_game.size %></td>

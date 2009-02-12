@@ -32,6 +32,10 @@ class Member < ActiveRecord::Base
     last_play.created_at.to_date if last_play
   end
   
+  def active?
+    players.find(:first, :conditions => {:created_at => (1.year.ago..Time.now)})
+  end
+  
   def played_game
     parties.count(:all, :group => :game)
   end
