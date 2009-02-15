@@ -1,0 +1,1 @@
+page["top"].replace(render_widget("Top 5", :partial => "parties/most_played", :html => {:id => "top"}))
