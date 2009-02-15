@@ -27,7 +27,7 @@
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
-    <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
+    <% render_widget "Administration" do %>
       <ul>
     		<li><%= link_to "Ajouter un auteur", new_author_path, :class => "ss_sprite ss_page_white_add" %></li>
     	</ul>

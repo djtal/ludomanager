@@ -27,7 +27,7 @@
 	
 	<div class="column last span-7" id="innernews">
 		<%= yield :newsbox %>
-	  <% render :layout => "layouts/widget", :locals => {:title => "A vous de jouer"} do %>
+	  <% render_widget "A vous de jouer" do %>
 	    Vous aussi gerez votre ludotheque grace a ludomanager. Pour cela enregistrez vous des maintenant.
 	    <%= link_to "A vous de jouez", signup_path %>...
 	  <% end unless logged_in? %>
