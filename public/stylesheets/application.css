@@ -623,6 +623,20 @@ li.roweven {
   color: #fff;
 }
 
+.count .round{
+  border: 1px solid #DDDDDD;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 4px;
+  background-color: inherit;
+  color: #000;
+  font-weight: normal;
+  padding:0;
+}
+
+.round.empty{
+  background-color: yellow;
+}
+
 a.tag,
 div.tag{
   -moz-border-radius: 17px;

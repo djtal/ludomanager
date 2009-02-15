@@ -10,7 +10,11 @@
         <span class="empty">Vous n'avez pas saisie de joueurs pour cette partie.</span>
       <% end %>
   </td>
-  <td class="center"><%= party_full.players.size %> / <%= party_full.game.max_player %></td>
+  <td class="center count">
+    <div class="<%= party_full.players.size == 0 ? "round empty" : ""  %>">
+      <%= party_full.players.size %> / <%= party_full.game.max_player %>
+    </div>
+  </td>
   <td><div class="function">
     <% if party_full.players.size > 0 %>
       <%= link_to "", edit_party_player_path(party_full),  :class => "ss_sprite ss_group_edit"  %>
