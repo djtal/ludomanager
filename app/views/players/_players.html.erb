@@ -6,7 +6,7 @@
           <%= p.players.count %> / <%= p.game.max_player %>
         </div>
         <%= link_to p.game.name, p.players.count > 0 ? edit_party_player_path(p, p)  : new_party_player_path(p),
-                    :class => p.players.count > 0 ? " ss_sprite ss_group_edit" : "ss_sprite ss_group_add" %>
+                    :class => p.players.count > 0 ? "party ss_sprite ss_group_edit" : "party ss_sprite ss_group_add" %>
       </li>
     <% end %>
   </ul>

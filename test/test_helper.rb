@@ -29,6 +29,12 @@ class Test::Unit::TestCase
   include AuthenticatedTestHelper
   
   
+  #use to silence some dirty trace when rake test
+  self.backtrace_silencers << :rails_vendor
+  self.backtrace_filters   << :rails_root
+  
+  
+  
   # Check if model is valid for successive attribut value
   # Exemple
   # assume we have a Game model with a dificult attribut limited from 1 to 5

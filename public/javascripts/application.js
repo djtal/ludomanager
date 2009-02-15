@@ -129,6 +129,19 @@ var BCalendarCell = Behavior.create({
 });
 
 
+/*
+  
+*/
+var BPartyLink = Behavior.create({
+  initialize: function(){
+  },
+  
+  onclick : function() { 
+
+  },
+});
+
+
 var BZoomOn = Behavior.create({
   initialize: function(){
     this.url = this.element.href; 

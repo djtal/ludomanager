@@ -5,3 +5,7 @@ tmp/**/*
 .DS_Store
 doc/api
 doc/app
+public/assets/**/*
+public/boxes/**/*
+public/game_photos/**/*
+vendor/gems/*
