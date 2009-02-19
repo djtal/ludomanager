@@ -28,15 +28,17 @@ class Member < ActiveRecord::Base
   end
   
   def last_play_date
-    last_play = parties.find(:first, :select => "parties.created_at", :order => "parties.created_at DESC")
+    last_play = parties.find(:first, :order => "parties.created_at DESC")
     last_play.created_at.to_date if last_play
   end
   
+  
   def active?
-    players.find(:first, :conditions => {:created_at => (1.year.ago..Time.now)})
+    return false unless last_play_date
+    last_play_date > 1.year.ago.to_date
   end
   
-  def played_game
-    parties.count(:all, :group => :game)
+  def games_count
+    parties.count(:game_id, :distinct => true)
   end
 end

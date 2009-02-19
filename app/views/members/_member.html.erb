@@ -4,7 +4,7 @@
   <td><%= member.active? ? "<em>active</em>" : "" %></td>
   <td><%= member.last_play_date ? member.last_play_date.to_s(:date_fr) : "--" %></td>
   <td><div class="round"><%= member.players.size %></div></td>
-  <td><%= member.played_game.size %></td>
+  <td><%= member.games_count %></td>
   <td><div class="function"><%= link_to "", edit_member_path(member), :class => "ss_sprite ss_user_edit" %>
     |<%= link_to_remote "", {:url => member_path(member), :method => :delete}, :class => "ss_sprite ss_user_delete" %>
   </div></td>
