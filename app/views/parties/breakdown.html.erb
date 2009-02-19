@@ -2,6 +2,8 @@
 
 
 <div class="column span-17 last">
+  <% if @parties.size > 0  %>
+  
   <div class="column span-12">
     <p>
       Vous avez jouez <%= pluralize(@parties.size, "partie", "parties") %>
@@ -22,6 +24,9 @@
   <div id="breakdown-play" class="column span-17 last">
     <span id="game_id" style="display: none"><%= @game.id %></span>
   </div>
+  <% else %>
+    <p class="empty">Vous navez encore jamais joue&eacute; a <%= @game.name %></p>
+  <% end %>
 </div>
 
 
