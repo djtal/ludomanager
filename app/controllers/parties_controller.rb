@@ -25,11 +25,14 @@ class PartiesController < ApplicationController
     @game = Game.find(params[:game_id])
     @parties = current_account.parties.find_all_by_game_id(@game.id, :order => "created_at ASC", :include => {:players => :member})
     @yearly = @parties.group_by{|p| p.created_at.year}
-    # grab all player for the game
-    @members = @parties.map(&:players).flatten.map(&:member).uniq
+
     
     respond_to do |format|
-      format.html
+      format.html do
+        # grab all player for the game
+        @members = @parties.map(&:players).flatten.map(&:member).uniq
+      end
+      # gather data for bar graph
       format.json do
         @breakdown = @yearly.inject([]) do |acc, set|
           logger.debug { "year : #{set[0]} - parties : #{set[1].size}" }
