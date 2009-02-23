@@ -39,7 +39,7 @@
       <% @last.each do |game| %>
         <li>
         	<%= game_box_for game, :class => "mini" %>
-        	<%= link_to(truncate(game.name, 30), game_path(game), :class => "name") %>
+        	<%= link_to(truncate(game.name), game_path(game), :class => "name") %>
         </li>
       <% end %>
     </ul>

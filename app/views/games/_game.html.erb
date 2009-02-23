@@ -10,7 +10,7 @@
     	  <div class="block">
     	    <h4>Description</h4>
     	    <% if !game.description.blank? %>
-      	    <%=truncate(h(game.description), 215, "... " + link_to("Voir la suite", game_path(game))) %>
+      	    <%=truncate(h(game.description), :length => 215, :omission => "... " + link_to("Voir la suite", game_path(game))) %>
       	  <% else %>
       	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
       	  <% end %>

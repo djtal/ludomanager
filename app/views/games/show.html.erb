@@ -70,7 +70,7 @@
     </ul>
   <% end  %>
 
-  <% render :layout => "layouts/widget", :locals => {:title => "Statistiques"} do %>
+  <% render_widget "Statistiques" do %>
 		<span class="flash"><%= pluralize(@game.account_games.size, "membre</span> a", "membres</span> ont") %>
 		ce jeu dans leurs ludotheque.
     <br />

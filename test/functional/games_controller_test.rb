@@ -2,6 +2,25 @@ require 'test_helper'
 
 class GamesControllerTest < ActionController::TestCase
   
+  context "a non logged user GET general games page" do
+    setup { get :index }
+      
+    should_respond_with :success
+    should_render_template :index
+    should_not_set_the_flash 
+    should_assign_to :games
+  end
+  
+    
+  context "a non logged user GET a specific game page" do
+      setup{ get :show, :id => games(:coloreto)}
+      should_respond_with :success
+      should_render_template :show
+      should_assign_to :games
+      should_assign_to :editions
+  end
+  
+  
   def test_logged_user_can_delete_with_no_parties
     login_as(:quentin)
     assert_difference "Game.count", -1 do
