@@ -96,7 +96,7 @@ class AccountTest < ActiveSupport::TestCase
   
   def test_split_mine_should_count_parties_in_2_groups
     result = accounts(:quentin).parties.split_mine(accounts(:quentin).games)
-    assert_equal [3, 2], result
+    assert_equal [5, 2], result
   end
 
 protected

@@ -16,3 +16,4 @@ module ActiveSupport::CoreExtensions::Time::Calculations
 end
 
 require "csv"
+require "countries"
