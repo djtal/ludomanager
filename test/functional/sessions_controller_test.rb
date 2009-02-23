@@ -1,21 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'sessions_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class SessionsController; def rescue_action(e) raise e end; end
-
-class SessionsControllerTest < ActiveSupport::TestCase
-  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
-  # Then, you can remove it from this and the units test.
-  include AuthenticatedTestHelper
-
-  fixtures :accounts
-
-  def setup
-    @controller = SessionsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
+class SessionsControllerTest < ActionController::TestCase
 
   def test_should_login_and_redirect
     post :create, :login => 'quentin', :password => 'test'

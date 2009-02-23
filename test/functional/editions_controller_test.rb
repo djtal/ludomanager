@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EditionsControllerTest < ActionController::TestCase
-  fixtures :all
   
   def test_should_get_index
     get :index

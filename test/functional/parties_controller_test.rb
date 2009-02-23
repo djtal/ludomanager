@@ -1,17 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'parties_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class PartiesController; def rescue_action(e) raise e end; end
-
-class PartiesControllerTest < ActiveSupport::TestCase
-  fixtures :all
-  
-  def setup
-    @controller = PartiesController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
+class PartiesControllerTest < ActionController::TestCase
   
   def test_create_should_handle_multiple_parties_at_once
     login_as :quentin

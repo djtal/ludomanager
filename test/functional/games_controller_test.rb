@@ -1,18 +1,7 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'games_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class GamesController; def rescue_action(e) raise e end; end
-
-class GamesControllerTest < ActiveSupport::TestCase
-  fixtures :all
-
-  def setup
-    @controller = GamesController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
-
+class GamesControllerTest < ActionController::TestCase
+  
   def test_logged_user_can_delete_with_no_parties
     login_as(:quentin)
     assert_difference "Game.count", -1 do

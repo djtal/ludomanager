@@ -1,17 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'authorships_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class AuthorshipsController; def rescue_action(e) raise e end; end
-
-class AuthorshipsControllerTest < ActiveSupport::TestCase
-  fixtures :authorships
-
-  def setup
-    @controller = AuthorshipsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
+class AuthorshipsControllerTest < ActionController::TestCase
 
   def test_truth
     assert true

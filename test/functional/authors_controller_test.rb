@@ -1,18 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'authors_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class AuthorsController; def rescue_action(e) raise e end; end
-
-class AuthorsControllerTest < ActiveSupport::TestCase
-  fixtures :all
-
-  def setup
-    @controller = AuthorsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-    login_as(:quentin)
-  end
+class AuthorsControllerTest < ActionController::TestCase
 
   def test_should_get_index
     get :index
