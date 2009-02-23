@@ -4,7 +4,7 @@ require 'parties_controller'
 # Re-raise errors caught by the controller.
 class PartiesController; def rescue_action(e) raise e end; end
 
-class PartiesControllerTest < Test::Unit::TestCase
+class PartiesControllerTest < ActiveSupport::TestCase
   fixtures :all
   
   def setup

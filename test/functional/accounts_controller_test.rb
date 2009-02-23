@@ -4,7 +4,7 @@ require 'accounts_controller'
 # Re-raise errors caught by the controller.
 class AccountsController; def rescue_action(e) raise e end; end
 
-class AccountsControllerTest < Test::Unit::TestCase
+class AccountsControllerTest < ActiveSupport::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
   # Then, you can remove it from this and the units test.
   include AuthenticatedTestHelper

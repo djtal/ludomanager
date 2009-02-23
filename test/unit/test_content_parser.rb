@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TestTagParser < Test::Unit::TestCase
+class TestTagParser < ActiveSupport::TestCase
   fixtures :games
   
   def test_should_rais_error_on_invalid_macro

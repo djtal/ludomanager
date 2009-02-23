@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PlayersControllerTest < Test::Unit::TestCase
+class PlayersControllerTest < ActiveSupport::TestCase
   # Replace this with your real tests.
 
   context "registering player for parties" do

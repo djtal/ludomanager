@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PartyTest < Test::Unit::TestCase
+class PartyTest < ActiveSupport::TestCase
   fixtures :all
   
   def test_game_should_be_mandatory

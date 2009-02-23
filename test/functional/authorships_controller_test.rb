@@ -4,7 +4,7 @@ require 'authorships_controller'
 # Re-raise errors caught by the controller.
 class AuthorshipsController; def rescue_action(e) raise e end; end
 
-class AuthorshipsControllerTest < Test::Unit::TestCase
+class AuthorshipsControllerTest < ActiveSupport::TestCase
   fixtures :authorships
 
   def setup

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class GamePhotoTest < Test::Unit::TestCase
+class GamePhotoTest < ActiveSupport::TestCase
   fixtures :game_photos
 
   # Replace this with your real tests.

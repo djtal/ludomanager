@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class AuthorshipTest < Test::Unit::TestCase
+class AuthorshipTest < ActiveSupport::TestCase
   fixtures :all
   
   # Replace this with your real tests.

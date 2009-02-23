@@ -1,11 +1,7 @@
-# Be sure to restart your web server when you modify this file.
-
-# Uncomment below to force Rails into production mode when 
-# you don't control web/app server and can't set it the proper way
-# ENV['RAILS_ENV'] ||= 'production'
+# Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.0'
+RAILS_GEM_VERSION = '2.3.0' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -23,10 +19,6 @@ Rails::Initializer.run do |config|
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
   
-  config.action_controller.session = {
-    :session_key => '_ludomanager_session',
-    :secret      => '2cf8a0f58a5c99a57e6a326a6937971da5797cecb67c9e438a59d000de921e1eeb90796a7eadc6e84c9e3dfe21ba11b0e8dcd7df03761ef8d30d16083d8b6870'
-  }
   
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
@@ -36,13 +28,15 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   #config.active_record.observers = :game_observer
 
-  # Make Active Record use UTC-base instead of local time
-  #config.active_record.default_timezone = :utc
+  config.time_zone = 'UTC'
+  # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+  # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+  # config.i18n.default_locale = :de
   
   # See Rails::Configuration for more options
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
-  config.gem "thoughtbot-quietbacktrace", :lib => "quietbacktrace", :source => "http://gems.github.com"
+  #config.gem "thoughtbot-quietbacktrace", :lib => "quietbacktrace", :source => "http://gems.github.com"
 end
 
 require "countries"

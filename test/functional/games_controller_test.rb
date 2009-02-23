@@ -4,7 +4,7 @@ require 'games_controller'
 # Re-raise errors caught by the controller.
 class GamesController; def rescue_action(e) raise e end; end
 
-class GamesControllerTest < Test::Unit::TestCase
+class GamesControllerTest < ActiveSupport::TestCase
   fixtures :all
 
   def setup

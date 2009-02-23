@@ -1,6 +1,6 @@
 # require File.dirname(__FILE__) + '/../test_helper'
 # 
-# class ImporterTest < Test::Unit::TestCase
+# class ImporterTest < ActiveSupport::TestCase
 #   fixtures :accounts, :games, :account_games, :authors, :authorships
 #   
 #   def setup

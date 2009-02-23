@@ -4,7 +4,7 @@ require 'authors_controller'
 # Re-raise errors caught by the controller.
 class AuthorsController; def rescue_action(e) raise e end; end
 
-class AuthorsControllerTest < Test::Unit::TestCase
+class AuthorsControllerTest < ActiveSupport::TestCase
   fixtures :all
 
   def setup
