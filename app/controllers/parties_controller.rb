@@ -7,7 +7,7 @@ class PartiesController < ApplicationController
     @yours, @other = parties.split_mine(current_account.games)
     @parties = parties.by_game.to_a.paginate(:page => params[:page])
     #used to find last played date for each game you've played
-    @last_played = current_account.parties.maximum(:created_at, :group => :game).to_hash
+    @last_played = current_account.parties.maximum(:created_at, :group => :game)
     @last_parties = current_account.parties.last_play(10).group_by(&:game)
   end
   

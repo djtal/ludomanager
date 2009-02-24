@@ -2,6 +2,35 @@ require 'test_helper'
 
 class PartiesControllerTest < ActionController::TestCase
   
+  context "logged user" do
+    setup {login_as :quentin}
+    
+    context " GET parties overview" do
+      setup do
+        get :index
+      end
+
+      should_respond_with :success
+      should_render_template :index
+      should_assign_to :parties
+      should_assign_to :yours
+      should_assign_to :other
+      should_assign_to :last_played
+    end
+
+    context "GET parties for current month" do
+      setup do
+        get :resume
+      end
+
+      should_respond_with :success
+
+    end
+  end
+
+  
+  
+  
   def test_create_should_handle_multiple_parties_at_once
     login_as :quentin
     data = {}
