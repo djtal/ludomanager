@@ -3,7 +3,6 @@
 
 Date::DATE_FORMATS[:month] = "%m/%Y"
 Date::DATE_FORMATS[:date_time_fr] = "%d/%m/%Y - %H:%M"
-Date::DATE_FORMATS[:date_fr] = "%d/%m/%Y"
 
 
 

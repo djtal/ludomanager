@@ -1,4 +1,4 @@
-<% render :layout => "layouts/widget", :locals => {:title => "Parties  du #{@party.created_at.to_date.to_s(:date_fr)}"} do %>
+<% render :layout => "layouts/widget", :locals => {:title => "Parties  du #{l @party.created_at.to_date}"} do %>
   <ul class="strip">
     <% @parties.each do |p| %>
       <li class="<%= @party.id == p.id ? "selected" : "" %>">

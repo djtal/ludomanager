@@ -31,12 +31,11 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
-  # config.i18n.default_locale = :de
+  config.i18n.default_locale = :fr
   
   # See Rails::Configuration for more options
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
-  #config.gem "thoughtbot-quietbacktrace", :lib => "quietbacktrace", :source => "http://gems.github.com"
 end
 
 

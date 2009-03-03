@@ -1,5 +1,5 @@
 <% render_widget "Ajouter des parties" do  %>
-  Le <%= @date.to_s(:date_fr) %> vous avez jouez a :
+  Le <%= @date.to_s() %> vous avez jouez a :
   <% remote_form_for @party , :html => {:id => "party-form"} do |f| %>
        <strong>Jeu</strong><br />
        <ul id="parties">

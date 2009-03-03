@@ -27,26 +27,6 @@ module ApplicationHelper
   def ac_game_status_for(game)
     image_tag("modified.png", :class => "ac_status right") if account_have_game?(game)
   end
-  
-   # French version
-   #
-   def error_messages_for(object_name, options = {})
-     options = options.symbolize_keys
-     object = instance_variable_get("@#{object_name}")
-     if object && !object.errors.empty?
-       content_tag("div",
-         content_tag(
-           options[:header_tag] || "h2",
-           "#{pluralize(object.errors.count, "probleme a empeché", "problemes ont empechés ")} ce #{object_name.to_s.gsub("_", " ")} d'etre enregistré"
-         ) +
-         content_tag("p", "Les champs suivant ne sont pas valides:") +
-         content_tag("ul", object.errors.full_messages.collect { |msg| content_tag("li", msg) }),
-         "id" => options[:id] || "errorExplanation", "class" => options[:class] || "errorExplanation"
-       )
-     else
-       ""
-     end
-    end
     
     # Wrap your buttons in standard app form presentation
     # See layout _form_buttons

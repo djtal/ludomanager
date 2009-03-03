@@ -1,4 +1,4 @@
-<h3>Vos parties du <%= @date.to_s(:date_fr) %> </h3>
+<h3>Vos parties du <%= @date.to_s() %> </h3>
 
 
 <table class="sortable">
@@ -33,7 +33,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p class="empty">Vous n'avez pas encore saisies les joueurs sur les parties du <%= @date.to_s(:date_fr) %></p>
+      <p class="empty">Vous n'avez pas encore saisies les joueurs sur les parties du <%= @date.to_s() %></p>
     <% end %>
   <% end  %>
 <% end %>

@@ -2,7 +2,7 @@
   <h4>Profil Ludomanager</h4>
   <ul>
     <li>Nom : <span class="empty"><%= current_account.login %></span></li>
-    <li>Inscrit depuis : <span class="empty"><%= current_account.created_at.to_date.to_s(:date_fr) %></span></li>
+    <li>Inscrit depuis : <span class="empty"><%= l current_account.created_at.to_date %></span></li>
     <li>Nombre de jeux en ludotheque : <span class="empty"><%= current_account.account_games.count %></span></li>
     <li>Nombre de parties total : <span class="empty"><%= current_account.parties.count %></span></li>
     <li>Nombre total de jeux jou&eacute;: <span class="empty"><%= @played_games %></span></li>

@@ -1,4 +1,4 @@
-<h3>Partie du <%= @party.created_at.to_date.to_s(:date_fr) %> &nbsp;|&nbsp;Jeu : <%= @party.game.name %></h3>
+<h3>Partie du <%= l @party.created_at.to_date %> &nbsp;|&nbsp;Jeu : <%= @party.game.name %></h3>
 
 
 <% form_for :players, :url => party_players_path(@party), :html => {:class => "member", :id => "party_#{@party.id}_members"} do |form| %>
@@ -10,7 +10,7 @@
   <%= form.hidden_field :party_id, :value => @party.id %>
   <% render :layout => "layouts/form_buttons" do  %>
     <div class="right">
-      <strong><%= link_to "Retour sur les parties du #{@party.created_at.to_date.to_s(:date_fr)}", party_path(@party) %></strong>
+      <strong><%= link_to "Retour sur les parties du #{l @party.created_at.to_date}", party_path(@party) %></strong>
       ou <%= form.submit "Enregistrer" %>
     </div>
     <%= form.check_box :save_and_next %>

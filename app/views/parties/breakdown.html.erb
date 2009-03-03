@@ -7,9 +7,9 @@
   <div class="column span-12">
     <p>
       Vous avez jouez <%= pluralize(@parties.size, "partie", "parties") %>
-      depuis le <%= @parties.first.created_at.to_date.to_s(:date_fr) %>.
+      depuis le <%= l @parties.first.created_at.to_date %>.
        
-      Votre derniere parties date du <%= @parties.last.created_at.to_date.to_s(:date_fr) %> 
+      Votre derniere parties date du <%= l @parties.last.created_at.to_date %> 
     </p>
   </div>
   <div class="column span-5 last">
