@@ -12,7 +12,7 @@
   </td>
   <td><div class="function">
     <% if party_full.players.size > 0 %>
-      <%= link_to "", edit_party_player_path(party_full),  :class => "ss_sprite ss_group_edit"  %>
+      <%= link_to "", edit_party_player_path(party_full, party_full.players.first),  :class => "ss_sprite ss_group_edit"  %>
     <% else %>
       <%= link_to "", new_party_player_path(party_full), :class => "ss_sprite ss_group_add" %>
     <% end %>

@@ -1,5 +1,6 @@
-<h3>Vos parties du <%= @date.to_s() %> </h3>
+<h3>Vos parties du <%= l @date, :format => :long_ordinal %> </h3>
 
+<% if @parties.size > 0 %>
 
 <table class="sortable">
   <thead>
@@ -16,10 +17,17 @@
   </tbody>
 </table>
 
+<% else %>
+  <p class="empty">
+    Vous n'avez enregistrez aucune partie pour cette date
+  </p>
+
+<% end %>
+
 <div class="pagination">
-  <%= @previous ? link_to("Precedentes", party_path(@previous)) : "<span class='disabled'>Precedentes</span>" %>&nbsp;|&nbsp;
+  <%= @previous ? link_to("Precedentes", show_parties_path(@previous.created_at.to_date)) : "<span class='disabled'>Precedentes</span>" %>&nbsp;|&nbsp;
   <%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>&nbsp;|&nbsp;
-  <%= @next ? link_to("Suivantes", party_path(@next)) : "<span class='disabled'>Suivantes</span>" %>
+  <%= @next ? link_to("Suivantes", show_parties_path(@next.created_at.to_date)) : "<span class='disabled'>Suivantes</span>" %>
 </div>
 
 
@@ -33,7 +41,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p class="empty">Vous n'avez pas encore saisies les joueurs sur les parties du <%= @date.to_s() %></p>
+      <p class="empty">Vous n'avez pas encore saisies les joueurs sur les parties du <%= l @date, :format => :long_ordinal %></p>
     <% end %>
   <% end  %>
 <% end %>

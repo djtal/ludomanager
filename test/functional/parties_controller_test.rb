@@ -24,7 +24,15 @@ class PartiesControllerTest < ActionController::TestCase
       end
 
       should_respond_with :success
-
+    end
+    
+    context "GET parties for current day" do
+      setup do
+        get :show
+      end
+      should_respond_with :success
+      should_render_template :show
+        
     end
   end
 

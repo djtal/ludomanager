@@ -58,7 +58,7 @@ class PartiesController < ApplicationController
   
   def resume
     @date = Time.now
-    @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date].size == 2
+    @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date] && params[:date].size == 2
     @date = @date.to_time
     @prev_date = @date - 1.month - 1.day
     @next_date = @date + 1.month - 1.day
@@ -66,8 +66,11 @@ class PartiesController < ApplicationController
     @count = @parties.size
     @days = @parties.group_by{ |p| p.created_at.mday}
     #need to group by game to reduce number of line in calendar
-    @days = @days.inject({}) do |acc, data|
-      acc[data[0]] = data[1]  ? data[1].group_by{|p| p.game} : {}
+    @days = @days.inject({}) do |acc, parties| 
+      #partie is an array of all plyed parties for days
+      day = parties[0]
+      played = parties[1]
+      acc[day] = played.group_by{|p| p.game}
       acc
     end
     find_played(@parties)
@@ -106,12 +109,13 @@ class PartiesController < ApplicationController
   end
   
   def show
-    party = current_account.parties.find(params[:id])
-    @parties = current_account.parties.find_all_by_created_at(party.created_at, :include => [:game, :players], :order => "games.name ASC")
-    @previous = current_account.parties.find(:first, :conditions => ["created_at < ?", party.created_at], :order => "created_at DESC")
-    @next = current_account.parties.find(:first, :conditions => ["created_at > ?", party.created_at], :order => "created_at ASC")
+    @date = params[:date] ? params[:date].to_date : Time.now.to_date
+    @parties = current_account.parties.find(:all, :conditions => ["parties.created_at BETWEEN ? AND ?",@date.beginning_of_day, @date.end_of_day], 
+                                            :include => [:game, :players], 
+                                            :order => "games.name ASC")
+    @previous = current_account.parties.find(:first, :conditions => ["created_at < ?", @date.beginning_of_day], :order => "created_at DESC")
+    @next = current_account.parties.find(:first, :conditions => ["created_at > ?", @date.end_of_day], :order => "created_at ASC")
     @members = @parties.collect{|p| p.members}.flatten.uniq
-    @date = party.created_at.to_date
   end
   
   def destroy
