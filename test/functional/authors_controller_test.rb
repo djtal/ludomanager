@@ -2,17 +2,59 @@ require 'test_helper'
 
 class AuthorsControllerTest < ActionController::TestCase
 
-  def test_should_get_index
-    get :index
-    assert_response :success
-    assert assigns(:authors)
-  end
-
-  def test_should_get_new
-    get :new
-    assert_response :success
+  context "A logged user" do
+    setup do
+      login_as :quentin
+    end
+    
+    context "GET index" do
+      setup{ get :index}
+      should_respond_with :success
+    end
+    
+    context "GET new author form" do
+      setup{ get :new}
+      
+      should_respond_with :success
+    end
   end
   
+  
+  
+  context "A non logged user" do
+    
+    context "GET index" do
+      setup{ get :index}
+      should_respond_with :success
+    end
+    
+    context "GET new author form" do
+      setup{ get :new}
+      
+      should_respond_with :redirect
+      should_redirect_to "new_session_path"
+    end
+    
+    context "GET edit author form" do
+      setup{ get :edit, :id => authors(:kinizia).id}
+      should_respond_with :redirect
+      should_redirect_to "new_session_path"
+    end
+    
+    context "DELETE an author" do
+      setup{ delete :destroy ,:id => authors(:kinizia).id}
+      
+      should_respond_with :redirect
+      should_redirect_to "new_session_path"
+    end
+    
+    context "GET an author card" do
+      setup{ get :show, :id => authors(:kinizia).id }
+      should_respond_with :success
+    end
+  end
+  
+
   def test_should_create_author
     old_count = Author.count
     post :create, :author => {:name => "test", :surname => "kk" }
@@ -21,15 +63,7 @@ class AuthorsControllerTest < ActionController::TestCase
     assert_redirected_to author_path(assigns(:author))
   end
 
-  def test_should_show_author
-    get :show, :id => authors(:kinizia).id
-    assert_response :success
-  end
 
-  def test_should_get_edit
-    get :edit, :id => authors(:kinizia).id
-    assert_response :success
-  end
   
   def test_should_update_author
     put :update, :id => authors(:kinizia).id, :author => { }
