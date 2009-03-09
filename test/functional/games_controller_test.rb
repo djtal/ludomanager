@@ -16,7 +16,7 @@ class GamesControllerTest < ActionController::TestCase
       setup{ get :show, :id => games(:coloreto)}
       should_respond_with :success
       should_render_template :show
-      should_assign_to :games
+      should_assign_to :game
       should_assign_to :editions
   end
   

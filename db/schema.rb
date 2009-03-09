@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081126174637) do
+ActiveRecord::Schema.define(:version => 20090309220426) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -104,6 +104,14 @@ ActiveRecord::Schema.define(:version => 20081126174637) do
     t.float    "average",                     :default => 0.0
     t.integer  "target",        :limit => 11, :default => 0
     t.integer  "time_category", :limit => 11, :default => 0
+  end
+
+  create_table "links", :force => true do |t|
+    t.text     "name"
+    t.text     "url"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "members", :force => true do |t|

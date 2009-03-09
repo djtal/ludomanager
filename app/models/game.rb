@@ -31,7 +31,7 @@ class Game < ActiveRecord::Base
   validates_inclusion_of :difficulty, :in => 1..5
   validates_inclusion_of :target, :in => 0..4
   validates_inclusion_of :time_category, :in => 0..3
-  validates_uniqueness_of :name, :message => "Desolé ce jeu existe deja"
+  validates_uniqueness_of :name, :case_sensitive => true
   
   validates_each :min_player, :max_player  do |record, attr, value|
     record.errors.add attr, 'ne peut pas etre  egal a 0' if value == 0
