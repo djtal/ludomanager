@@ -17,6 +17,33 @@ class AuthorsControllerTest < ActionController::TestCase
       
       should_respond_with :success
     end
+    
+    context "POST author form" do
+      should "create a new author" do
+        old_count = Author.count
+        post :create, :author => {:name => "test", :surname => "kk" }
+        assert_equal old_count+1, Author.count
+
+        assert_redirected_to author_path(assigns(:author))
+      end
+    end
+    
+    context "DESTROY a author card" do
+      should "remove the autor" do
+        old_count = Author.count
+        delete :destroy, :id => authors(:kinizia).id
+        assert_equal old_count-1, Author.count
+
+        assert_redirected_to authors_path
+      end
+    end
+    
+    context "PUT an author form" do
+      should "update the author card" do
+        put :update, :id => authors(:kinizia).id, :author => { }
+        assert_redirected_to author_path(assigns(:author))
+      end
+    end
   end
   
   
@@ -54,27 +81,4 @@ class AuthorsControllerTest < ActionController::TestCase
     end
   end
   
-
-  def test_should_create_author
-    old_count = Author.count
-    post :create, :author => {:name => "test", :surname => "kk" }
-    assert_equal old_count+1, Author.count
-    
-    assert_redirected_to author_path(assigns(:author))
-  end
-
-
-  
-  def test_should_update_author
-    put :update, :id => authors(:kinizia).id, :author => { }
-    assert_redirected_to author_path(assigns(:author))
-  end
-  
-  def test_should_destroy_author
-    old_count = Author.count
-    delete :destroy, :id => authors(:kinizia).id
-    assert_equal old_count-1, Author.count
-    
-    assert_redirected_to authors_path
-  end
 end
