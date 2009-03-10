@@ -11,10 +11,15 @@
 #
 
 class Editor < ActiveRecord::Base
+  validates_presence_of :name
   validates_uniqueness_of :name
   validates_inclusion_of :lang, :in => ::Ludomanager::ISOCODES, :allow_nil => true, :allow_blank => true
   
-  has_one :logo, :as => :attachable, :class_name => "Asset"
+  has_attached_file :logo,
+                    :url => "/system/:attachment/:id/:style/:editor.:extension",
+                    :path => ":rails_root/public/system/:attachment/:id/:style/:editor.:extension"
+  
+  has_one :logo_old, :as => :attachable, :class_name => "Asset"
   has_many :editions
   has_many :games, :through => :editions
 end

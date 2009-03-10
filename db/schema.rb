@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090309220426) do
+ActiveRecord::Schema.define(:version => 20090310205356) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -79,6 +79,10 @@ ActiveRecord::Schema.define(:version => 20090309220426) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "lang"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "game_photos", :force => true do |t|
