@@ -1,18 +1,15 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PartyTest < ActiveSupport::TestCase
-  fixtures :all
   
-  def test_game_should_be_mandatory
-    assert_invalid clean_party, :game_id, nil
+  context "a Game" do
+    should_validate_presence_of :game_id, :account_id
+    should_belong_to :game
+    should_belong_to :account
+    should_have_many :players, :dependent => :destroy
   end
   
-  
-  def test_account_is_mandatory 
-    assert_invalid clean_party, :account_id, nil
-    assert_equal accounts(:aaron).id, parties(:second).account_id
-  end
-  
+
   def test_should_update_parties_cache_if_own_played_game
     assert_equal 0, accounts(:quentin).account_games.first.parties_count
     p = clean_party(:game_id => games(:battlelore).id)
@@ -33,11 +30,6 @@ class PartyTest < ActiveSupport::TestCase
     assert parties(:party_empty_player).allow_more_players?
   end
   
-  def test_destroy_shold_delete_players_too
-    assert_difference "Player.count", -2 do
-      assert parties(:party_full_player).destroy
-    end
-  end
   
   def test_replace_should_replace_all_old_game_occurance_by_new_game
     3.times do
@@ -48,10 +40,6 @@ class PartyTest < ActiveSupport::TestCase
     assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
   end
 
-  def test_most_played_should_work_with_year
-    
-  end
-  
   
   private
   

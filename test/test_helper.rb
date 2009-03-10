@@ -38,42 +38,4 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   include AuthenticatedTestHelper
   
-  
-  # Check if model is valid for successive attribut value
-  # Exemple
-  # assume we have a Game model with a dificult attribut limited from 1 to 5
-  # assert_valid Game.new, :dificulty, 0, 1, 2, 3, 4, 5
-  #
-  def assert_invalid(model, attribute, *values)
-    if values.empty?
-      assert ! model.valid?, "Object is valid with value: #{model.send(attribute)}"
-      assert ! model.save, "Object saved."
-      assert model.errors.invalid?(attribute.to_s), "#{attribute} has no attached error"
-    else
-      values.flatten.each do |value|
-        obj = model.dup
-        obj.send("#{attribute}=", value)
-        assert_invalid obj, attribute
-      end
-    end
-  end
-
-
-  def assert_valid(model, attribute=nil, *values)
-    if values.empty?
-      unless attribute.nil?
-        assert model.valid?, "Object is not valid with value: #{model.send(attribute)}"
-      else
-        assert model.valid?, model.errors.full_messages
-      end
-      assert model.errors.empty?, model.errors.full_messages
-    else
-      m = model.dup # the recursion was confusing mysql
-      values.flatten.each do |value|
-        obj = m.dup
-        obj.send("#{attribute}=", value)
-        assert_valid(obj, attribute)
-      end
-    end
-  end
 end

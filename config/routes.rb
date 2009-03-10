@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :links
-
   map.resources :editors,
                 :collection => {:search => :get}
 
