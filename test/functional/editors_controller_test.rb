@@ -1,12 +1,27 @@
 require 'test_helper'
 
 class EditorsControllerTest < ActionController::TestCase
-  
-  def test_should_get_index
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:editors)
+  context "a logged user" do
+    setup{ login_as :quentin}
+    
+    context "GET the editors index page" do
+      setup{ get :index}
+      
+      should_respond_with :success
+      should_assign_to :editors
+    end
+    
   end
+  
+  context "a non logged user" do
+    context "GET the editors index page" do
+      setup{ get :index}
+      should_respond_with :success
+      should_assign_to :editors
+    end
+  end
+  
+  
 
   def test_should_get_new
     get :new

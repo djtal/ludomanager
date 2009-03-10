@@ -29,13 +29,13 @@
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
-    <% render :layout => "layouts/widget", :locals => {:title => "Administration"} do %>
+    <% render_widget "Administration" do %>
       <ul>
     		<li><%= link_to "Ajouter un editeur", new_editor_path, :class => "ss_sprite ss_page_white_add" %></li>
     	</ul>
-    <% end %>
+    <% end if logged_in? %>
   </div>
-<% end if logged_in? %>
+<% end  %>
 
 
 <% content_for :subnav do %>
