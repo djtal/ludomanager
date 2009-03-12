@@ -40,6 +40,14 @@ class EditorsControllerTest < ActionController::TestCase
         end
       end
       
+      should "set logo if file is uploaded" do
+        post :create, :editor => Factory.attributes_for(:editor, :name => "toto", :logo => fixture_file_upload("test_image.jpg", "image/jpg"))
+        assert_response :redirect
+        assert_template :show
+        editor = assigns(:editor)
+        assert editor.logo.file?
+      end
+      
       should "redirect to form if invalid data" do
         assert_no_difference "Editor.count" do
           post :create, :editor => Factory.attributes_for(:editor, :name => "")
@@ -47,6 +55,8 @@ class EditorsControllerTest < ActionController::TestCase
           assert_template :new
         end
       end
+      
+      
     end
     
     context "UPDATE an editor" do
