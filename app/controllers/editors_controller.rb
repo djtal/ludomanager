@@ -1,4 +1,5 @@
 class EditorsController < ApplicationController
+  before_filter :login_required, :except => [:index, :show, :search]
   # GET /editors
   # GET /editors.xml
   def index

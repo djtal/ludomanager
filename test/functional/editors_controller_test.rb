@@ -2,7 +2,9 @@ require 'test_helper'
 
 class EditorsControllerTest < ActionController::TestCase
   context "a logged user" do
-    setup{ login_as :quentin}
+    setup do
+      login_as :quentin  
+    end 
     
     context "GET the editors index page" do
       setup{ get :index}
@@ -11,6 +13,58 @@ class EditorsControllerTest < ActionController::TestCase
       should_assign_to :editors
     end
     
+    context "GET an editor page" do
+      setup{ get :show, :id => editors(:ystari).id}
+      should_respond_with :success
+      should_assign_to :editor, :equals => "editors(:ystari)"
+    end
+    
+    should "GET edit form" do
+      get :edit, :id => editors(:ystari).id
+      assert_response :success
+      assert_template :edit
+    end
+    
+    context "GET new editor form" do
+      setup{ get :new}
+      should_respond_with :success
+      should_render_template :new
+    end
+    
+    context "POST a new editor" do
+      should "create a new editor with valid data" do
+        assert_difference "Editor.count" do
+          post :create, :editor => Factory.attributes_for(:editor)
+          assert_response :redirect
+          assert_template :show
+        end
+      end
+      
+      should "redirect to form if invalid data" do
+        assert_no_difference "Editor.count" do
+          post :create, :editor => Factory.attributes_for(:editor, :name => "")
+          assert_response :success
+          assert_template :new
+        end
+      end
+    end
+    
+    context "UPDATE an editor" do
+      setup do
+        put :update, :id => editors(:ystari).id, :editor => Factory.attributes_for(:editor, :name => "toto")
+      end
+      should_respond_with :redirect
+      should_redirect_to "editor_path(editors(:ystari))"
+      should_assign_to :editor
+      should_change "Editor.find(editors(:ystari).id).name", :to => "toto"
+    end
+    
+    context "DELETE an editor" do
+      setup{ delete  :destroy, :id => editors(:ystari).id}
+      should_change "Editor.count", :by => -1
+      should_respond_with :redirect
+      should_redirect_to "editors_path"
+    end
   end
   
   context "a non logged user" do
@@ -19,43 +73,31 @@ class EditorsControllerTest < ActionController::TestCase
       should_respond_with :success
       should_assign_to :editors
     end
-  end
-  
-  
-
-  def test_should_get_new
-    get :new
-    assert_response :success
-  end
-
-  def test_should_create_editor
-    assert_difference('Editor.count') do
-      post :create, :editor => { }
+    
+    context "GET an editor page" do
+      setup{ get :show, :id => editors(:ystari).id}
+      should_respond_with :success
+      should_assign_to :editor, :equals => "editors(:ystari)"
     end
-
-    assert_redirected_to editor_path(assigns(:editor))
-  end
-
-  def test_should_show_editor
-    get :show, :id => editors(:ystari).id
-    assert_response :success
-  end
-
-  def test_should_get_edit
-    get :edit, :id => editors(:ystari).id
-    assert_response :success
-  end
-
-  def test_should_update_editor
-    put :update, :id => editors(:ystari).id, :editor => { }
-    assert_redirected_to editor_path(assigns(:editor))
-  end
-
-  def test_should_destroy_editor
-    assert_difference('Editor.count', -1) do
-      delete :destroy, :id => editors(:ystari).id
+    
+    context "GET new editor form" do
+      setup{ get :new}
+      should_respond_with :redirect
+      should_redirect_to "new_session_path"
     end
-
-    assert_redirected_to editors_path
+    
+    context "DELETE an editor" do
+      setup{ delete  :destroy, :id => editors(:ystari).id}
+      should_not_change "Editor.count"
+      should_respond_with :redirect
+      should_redirect_to "new_session_path"
+    end
+    
+    should "be redirected when trying to edit an editor" do
+      get :edit, :id => editors(:ystari).id
+      assert_response :redirect
+      assert_redirected_to new_session_path
+    end
   end
+
 end

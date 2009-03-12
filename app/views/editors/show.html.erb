@@ -7,7 +7,7 @@
 
 <div class="column span-17 last">
   <div class="column span-4">
-    <%= image_tag @editor.logo.public_filename, :class => "box left", :size => "90x90" if @editor.logo %>
+    <%= image_tag @editor.logo.url, :class => "box left", :size => "90x90" if @editor.logo.file? %>
   </div>
   <div id="edition-breakdown" class="column span-13 last" style="height: 126px;"></div>
 
