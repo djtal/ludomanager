@@ -756,6 +756,18 @@ ul#editions_list{
   margin: 7px 0 15px 0;
 }
 
+div.mini{
+  margin: 3px 5px;
+  padding: 2px;
+  border :solid 1px #ddd;
+}
+
+div.mini img.mini{
+  margin: 0 6px 0 0;
+}
+
+
+
 
 /* Legend */
 

@@ -11,8 +11,8 @@
 <fieldset>
   <legend>Un logo</legend>
   <% fields_for :logo do |g| %>
-    <%= g.label :uploaded_data, "Le logo" %><br />
-		<%= g.file_field :uploaded_data %>
+    <%= g.label :logo, "Le logo" %><br />
+		<%= g.file_field :logo %>
 		<%= g.check_box :delete %>
 		<%= g.label :delete, "Supprimer l'image actuel" %>
   <% end %>

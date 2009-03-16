@@ -6,31 +6,13 @@
 <h3><%= @editor.name %></h3>
 
 <div class="column span-17 last">
-  <div class="column span-4">
+  <div class="column span-17 last">
     <%= image_tag @editor.logo.url, :class => "box left", :size => "90x90" if @editor.logo.file? %>
   </div>
-  <div id="edition-breakdown" class="column span-13 last" style="height: 126px;"></div>
 
 
 <% if @editor.games.size > 0 %>
-  
-  <table class="sortable">
-    <thead>
-      <tr>
-        <th class="span-1 nosort"></th>
-        <th class="span-6">Jeu</th>
-        <th class="span-3">Public</th>
-        <th class="span-<%= logged_in? ? "1" : "3" %> no-sort"></th>
-        <th class="span-3">Ann&eacute;e de sortie</th>
-        <% if logged_in? %>
-          <th class="nosort last">Gerer</th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render :partial => "edition", :collection => @editions %>
-    </tbody>
-  </table>
+  <%= render :partial => "mini", :collection => @editions %>
 <% else %>
   <p class="empty">Cet &eacute;diteur n'a publi&eacute; aucun jeux.</p>
 <% end %>

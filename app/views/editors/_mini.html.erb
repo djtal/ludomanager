@@ -1,0 +1,5 @@
+<div class="left clear mini span-4">
+  <%= game_box_for(mini.game, :class => "mini left") %>
+  <span><%= mini.name.blank? ? mini.game.name : mini.name %></span><br />
+  <%= mini.published_at.year %>
+</div>
