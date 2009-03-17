@@ -1,5 +1,6 @@
 <div class="left clear mini span-5">
-  <%= game_box_for(mini.game, :class => "mini left") %>
-  <%= link_to mini.name.blank? ? mini.game.name : mini.name, game_path(mini.game), :class => "empty" %>
-  (<%= mini.lang %>)
+  <%= game_box_for(mini.game, :size => "45x45", :class => "mini left") %>
+  <%= link_to(truncate(mini.name.blank? ? mini.game.name : mini.name, :length => 17), game_path(mini.game), :class => "empty") %>
+  <%= flag_for_lang(mini.lang, :size => "20x20") %><br />
+  <em><%= mini.game.target_str.downcase %></em>
 </div>

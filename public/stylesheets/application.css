@@ -38,8 +38,11 @@ h3{
 
 h4{
 	font-weight: bold;
-	font-size: 1.3em;
+	font-size: 1.1em;
+	margin-bottom: 0.5em;
 	color:#422100;
+  background: url('../images/arrow-small.png') no-repeat left center;
+	padding-left: 15px;
 }
 
 .color{ font-weight: bold;}
@@ -355,8 +358,6 @@ ul.horizontal li{
   font-size: 11px;
   text-transform: uppercase;
   margin: 2px 0 5px 0;
-  background: url('../images/arrow-small.png') no-repeat left center;
-	padding-left: 15px;
 }
 
 .block a{
@@ -752,8 +753,10 @@ ul#editions_list{
 
 div.mini{
   margin: 3px 5px;
-  padding: 2px;
-  border :solid 1px #ddd;
+  padding: 4px;
+  border :solid 2px #cdcdcd;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 
 div.mini img.mini{

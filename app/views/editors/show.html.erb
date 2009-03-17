@@ -14,9 +14,10 @@
 <% if @editor.games.size > 0 %>
   <% @editions.each do |year, editions| %> 
     <div class="clear">
-      <span><%= year %></span>
+      <h4><%= year %></h4>
       <%= render :partial => "mini", :collection => editions %>
     </div>
+    <hr />
   <% end %>
 <% else %>
   <p class="empty">Cet &eacute;diteur n'a publi&eacute; aucun jeux.</p>

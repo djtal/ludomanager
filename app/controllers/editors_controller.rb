@@ -31,7 +31,7 @@ class EditorsController < ApplicationController
     @editions = yearly.group_by{|e| e.published_at.year}
     @editions["blank"] = blank if blank.size > 0
     respond_to do |format|
-      format.html { render :layout => "simple"}# show.html.erb
+      format.html # show.html.erb
       format.xml  { render :xml => @editor }
     end
   end
