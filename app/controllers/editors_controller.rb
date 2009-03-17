@@ -1,5 +1,6 @@
 class EditorsController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :search]
+  
   # GET /editors
   # GET /editors.xml
   def index
@@ -24,9 +25,13 @@ class EditorsController < ApplicationController
   # GET /editors/1.xml
   def show
     @editor = Editor.find(params[:id], :include => [:editions])
-    @editions = @editor.editions.find(:all,  :order => "published_at", :include => {:game => [:image, :editors]})
+    editions = @editor.editions.find(:all,  :order => "published_at DESC", :include => {:game => [:image, :editors]})
+    yearly = editions.reject{|ed| ed.published_at.nil?}
+    blank = editions.select{|ed| ed.published_at.nil?}
+    @editions = yearly.group_by{|e| e.published_at.year}
+    @editions["blank"] = blank if blank.size > 0
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :layout => "simple"}# show.html.erb
       format.xml  { render :xml => @editor }
     end
   end

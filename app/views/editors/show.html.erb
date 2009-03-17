@@ -5,18 +5,24 @@
 
 <h3><%= @editor.name %></h3>
 
-<div class="column span-17 last">
-  <div class="column span-17 last">
-    <%= image_tag @editor.logo.url, :class => "box left", :size => "90x90" if @editor.logo.file? %>
-  </div>
 
+<div class="clear">
+  <%= image_tag @editor.logo.url, :class => "box left", :size => "90x90" if @editor.logo.file? %>
+</div>    
+    
 
 <% if @editor.games.size > 0 %>
-  <%= render :partial => "mini", :collection => @editions %>
+  <% @editions.each do |year, editions| %> 
+    <div class="clear">
+      <span><%= year %></span>
+      <%= render :partial => "mini", :collection => editions %>
+    </div>
+  <% end %>
 <% else %>
   <p class="empty">Cet &eacute;diteur n'a publi&eacute; aucun jeux.</p>
 <% end %>
-</div>
+
+<%= link_to "Retour sur la liste des editeur", editors_path, :class => "ss_sprite ss_arrow_undo" %>
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">

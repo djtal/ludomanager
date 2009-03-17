@@ -660,12 +660,6 @@ ul.strip li.selected{
 
 /* Specific Widget Styles */
 
-#zoom div.w-content img {
-	padding-right: 5px;
-	padding-bottom: 5px;
-	float: left;
-}
-
 
 #smart_list_form {
 	padding: 10px;
