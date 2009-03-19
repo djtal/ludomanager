@@ -34,16 +34,6 @@
   <%= will_paginate @editors %>
 </div>
 
-<% content_for :newsbox do %>
-  <div id="placeholder-1">
-    <% render_widget "Administration" do %>
-      <ul>
-    		<li><%= link_to "Ajouter un editeur", new_editor_path, :class => "ss_sprite ss_page_white_add" %></li>
-    	</ul>
-    <% end if logged_in? %>
-  </div>
-<% end  %>
-
 
 <% content_for :subnav do %>
 	<%= render :partial => "subnav" %>

@@ -7,15 +7,13 @@
 
 <h3>Les jeux...</h3>
 
-<% if flash[:notice] %><div class="notice"><%= flash[:notice] %></div><% end %>
-
 <%= yield :page_nav %>
 
 <div>
 	
 	<div id="games">
 		<% if @games.size > 0 %>
-			<%= render :partial => @games %>
+			<%= render :partial => @games, :spacer_template => "shared/spacer" %>
 		<% else %>
 			Desolé. Aucun jeux ne corespond a vos criteres.
 		<% end %>

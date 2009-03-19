@@ -1,3 +1,7 @@
+<li class="left"><%= link_to "Tous les editeur", editors_path %></li>
+<% if logged_in? %>
+  <li class="left"><%= link_to "Ajouter un editeur", new_editor_path, :class => "ss_sprite ss_page_white_add" %></li>
+<% end %>
 <li class="right clear">
 	<% form_tag search_editors_path, :method => 'get', :class => "right" do %>
       <%= label :search, "Nom de l'editeur" %>
