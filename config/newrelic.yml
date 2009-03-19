@@ -3,7 +3,7 @@
 # applications with deep visibility and low overhead.  For more information, 
 # visit www.newrelic.com.
 #
-# This configuration file is custom generated for user: guillaume.garcera@gmail.com, RPM account: djtal
+# This configuration file is custom generated for djtal
 #
 # here are the settings that are common to all environments
 common: &default_settings
@@ -11,6 +11,21 @@ common: &default_settings
   # You must specify the licence key associated with your New Relic account.
   # This key binds your Agent's data to your account in the New Relic RPM service.
   license_key: '2d132e6da474d4a933cc14dbf081ce5b9a2999e4'
+  
+  # Agent Enabled
+  # Use this setting to force the agent to run or not run.
+  # Default is 'auto' which means the agent will install and run only if a
+  # valid dispatcher such as Mongrel is running.  This prevents it from running
+  # with Rake or the console.  Set to false to completely turn the agent off
+  # regardless of the other settings.  Valid values are true, false and auto.
+  # agent_enabled: auto
+  
+  # Application Name
+  # Set this to be the name of your application as you'd like it show up in RPM.
+  # RPM will then auto-map instances of your application into a RPM "application"
+  # on your home dashboard page. This setting does not prevent you from manually
+  # defining applications.
+  app_name: My Application
 
   # the 'enabled' setting is used to turn on the NewRelic Agent.  When false,
   # your application is not instrumented and the Agent does not start up or
@@ -40,14 +55,14 @@ common: &default_settings
   # If a proxy is used, the host setting is required.  Other settings are optional.  Default
   # port is 8080.
   #
-  # proxy_host: proxy.sample.com
+  # proxy_host: hostname
   # proxy_port: 8080
   # proxy_user:
   # proxy_pass:
 
   
   # Tells transaction tracer and error collector (when enabled) whether or not to capture HTTP params. 
-  # When true, the RoR filter_parameters mechanism is used so that sensitive parameters are not recorded
+  # When true, the RoR filter_parameter_logging mechanism is used so that sensitive parameters are not recorded
   capture_params: false
 
 
@@ -55,11 +70,10 @@ common: &default_settings
   # transactions and sends this to the RPM service once a minute. Included in the
   # transaction is the exact call sequence of the transactions including any SQL statements
   # issued.
-  #
   transaction_tracer:
   
     # Transaction tracer is enabled by default. Set this to false to turn it off. This feature
-    # is available at the Advanced and Pro RPM product levels only.
+    # is only available at the Silver and above product levels.
     enabled: true
   
  
@@ -68,10 +82,28 @@ common: &default_settings
     # original form, and "obfuscated", which strips out numeric and string literals
     record_sql: obfuscated
     
-  # To stop specific errors from reporting to RPM, set this property to comma separated 
-  # values
-  #
-  #ignore_errors: ActionController::RoutingError, ...
+    # Threshold in seconds for when to collect stack trace for a SQL call. In other words, 
+    # when SQL statements exceed this threshold, then capture and send to RPM the current
+    # stack trace. This is helpful for pinpointing where long SQL calls originate from  
+    stack_trace_threshold: 0.500
+  
+  # Error collector captures information about uncaught exceptions and sends them to RPM for
+  # viewing
+  error_collector:
+    
+    # Error collector is enabled by default. Set this to false to turn it off. This feature
+    # is only available at the Silver and above product levels
+    enabled: true
+    
+    # Tells error collector whether or not to capture a source snippet around the place of the
+    # error when errors are View related.
+    capture_source: true    
+    
+    # To stop specific errors from reporting to RPM, set this property to comma separated 
+    # values
+    #
+    #ignore_errors: ActionController::RoutingError, ...
+
 
 # override default settings based on your application's environment
 
@@ -110,3 +142,4 @@ production:
 staging:
   <<: *default_settings
   enabled: true
+  app_name: My Application (Staging)
