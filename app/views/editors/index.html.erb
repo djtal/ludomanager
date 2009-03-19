@@ -5,6 +5,13 @@
 
 <h3>Les editeurs</h3>
 
+<div class="pagination clear">
+  <span><%= link_to "Tous", editors_path %></span>
+    <% ("A".."Z").each do |letter| %>
+      <%= link_for_first_letter letter, :editors_path %>
+    <% end %>
+</div>
+
 <table class="sortable">
   <thead>
     <tr>

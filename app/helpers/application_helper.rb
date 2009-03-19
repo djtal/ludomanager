@@ -27,6 +27,18 @@ module ApplicationHelper
   def ac_game_status_for(game)
     image_tag("modified.png", :class => "ac_status right") if account_have_game?(game)
   end
+  
+  def link_for_first_letter(letter, url_method)
+    if ((@first_letters && @first_letters.include?(letter.downcase)) ||
+        !@first_letters)
+      css = "current" if params[:start] && params[:start].downcase == letter.downcase
+      content = link_to(letter, self.send(url_method, :start => letter))
+    else
+      css = "disabled"
+      content = letter
+    end
+    content_tag(:span, content, :class => css)
+  end
     
     # Wrap your buttons in standard app form presentation
     # See layout _form_buttons

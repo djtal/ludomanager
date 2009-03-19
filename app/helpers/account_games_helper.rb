@@ -22,18 +22,6 @@ module AccountGamesHelper
     text
   end
   
-  
-  def tag_for_letter(letter)
-    if ((@first_letters && @first_letters.include?(letter.downcase)) ||
-        !@first_letters)
-      css = "current" if params[:start] && params[:start].downcase == letter.downcase
-      content = link_to(letter, account_games_path(:start => letter))
-    else
-      css = "disabled"
-      content = letter
-    end
-    content_tag(:span, content, :class => css)
-  end
 
   def status_indicator(account_game)
     content_tag(:span, account_game.recenty_acquired? ? "" : "&nbsp;", 

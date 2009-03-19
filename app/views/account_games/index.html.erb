@@ -3,7 +3,7 @@
 <div class="pagination clear">
   <span><%= link_to "Tous", account_games_path %></span>
     <% ("A".."Z").each do |letter| %>
-      <%= tag_for_letter letter %>
+      <%= link_for_first_letter letter, :account_games_path %>
     <% end %>
 </div>
 

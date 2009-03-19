@@ -7,7 +7,7 @@ class EditorsController < ApplicationController
     @editors = Editor.paginate(:all, :page => params[:page],
                                 :order => "editors.name ASC",
                                 :include => :editions)
-
+    @first_letters = Editor.find(:all, :select => :name).map{|e| e.name.first.downcase}.uniq
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @editors }
