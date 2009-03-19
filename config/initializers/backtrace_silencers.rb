@@ -5,6 +5,8 @@ Rails.backtrace_cleaner.add_silencer { |line| line =~ /activesupport/ }
 Rails.backtrace_cleaner.add_silencer { |line| line =~ /actionpack/ }
 Rails.backtrace_cleaner.add_silencer { |line| line =~ /rake/ }
 Rails.backtrace_cleaner.add_silencer { |line| line =~ /System/ }
+Rails.backtrace_cleaner.add_silencer { |line| line =~ /vendor/ }
+
 
 
 # You can also remove all the silencers if you're trying do debug a problem that might steem from framework code.

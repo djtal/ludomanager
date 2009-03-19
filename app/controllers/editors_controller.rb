@@ -4,9 +4,16 @@ class EditorsController < ApplicationController
   # GET /editors
   # GET /editors.xml
   def index
-    @editors = Editor.paginate(:all, :page => params[:page],
-                                :order => "editors.name ASC",
-                                :include => :editions)
+    opts = {
+      :include => :editions,
+      :order => "editors.name ASC",
+      :page => params[:page]
+    }
+    if params[:start]
+        cdn = ["LOWER(editors.name) LIKE ?", params[:start].downcase + "%"]
+        opts.merge!({:conditions => cdn}) 
+    end
+    @editors = Editor.paginate(opts)
     @first_letters = Editor.find(:all, :select => :name).map{|e| e.name.first.downcase}.uniq
     respond_to do |format|
       format.html # index.html.erb

@@ -84,6 +84,14 @@ class EditorsControllerTest < ActionController::TestCase
       should_assign_to :editors
     end
     
+    should "GET editor page filtered if supply start letter for editor" do
+      get :index, :start => "Y"
+      assert_response :success
+      assert_not_nil(assigns(:editors))
+      assert assigns(:editors).first.name.first, "Y"
+    end
+    
+    
     context "GET an editor page" do
       setup{ get :show, :id => editors(:ystari).id}
       should_respond_with :success
