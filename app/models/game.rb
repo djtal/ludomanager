@@ -46,9 +46,9 @@ class Game < ActiveRecord::Base
   has_many :editors, :through => :editions
   
   has_attached_file :box,
-                    :styles => { :thumb => ["35x35", :png],
-                                  :normal => ["70x70", :png],
-                                  :big => ["90x90", :png]}
+                    :styles => { :thumb => ["35x35!", :png],
+                                  :normal => ["70x70!", :png],
+                                  :big => ["90x90!", :png]}
   
   acts_as_taggable
 
