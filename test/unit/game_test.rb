@@ -10,6 +10,7 @@ class GameTest < ActiveSupport::TestCase
     should_have_many :editors, :through => :editions
     should_have_many :tags, :through => :taggings
     should_have_one :image, :dependent => :destroy
+    should_have_attached_file :box
     
     should_ensure_value_in_range :difficulty, (1..5)
     

@@ -15,21 +15,11 @@
 
 <fieldset>
   <legend>Associer une image de la boite</legend>
-  <% fields_for :game_photo do |g| %>		
-		<div class="column">
-		  <%= game_box_for(@game, :size => "60x60") %>
-		</div>
-    <div class="column last">
-			<% if @game.image %>
-				<%= g.check_box :delete %>
-				<%= g.label :delete, "Supprimer l'image actuel" %>
-			<% end %>
-			<p id="box_file_selector" class="<%= @game.image ? "hide" : "" %>">
-			  <%= g.label :uploaded_data, "Une image de la boite ?" %><br />
-  			<%= g.file_field :uploaded_data %>
-			</p>
-    </div>
-	<% end %>
+  <p><%= f.label :box, "Image de la boite" %><br />
+  <%= f.file_field :box %></p>
+  
+  
+
 </fieldset>
 
 <fieldset>
