@@ -5,7 +5,7 @@
 
 <% div_for @game, :class => "clear" do %>
 	<div class="column span-4 last">
-	 <%= game_box_for(@game, :size =>"90x90", :class => "box") %>
+	 <%= image_tag(@game.box.url(:big), :class => "box") %>
 	 <div class="block">
 	   <h4><%= @game.name %> en bref</h4>
    	 <ul>

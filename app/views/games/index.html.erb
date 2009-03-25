@@ -36,7 +36,7 @@
     <ul class="strip">
       <% @last.each do |game| %>
         <li>
-        	<%= game_box_for game, :class => "mini" %>
+        	<%= image_tag(game.box.url(:thumb), :class => "mini") %>
         	<%= link_to(truncate(game.name), game_path(game), :class => "name") %>
         </li>
       <% end %>

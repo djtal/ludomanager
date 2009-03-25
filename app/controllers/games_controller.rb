@@ -6,9 +6,9 @@ class GamesController < ApplicationController
   def index
     respond_to do |format|
       format.html do 
-        @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
+        @last = Game.find(:all, :order => "created_at DESC", :limit => 10)
         @games = Game.paginate(:page => params[:page], :per_page => 15, :order => 'games.name ASC', 
-                  :include => [:tags, :image,:editions])
+                  :include => [:tags,:editions])
       end
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end
@@ -24,7 +24,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.xml
   def show
-    @game = Game.find(params[:id], :include => [:tags, :image, :authors])
+    @game = Game.find(params[:id], :include => [:tags, :authors])
     @editions = @game.editions.all(:order => "published_at ASC", :include => :editor)
     @title = @game.name
     respond_to do |format|
@@ -73,7 +73,6 @@ class GamesController < ApplicationController
       if @game.save
         @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully created.'
-        save_box_thumbnail!
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
         format.xml  { head :created, :location => game_path(@game) }
@@ -96,7 +95,6 @@ class GamesController < ApplicationController
       if @game.update_attributes(params[:game])
         @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
         flash[:notice] = 'Game was successfully updated.'
-        save_box_thumbnail!
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
         format.xml  { head :ok }
@@ -142,15 +140,4 @@ class GamesController < ApplicationController
   	@section = :games
   end
   
-  
-  def save_box_thumbnail!
-    if params[:game_photo]
-      @game.image.destroy if params[:game_photo][:delete] && params[:game_photo].delete(:delete) == "1"
-      unless params[:game_photo][:uploaded_data].blank?
-        @game.image.destroy if @game.image
-        box = GamePhoto.create params[:game_photo]
-        @game.image = box
-      end
-    end
-  end
 end
