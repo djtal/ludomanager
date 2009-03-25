@@ -25,6 +25,6 @@ class Editor < ActiveRecord::Base
                     :path => ":rails_root/public/system/:attachment/:id/:style/:editor.:extension"
   
   has_one :logo_old, :as => :attachable, :class_name => "Asset"
-  has_many :editions
+  has_many :editions, :dependent => :destroy
   has_many :games, :through => :editions
 end

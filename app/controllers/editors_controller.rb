@@ -5,8 +5,7 @@ class EditorsController < ApplicationController
   # GET /editors.xml
   def index
     opts = {
-      :include => :editions,
-      :order => "editors.name ASC",
+      :order => "name ASC",
       :page => params[:page]
     }
     if params[:start]
