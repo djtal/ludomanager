@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20080817160324
+# Schema version: 20090324224831
 #
 # Table name: players
 #
 #  id         :integer       not null, primary key
-#  party_id   :integer       
-#  member_id  :integer       
+#  party_id   :integer(11)   
+#  member_id  :integer(11)   
 #  created_at :datetime      
 #  updated_at :datetime      
 #

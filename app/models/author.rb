@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080817160324
+# Schema version: 20090324224831
 #
 # Table name: authors
 #
@@ -8,18 +8,6 @@
 #  surname  :string(255)   
 #  homepage :string(255)   
 #
-
-# == Schema Information
-# Schema version: 20080731203551
-#
-# Table name: authors
-#
-#  id       :integer       not null, primary key
-#  name     :string(255)   
-#  surname  :string(255)   
-#  homepage :string(255)   
-#
-
 
 class Author < ActiveRecord::Base
   validates_presence_of :name, :on => :create, :message => "can't be blank"

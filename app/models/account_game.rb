@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080817160324
+# Schema version: 20090324224831
 #
 # Table name: account_games
 #
@@ -14,7 +14,9 @@
 #  parties_count :integer(11)   default(0)
 #  rules         :boolean       
 #  cheatsheet    :boolean       
+#  edition_id    :integer       
 #
+
 
 
 class AccountGame < ActiveRecord::Base

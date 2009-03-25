@@ -1,16 +1,20 @@
 # == Schema Information
-# Schema version: 20080817160324
+# Schema version: 20090324224831
 #
 # Table name: editions
 #
-#  id           :integer       not null, primary key
-#  game_id      :integer       
-#  editor_id    :integer       
-#  lang         :text          
-#  name         :text          
-#  published_at :date          
-#  created_at   :datetime      
-#  updated_at   :datetime      
+#  id               :integer       not null, primary key
+#  game_id          :integer(11)   
+#  editor_id        :integer(11)   
+#  lang             :text          
+#  name             :text          
+#  published_at     :date          
+#  created_at       :datetime      
+#  updated_at       :datetime      
+#  box_file_name    :string(255)   
+#  box_content_type :string(255)   
+#  box_file_size    :integer       
+#  box_updated_at   :datetime      
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

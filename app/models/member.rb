@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20080817160324
+# Schema version: 20090324224831
 #
 # Table name: members
 #
 #  id         :integer       not null, primary key
 #  name       :text          
 #  nickname   :text          
-#  account_id :integer       
+#  account_id :integer(11)   
 #  created_at :datetime      
 #  updated_at :datetime      
 #  email      :text          

@@ -1,13 +1,18 @@
 # == Schema Information
-# Schema version: 20080817160324
+# Schema version: 20090324224831
 #
 # Table name: editors
 #
-#  id         :integer       not null, primary key
-#  name       :text          
-#  homepage   :text          
-#  created_at :datetime      
-#  updated_at :datetime      
+#  id                :integer       not null, primary key
+#  name              :text          
+#  homepage          :text          
+#  created_at        :datetime      
+#  updated_at        :datetime      
+#  lang              :text          
+#  logo_file_name    :string(255)   
+#  logo_content_type :string(255)   
+#  logo_file_size    :integer       
+#  logo_updated_at   :datetime      
 #
 
 class Editor < ActiveRecord::Base

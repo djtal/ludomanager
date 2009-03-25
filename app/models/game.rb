@@ -1,25 +1,24 @@
 # == Schema Information
-# Schema version: 20080817160324
+# Schema version: 20090324224831
 #
 # Table name: games
 #
-#  id            :integer       not null, primary key
-#  name          :string(255)   
-#  description   :text          
-#  difficulty    :integer(11)   default(2)
-#  min_player    :integer(11)   default(1)
-#  max_player    :integer(11)   
-#  created_at    :datetime      
-#  updated_at    :datetime      
-#  publish_year  :string(255)   
-#  editor        :string(255)   
-#  url           :text          
-#  average       :float         default(0.0)
-#  min_age       :integer       
-#  vo_name       :text          
-#  target        :integer       default(0)
-#  time_category :integer       default(0)
-#  published_at  :date          
+#  id               :integer       not null, primary key
+#  name             :string(255)   
+#  description      :text          
+#  difficulty       :integer(11)   default(2)
+#  min_player       :integer(11)   default(1)
+#  max_player       :integer(11)   
+#  created_at       :datetime      
+#  updated_at       :datetime      
+#  url              :text          
+#  average          :float         default(0.0)
+#  target           :integer(11)   default(0)
+#  time_category    :integer(11)   default(0)
+#  box_file_name    :string(255)   
+#  box_content_type :string(255)   
+#  box_file_size    :integer       
+#  box_updated_at   :datetime      
 #
 
 class Game < ActiveRecord::Base
