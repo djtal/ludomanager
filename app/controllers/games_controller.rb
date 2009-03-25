@@ -16,7 +16,7 @@ class GamesController < ApplicationController
   
   def search
     @games = Game.search(params[:search], params[:page])
-    @last = Game.find(:all, :order => "created_at DESC", :limit => 10, :include => :image)
+    @last = Game.find(:all, :order => "created_at DESC", :limit => 10)
     render :action => :index
   end
 

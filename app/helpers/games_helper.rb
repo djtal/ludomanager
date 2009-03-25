@@ -1,7 +1,6 @@
 module GamesHelper
   
   
-  
   def nb_player_tag(game)
     if game.min_player < game.max_player
       "<span class=\"flash\">" + game.min_player.to_s + "</span> a <span class=\"flash\">" + pluralize(game.max_player, "</span>joueur", "</span>joueurs")
@@ -40,14 +39,6 @@ module GamesHelper
     else
       link_to("Gerer les auteur", new_game_authorship_path(@game), :class => "ss_sprite ss_page_white_add")
     end
-  end
-  
-  def game_box_for(game, opts = {})
-    options = {
-      :size => "35x35",
-      :alt => "boite_#{!game.new_record? ? game.name.gsub(/\s+/, "_").downcase : ''}"
-    }.merge(opts)
-    image_tag(game.image ? game.image.public_filename : "game_box.png" , options)
   end
   
   # Return all foreign game name for an editions list

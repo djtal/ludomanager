@@ -32,7 +32,7 @@ class EditorsController < ApplicationController
   # GET /editors/1.xml
   def show
     @editor = Editor.find(params[:id], :include => [:editions])
-    editions = @editor.editions.find(:all,  :order => "published_at DESC", :include => {:game => [:image, :editors]})
+    editions = @editor.editions.find(:all,  :order => "published_at DESC", :include => {:game => :editors})
     yearly = editions.reject{|ed| ed.published_at.nil?}
     blank = editions.select{|ed| ed.published_at.nil?}
     @editions = yearly.group_by{|e| e.published_at.year}

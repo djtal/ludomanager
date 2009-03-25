@@ -1,5 +1,5 @@
 <tr id="<%= dom_id(party_full) %>" class="autohide">
-  <td><%= game_box_for party_full.game, :class => "mini" %></td>
+  <td><%= image_tag(party_full.game.box.url(:thumb), :class => "mini") %></td>
   <td>
     <strong><%= party_full.game.name %></strong><br />
       <% if party_full.players.size > 0 %>

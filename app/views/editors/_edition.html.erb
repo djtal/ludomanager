@@ -1,5 +1,5 @@
 <tr>
-  <td><%= game_box_for(edition.game, :size =>"35x35", :class => "mini") %></td>
+  <td><%= image_tag(edition.game.box.url(:thumb), :class => "mini") %></td>
   <td>
     <%= link_to edition.name.blank? ? edition.game.name : edition.name, game_path(edition.game) %><br />
     Aussi edite par : <%= other_editor_for edition, @editor %>

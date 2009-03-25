@@ -9,7 +9,7 @@
 		<% @most_played.each do |game, count| %>
 			<li>
 				<div class="right round"><%= count %></div>
-				<%= game_box_for(game, :size =>"35x35", :class => "mini") %>
+				<%= image_tag(game.box.url(:thumb), :class => "mini") %>
 				<%= link_to game.name, game_path(game) %>
 				
 			</li>

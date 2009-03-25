@@ -1,5 +1,5 @@
 <tr>
-  <td class="span-1"><%= game_box_for(last_account_game.game, :class => "mini") %></td>
+  <td class="span-1"><%= image_tag(last_account_game.game.box.url(:thumb), :class => "mini") %></td>
   <td><%= link_to(last_account_game.game.name, game_path(last_account_game.game), :class => "empty") %><br />
 	<span><%= l last_account_game.created_at.to_date %></span></td>
   <td class="center"><span class="round"><%= last_account_game.parties_count %></td>

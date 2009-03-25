@@ -3,7 +3,7 @@
     <tbody>
         <% @games.each do |g| %>
           <tr>
-            <td><%= game_box_for(g[0], :class => "mini") %></td>
+            <td><%= image_tag(g[0].box.url(:thumb), :class => "mini") %></td>
             <td><%= link_to g[0].name, game_path(g[0]), :class => g[1] ? " color red" : "" %></td>
             <td><%= g[2] %></td>
           </tr>
