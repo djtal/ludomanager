@@ -1,13 +1,21 @@
-<tr class="autohide" id="<%= dom_id(editor) %>">
-  <td><%= flag_for_lang(editor.lang) %></td>
-  <td><%= link_to editor.name.humanize, editor_path(editor) %></td>
-  <td></td>
-  
-  <% if logged_in? %>
-    <td><div class="function">
-      <%= link_to "", edit_editor_path(editor), :class => "ss_sprite ss_page_white_edit" %>&nbsp;|&nbsp;
-      <%= link_to_remote "", {:url => editor_path(editor), :method => :delete},  :class => "ss_sprite ss_page_white_delete"  %>
-    </div></td>
-  <% end %>
-  <td class="center"><div class="round"><%= editor.editions_count %></div></td>
-</tr>
+<% div_for editor, :class => "game clear" do %>
+  <h3>
+	  <div class="right"><%= flag_for_lang(editor.lang) %></div>
+	  <%= link_to editor.name, editor_path(editor) %> 
+	</h3>
+  <div class="column span-3 last"><%= image_tag(editor.logo.url(), :size => "70x70", :class => "mini") %></div>
+  <div class="column span-14 last">
+    <div class="block clear">
+	    <h4>Ces dernieres sorties</h4>
+	      <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
+	        <div class="left">
+	          <%= image_tag (e.game.box.url(:normal), :size => "45x45", :class => "mini") %>
+	          <span class="hide"><%= e.game.name %></span>
+	        </div>
+	        
+	      <% end  %>
+	  </div>
+  </div>
+<% end %>
+
+

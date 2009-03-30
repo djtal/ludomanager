@@ -17,26 +17,9 @@
   <% if @editors.size > 0 %>
 		<%= render :partial => @editors, :spacer_template => "shared/spacer" %>
 	<% else %>
-		Aucun editeurs actuellement;
+		Aucun editeurs actuellement en base.
 	<% end %>
 </div>
-<table class="sortable">
-  <thead>
-    <tr>
-      <th class="span-1"></th>
-      <th class="span-6 nosort">Nom</th>
-      <th class="span-<%= logged_in? ? "8" : "10" %> nosort"></th>
-      <% if logged_in? %>
-        <th class="span-2 nosort">Gerer</th>
-      <% end %>
-      <th class="center nosort">Nb Jeux</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <%= render :partial => @editors %>
-  </tbody>
-</table>
 
 <div class="page-nav">
   <%= will_paginate @editors %>
