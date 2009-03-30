@@ -12,6 +12,14 @@
     <% end %>
 </div>
 
+
+<div>
+  <% if @editors.size > 0 %>
+		<%= render :partial => @editors, :spacer_template => "shared/spacer" %>
+	<% else %>
+		Aucun editeurs actuellement;
+	<% end %>
+</div>
 <table class="sortable">
   <thead>
     <tr>

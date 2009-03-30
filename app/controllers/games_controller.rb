@@ -60,7 +60,7 @@ class GamesController < ApplicationController
       AccountGame.replace_game(@source, @destination)
       Party.replace_game(@source, @destination)
       @source.destroy
-      return redirect_to game_path(@destination)
+      return redirect_to(game_path(@destination))
     end
     redirect_to game_path(@source)
   end

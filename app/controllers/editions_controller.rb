@@ -1,4 +1,6 @@
 class EditionsController < ApplicationController
+  before_filter :login_required, :except => [:index, :show]
+  
   # GET /editions
   # GET /editions.xml
   def index

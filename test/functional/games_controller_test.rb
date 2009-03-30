@@ -18,6 +18,13 @@ class GamesControllerTest < ActionController::TestCase
       should_render_template :show
       should_assign_to :game
       should_assign_to :editions
+      
+      should "not DELETE a game" do
+        assert_no_difference "Game.count"do
+          delete :destroy, :id => 1
+        end    
+        assert_redirected_to new_session_path
+      end
   end
   
   
@@ -37,13 +44,6 @@ class GamesControllerTest < ActionController::TestCase
       delete :destroy, :id => games(:ever_played).id
     end    
     assert_redirected_to games_path
-  end
-  
-  def test_no_logged_user_cannot_delete_game
-    assert_no_difference "Game.count"do
-      delete :destroy, :id => 1
-    end    
-    assert_redirected_to login_path
   end
   
   def test_create_should_register_authors
