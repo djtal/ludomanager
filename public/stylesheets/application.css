@@ -374,9 +374,10 @@ img.mini{
   padding: 2px;
   background-color: #fff;
   border: solid 1px #ddd;
+  margin-right: 2px;
 }
 
-#games .content{
+.content{
 	padding: 0 4px;
 }
 .game .account_managment{
@@ -404,26 +405,11 @@ img.mini{
 	font-size: 16px;
 }
 
-.game ul{
-}
-
-
 img.ac_status {
   vertical-align: middle;
   margin-right: 5px;
   margin-top: 3px;
 }
-
-.page-nav{
-	margin-top: 5px;
-	text-align: center;
-}
-
-.page-nav a{
-	font-weight: bold;
-}
-
-
 
 .meta{
 	color: #666;
@@ -787,6 +773,7 @@ div.mini img.mini{
 /* Pagination */
 .pagination{
 	margin-top: 5px;
+	margin-bottom: 10px;
 	text-align: center;
   background: #F1F1F1;
   border: 1px solid #E5E5E5;

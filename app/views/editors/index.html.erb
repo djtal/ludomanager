@@ -34,7 +34,9 @@
   <% render_widget "Dernieres activit&eacute;es" do %>
       <ul class="strip">
         <% @last_active.each do |e| %>
-          <li><%= image_tag(e.logo.url, :class => "mini", :size => "35x35") %><%= e.name %></li>
+          <li>
+            <%= image_tag(e.logo.url, :class => "mini", :size => "35x35") %><%= e.name %>
+          </li>
         <% end %>
       </ul>
   <% end %>

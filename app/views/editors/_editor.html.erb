@@ -3,29 +3,36 @@
 	  <div class="right"><%= flag_for_lang(editor.lang) %></div>
 	  <%= link_to editor.name, editor_path(editor) %> 
 	</h3>
-  <div class="column span-3 last"><%= image_tag(editor.logo.url(), :size => "70x70", :class => "mini") %></div>
-  <div class="column span-14 last">
-    <div class="block clear">
-	    <h4>Ces dernieres sorties</h4>
-	      <ul class="horizontal">
-	        <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
-  	        <li>
-  	          <%= image_tag (e.game.box.url(:normal), :size => "45x45", :class => "mini") %>
-  	          <span class="hide"><%= e.game.name %></span>
-  	        </li>
+	<div class="content">
+	  <div class="column span-3 last"><%= image_tag(editor.logo.url(), :size => "70x70", :class => "mini") %></div>
+    <div class="column span-14 last">
+      <div class="block clear">
+  	    <h4>Ces dernieres sorties</h4>
+  	     <% if editor.editions.count > 0 %>
+  	      <ul class="horizontal">
+  	        <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
+    	        <li>
+    	          <%= image_tag (e.game.box.url(:normal), :size => "45x45", :class => "mini") %>
+    	          <div class="hide left"><%= e.game.name %></div>
+    	        </li>
 
-  	      <% end  %>
-  	      <% if ((editor.editions_count - 5) > 0) %>
-	          <li>Et <%= editor.editions_count - 5 %> de plus.</li>
-	        <% end %>
-	      </ul>
+    	      <% end  %>
+    	      <% if ((editor.editions_count - 5) > 0) %>
+  	          <li>Et <%= editor.editions_count - 5 %> de plus.</li>
+  	        <% end %>
+  	      </ul>
+  	    <% else %>
+  	      <p class="empty">Cet &eacute;diteur n'a plubli&eacute; auncun jeux pour le moment.</p>
+  	    <% end %>
 
-	      
-	  </div>
-	  <div class="block">
-	   Site internet : <%= !editor.homepage.blank? ? link_to(editor.homepage, editor.homepage) : "Aucun site internet actuellement" %>
-	  </div>
-  </div>
+
+  	  </div>
+  	  <div class="block">
+  	   Site internet : <%= !editor.homepage.blank? ? link_to(editor.homepage, editor.homepage) : "Aucun site internet actuellement" %>
+  	  </div>
+    </div> 
+	</div>
+
 <% end %>
 
 
