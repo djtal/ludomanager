@@ -311,7 +311,7 @@ ul.horizontal{
 }
 
 ul.horizontal li{
-	margin: 0px 0 0 0;
+	margin: 0 0 0 10px;
 	padding: 0px 0px;
 	float: left;
 }

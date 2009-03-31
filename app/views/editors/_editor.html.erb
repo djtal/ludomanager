@@ -7,13 +7,23 @@
   <div class="column span-14 last">
     <div class="block clear">
 	    <h4>Ces dernieres sorties</h4>
-	      <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
-	        <div class="left">
-	          <%= image_tag (e.game.box.url(:normal), :size => "45x45", :class => "mini") %>
-	          <span class="hide"><%= e.game.name %></span>
-	        </div>
-	        
-	      <% end  %>
+	      <ul class="horizontal">
+	        <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
+  	        <li>
+  	          <%= image_tag (e.game.box.url(:normal), :size => "45x45", :class => "mini") %>
+  	          <span class="hide"><%= e.game.name %></span>
+  	        </li>
+
+  	      <% end  %>
+  	      <% if ((editor.editions_count - 5) > 0) %>
+	          <li>Et <%= editor.editions_count - 5 %> de plus.</li>
+	        <% end %>
+	      </ul>
+
+	      
+	  </div>
+	  <div class="block">
+	   Site internet : <%= !editor.homepage.blank? ? link_to(editor.homepage, editor.homepage) : "Aucun site internet actuellement" %>
 	  </div>
   </div>
 <% end %>

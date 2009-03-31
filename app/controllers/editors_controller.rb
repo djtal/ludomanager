@@ -14,6 +14,9 @@ class EditorsController < ApplicationController
     end
     @editors = Editor.paginate(opts)
     @first_letters = Editor.find(:all, :select => :name).map{|e| e.name.first.downcase}.uniq
+    @last_active = Edition.find(:all,  :order => "editions.published_at DESC, editions.created_at DESC", 
+                                        :group => :editor_id,
+                                        :include => :editor, :limit => 10).map(&:editor)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @editors }
