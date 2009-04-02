@@ -11,15 +11,18 @@
   	     <% if editor.editions.count > 0 %>
   	      <ul class="horizontal">
   	        <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
-    	        <li>
-    	          <%= image_tag (e.game.box.url(:normal), :size => "45x45", :class => "mini") %>
-    	          <div class="hide left"><%= e.game.name %></div>
+    	        <li id="<%= dom_id(e) %>" class="surround">
+    	            <%= image_tag (e.game.box.url(:normal), :size => "45x45", :class => "mini") %>
     	        </li>
-
     	      <% end  %>
     	      <% if ((editor.editions_count - 5) > 0) %>
   	          <li>Et <%= editor.editions_count - 5 %> de plus.</li>
   	        <% end %>
+  	      </ul>
+  	      <ul class="horizontal">
+  	        <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
+    	        <li class="hide" id="<%= dom_id(e) %>_name"><%= e.game.name %></li>
+    	      <% end  %>
   	      </ul>
   	    <% else %>
   	      <p class="empty">Cet &eacute;diteur n'a plubli&eacute; auncun jeux pour le moment.</p>

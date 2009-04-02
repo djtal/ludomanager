@@ -312,7 +312,6 @@ ul.horizontal{
 
 ul.horizontal li{
 	margin: 0 0 0 10px;
-	padding: 0px 0px;
 	float: left;
 }
 
@@ -374,7 +373,20 @@ img.mini{
   padding: 2px;
   background-color: #fff;
   border: solid 1px #ddd;
-  margin-right: 2px;
+  
+}
+
+.surround{
+  padding: 3px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border: solid 1px #fff;
+
+}
+
+.surround:hover{
+  border: solid 1px #666;
+  background-color: #ddd;
 }
 
 .content{

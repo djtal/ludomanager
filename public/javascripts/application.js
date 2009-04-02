@@ -129,32 +129,6 @@ var BCalendarCell = Behavior.create({
 });
 
 
-/*
-  
-*/
-var BPartyLink = Behavior.create({
-  initialize: function(){
-  },
-  
-  onclick : function() { 
-
-  },
-});
-
-
-var BZoomOn = Behavior.create({
-  initialize: function(){
-    this.url = this.element.href; 
-    this.element.setAttribute("href", "")
-  },
-  //onmouseover: function(){return this.zoom();},
-  onclick: function(){this.zoom(); return false;},
-
-  zoom: function(){
-    new Ajax.Request(this.url, {asynchronous:true, evalScripts:true, method:'get'}); 
-    return false;
-  }
-});
 
 var PartyForm = Class.create();
 PartyForm.addMethods({
@@ -492,9 +466,5 @@ document.observe("dom:loaded", function() {
   Calendar.load();
   $$("a.more").each(function(elt){
     BMore.attach(elt);
-  });
-  
-  $$(".bzoom").each(function(elt){
-    BZoomOn.attach(elt);
   });
 })
