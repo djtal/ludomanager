@@ -244,9 +244,9 @@ Widget.addMethods({
     if (!$(elt))
     return;
     this.widget = $(elt);
-    this.title = this.widget.select("h3").reduce();
-    this.close = this.widget.select(".close").reduce();
-    this.content = this.widget.select("div.w-content").reduce();
+    this.title = this.widget.select("h3").first();
+    this.close = this.widget.select(".close").first();
+    this.content = this.widget.select("div.w-content").first();
     this.widgitize();
   },
 
