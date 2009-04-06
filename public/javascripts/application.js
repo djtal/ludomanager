@@ -455,7 +455,7 @@ var Tabs = Class.create({
 
 document.observe("dom:loaded", function() {
   new Tabs("gameTabs")
-  new AccountGameForm("account_game_form")
+  acf = new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
