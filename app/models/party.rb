@@ -18,6 +18,17 @@ class Party < ActiveRecord::Base
   after_destroy :down_partie_cache
   
   
+  
+  def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
+    raise Exception if fromYear > toYear
+    yearly = (fromYear..toYear).inject({}) do |breakdown, year|
+      breakdown[year] = []
+      breakdown
+    end
+    yearly
+  end
+  
+  
   def self.replace_game(old_game, new_game)
     if new_game && !new_game.new_record?
       update_all("game_id = #{new_game.id}", :game_id => old_game.id) 
