@@ -1,2 +1,2 @@
-page["authorships"].insert(render(:partial => "form", :locals => {:index => @index}))
+page["authorships"].insert(render(:partial => "form", :locals => {:index => @index, :authorship => @authorship}))
 page << "asf.setupAuthorship($('#{@index}'))"
