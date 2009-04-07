@@ -21,8 +21,11 @@ class Party < ActiveRecord::Base
   
   def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
     raise Exception if fromYear > toYear
-    yearly = (fromYear..toYear).inject({}) do |breakdown, year|
-      breakdown[year] = []
+    yearly = (fromYear..toYear).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
+      breakdown[year] = (1..12).inject([]) do |acc, month|
+        start = DateTime.civil(year, month)
+        acc << self.count(:all, :conditions => ["created_at BETWEEN ? AND ?",start, start.end_of_month ])
+      end
       breakdown
     end
     yearly

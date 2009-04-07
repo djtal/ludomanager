@@ -22,6 +22,7 @@ class PartyTest < ActiveSupport::TestCase
     should "return a an array for each month of each year between from and to year" do
       result = Party.yearly_breakdown(2008, 2008)
       assert_equal Array, result[2008].class
+      assert_equal 12, result[2008].size
     end
     
   end
