@@ -7,8 +7,50 @@ class PartyTest < ActiveSupport::TestCase
     should_belong_to :game
     should_belong_to :account
     should_have_many :players, :dependent => :destroy
+    
   end
   
+  context "A user playing a game he own" do
+    setup do
+      @game = Factory.create(:game)
+      @party = Factory.build(:party, :account => accounts(:quentin), :game => @game)
+      accounts(:quentin).games << @game
+    end
+    
+    should "update account parties cache when party is saved" do
+      assert_difference 'accounts(:quentin).account_games.find_by_game_id(@game.id).parties_count' do
+        @party.save
+      end
+    end
+    
+    should "update account parties cache when party is  destroyed" do
+      @party.save
+      assert_difference 'accounts(:quentin).account_games.find_by_game_id(@game.id).parties_count', -1 do
+        @party.destroy
+      end
+    end
+  end
+
+  context "A user playing a game he doesnt own" do
+    setup do
+      @game = Factory.create(:game)
+      @party = Factory.build(:party, :account => accounts(:quentin), :game => @game)
+    end
+    
+    should "do nothing party is saved" do
+      assert_nothing_raised do
+        @party.save
+      end
+    end
+    
+    should "do nothing party is destroyed" do
+      @party.save
+      assert_nothing_raised do
+        @party.destroy
+      end
+    end
+    
+  end
   
   context "Parties yearly breakdown" do
   
@@ -26,18 +68,16 @@ class PartyTest < ActiveSupport::TestCase
     end
     
   end
-
-  def test_should_update_parties_cache_if_own_played_game
-    assert_equal 0, accounts(:quentin).account_games.first.parties_count
-    p = clean_party(:game_id => games(:battlelore).id)
-    assert p.save
-    assert_equal 1, accounts(:quentin).account_games.find_by_game_id(games(:battlelore).id).parties_count
-    p.destroy
-    assert_equal 0, accounts(:quentin).account_games.find_by_game_id(games(:battlelore).id).parties_count
   
-    assert_nothing_raised do
-      p = clean_party(:game_id => games(:coloreto).id)
-      assert p.save
+  context "Party" do
+    should "replace parties of one game by another" do
+      account = Factory.create(:account)
+      3.times do
+        Factory.create(:party, :account => account, :game => games(:coloreto_ext))
+      end
+      Party.replace_game(games(:coloreto_ext), games(:agricola))
+      assert_equal 0, Party.count(:all, :conditions => {:game_id => games(:coloreto_ext).id})
+      assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
     end
   end
   
@@ -46,25 +86,5 @@ class PartyTest < ActiveSupport::TestCase
     assert !parties(:party_full_player).allow_more_players?
     assert parties(:party_empty_player).allow_more_players?
   end
-  
-  
-  def test_replace_should_replace_all_old_game_occurance_by_new_game
-    3.times do
-      clean_party(:game_id => games(:coloreto_ext).id).save
-    end
-    Party.replace_game(games(:coloreto_ext), games(:agricola))
-    assert_equal 0, Party.count(:all, :conditions => {:game_id => games(:coloreto_ext).id})
-    assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
-  end
 
-  
-  private
-  
-  def clean_party(overrides = {})
-    opts = {
-      :game_id => games(:coloreto).id,
-      :account_id => accounts(:quentin).id
-    }.merge(overrides)
-    Party.new(opts)
-  end
 end
