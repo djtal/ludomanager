@@ -77,7 +77,7 @@ class AccountGamesController < ApplicationController
   
   
   def new
-    @account_game = current_account.account_games.build(:game_id => params[:game_id])
+    @account_game = current_account.account_games.build(:game_id => params[:game_id], :transdate => Time.zone.now.beginning_of_day)
   end
   
   def edit

@@ -15,6 +15,18 @@ class AccountGamesControllerTest < ActionController::TestCase
       setup{ get :index, :format => :csv}
       should_respond_with :success
     end
+    
+    context "go to new account game form" do
+      setup{ get :new}
+      should_respond_with :success
+      should_render_template :new
+      should_assign_to :account_game
+      
+      should "default new account game date to current date" do
+        Time.zone = 'Paris'
+        assert_equal Time.zone.now.beginning_of_day, assigns(:account_game).transdate
+      end
+    end
   end
   
   context "a non logged user" do
@@ -24,11 +36,6 @@ class AccountGamesControllerTest < ActionController::TestCase
         should_redirect_to "new_session_path"
       end
     end
-  end
-  
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
   end
 end
 
