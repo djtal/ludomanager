@@ -10,8 +10,8 @@
 #
 
 class Author < ActiveRecord::Base
-  validates_presence_of :name, :on => :create, :message => "can't be blank"
-  has_many :authorships
+  validates_presence_of :name
+  has_many :authorships, :dependent => :destroy
   has_many :games, :through => :authorships
   
   def self.find_or_create_from_str str = nil
@@ -29,8 +29,8 @@ class Author < ActiveRecord::Base
   def self.parse_str str =  nil
     return "","" if str.nil? || str.blank?
     str.strip!
-    if str =~ /(\w*)\s*-\s*(\w*)/i
-      return $2, $1
+    if str =~ /(\w*|\s*)\s*-\s*(\w*)/i
+      return $2.strip, $1.strip
     else
       s = str.split
       return s[1], s[0] 
