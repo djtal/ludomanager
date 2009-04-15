@@ -13,7 +13,7 @@ class PartyTest < ActiveSupport::TestCase
   context "Parties yearly breakdown" do
   
     should "return an hash" do
-      assert_equal Hash, Party.yearly_breakdown.class
+      assert_equal ActiveSupport::OrderedHash, Party.yearly_breakdown.class
     end
     should "raise an error if fromYear > toYear" do
       assert_raise(Exception) { Party.yearly_breakdown(2009, 2006)}
