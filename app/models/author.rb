@@ -27,13 +27,18 @@ class Author < ActiveRecord::Base
   end
   
   def self.parse_str str =  nil
-    return "","" if str.nil? || str.blank?
-    str.strip!
-    if str =~ /(\w*|\s*)\s*-\s*(\w*)/i
+    return "","" if str.blank?
+    if str.strip =~ /(.*)\s*-\s*(.*)/i
       return $2.strip, $1.strip
     else
       s = str.split
-      return s[1], s[0] 
+      if(s.size < 2)
+        return "", s[0]
+      elsif s == 2
+        return s[1], s[0]
+      else
+        return s[s.size - 1], s[0..(s.size - 2)] * " "
+      end
     end
   end
   

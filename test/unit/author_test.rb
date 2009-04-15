@@ -9,7 +9,7 @@ class AuthorTest < ActiveSupport::TestCase
     
   end
 
-  context "create an author from string" do
+  context "parsing  author fullname" do
     
     should "work with blank string" do
       name, surname = Author.parse_str("")
@@ -17,14 +17,20 @@ class AuthorTest < ActiveSupport::TestCase
        assert_equal "", name
     end
     
-    should "extract name and surname without - char" do
+    should "extract name and surname" do
       name, surname = Author.parse_str "Reiner - Kinizia"
       assert_equal "Reiner", surname
       assert_equal "Kinizia", name
     end
     
-    should "extract name and surname with compound name" do
+    should "extract name and surname form compound name  with - char" do
       name, surname = Author.parse_str "Franz Benno - Delonge"
+      assert_equal "Franz Benno", surname
+      assert_equal "Delonge", name
+    end
+    
+    should "extract name and surname with compound name with -" do
+      name, surname = Author.parse_str "Franz Benno Delonge"
       assert_equal "Franz Benno", surname
       assert_equal "Delonge", name
     end
