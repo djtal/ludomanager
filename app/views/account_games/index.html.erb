@@ -1,5 +1,7 @@
 <h3>Vos jeux de A a Z</h3>
 
+<% if @account_games.size > 0 %>
+
 <div class="pagination clear">
   <span><%= link_to "Tous", account_games_path %></span>
     <% ("A".."Z").each do |letter| %>
@@ -7,12 +9,29 @@
     <% end %>
 </div>
 
+
 <div id="account_games_list">
-  <%= render_games @account_games, :mode => :overview, :id => "account_games_table" %>
+  <table class="sortable">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="span-10">Jeux</th>
+        <th class="span-4">Public</th>
+        <th></th>
+        <th class="center">P</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @account_games %>
+    </tbody>
+  </table>
 </div>
 
 <%= will_paginate @accout_games %>
 
+<% else %>
+  <p class="empty">Vous ne possedez encore aucun jeux.</p>
+<% end %>
 
 
 <% content_for :newsbox do %>
@@ -23,9 +42,6 @@
       <span class="tips"> en csv(compatible excel)</span></li>
       <li><%= link_to "Importer vos jeux directement", importer_account_games_path, :class => "ss_sprite ss_page_white_get" %></li>
     </ul>
-  
-    
-    
   <% end %>
   
   <% render_widget "Repartition de vos jeux" do %>
