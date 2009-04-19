@@ -30,8 +30,9 @@ class GamesControllerTest < ActionController::TestCase
   
   context "a logged User" do
     setup{ login_as :quentin}
+    
     context "CREATE a new game" do
-      context "which does not match required data" do
+      context "with no title" do
         setup do
           post :create, :game => Factory.attributes_for(:game, :name => "")
         end
@@ -39,8 +40,7 @@ class GamesControllerTest < ActionController::TestCase
         should_render_template :new
       end
       
-      
-      context "which is good" do
+      context "with no tags and no authors" do
         setup do
           post :create, :game => Factory.attributes_for(:game)
         end
