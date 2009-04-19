@@ -28,6 +28,18 @@ class GamesControllerTest < ActionController::TestCase
   end
   
   
+  context "a logged user add a new game" do
+    setup{ login_as :quentin}
+    context "game does not match required data" do
+      setup do
+        post :create, Factory.attributes_for(:game, :title => "")
+      end
+      should_respond_with :success
+      should_render_template :new
+    end
+  end
+  
+  
   def test_logged_user_can_delete_with_no_parties
     login_as(:quentin)
     assert_difference "Game.count", -1 do

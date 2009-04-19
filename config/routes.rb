@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :homepages
+  map.resource :home
 
   map.resources :editors,
                 :collection => {:search => :get}
