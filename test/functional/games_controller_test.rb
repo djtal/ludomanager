@@ -28,15 +28,28 @@ class GamesControllerTest < ActionController::TestCase
   end
   
   
-  context "a logged user add a new game" do
+  context "a logged User" do
     setup{ login_as :quentin}
-    context "game does not match required data" do
-      setup do
-        post :create, Factory.attributes_for(:game, :title => "")
+    context "CREATE a new game" do
+      context "which does not match required data" do
+        setup do
+          post :create, :game => Factory.attributes_for(:game, :name => "")
+        end
+        should_respond_with :success
+        should_render_template :new
       end
-      should_respond_with :success
-      should_render_template :new
+      
+      
+      context "which is good" do
+        setup do
+          post :create, :game => Factory.attributes_for(:game)
+        end
+        should_respond_with :redirect
+      end
+      
     end
+    
+
   end
   
   
