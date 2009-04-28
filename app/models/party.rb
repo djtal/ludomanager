@@ -31,6 +31,14 @@ class Party < ActiveRecord::Base
     yearly
   end
   
+  def self.previous_play_date_from(date= Time.zone.now.to_date)
+    p = find(:first, :conditions => ["created_at < ?", date], :order => "created_at DESC")
+    return p.created_at if p
+    nil
+  end
+  
+  
+  
   
   def self.replace_game(old_game, new_game)
     if new_game && !new_game.new_record?

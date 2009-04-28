@@ -26,13 +26,13 @@ class PartiesControllerTest < ActionController::TestCase
       should_respond_with :success
     end
     
-    context "GET parties for current day" do
-      setup do
+    context "viewing parties per day" do
+      setup{ Time.zone = 'Paris'}
+      should "show parties for current day" do
         get :show
+        assert_equal Time.zone.now.to_date, assigns(:date)
       end
-      should_respond_with :success
-      should_render_template :show
-        
+      
     end
   end
 

@@ -7,7 +7,6 @@ class PartyTest < ActiveSupport::TestCase
     should_belong_to :game
     should_belong_to :account
     should_have_many :players, :dependent => :destroy
-    
   end
   
   context "A user playing a game he own" do
@@ -80,6 +79,31 @@ class PartyTest < ActiveSupport::TestCase
       assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
     end
   end
+  
+  context "previous_play_date_from" do
+    setup do
+      @game  = Factory(:game)
+      @account = Factory.create(:account)
+    end
+    
+    should "return nil if no party is found" do
+      assert_nil @account.parties.previous_play_date_from
+    end
+    
+    should "find last party date before given date if date is supplied" do
+      played_date = 1.month.ago.beginning_of_month
+      Factory.create(:party, :account => @account, :game => @game, :created_at => 1.month.ago.beginning_of_month)
+      Factory.create(:party, :account => @account, :game => @game, :created_at => 3.month.ago.beginning_of_month)
+      assert_equal 3.month.ago.beginning_of_month, @account.parties.previous_play_date_from(2.month.ago)
+    end
+    
+    should "use curent date if no one is supplied" do
+      played_date = 1.month.ago.beginning_of_month
+      Factory.create(:party, :account => @account, :game => @game, :created_at => played_date)
+      assert_equal played_date, @account.parties.previous_play_date_from
+    end
+  end
+  
   
   
   def test_allow_more_player
