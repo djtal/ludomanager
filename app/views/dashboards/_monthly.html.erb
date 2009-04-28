@@ -9,10 +9,16 @@
 	</thead>
 	<tbody>
 	<% (1..12).each do |month|  %>
-	  <tr class="<%= month == Time.now.month ? "selected" : cycle("roweven", "rowodd") %>">
+	  <tr class="<%= month == @today.month ? "selected" : cycle("roweven", "rowodd") %>">
 	   <td><%= month_name(month) %></td>
 	    <% @parties_breakdown.keys.sort.each do |year| %>
-		      <td><%= @parties_breakdown[year][month -1] %></td>
+		      <td>
+		        <% if (past?(month, year)) %>
+		          <%= link_to(@parties_breakdown[year][month -1], parties_resume_path([month, year])) %>
+		        <% else %>
+		          --
+		        <% end %>
+		      </td>
 		  <% end %>
 	  </tr>
 	<% end %>

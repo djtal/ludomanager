@@ -11,7 +11,8 @@ class DashboardsController < ApplicationController
     firstPlay = current_account.parties.find(:first, :order => "created_at ASC")
     fromYear = firstPlay.created_at.year > 3.year.ago.year ? firstPlay.created_at.year : 3.year.ago.year
     
-    @parties_breakdown = current_account.parties.yearly_breakdown(fromYear, Time.now.year)
+    @today = Time.zone.now
+    @parties_breakdown = current_account.parties.yearly_breakdown(fromYear, @today.year)
   end
   protected
   
