@@ -35,7 +35,6 @@ class PartiesController < ApplicationController
       # gather data for bar graph
       format.json do
         @breakdown = @yearly.inject([]) do |acc, set|
-          logger.debug { "year : #{set[0]} - parties : #{set[1].size}" }
           parties = set[1].group_by{|p| p.created_at.month}
           data = (1..12).inject([]) do |a, month|
             a << [month, (parties[month].nil? ? 0 : parties[month].size)] 

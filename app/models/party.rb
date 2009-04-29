@@ -95,7 +95,6 @@ class Party < ActiveRecord::Base
       
       start_date = Time.now.in((year.to_i - Time.now.year).year).beginning_of_year
       end_date = start_date.end_of_year
-      logger.debug { "start #{start_date} end #{end_date}" }
       opts[:conditions] = ["parties.created_at BETWEEN ? AND ?", start_date, end_date]
     end
     find(:all, opts)
