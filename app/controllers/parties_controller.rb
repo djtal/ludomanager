@@ -112,8 +112,8 @@ class PartiesController < ApplicationController
     @parties = current_account.parties.find(:all, :conditions => ["parties.created_at BETWEEN ? AND ?",@date.beginning_of_day, @date.end_of_day], 
                                             :include => [:game, :players], 
                                             :order => "games.name ASC")
-    @previous = current_account.parties.find(:first, :conditions => ["created_at < ?", @date.beginning_of_day], :order => "created_at DESC")
-    @next = current_account.parties.find(:first, :conditions => ["created_at > ?", @date.end_of_day], :order => "created_at ASC")
+    @previous = current_account.parties.previous_play_date_from(@date)
+    @next = current_account.parties.next_play_date_from(@date)
     @members = @parties.collect{|p| p.members}.flatten.uniq
   end
   

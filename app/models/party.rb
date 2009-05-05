@@ -32,7 +32,13 @@ class Party < ActiveRecord::Base
   end
   
   def self.previous_play_date_from(date= Time.zone.now.to_date)
-    p = find(:first, :conditions => ["created_at < ?", date], :order => "created_at DESC")
+    p = find(:first, :conditions => ["created_at < ?", date.beginning_of_day], :order => "created_at DESC")
+    return p.created_at if p
+    nil
+  end
+  
+  def self.next_play_date_from(date= Time.zone.now.to_date)
+    p = find(:first, :conditions => ["created_at > ?", date.end_of_day], :order => "created_at DESC")
     return p.created_at if p
     nil
   end

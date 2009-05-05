@@ -25,9 +25,9 @@
 <% end %>
 
 <div class="pagination">
-  <%= @previous ? link_to("Precedentes", show_parties_path(@previous.created_at.to_date)) : "<span class='disabled'>Precedentes</span>" %>&nbsp;|&nbsp;
+  <%= @previous ? link_to("Precedentes", show_parties_path(@previous.to_date)) : "<span class='disabled'>Precedentes</span>" %>&nbsp;|&nbsp;
   <%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>&nbsp;|&nbsp;
-  <%= @next ? link_to("Suivantes", show_parties_path(@next.created_at.to_date)) : "<span class='disabled'>Suivantes</span>" %>
+  <%= @next ? link_to("Suivantes", show_parties_path(@next.to_date)) : "<span class='disabled'>Suivantes</span>" %>
 </div>
 
 
