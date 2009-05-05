@@ -123,14 +123,6 @@ ActiveRecord::Schema.define(:version => 20090409211929) do
     t.datetime "updated_at"
   end
 
-  create_table "links", :force => true do |t|
-    t.text     "name"
-    t.text     "url"
-    t.integer  "game_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "members", :force => true do |t|
     t.text     "name"
     t.text     "nickname"
