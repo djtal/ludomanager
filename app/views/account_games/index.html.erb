@@ -1,5 +1,7 @@
 <h3>Vos jeux de A a Z</h3>
 
+<% if @account_games.size > 0 %>
+
 <div class="pagination clear">
   <span><%= link_to "Tous", account_games_path %></span>
     <% ("A".."Z").each do |letter| %>
@@ -7,25 +9,39 @@
     <% end %>
 </div>
 
+
 <div id="account_games_list">
-  <%= render_games @account_games, :mode => :overview, :id => "account_games_table" %>
+  <table class="sortable">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="span-10">Jeux</th>
+        <th class="span-4">Public</th>
+        <th></th>
+        <th class="center">P</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @account_games %>
+    </tbody>
+  </table>
 </div>
 
 <%= will_paginate @accout_games %>
 
+<% else %>
+  <p class="empty">Vous ne possedez encore aucun jeux.</p>
+<% end %>
 
 
 <% content_for :newsbox do %>
   <% render_widget "Vous pouvez aussi..." do %>
     <ul>
       <li><%= link_to "Ajouter un jeu dans votre ludotheque", new_account_game_path, :class => "ss_page_white_add ss_sprite" %></li>
-      <li><%= link_to "Exporter cette liste", formatted_account_games_path(:format => :csv), :class => "ss_page_white_put ss_sprite"  %>
+      <li><%= link_to "Exporter cette liste", account_games_path(:format => :csv), :class => "ss_page_white_put ss_sprite"  %>
       <span class="tips"> en csv(compatible excel)</span></li>
       <li><%= link_to "Importer vos jeux directement", importer_account_games_path, :class => "ss_sprite ss_page_white_get" %></li>
     </ul>
-  
-    
-    
   <% end %>
   
   <% render_widget "Repartition de vos jeux" do %>
@@ -34,9 +50,9 @@
     </div>
     <div id="chart-legend"></div>
     <ul>
-      <li><span class="ss_sprite ss_folder">Total : <span class="empty"><%= @all %></span></li>
-      <li><span class="ss_sprite ss_new"></span>Recement ajout&eacute : <span class="empty"><%= @recent %></span></li>
-      <li><span class="ss_sprite ss_exclamation">Non jou&eacute : <span class="empty"><%= @no_played %></span></li>
+      <li><span class="ss_sprite ss_folder"></span>Total : <span class="empty"><%= @all %></span></li>
+      <li><span class="ss_sprite ss_new"></span>Recent :<span class="empty"><%= @recent %></span></li>
+      <li><span class="ss_sprite ss_exclamation"></span>Non jou&eacute : <span class="empty"><%= @no_played %></span></li>
     </ul>
   <% end %>
   

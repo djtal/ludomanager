@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090325224204) do
+ActiveRecord::Schema.define(:version => 20090409211929) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -115,10 +115,10 @@ ActiveRecord::Schema.define(:version => 20090325224204) do
     t.datetime "box_updated_at"
   end
 
-  create_table "links", :force => true do |t|
-    t.text     "name"
-    t.text     "url"
-    t.integer  "game_id"
+  create_table "homepages", :force => true do |t|
+    t.integer  "account_id"
+    t.boolean  "public"
+    t.text     "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

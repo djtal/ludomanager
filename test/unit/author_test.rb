@@ -1,27 +1,39 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class AuthorTest < ActiveSupport::TestCase
-  fixtures :all
 
-  
-  def test_parse_str_should_extract_name_and_surname
-    str = "Reiner - Kinizia"
-    name, surname = Author.parse_str str
-    assert_equal "Reiner", surname
-    assert_equal "Kinizia", name
+  context "a Author" do
+    #should_validate_presence_of :name, :surname
+    should_have_many :authorships, :dependent => :destroy
+    should_have_many :games, :through => :authorships
     
-    name, surname = Author.parse_str("")
-    assert_equal "", surname
-    assert_equal "", name
-    name, surname = Author.parse_str
-    name, surname = Author.parse_str("")
-    assert_equal "", surname
-    assert_equal "", name
+  end
+
+  context "parsing  author fullname" do
     
-    str = "Reiner Kinizia"
-    name, surname = Author.parse_str str
-    assert_equal "Reiner", surname
-    assert_equal "Kinizia", name
+    should "work with blank string" do
+      name, surname = Author.parse_str("")
+       assert_equal "", surname
+       assert_equal "", name
+    end
+    
+    should "extract name and surname" do
+      name, surname = Author.parse_str "Reiner - Kinizia"
+      assert_equal "Reiner", surname
+      assert_equal "Kinizia", name
+    end
+    
+    should "extract name and surname form compound name  with - char" do
+      name, surname = Author.parse_str "Franz Benno - Delonge"
+      assert_equal "Franz Benno", surname
+      assert_equal "Delonge", name
+    end
+    
+    should "extract name and surname with compound name with -" do
+      name, surname = Author.parse_str "Franz Benno Delonge"
+      assert_equal "Franz Benno", surname
+      assert_equal "Delonge", name
+    end
   end
   
   def test_find_or_create_from_str
@@ -47,19 +59,5 @@ class AuthorTest < ActiveSupport::TestCase
     a.display_name = "Bruno - Cathala"
     assert_equal  "Cathala", a.name
     assert_equal "Bruno", a.surname
-  end
-  
-  def test_should_clear_games_if_deleted
-    g = games(:coloreto)
-    assert g.authors.include?(authors(:kinizia))
-    assert authors(:kinizia).destroy
-    assert !g.authors.include?(authors(:kinizia))
-  end
-  
-  def should_delete_autorships_when_destroy
-    a = authors(:kinizia)
-    assert_equal 3, Authorship.find_by_author_id(authors(:kinizia).id)
-    assert a.destroy
-    assert_equal 0, Authorship.find_by_author_id(authors(:kinizia).id)
   end
 end

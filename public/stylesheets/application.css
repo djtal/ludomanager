@@ -798,7 +798,7 @@ div.mini img.mini{
 }
 
 .pagination a, .pagination span {
-    padding: .2em .3em; }
+    padding: .2em .2em; }
 .pagination span.disabled {
     color: #AAA; }
 .pagination span.current {

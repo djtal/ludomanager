@@ -78,8 +78,8 @@ class GamesController < ApplicationController
         format.xml  { head :created, :location => game_path(@game) }
       else
         format.html do
-          @authors = []
-          3.times{@authors << Author.new}
+          @authorships = []
+          3.times{@authorships << Authorship.new}
           render :action => "new"
         end
         format.xml  { render :xml => @game.errors.to_xml }

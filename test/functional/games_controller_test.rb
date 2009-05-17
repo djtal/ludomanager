@@ -28,6 +28,31 @@ class GamesControllerTest < ActionController::TestCase
   end
   
   
+  context "a logged User" do
+    setup{ login_as :quentin}
+    
+    context "CREATE a new game" do
+      context "with no title" do
+        setup do
+          post :create, :game => Factory.attributes_for(:game, :name => "")
+        end
+        should_respond_with :success
+        should_render_template :new
+      end
+      
+      context "with no tags and no authors" do
+        setup do
+          post :create, :game => Factory.attributes_for(:game)
+        end
+        should_respond_with :redirect
+      end
+      
+    end
+    
+
+  end
+  
+  
   def test_logged_user_can_delete_with_no_parties
     login_as(:quentin)
     assert_difference "Game.count", -1 do

@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   # If you want "remember me" functionality, add this before_filter to Application Controller
   before_filter :login_from_cookie
   before_filter :set_section
+  before_filter :set_timezone
   before_filter :get_account_games, :if => :logged_in?
   
   
@@ -23,5 +24,10 @@ class ApplicationController < ActionController::Base
   def set_section
     @section = :games
   end
+  
+  def set_timezone
+    Time.zone = 'Paris'
+  end
+  
   
 end

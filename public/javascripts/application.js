@@ -210,7 +210,6 @@ AccountGameForm.addMethods({
   initialize: function(form){
     if (!$(form)) return;
     this.form = $(form)
-    this.transdatePicker = new Control.DatePicker("account_game_transdate", {locale: 'fr'});
     new Ajax.Request("/account_games/missing.json", {method: "get", onSuccess: this.loadMissingGames.bind(this)});
   },
   
