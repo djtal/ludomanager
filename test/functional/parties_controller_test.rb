@@ -2,29 +2,43 @@ require 'test_helper'
 
 class PartiesControllerTest < ActionController::TestCase
   
-  context "logged user" do
-    setup {login_as :quentin}
+  context "a logged user" do
+    setup do
+      login_as :quentin
+      Time.zone = 'Paris'
+    end
     
-    context " GET parties overview" do
+    context "GET parties index" do
       setup do
         get :index
       end
 
       should_respond_with :success
       should_render_template :index
-      should_assign_to :parties
-      should_assign_to :yours
-      should_assign_to :other
-      should_assign_to :last_played
+      should_assign_to(:date){Time.now}
     end
-
-    context "GET parties for current month" do
-      setup do
-        get :resume
+    
+    context "GET index for a date" do
+      setup{ get :index}
+    end
+    
+    context "GET most played game" do
+      context "with a given year" do
+        setup{ xhr :get, :most_played, :year => 2008}
+        should_respond_with :success
+        should_respond_with_content_type :js
+        should_render_template :most_played
+      end
+      
+      context "without a given year" do
+        setup{ xhr :get, :most_played}
+        should_respond_with :success
+        should_respond_with_content_type :js
+        should_render_template :most_played
       end
 
-      should_respond_with :success
     end
+
     
     context "viewing parties per day" do
       setup{ Time.zone = 'Paris'}

@@ -6,10 +6,12 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => {:search => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
-  map.parties_resume "/parties/resume/*date", :controller => "parties", :action => "resume"
+  
   map.resources :parties, 
-                :collection => {:add_party_form => :get, :group => :get, :breakdown => :get, :most_played => :get},
+                :collection => {:all => :get, :add_party_form => :get, :group => :get, 
+                                :breakdown => :get, :most_played => :get},
                 :has_many => :players
+  map.parties_resume "/parties/*date", :controller => "parties", :action => "index"
   map.show_parties "parties/show/:date", :controller => "parties", :action => "show"
   
   map.resources :accounts, :authors, :smart_lists, :editions
