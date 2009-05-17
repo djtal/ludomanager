@@ -56,6 +56,11 @@ class PartyTest < ActiveSupport::TestCase
     should "return an hash" do
       assert_equal ActiveSupport::OrderedHash, Party.yearly_breakdown.class
     end
+    
+    should "return empty hash if no date given" do
+       assert_equal ActiveSupport::OrderedHash, Party.yearly_breakdown(nil, nil).class
+    end
+    
     should "raise an error if fromYear > toYear" do
       assert_raise(Exception) { Party.yearly_breakdown(2009, 2006)}
     end

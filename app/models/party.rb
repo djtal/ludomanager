@@ -20,6 +20,7 @@ class Party < ActiveRecord::Base
   
   
   def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
+    return ActiveSupport::OrderedHash.new if  fromYear == nil || toYear == nil
     raise Exception if fromYear > toYear
     yearly = (fromYear..toYear).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|

@@ -1,32 +1,38 @@
-<table>
-	<thead>
-		<tr>
-		  <th class="span-6">Mois</th>
-		  <% @parties_breakdown.keys.sort.each do |year| %>
-		      <th class="span-2"><%= year %></th>
-		  <% end %>
-		</tr>
-	</thead>
-	<tbody>
-	<% (1..12).each do |month|  %>
-	  <tr class="<%= month == @today.month ? "selected" : cycle("roweven", "rowodd") %>">
-	   <td><%= month_name(month) %></td>
-	    <% @parties_breakdown.keys.sort.each do |year| %>
-		      <td>
-		        <% if (past?(month, year)) %>
-		          <%= link_to(@parties_breakdown[year][month -1], parties_resume_path([month, year])) %>
-		        <% else %>
-		          --
-		        <% end %>
-		      </td>
-		  <% end %>
-	  </tr>
-	<% end %>
-	<tr class="<%= cycle("roweven", "rowodd") %>">
-	  <td>Total</td>
-	  <% @parties_breakdown.keys.sort.each do |year| %>
-	      <td><%= @parties_breakdown[year].inject(0){|acc, cur| acc + cur} %></td>
-	  <% end %>
-	</tr>
-	</tbody>
-</table>
+<% if @parties_breakdown.size > 0 %>
+  <table>
+  	<thead>
+  		<tr>
+  		  <th class="span-6">Mois</th>
+  		  <% @parties_breakdown.keys.sort.each do |year| %>
+  		      <th class="span-2"><%= year %></th>
+  		  <% end %>
+  		</tr>
+  	</thead>
+  	<tbody>
+  	<% (1..12).each do |month|  %>
+  	  <tr class="<%= month == @today.month ? "selected" : cycle("roweven", "rowodd") %>">
+  	   <td><%= month_name(month) %></td>
+  	    <% @parties_breakdown.keys.sort.each do |year| %>
+  		      <td>
+  		        <% if (past?(month, year)) %>
+  		          <%= link_to(@parties_breakdown[year][month -1], parties_resume_path([month, year])) %>
+  		        <% else %>
+  		          --
+  		        <% end %>
+  		      </td>
+  		  <% end %>
+  	  </tr>
+  	<% end %>
+  	<tr class="<%= cycle("roweven", "rowodd") %>">
+  	  <td>Total</td>
+  	  <% @parties_breakdown.keys.sort.each do |year| %>
+  	      <td><%= @parties_breakdown[year].inject(0){|acc, cur| acc + cur} %></td>
+  	  <% end %>
+  	</tr>
+  	</tbody>
+  </table>
+<% else %>
+  <p class="empty">
+    Vous n'avez jouez/saisie aucune parties actuellement
+  </p>
+<% end %>
