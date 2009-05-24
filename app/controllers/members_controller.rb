@@ -2,7 +2,8 @@ class MembersController < ApplicationController
   before_filter :login_required
   
   def index
-    @members = current_account.members.paginate(:page => params[:page], :per_page => 20, :include => [:players], :order => "members.name ASC")
+    @members = current_account.members.paginate(:page => params[:page], :per_page => 20, 
+                                                :include => [:players], :order => "members.name ASC")
     respond_to do |format|
       format.html
       format.json{render :json => @members}

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class PartyTest < ActiveSupport::TestCase
   
@@ -13,6 +13,7 @@ class PartyTest < ActiveSupport::TestCase
     setup do
       @game = Factory.create(:game)
       @party = Factory.build(:party, :account => accounts(:quentin), :game => @game)
+      Time.zone = 'Paris'
       accounts(:quentin).games << @game
     end
     
@@ -20,6 +21,12 @@ class PartyTest < ActiveSupport::TestCase
       assert_difference 'accounts(:quentin).account_games.find_by_game_id(@game.id).parties_count' do
         @party.save
       end
+    end
+    
+    should "update last played date" do
+      @party.created_at = 1.day.ago
+      @party.save
+      assert_equal 1.day.ago.to_date, accounts(:quentin).account_games.find_by_game_id(@game.id).last_play
     end
     
     should "update account parties cache when party is  destroyed" do

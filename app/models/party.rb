@@ -14,7 +14,7 @@ class Party < ActiveRecord::Base
   belongs_to :game
   belongs_to :account
   has_many :players, :dependent => :destroy
-  after_create :up_partie_cache
+  after_create :up_partie_cache, :update_played_date
   after_destroy :down_partie_cache
   
   
@@ -112,7 +112,7 @@ class Party < ActiveRecord::Base
   end
   
   def up_partie_cache
-    ac = AccountGame.find(:first, :conditions => {:game_id => self.game_id, :account_id => self.account_id})
+    ac = self.find_account_game
     if ac
       ac.parties_count += 1
       ac.save
@@ -120,15 +120,28 @@ class Party < ActiveRecord::Base
   end
   
   def down_partie_cache
-    ac = AccountGame.find(:first, :conditions => {:game_id => self.game_id, :account_id => self.account_id})
+    ac = self.find_account_game
     if ac
       ac.parties_count -= 1
       ac.save
     end
   end
   
+  def update_played_date
+    ac = self.find_account_game
+    if ac
+      ac.last_play = self.created_at
+      ac.save
+    end
+  end
+  
   def allow_more_players?
     players.count < game.max_player
+  end
+  
+  
+  def find_account_game
+    AccountGame.find(:first, :conditions => {:game_id => self.game_id, :account_id => self.account_id})
   end
   
 end

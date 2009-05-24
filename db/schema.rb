@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090409211929) do
+ActiveRecord::Schema.define(:version => 20090524124706) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20090409211929) do
     t.boolean  "rules"
     t.boolean  "cheatsheet"
     t.integer  "edition_id"
+    t.date     "last_play"
   end
 
   create_table "accounts", :force => true do |t|
