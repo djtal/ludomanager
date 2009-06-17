@@ -1,4 +1,4 @@
 <li>
-  <%= link_to(truncate(game.name, :size => parties.size > 1 ? 9 : 12), game_path(game),:class => account_have_game?(game) ? "color green" : "color orange" ) %>
+  <%= link_to(truncate(game.name, :length => parties.size > 1 ? 9 : 12), game_path(game),:class => account_have_game?(game) ? "color green" : "color orange" ) %>
   <%= content_tag(:span, " x#{parties.size}") if parties.size > 1 %>
 </li>
