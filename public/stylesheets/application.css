@@ -790,7 +790,7 @@ div.mini img.mini{
   background: #F1F1F1;
   border: 1px solid #E5E5E5;
   text-align: center;
-  padding: 1em; 
+  padding: 0.5em;
 }
 
 .pagination a{
@@ -798,7 +798,7 @@ div.mini img.mini{
 }
 
 .pagination a, .pagination span {
-    padding: .2em .2em; }
+    padding: .2em .4em; }
 .pagination span.disabled {
     color: #AAA; }
 .pagination span.current {

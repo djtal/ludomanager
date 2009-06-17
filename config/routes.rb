@@ -9,9 +9,9 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
                 :collection => {:all => :get, :add_party_form => :get, :group => :get, 
                                 :breakdown => :get, :most_played => :get},
                 :has_many => :players
-  map.parties_resume "/parties/*date", :controller => "parties", :action => "index"
-  map.show_parties "parties/show/:date", :controller => "parties", :action => "show"
   
+  map.show_parties "parties/show/:date", :controller => "parties", :action => "show"
+  map.parties_resume "/parties/*date", :controller => "parties", :action => "index"
   map.resources :accounts, :authors, :smart_lists, :editions
   map.resources :players, :collection => {:new_partial_form => :get}
   map.resources :authorships, :collection => {:new_partial_form => :get}
