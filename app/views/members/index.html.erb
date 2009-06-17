@@ -1,5 +1,7 @@
 <h3>Les membres</h3>
 
+<% if !@members.empty? %>
+
 <table class="sortable">
   <thead>
     <tr>
@@ -21,9 +23,24 @@
   <%= will_paginate @members %>
 </div>
 
+<% else %>
+  <p class="empty">Vous n'avez encors aucun membres enregistrés.</p>
+<% end %>
+
 
 <% content_for :newsbox do %>
-  <% render_widget  "Administration", :layout => "layouts/widget" do %>
+  <% if @members.empty? %>
+    <% render_widget "Aide" do %>
+      <ul>
+        <li>
+          Q : Qu'est ce qu'un membres ?<br />
+          R : Un membre est tous simplement un joueurs dont vous suivez les parties.
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+
+  <% render_widget  "Administration" do %>
     <ul>
       <li><%= link_to "Creer un nouveau membre...", new_member_path, :class => "ss_sprite ss_user_add" %></li>
       <li><%= link_to "Importer", importer_members_path, :class => "ss_sprite ss_page_white_get" %></li>
