@@ -29,7 +29,6 @@ class GamesController < ApplicationController
     @title = @game.name
     respond_to do |format|
       format.html # show.rhtml
-      format.js
       format.xml  { render :xml => @game.to_xml }
     end
   end

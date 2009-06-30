@@ -2,10 +2,12 @@
 <span class="mday"><%= !parties ?  date.day : link_to(date.day, show_parties_path(date)) %></span>
 <% if parties %>
 	<ul>
-		<% parties.each do |game, p| %>
+		<% parties.to_a.first(4).each do |game, p| %>
       <%= render :partial => "calendar_party", :locals => {:game => game, :parties => p} %>
 		<% end %>
-		<%= content_tag(:li, link_to("#{parties.size - 4} more", "", :class => "more")) if parties.size > 4 %>
+		<% if  parties.size > 4 %>
+		  <%= content_tag(:li, link_to("#{parties.size - 4} more", "", :class => "more")) %>
+		<% end %>
 	</ul>
 	
 <% end %>

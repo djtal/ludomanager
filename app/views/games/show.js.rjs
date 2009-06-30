@@ -1,1 +1,0 @@
-page["placeholder-2"].update(render(:partial => "zoom", :locals => {:zoom => @game}))
