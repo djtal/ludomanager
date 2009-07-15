@@ -1,2 +1,3 @@
+page["day_#{@date.day}_form"].grow(:direction => "top-left")
 page["placeholder-2"].update(render(:partial => "new"))
 page << "pf = new PartyForm('party-form');"
