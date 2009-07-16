@@ -197,23 +197,9 @@ PartyForm.addMethods({
   removeGame: function(ev){
     li = ev.element();
     li.up("li").remove();
-    this.detect_game_fields();
   },
 
-  clearForm: function(){
-      this.games_name.invoke("clear")
-      this.games_id.invoke("clear")
-  },
-  
-  resetForm: function(){
-    if(this.parties_li.size() > 0)
-    {
-      this.parties_li.without(this.parties_li.first()).invoke("remove");
-      this.detect_game_fields();
-    }
-    this.clearForm();
-  },
-  
+
   close: function(){
     this.form.up("div").squish();
   }
