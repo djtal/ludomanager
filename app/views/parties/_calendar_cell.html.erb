@@ -1,5 +1,5 @@
 <div style="position: relative;">
-  <div id="day_<%= date.day %>_form" style="z-index:1; position: absolute; display:none; width:260px; height:97px; background:#ccc;">
+  <div id="day_<%= date.day %>_form" style="z-index:1; position: absolute; display:none; width:300px; height:97px;">
 
   </div>
   <%= link_to_remote("jouer", {:url =>  new_party_path(:date => date), :method => :get}, :class => "right play" ) %>

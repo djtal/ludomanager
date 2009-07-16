@@ -1,15 +1,12 @@
-<% render_widget "Ajouter des parties" do  %>
-  Le <%= @date.to_s() %> vous avez jouez a :
-  <% remote_form_for @party , :html => {:id => "party-form"} do |f| %>
-       <strong>Jeu</strong><br />
-       <ul id="parties">
-         <%= render :partial => "form", :locals  => {:f => f} %>
-       </ul>
-       <div class="buttons clear">
-           <div class="right">
-               <strong><span class="link" id="reset">Annuler</span> ou <%= submit_tag "Jouer" %></strong>
-           </div>
-       </div>
-       
-   <% end %>
+<% remote_form_for @party , :html => {:id => "party-form"} do |f| %>
+     <strong>Jeux jou&eacute;(s)</strong>
+     <ul id="parties">
+       <%= render :partial => "form", :locals  => {:f => f} %>
+     </ul>
+     <div class=" clear">
+         <div class="right">
+             <strong><span class="link" id="reset">Annuler</span> ou <%= submit_tag "Jouer" %></strong>
+         </div>
+     </div>
+     
 <% end %>
