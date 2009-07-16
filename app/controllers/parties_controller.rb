@@ -90,7 +90,6 @@ class PartiesController < ApplicationController
     end
   end
   
-  #reder new partie widget in calendar sidebar
   def new
     @date = params[:date].to_date
     @index = params[:index] || 1

@@ -1,8 +1,9 @@
 <li class="party">
   <% fields_for :parties, @party, :index => Time.now.to_i do |p| %>
     <%= text_field_tag "party[game][#{Time.now.to_i}]", nil, :class => "party_game_name", :size => 29 %>
-    <%= link_to_remote image_tag("cd_store_up.gif"), :url => add_party_form_parties_path(:date => @party.created_at.to_date), :method => :get %>
-    <%= image_tag("cd_store_down.gif", :class => "remove_game") %>
+    <%= link_to_remote("", {:url => add_party_form_parties_path(:date => @party.created_at.to_date), :method => :get},
+                            :class => "ss_sprite ss_textfield_add") %>
+    <span class="ss_sprite ss_textfield_delete remove_game"></span>
     <div class="auto_complete"></div>
     <%= p.hidden_field :game_id,  :class => "party_game_id" %>
     <%= p.hidden_field :created_at %>
