@@ -1,11 +1,11 @@
-<% remote_form_for @party , :html => {:id => "party-form"} do |f| %>
+<% remote_form_for @party , :html => {:class => "party-form", :id => "party_form_#{@form_id}"} do |f| %>
      <strong>Jeux jou&eacute;(s)</strong>
      <ul id="parties">
        <%= render :partial => "form", :locals  => {:f => f} %>
      </ul>
      <div class=" clear">
          <div class="right">
-             <strong><span class="link" id="reset">Annuler</span> ou <%= submit_tag "Jouer" %></strong>
+             <strong><span class="link reset">Annuler</span> ou <%= submit_tag "Jouer" %></strong>
          </div>
      </div>
      

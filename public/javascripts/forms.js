@@ -155,9 +155,10 @@ PartyForm.addMethods({
     if(!$(form) && !$("party_game"))
       return;
     this.form = $(form);
+    this.form_container = this.form.up("div");
     this.data_fields = $H();
     new Ajax.Request("/games.json", {method: "get", onSuccess: this.loadGames.bind(this)}); 
-    $("reset").observe("click", this.close.bindAsEventListener(this));
+    this.form.down("span.reset").observe("click", this.close.bindAsEventListener(this));
   },
   
   updateDataField: function(){
@@ -201,7 +202,8 @@ PartyForm.addMethods({
 
 
   close: function(){
-    this.form.up("div").squish();
+    if (this.form_container)
+      this.form_container.squish();
   }
 });
 

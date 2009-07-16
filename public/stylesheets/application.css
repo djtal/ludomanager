@@ -302,7 +302,7 @@ form img.btn{
 	position:absolute;
 }
 
-#party-form{
+.party-form{
   background-color: #F2F2F2;
   border: 2px solid #ccc;
   -moz-border-radius: 4px;
@@ -311,7 +311,7 @@ form img.btn{
   
 }
 
-#party-form img{ float:none;}
+.party-form img{ float:none;}
 
 ul.horizontal{
   margin: 0;

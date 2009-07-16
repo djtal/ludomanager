@@ -92,6 +92,7 @@ class PartiesController < ApplicationController
   
   def new
     @date = params[:date].to_date
+    @form_id = Time.now.to_i
     @index = params[:index] || 1
     @party = Party.new(:created_at => @date)
     respond_to do |format|
