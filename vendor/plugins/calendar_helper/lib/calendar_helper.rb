@@ -145,8 +145,14 @@ module CalendarHelper
       else
         cal << %(">#{d.day}</td>)        
       end
+      
     end unless last.wday == last_weekday
-    cal << "</tr></tbody></table>"
+    
+    cal << "</tr></tbody>"
+    if options[:footer]
+        cal << "<tfoot><tr><td colspan='7'>#{options[:footer]}</td></tr></tfoot>"
+    end
+    cal << "</table>"
   end
   
   private

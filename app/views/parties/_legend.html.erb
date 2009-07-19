@@ -1,15 +1,13 @@
-<% render_widget @date ? "Mois de #{month_name(@date.month)} #{@date.year}" : "Vos statistiques..." do %>
-  Vous avez jouez en tout <%= pluralize(@count, "partie", "parties") %>.
-  <ul>
-    <li>
-      <span class="right"><%= @yours %></span>
-      <div class="legendColorBox left green"><div></div></div>
-      Jeux de votre ludotheque
-      </li>
-    <li>
-      <span class="right"><%= @other %></span>
-      <div class="legendColorBox left orange"><div></div></div>
-      Autre jeux
-    </li>
-  </ul>
-<% end %>
+Vous avez jouez en tout <%= pluralize(@count, "partie", "parties") %>.
+<ul class="horizontal clear">
+  <li>
+    <span><%= @yours %></span>
+    <div class="legendColorBox left green"><div></div></div>
+    Jeux de votre ludotheque
+  </li>
+  <li>
+    <span><%= @other %></span>
+    <div class="legendColorBox left orange"><div></div></div>
+    Autre jeux
+  </li>
+</ul>

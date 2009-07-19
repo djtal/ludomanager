@@ -18,7 +18,7 @@
   margin: auto;
 }
 
-.calendar td{
+.calendar tbody td{
 	height: 120px;
 	width: 90px;
 }
