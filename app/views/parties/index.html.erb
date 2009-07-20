@@ -6,13 +6,13 @@
 
 
 <%= calendar(:year => @date.year, :month => @date.month, :abbrev => (0..-1),
-			 :show_today => true, :first_day_of_week => 1,
+			:show_today => true, :first_day_of_week => 1,
 			:month_name => month_fr, :day_name => day_fr,
 			:previous_month_text => link_to("Precedent", parties_resume_path(:date => [@prev_date.month, @prev_date.year]), 
 			                                :class => "left"),
 			:next_month_text => link_to("Suivant", parties_resume_path(:date => [@next_date.month, @next_date.year]), 
 			                            :class => "right"),
-			                            :footer => render(:partial => "legend")) do |d|
+			:footer => render(:partial => "legend")) do |d|
 	
 	if (d.month == @date.month)
 		[render(:partial => "calendar_cell", :locals => {:parties => @days[d.mday], :date => d}), {:class => "day", :id => "day_#{d.mday}"}]
