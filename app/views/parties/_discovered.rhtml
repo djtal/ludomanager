@@ -8,7 +8,7 @@
               <td>
                 <%= link_to g[0].name, game_path(g[0]), :class => "empty" %>
                 <%= content_tag(:span,"", :class => "ss_sprite ss_new") if g[1] %>
-                <span class="right">(x<%= g[2] %>)</span>
+                <%= content_tag(:span, "(x#{g[2]})") if g[2] > 1 %>
               </td>
             </tr>
           <% end %>
