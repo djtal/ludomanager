@@ -1,16 +1,20 @@
 <% if !@games.empty? %>
-  <table class="sortable">
-    <tbody>
-        <% @games.each do |g| %>
-          <tr>
-            <td><%= image_tag(g[0].box.url(:thumb), :class => "mini") %></td>
-            <td><%= link_to g[0].name, game_path(g[0]), :class => g[1] ? " color red" : "" %></td>
-            <td><%= g[2] %></td>
-          </tr>
-        <% end %>
-    </tbody>
-  </table>			
-
+  <div class="block">
+    <table class="stripe">
+      <tbody>
+          <% @games.each do |g| %>
+            <tr>
+              <td class="span-1"><%= image_tag(g[0].box.url(:thumb), :class => "mini") %></td>
+              <td>
+                <%= link_to g[0].name, game_path(g[0]), :class => "empty" %>
+                <%= content_tag(:span,"", :class => "ss_sprite ss_new") if g[1] %>
+                <span class="right">(x<%= g[2] %>)</span>
+              </td>
+            </tr>
+          <% end %>
+      </tbody>
+    </table>
+  </div>		
 <% else %>
     <p class="empty">Vous n'avez jouez a aucun jeux ce mois ci.</p>
 <% end %>
