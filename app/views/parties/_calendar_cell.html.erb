@@ -5,15 +5,20 @@
   <%= link_to_remote("jouer", {:url =>  new_party_path(:date => date), :method => :get}, :class => "right play" ) %>
   <span class="mday"><%= !parties ?  date.day : link_to(date.day, show_parties_path(date)) %></span>
   <% if parties %>
-  	<ul>
+      <ul class="advanced" id="day_<%= date.day %>_more" style="display: none; position: absolute; z-index:1; width:300px;">
+        <% parties.to_a.each do |game, p| %>
+          <%= render :partial => "calendar_party", :locals => {:game => game, :parties => p, :mode => :advanced} %>
+        <% end %>
+        <li><%= link_to "Less", "#", :class => "less" %></li>
+      </ul>
+  	<ul class="simple">
   		<% parties.to_a.first(4).each do |game, p| %>
-        <%= render :partial => "calendar_party", :locals => {:game => game, :parties => p} %>
+        <%= render :partial => "calendar_party", :locals => {:game => game, :parties => p, :mode => :simple} %>
   		<% end %>
   		<% if  parties.size > 4 %>
-  		  <%= content_tag(:li, link_to("#{parties.size - 4} more", "", :class => "more")) %>
+  		  <%= content_tag(:li, link_to("#{parties.size - 4} more", "#", :class => "more")) %>
   		<% end %>
   	</ul>
-
   <% end %>
   
 </div>

@@ -53,23 +53,21 @@ var BShow = Behavior.create({
 
 });
 
-var BMore = Behavior.create({
-  initialize: function(){
-    this.target = this.element.up("td").down(".extended");
-  },
-  
-  onclick : function() { 
-    if (this.target)
-      this.target.toggle();
-    return false;
-  },
-});
-
 
 var BCalendarCell = Behavior.create({
   initialize: function(){
     this.element.down(".play").hide();
+    this.more = this.element.down("ul.advanced");
+    this.simple = this.element.down("ul.simple");
+    this.advancedLink = this.element.down("a.more");
+    if (this.advancedLink){
+      this.advancedLink.observe("click", this.switchPartiesList.bindAsEventListener(this, "advanced"));
+      this.lessLink = this.element.down("a.less")
+      if (this.lessLink)
+        this.lessLink.observe("click", this.switchPartiesList.bindAsEventListener(this, "simple"));
+    }
   },
+  
   onmouseover : function(){
       this.element.down(".play").show();
   },
@@ -80,7 +78,7 @@ var BCalendarCell = Behavior.create({
   },
   
   onclick: function(){
-    Calendar.cells.each(function(cell){
+    Calendar.cells.without(this).each(function(cell){
       cell.desactivate();
     })
     this.active = true;
@@ -92,7 +90,26 @@ var BCalendarCell = Behavior.create({
     this.active = false;
     this.element.removeClassName("active");
     this.onmouseout();
-  }
+    this.switchPartiesList(null, "simple");
+  },
+  
+
+  switchPartiesList: function(link, mode){
+      if (mode == "simple") {
+        if (this.simple)
+          this.simple.show();
+        if (this.more)
+          this.more.hide();
+      }
+      if (mode == "advanced"){
+        if (this.simple)
+          this.simple.hide();
+        if (this.more)
+          this.more.show();
+      }
+      return false;
+      
+  },
 });
 
 
@@ -358,7 +375,4 @@ document.observe("dom:loaded", function() {
   
   Sidebar.load();
   Calendar.load();
-  $$("a.more").each(function(elt){
-    BMore.attach(elt);
-  });
 })
