@@ -542,6 +542,13 @@ ul#accounts li{
 	font-variant: small-caps;
 }
 
+ul.advanced{
+  background-color: #ccc;
+   position: absolute; 
+   width: 100%;
+   z-index:1;
+}
+
 .function{
   text-align: center;
 }

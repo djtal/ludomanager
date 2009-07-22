@@ -5,7 +5,7 @@
   <%= link_to_remote("jouer", {:url =>  new_party_path(:date => date), :method => :get}, :class => "right play" ) %>
   <span class="mday"><%= !parties ?  date.day : link_to(date.day, show_parties_path(date)) %></span>
   <% if parties %>
-      <ul class="advanced" id="day_<%= date.day %>_more" style="display: none; position: absolute; z-index:1; width:300px;">
+      <ul class="advanced" id="day_<%= date.day %>_more" style="display: none;">
         <% parties.to_a.each do |game, p| %>
           <%= render :partial => "calendar_party", :locals => {:game => game, :parties => p, :mode => :advanced} %>
         <% end %>
