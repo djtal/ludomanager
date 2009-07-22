@@ -42,11 +42,22 @@ class PartiesControllerTest < ActionController::TestCase
     
     context "viewing parties per day" do
       setup{ Time.zone = 'Paris'}
-      should "show parties for current day" do
+      should "show parties for current day if no date is supplied" do
         get :show
         assert_equal Time.zone.now.to_date, assigns(:date)
       end
       
+      should "show parties for given day if date suplied" do
+        
+      end
+      
+      should "know next day played" do
+        
+      end
+      
+      should "know previous play day" do
+        
+      end
     end
   end
 

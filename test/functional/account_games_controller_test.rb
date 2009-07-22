@@ -18,7 +18,7 @@ class AccountGamesControllerTest < ActionController::TestCase
     end
     
     context "export his AccountGames" do
-      setup{ get :index, :format => :csv}
+      setup{ get "index.csv"}
       should_respond_with :success
     end
     
