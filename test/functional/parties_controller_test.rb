@@ -44,7 +44,7 @@ class PartiesControllerTest < ActionController::TestCase
       setup{ Time.zone = 'Paris'}
       should "show parties for current day if no date is supplied" do
         get :show
-        assert_equal Time.zone.now.to_date, assigns(:date)
+        assert_equal Time.zone.now.to_date, assigns(:date).to_date
       end
       
       should "show parties for given day if date suplied" do
