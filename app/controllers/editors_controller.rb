@@ -68,7 +68,7 @@ class EditorsController < ApplicationController
 
     respond_to do |format|
       if @editor.save
-        create_logo!
+        #create_logo!
         flash[:notice] = 'Editor was successfully created.'
         format.html { redirect_to(@editor) }
         format.xml  { render :xml => @editor, :status => :created, :location => @editor }
@@ -86,7 +86,7 @@ class EditorsController < ApplicationController
 
     respond_to do |format|
       if @editor.update_attributes(params[:editor])
-        create_logo!
+        #create_logo!
         flash[:notice] = 'Editor was successfully updated.'
         format.html { redirect_to(@editor) }
         format.xml  { head :ok }
