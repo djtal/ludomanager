@@ -36,14 +36,12 @@ class EditorsControllerTest < ActionController::TestCase
         assert_difference "Editor.count" do
           post :create, :editor => Factory.attributes_for(:editor)
           assert_response :redirect
-          assert_template :show
         end
       end
       
       should "set logo if file is uploaded" do
         post :create, :editor => Factory.attributes_for(:editor, :name => "toto", :logo => fixture_file_upload("test_image.jpg", "image/jpg"))
         assert_response :redirect
-        assert_template :show
         editor = assigns(:editor)
         assert editor.logo.file?
       end
