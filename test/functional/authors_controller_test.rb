@@ -44,8 +44,8 @@ class AuthorsControllerTest < ActionController::TestCase
         assert_redirected_to author_path(assigns(:author))
       end
     end
+    
   end
-  
   
   
   context "A non logged user" do
@@ -53,6 +53,23 @@ class AuthorsControllerTest < ActionController::TestCase
     context "GET index" do
       setup{ get :index}
       should_respond_with :success
+      should_render_template :index
+    end
+    
+    context "searching author by first letter" do
+      setup do
+        @expected = []
+        5.times{|t| @expected << Factory.create(:author, :name => "a#{t}")}
+        get :index, :start => "a"
+      end
+      
+      should_respond_with :success
+      should_render_template :index
+      should_assign_to :first_letters, :class => Array
+      
+      should "prepare vars" do
+        assert_equal @expected, assigns(:authors)
+      end
     end
     
     context "GET new author form" do

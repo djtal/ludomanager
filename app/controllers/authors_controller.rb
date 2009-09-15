@@ -4,9 +4,19 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.xml
   def index
+    opts = {
+      :order => "surname ASC",
+      :page => params[:page],
+      :include => :authorships
+    }
+    if params[:start]
+        cdn = ["LOWER(authors.name) LIKE ?", params[:start].downcase + "%"]
+        opts.merge!({:conditions => cdn}) 
+    end
+    @first_letters = Author.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
     respond_to do |format|
       format.html do
-          @authors = Author.paginate(:page => params[:page], :include => :authorships, :order => "surname ASC")
+          @authors = Author.paginate(opts)
       end
       format.json do
           @authors = Author.find(:all, :order => "surname ASC")
