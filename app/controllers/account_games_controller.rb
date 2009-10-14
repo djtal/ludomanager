@@ -70,7 +70,7 @@ class AccountGamesController < ApplicationController
   
   def search
     search = current_account.account_games.prepare_search(params[:search])
-    @ag = search.all(:include => :game)
+    @ag = search.all(:include => :game).uniq
     respond_to do |format|
       format.html {render :action => :all, :layout => "simple"}
       format.js

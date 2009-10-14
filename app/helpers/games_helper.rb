@@ -13,10 +13,10 @@ module GamesHelper
   def game_tags_links(game)
     if game.tags.size > 0
       game.tags.collect do |tag|
-        link_to(tag.name, tag_path(tag.name), :class => "tag")
+        link_to(tag.name, tag_path(tag.name), :class => "tag #{tag.name}")
       end
     else
-      content_tag(:span,"Ce jeux n'est pas encore categoris&eacute;", :class => "empty")
+      content_tag(:span,"Ce jeux n'est pas encore categoris&eacute;", :class => "empty" )
     end
   end
 

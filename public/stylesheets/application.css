@@ -648,7 +648,8 @@ div.tag{
   text-decoration: none;
 }
 
-a.tag:hover{
+a.tag:hover,
+a.tag.selected{
   background-color: #666;
   color: #fff;
 }

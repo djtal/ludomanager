@@ -1,2 +1,6 @@
-page["results"].replace_html(render :partial => "search_result", :collection => @ag)
-page << "ls.highlightSelectedTags();"
+unless @ag.empty?
+  page["results"].replace_html(render :partial => "search_result", :collection => @ag)
+  page << "ls.highlightSelectedTags();"
+else
+  page["results"].replace_html(render :partial => "search_result_empty")
+end

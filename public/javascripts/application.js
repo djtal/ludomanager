@@ -283,7 +283,7 @@ LudoSearch.addMethods({
   },
 
   tagClicked: function(ev){
-    li = ev.findElement("li.tag")
+    li = ev.findElement("a.tag")
     if (!li) return;
     ev.stop();
     //tag not in query
@@ -303,7 +303,7 @@ LudoSearch.addMethods({
 
   highlightSelectedTags: function(){
     this.searchedTags.each(function(tag){
-      this.results.select("li." + tag).invoke("addClassName", "selected")
+      this.results.select("a." + tag).invoke("addClassName", "selected")
     }.bind(this));
   }
 
