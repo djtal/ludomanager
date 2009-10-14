@@ -1,1 +1,0 @@
-page["smart-list"].update("Successfully create #{@list.title}")

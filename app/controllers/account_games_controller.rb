@@ -45,7 +45,8 @@ class AccountGamesController < ApplicationController
   end
   
   def all
-    @ag = current_account.account_games.search(params)
+    search = current_account.account_games.prepare_search
+    @ag = search.all(:include => :game)
     render :action => :all, :layout => "simple"
   end
   
@@ -68,7 +69,8 @@ class AccountGamesController < ApplicationController
   end
   
   def search
-    @ag = current_account.account_games.search(params)
+    search = current_account.account_games.prepare_search(params[:search])
+    @ag = search.all(:include => :game)
     respond_to do |format|
       format.html {render :action => :all, :layout => "simple"}
       format.js

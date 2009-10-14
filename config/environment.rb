@@ -34,6 +34,7 @@ Rails::Initializer.run do |config|
   config.i18n.default_locale = :fr
   
   # See Rails::Configuration for more options
+  config.gem "binarylogic-searchlogic", :lib => "searchlogic"
   config.gem 'mislav-will_paginate', :version => '~> 2.3.11', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem "thoughtbot-paperclip", :lib => "paperclip", :source => "http://gems.github.com", :version => '2.3.0'
   config.gem "newrelic_rpm"

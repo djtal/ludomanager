@@ -39,38 +39,23 @@ class AccountGame < ActiveRecord::Base
   end
   
   
-  def self.search(query = {})
-    opts = {
-      :include => {:game => :tags},
-      :order => "games.name ASC",
-      :page => query.delete(:page)
-    }
-    if query[:search]
-      @tag_list = Tag.parse(query[:search][:tags]) if query[:search][:tags]
-      criterion = {}
-      if !query[:search][:player].blank?
-        criterion["games.min_player <= ?"] = query[:search][:player]
-        criterion["games.max_player >= ?"] = query[:search][:player]
-      end
-      if !query[:search][:difficulty].blank?
-        criterion["games.difficulty <= ?"] = query[:search][:difficulty]
-      end
-      if !query[:search][:parties].blank?
-         criterion["account_games.parties_count <= ?"] = query[:search][:parties]
-      end
-      opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
-      
-      opts[:limit] = query[:search][:limit] if !query[:search][:limit].blank?
+  def self.prepare_search(params = {})
+    search = self.search
+    
+    if params[:player].to_i > 0
+      search.game_min_player_lte(params[:player])
+      search.game_max_player_gte(params[:player])
     end
-    @ag = self.paginate(:all, opts)
-    #filter for tags
-    if @tag_list && !@tag_list.empty?
-      @ag = @ag.select do |ag|
-         found = ag.game.tags.inject(0){|acc, tag| acc + (@tag_list.include?(tag.name) ? 1 : 0)}
-         query[:search][:tags_mode] == "and" ? found == @tag_list.size : found > 0
+    
+    if !params[:tags].blank?
+      tags = params[:tags].split(/\s|,\s*|;\s*/)
+      if params[:tags_mode] == "or"
+        search.game_tags_name_like_any(tags)
+      else
+        search.game_tags_name_like_all(tags)
       end
     end
-    @ag
+    search
   end
   
   def self.last_buy(count, opts = {})

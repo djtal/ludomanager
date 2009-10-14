@@ -1,8 +1,0 @@
-<% form_for :smart_list, :url => smart_lists_path, :method => :post, :html => {:id => "smart_list_form"}  do |f| %>
-  <div class="right">
-    <span class="link close">Fermer</span>&nbsp;ou&nbsp;
-    <%= f.submit "Sauvegarder" %>
-  </div>
-  <div><%= f.label :title, "Nom : " %>
-  <%= f.text_field :title %></div>
-<% end %>

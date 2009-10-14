@@ -1,11 +1,11 @@
 <h3>Rechercher un jeu</h3>
 
 <% form_for "search" , :url => search_account_games_path, :method => :post, :html => {:id => "ludo-search"} do |f| %>
-	<div class="right ">
-	    <%= link_to "", "#", :id => "reset", :class => "form-reset" %>
-      <%= image_submit_tag "find.png", :class => "form-find" %>
-    </div>
     <fieldset>	
+      <div class="right ">
+  	    <%= link_to "", "#", :id => "reset", :class => "form-reset" %>
+        <%= image_submit_tag "find.png", :class => "form-find" %>
+      </div>
   		<div class="left">
   		Contenant <%= f.label "search_tags_mode_or", "un des tags: " %><%= f.radio_button :tags_mode, :or, :checked=> true, :class => "trigger" %>
   		<%= f.label "search_tags_mode_and", "tous les tags: " %><%= f.radio_button :tags_mode, :and, :class => "trigger" %>		
@@ -14,11 +14,6 @@
   		<%= f.label "search_player", "Pour " %>
   		<%= f.text_field :player, :size => 2, :value => params[:search] ? params[:search][:player] : "", :class => "important trigger" %> <strong>Joueurs</strong>
       </div>
-	</fieldset>
-	<fieldset>
-	  <%= f.label "search_difficulty", "Diffiulte" %>
-    <%= f.text_field :difficulty, :size => 2, :value => params[:search] ? params[:search][:difficulty] : "", :class => "important trigger" %>
-    <%= f.label :parties, "Nombre de parties" %>&nbsp;<%= f.text_field :parties, :value => params[:search] ? params[:search][:parties] : "", :size => 2, :class => "important trigger" %>
 	</fieldset>
 	<div></div>
 <% end %>
