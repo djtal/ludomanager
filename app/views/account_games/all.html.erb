@@ -19,11 +19,19 @@
 <% end %>
 
 
-<div id="smart-list"></div>
-
 <div id="search-results">
-	<%= render_games @ag, :mode => :full %>
+  <table class="sortable">
+    <thead>
+      <th class="nosort"></th>
+      <th class="nosort span-13">Jeux</th>
+      <th class="nosort span-10">tags</th>
+    </thead>
+    <tbody id="results">
+      <%= render :partial => "search_result", :collection => @ag %>
+    </tbody>
+  </table>
 </div>
+
 
 
 <% content_for :subnav do %>

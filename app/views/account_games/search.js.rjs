@@ -1,3 +1,2 @@
-page["search-results"].replace_html render_games(@ag, :mode => :full)
-page << "TableKit.Sortable.init($('search-results').down('table'));" unless @ag.empty?
+page["results"].replace_html(render :partial => "search_result", :collection => @ag)
 page << "ls.highlightSelectedTags();"

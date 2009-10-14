@@ -645,6 +645,7 @@ div.tag{
   border: 1px solid #DDDDDD;
   margin-right: 5px;
   text-align: center;
+  text-decoration: none;
 }
 
 a.tag:hover{
