@@ -12,6 +12,11 @@
       <br />
       Des Categories : <%= f.select :cat1, [["Aucune", -1]] + Game::Target %> ou <%= f.select :cat2, [["Aucune", -1]] + Game::Target %>
 	</fieldset>
+	<fieldset>
+	  <legend>Avanc&eacute;e</legend>
+	    Filtrer sur les jeux : <%= f.label :mode_played, "Joué" %><%= f.radio_button :mode, :played %> ou
+	    <%= f.label :mode_not_played, "non joué" %><%= f.radio_button :mode, :not_played %> 
+	  </fieldset>
 	<div></div>
 
 <% end %>

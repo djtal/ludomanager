@@ -7,7 +7,10 @@ class TestACGameSearch < ActiveSupport::TestCase
               :tags_mode => "or",
               :players => 4,
               :cat1 => 0,
-              :cat2 => 1}
+              :cat2 => 1,
+              :mode => :played,
+              :time => 5,
+              :unit => :months}
     acc = Factory.create(:account)          
     search = ACGameSearch.new(acc, params)
     assert_equal acc, search.account
@@ -28,5 +31,38 @@ class TestACGameSearch < ActiveSupport::TestCase
     
     search = ACGameSearch.new(acc)
     assert_equal 2, search.prepare_search.all.length
-  end   
+  end 
+  
+  should "search using attr mode=played should filter played games" do
+    acc = Factory.create(:account)
+    acc.account_games << Factory.create(:account_game,  :account => acc, 
+                                                        :game => Factory.create(:game, :name => "I'm the boss"))
+    ac = Factory.create(:account_game,  :account => acc, 
+                                                        :game =>  Factory.create(:game, :name => "Assyria"),
+                                                        :parties_count => 1)
+    ac.parties_count = 1
+    ac.save
+    acc.account_games << ac
+    
+    search = ACGameSearch.new(acc, {:mode => "played"})
+    assert_equal 1, search.prepare_search.all.length
+  end 
+  
+  should "search using attr mode=not_played should filter not played games" do
+    acc = Factory.create(:account)
+    acc.account_games << Factory.create(:account_game,  :account => acc, 
+                                                        :game => Factory.create(:game, :name => "I'm the boss"))
+    acc.account_games << Factory.create(:account_game,  :account => acc, 
+                                                        :game => Factory.create(:game, :name => "Space Alert"))   
+                                                                                                             
+    ac = Factory.create(:account_game,  :account => acc, 
+                                                        :game =>  Factory.create(:game, :name => "Assyria"),
+                                                        :parties_count => 1)
+    ac.parties_count = 1
+    ac.save
+    acc.account_games << ac
+    
+    search = ACGameSearch.new(acc, {:mode => "not_played"})
+    assert_equal 2, search.prepare_search.all.length
+  end 
 end

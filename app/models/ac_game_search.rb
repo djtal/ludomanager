@@ -1,7 +1,7 @@
 # Heavily inspired by http://robots.thoughtbot.com/post/159805369/search-by-quacking-like-activerecord
 #
 class ACGameSearch
-  attr_accessor :tags, :tags_mode, :players, :cat1, :cat2
+  attr_accessor :tags, :tags_mode, :players, :cat1, :cat2, :mode, :time, :unit
   attr_accessor :account
   
   
@@ -47,6 +47,12 @@ class ACGameSearch
         when cat1 == -1 && cat2 >= 0
           search.game_target_is(cat2)
       end
+    end
+    
+    if mode == "played"
+      search.parties_count_gt(0)
+    elsif mode == "not_played"
+      search.parties_count_is(0)
     end
     search
   end
