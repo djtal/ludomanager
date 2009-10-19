@@ -1,0 +1,27 @@
+<% semantic_form.inputs :title => :simple do %>
+  <% semantic_form.inputs :name  do %>
+    <%= semantic_form.input :name, :required => true %>
+    <%= semantic_form.input :description %>
+    <%= semantic_form.input :box %>
+  <% end %>
+  <% semantic_form.fields_for :tags do |tags| %>
+    <%= tags.input :tag_list %>
+    <div class="auto_complete" id="tags_lookup_auto_complete"></div> 
+  <% end %>
+<% end %>
+
+<% semantic_form.inputs :title => :game_technics do %>
+  <%= semantic_form.input :min_player, :required => true %>
+  <%= semantic_form.input :max_player, :required => true %>
+  <%= semantic_form.input :target,:as => :select, :collection => Game::Target %>
+  <%= semantic_form.input :time_category, :as => :select, :collection => Game::TimeCategory %>
+  <%= semantic_form.input :difficulty, :as => :select, :collection => (1..5), :required => true %>
+<% end %>
+
+
+
+<% semantic_form.inputs :title => :game_more do %>
+  <%= semantic_form.input :average %>
+  <%= semantic_form.input :url %>
+<% end %>
+

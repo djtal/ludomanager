@@ -18,7 +18,6 @@
 #
 
 
-
 class AccountGame < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
   validates_uniqueness_of :game_id, :scope => :account_id
@@ -38,35 +37,6 @@ class AccountGame < ActiveRecord::Base
     end
   end
   
-  
-  def self.prepare_search(params = {})
-    search = self.search
-    
-    if params[:player].to_i > 0
-      search.game_min_player_lte(params[:player])
-      search.game_max_player_gte(params[:player])
-    end
-    
-    if !params[:tags].blank?
-      tags = params[:tags].split(/\s|,\s*|;\s*/)
-      if params[:tags_mode] == "or"
-        search.game_tags_name_like_any(tags)
-      else
-        search.game_tags_name_like_all(tags)
-      end
-    end
-    
-    case(true) 
-      when params[:cat1] != "none" && params[:cat2] != "none" && params[:cat1] != params[:cat2]
-        search.game_target_is_any([params[:cat1], params[:cat2]])
-      when  params[:cat1] != "none" && params[:cat2] == "none"
-        search.game_target_is(params[:cat1])
-      when params[:cat1] == "none" && params[:cat2] != "none"
-        search.game_target_is(params[:cat2])
-    end
-    
-    search
-  end
   
   def self.last_buy(count, opts = {})
     options = {
