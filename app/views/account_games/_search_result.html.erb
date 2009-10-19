@@ -1,6 +1,7 @@
 <tr>
   <td><%= image_tag(search_result.game.box.url(:thumb), :class => "mini") %></td>
   <td><%= search_result.game.name %></td>
+  <td><%= search_result.game.target_str.downcase %></td>
   <td><%= game_tags_links search_result.game %></td>
   <td><%= search_result.game.min_player %>..<%= search_result.game.max_player %></td>
 </tr>

@@ -1,21 +1,27 @@
 <h3>Rechercher un jeu</h3>
 
 <% form_for "search" , :url => search_account_games_path, :method => :post, :html => {:id => "ludo-search"} do |f| %>
-    <fieldset>	
-      <div class="right ">
-  	    <%= link_to "", "#", :id => "reset", :class => "form-reset" %>
-        <%= image_submit_tag "find.png", :class => "form-find" %>
-      </div>
-  		<div class="left">
+    <fieldset>
+      <legend>Simple</legend>
   		Contenant <%= f.label "search_tags_mode_or", "un des tags: " %><%= f.radio_button :tags_mode, :or, :checked=> true, :class => "trigger" %>
   		<%= f.label "search_tags_mode_and", "tous les tags: " %><%= f.radio_button :tags_mode, :and, :class => "trigger" %>		
   		<%= f.text_field :tags, :value => params[:search] ? params[:search][:tags] : "", :class => "important" %>
   		<div class="auto_complete" id="tags_lookup_auto_complete"></div> 
   		<%= f.label "search_player", "Pour " %>
   		<%= f.text_field :player, :size => 2, :value => params[:search] ? params[:search][:player] : "", :class => "important trigger" %> <strong>Joueurs</strong>
-      </div>
+      <br />
+      Des Categories : <%= f.select :cat1, [["Aucune", :none]] + Game::Target %> ou <%= f.select :cat2, [["Aucune", :none]] + Game::Target %>
 	</fieldset>
 	<div></div>
+	<fieldset>
+	  <legend>Avanc&eacute;</legend>
+	  Voir les jeux : 
+	  <%= f.label "search_played_mode", "Tous" %><%= f.radio_button :played_mode, :all %>
+	  <%= f.label "search_played_mode", "Jou&eacute;" %><%= f.radio_button :played_mode, :played %>
+	  <%= f.label "search_played_mode", "Non Jou&eacute;" %><%= f.radio_button :played_mode, :not_played %>
+	  <%= f.label "search_played_time", "Depuis" %><%= f.text_field :played_time, :size => 2 %>
+	  <%= f.select :played_unit, [["Jours", :days], ["Mois", :months], ["Année", :years]] %>
+	</fieldset>
 <% end %>
 
 
@@ -23,7 +29,8 @@
     <table class="sortable">
       <thead>
         <th class="nosort"></th>
-        <th class="nosort span-13">Jeux</th>
+        <th class="nosort span-11">Jeux</th>
+        <th class="nosort span-2">Cat&eacute;gorie</th>
         <th class="nosort span-10">tags</th>
         <th class="nosort span-1">Joueur</th>
       </thead>
