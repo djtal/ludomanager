@@ -31,7 +31,24 @@ class TestACGameSearch < ActiveSupport::TestCase
     
     search = ACGameSearch.new(acc)
     assert_equal 2, search.prepare_search.all.length
-  end 
+  end
+  
+
+  should "filter player number based on min and max player on game" do
+    acc = Factory.create(:account)
+    acc.games << Factory.create(:game, :name => "I'm the boss", :min_player => 4, :max_player => 6)
+    acc.games << Factory.create(:game, :name => "Assyria", :min_player => 2, :max_player => 4)
+    
+    search_4_player = ACGameSearch.new(acc, {:players => 4})
+    assert_equal 2, search_4_player.prepare_search.all.length
+    
+    search_2_player = ACGameSearch.new(acc, {:players => 2})
+    assert_equal 1, search_2_player.prepare_search.all.length
+    
+    search_6_player = ACGameSearch.new(acc, {:players => 6})
+    assert_equal 1, search_6_player.prepare_search.all.length
+  end
+
   
   should "search using attr mode=played should filter played games" do
     acc = Factory.create(:account)
