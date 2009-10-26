@@ -296,7 +296,7 @@ LudoSearch.addMethods({
       this.tagField.setValue(val);
     } else { //tag in query
       this.searchedTags = this.searchedTags.without(li.innerHTML);
-      this.tagField.setValue(this.tagField.getValue().gsub(",*\\s*" + li.innerHTML, ""));
+      this.tagField.setValue(this.searchedTags.join(", "));
     }
     this.formChange(null);
   },
