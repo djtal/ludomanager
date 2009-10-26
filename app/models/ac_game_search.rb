@@ -32,11 +32,7 @@ class ACGameSearch
     
     if !tags.blank?
       tags_list =tags.split(/\s|,\s*|;\s*/)
-      if tags_mode == "or"
-        @search.game_tags_name_like_any(tags_list)
-      else
-        @search.game_tags_name_like_all(tags_list)
-      end
+      @search.game_tags_name_like_any(tags_list)
     end
     
     if (cat1 && cat2)
