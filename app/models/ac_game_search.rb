@@ -64,7 +64,7 @@ class ACGameSearch
   
   
   def from_date
-    @from_date ||= self.since.to_i.send(self.unit).ago
+    @from_date ||= self.since.to_i.send(self.unit).ago.beginning_of_day
   end
   
   def is_advanced_time_used?
@@ -80,7 +80,11 @@ class ACGameSearch
         @search.parties_count_is(0)
       end
     else
-      
+      if mode == "played"
+        @search.last_play_gte(self.from_date)
+      elsif mode == "not_played"
+        @search.parties_count_is(0)
+      end
     end
   end
 end

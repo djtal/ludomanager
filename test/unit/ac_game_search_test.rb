@@ -50,29 +50,28 @@ class TestACGameSearch < ActiveSupport::TestCase
   end
 
   context "searching with parties attribute" do
-    
-    should "search using attr mode=played should filter played games" do
-
-
-      search = ACGameSearch.new(acc, {:mode => "played"})
-      assert_equal 1, search.prepare_search.all.length
-    end 
-
-    should "search using attr mode=not_played should filter not played games" do
-      acc = Factory.create(:account)
-      acc.account_games << Factory.create(:account_game,  :account => acc, 
+    setup do
+      @acc = Factory.create(:account)
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, 
                                                           :game => Factory.create(:game, :name => "I'm the boss"))
-      acc.account_games << Factory.create(:account_game,  :account => acc, 
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, 
                                                           :game => Factory.create(:game, :name => "Space Alert"))   
 
-      ac = Factory.create(:account_game,  :account => acc, 
+      ac = Factory.create(:account_game,  :account => @acc, 
                                                           :game =>  Factory.create(:game, :name => "Assyria"),
                                                           :parties_count => 1)
       ac.parties_count = 1
       ac.save
-      acc.account_games << ac
+      @acc.account_games << ac
+    end
+    
+    should "search using attr mode=played should filter played games" do
+      search = ACGameSearch.new(@acc, {:mode => "played"})
+      assert_equal 1, search.prepare_search.all.length
+    end 
 
-      search = ACGameSearch.new(acc, {:mode => "not_played"})
+    should "search using attr mode=not_played should filter not played games" do
+      search = ACGameSearch.new(@acc, {:mode => "not_played"})
       assert_equal 2, search.prepare_search.all.length
     end
   end
@@ -87,10 +86,10 @@ class TestACGameSearch < ActiveSupport::TestCase
     
     should  "compute from date based on since, unit" do
       since1year = ACGameSearch.new(nil, {:mode => "played", :since => 1, :unit => "year"})
-      assert_equal 1.year.ago.to_date, since1year.from_date.to_date
+      assert_equal 1.year.ago.beginning_of_day, since1year.from_date
     end
     
-    should "search played games based on playind date" do
+    should "search played games based on playing date" do
       acc = Factory.create(:account)
       acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 2.year.ago,
                                                           :game => Factory.create(:game, :name => "White Moon"))
@@ -107,6 +106,9 @@ class TestACGameSearch < ActiveSupport::TestCase
 
       since1month = ACGameSearch.new(acc, {:mode => "played", :since => 1, :unit => "month"})
       assert_equal 2, since1month.prepare_search.all.length
+      
+      since1day = ACGameSearch.new(acc, {:mode => "played", :since => 1, :unit => "day"})
+      assert_equal 1, since1day.prepare_search.all.length
     end
   end
   
