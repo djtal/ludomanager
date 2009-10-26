@@ -68,7 +68,7 @@ class ACGameSearch
   end
   
   def is_advanced_time_used?
-    (self.mode == "played" || self.mode == "not_played") && self.since > 0 &&
+    (self.mode == "played" || self.mode == "not_played") && self.since.to_i > 0 &&
           (['day', 'month', 'year'].include?(self.unit))
   end
   

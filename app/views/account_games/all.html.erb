@@ -16,7 +16,12 @@
 	  <legend>Avanc&eacute;e</legend>
 	    Filtrer sur les jeux : <%= f.label :mode_played, "Joué" %><%= f.radio_button :mode, :played %> ou
 	    <%= f.label :mode_not_played, "non joué" %><%= f.radio_button :mode, :not_played %> 
-	  </fieldset>
+	    <div id="time_advanced">
+	      <%= f.label :since, "Depuis" %><%= f.text_field :since, :size => 2 %>
+	      <%= f.select :unit, [["Annee", "year"], ["Mois", "month"], ["Jour", "day"]] %>
+	    </div>
+	</fieldset>
+	
 	<div></div>
 
 <% end %>
