@@ -9,7 +9,7 @@ class TestACGameSearch < ActiveSupport::TestCase
               :cat1 => 0,
               :cat2 => 1,
               :mode => :played,
-              :time => 5,
+              :since => 5,
               :unit => :months}
     acc = Factory.create(:account)          
     search = ACGameSearch.new(acc, params)
@@ -49,37 +49,66 @@ class TestACGameSearch < ActiveSupport::TestCase
     assert_equal 1, search_6_player.prepare_search.all.length
   end
 
-  
-  should "search using attr mode=played should filter played games" do
-    acc = Factory.create(:account)
-    acc.account_games << Factory.create(:account_game,  :account => acc, 
-                                                        :game => Factory.create(:game, :name => "I'm the boss"))
-    ac = Factory.create(:account_game,  :account => acc, 
-                                                        :game =>  Factory.create(:game, :name => "Assyria"),
-                                                        :parties_count => 1)
-    ac.parties_count = 1
-    ac.save
-    acc.account_games << ac
+  context "searching with parties attribute" do
     
-    search = ACGameSearch.new(acc, {:mode => "played"})
-    assert_equal 1, search.prepare_search.all.length
-  end 
+    should "search using attr mode=played should filter played games" do
+
+
+      search = ACGameSearch.new(acc, {:mode => "played"})
+      assert_equal 1, search.prepare_search.all.length
+    end 
+
+    should "search using attr mode=not_played should filter not played games" do
+      acc = Factory.create(:account)
+      acc.account_games << Factory.create(:account_game,  :account => acc, 
+                                                          :game => Factory.create(:game, :name => "I'm the boss"))
+      acc.account_games << Factory.create(:account_game,  :account => acc, 
+                                                          :game => Factory.create(:game, :name => "Space Alert"))   
+
+      ac = Factory.create(:account_game,  :account => acc, 
+                                                          :game =>  Factory.create(:game, :name => "Assyria"),
+                                                          :parties_count => 1)
+      ac.parties_count = 1
+      ac.save
+      acc.account_games << ac
+
+      search = ACGameSearch.new(acc, {:mode => "not_played"})
+      assert_equal 2, search.prepare_search.all.length
+    end
+  end
+
   
-  should "search using attr mode=not_played should filter not played games" do
-    acc = Factory.create(:account)
-    acc.account_games << Factory.create(:account_game,  :account => acc, 
-                                                        :game => Factory.create(:game, :name => "I'm the boss"))
-    acc.account_games << Factory.create(:account_game,  :account => acc, 
-                                                        :game => Factory.create(:game, :name => "Space Alert"))   
-                                                                                                             
-    ac = Factory.create(:account_game,  :account => acc, 
-                                                        :game =>  Factory.create(:game, :name => "Assyria"),
-                                                        :parties_count => 1)
-    ac.parties_count = 1
-    ac.save
-    acc.account_games << ac
+  context "searching using advance time option" do
+    should "know if advance time mode is active from search attribute" do
+      assert ACGameSearch.new(nil, {:mode => "played", :since => 1, :unit => "year"}).is_advanced_time_used?
+      assert !ACGameSearch.new(nil, {:mode => "played"}).is_advanced_time_used?
+      assert !ACGameSearch.new(nil, {:mode => "played", :since => 1}).is_advanced_time_used?
+    end
     
-    search = ACGameSearch.new(acc, {:mode => "not_played"})
-    assert_equal 2, search.prepare_search.all.length
-  end 
+    should  "compute from date based on since, unit" do
+      since1year = ACGameSearch.new(nil, {:mode => "played", :since => 1, :unit => "year"})
+      assert_equal 1.year.ago.to_date, since1year.from_date.to_date
+    end
+    
+    should "search played games based on playind date" do
+      acc = Factory.create(:account)
+      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 2.year.ago,
+                                                          :game => Factory.create(:game, :name => "White Moon"))
+      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 1.year.ago, 
+                                                          :game => Factory.create(:game, :name => "I'm the boss"))
+      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 1.month.ago,
+                                                          :game => Factory.create(:game, :name => "Space Alert"))
+      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 1.day.ago,
+                                                          :game => Factory.create(:game, :name => "Stronghold"))
+
+
+      since1year = ACGameSearch.new(acc, {:mode => "played", :since => 1, :unit => "year"})
+      assert_equal 3, since1year.prepare_search.all.length
+
+      since1month = ACGameSearch.new(acc, {:mode => "played", :since => 1, :unit => "month"})
+      assert_equal 2, since1month.prepare_search.all.length
+    end
+  end
+  
+
 end
