@@ -423,6 +423,7 @@ document.observe("dom:loaded", function() {
   new Tabs("gameTabs")
   acf = new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
+  TableStrip.strip($('search-results').down('table'))
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
   });
