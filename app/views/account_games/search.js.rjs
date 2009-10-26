@@ -1,6 +1,7 @@
 unless @ag.empty?
   page["results"].replace_html(render :partial => "search_result", :collection => @ag)
   page << "ls.highlightSelectedTags();"
+  page << "TableKit.Sortable.init($('search-results').down('table'));"
 else
   page["results"].replace_html(render :partial => "search_result_empty")
 end

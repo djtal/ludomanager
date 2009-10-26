@@ -1,3 +1,27 @@
+#ludo-search{
+  background-color: #E6F7D4;
+	border: solid 2px #DCEAD7;
+	padding: 5px;
+}
+
+#ludo-search fieldset{
+  background: none;
+  border-top: none;
+}
+
+#ludo-search #buttons{
+  border: solid 1px #DCEAD7;
+  padding: 5px;
+  text-align: center;
+  height: 100%;
+}
+
+#ludo-search hr{
+  background: none;
+  margin: 5px 0;
+  border-top: 1px solid #666;
+  height: 0;
+}
 .errorExplanation h2{
   font-size: 1.5em;
   color: red;

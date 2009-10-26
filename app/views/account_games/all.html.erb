@@ -1,29 +1,29 @@
-<h3>Rechercher un jeu</h3>
+<h3>Rechercher un jeu dans ma ludotheque</h3>
 
-<% form_for "search" , :url => search_account_games_path, :method => :post, :html => {:id => "ludo-search"} do |f| %>
-    <fieldset>
-      <legend>Simple</legend>
-  		Contenant <%= f.label :tags_mode_or, "un des tags: " %><%= f.radio_button :tags_mode, :or, :checked=> true, :class => "trigger" %>
-  		<%= f.label :tags_mode_and, "tous les tags: " %><%= f.radio_button :tags_mode, :and, :class => "trigger" %>		
-  		<%= f.text_field :tags,  :class => "important" %>
-  		<div class="auto_complete" id="tags_lookup_auto_complete"></div> 
-  		<%= f.label :players, "Pour " %>
-  		<%= f.text_field :players, :size => 2, :class => "important trigger" %> <strong>Joueurs</strong>
-      <br />
-      Des Categories : <%= f.select :cat1, [["Aucune", -1]] + Game::Target %> ou <%= f.select :cat2, [["Aucune", -1]] + Game::Target %>
-	</fieldset>
-	<fieldset>
-	  <legend>Avanc&eacute;e</legend>
-	    Filtrer sur les jeux : <%= f.label :mode_played, "Joué" %><%= f.radio_button :mode, :played %> ou
-	    <%= f.label :mode_not_played, "non joué" %><%= f.radio_button :mode, :not_played %> 
-	    <div id="time_advanced">
-	      <%= f.label :since, "Depuis" %><%= f.text_field :since, :size => 2 %>
-	      <%= f.select :unit, [["Annee", "year"], ["Mois", "month"], ["Jour", "day"]] %>
-	    </div>
-	</fieldset>
-	
-	<div></div>
-
+<% form_for "search" , :url => search_account_games_path, :method => :post, :html => {:id => "ludo-search", :class => "clear"} do |f| %>
+    <div class="column span-19">
+        <fieldset>
+	        <%= f.label :tag, "Avec le/les tags" %>
+      		<%= f.text_field :tags, :size => 80 %>
+      		<div class="auto_complete" id="tags_lookup_auto_complete"></div> 
+      		<%= f.label :players, "Pour " %>
+      		<%= f.text_field :players, :size => 2, :class => "trigger" %> <strong>Joueurs</strong>
+          <br />
+          Des Categories : <%= f.select :cat1, [["Aucune", -1]] + Game::Target %> ou <%= f.select :cat2, [["Aucune", -1]] + Game::Target %>
+    	    <hr />
+    	     <%= f.label :mode,  "Voir les jeux " %><%= f.label :mode_played, "joué" %><%= f.radio_button :mode, :played %> ou
+    	    <%= f.label :mode_not_played, "non joué" %><%= f.radio_button :mode, :not_played %> 
+    	    <div id="time_advanced">
+    	      <%= f.label :since, "Depuis" %><%= f.text_field :since, :size => 2 %>
+    	      <%= f.select :unit, [["Annee", "year"], ["Mois", "month"], ["Jour", "day"]] %>
+    	    </div>
+    	</fieldset>
+    </div>
+    <div class="column span-4 last clear" id="buttons">
+        <%= f.submit "Chercher" %><br />
+    	  ou<br />
+    	  <%= link_to "Nouvelle recherche", "#", :id => "reset", :class => "ss_textfield_delete ss_sprite" %>
+    </div>
 <% end %>
 
 
