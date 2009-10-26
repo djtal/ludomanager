@@ -78,37 +78,49 @@ class TestACGameSearch < ActiveSupport::TestCase
 
   
   context "searching using advance time option" do
+    setup do
+      @acc = Factory.create(:account)
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :last_play => 2.year.ago,
+                                                          :game => Factory.create(:game, :name => "White Moon"))
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :last_play => 1.year.ago, 
+                                                          :game => Factory.create(:game, :name => "I'm the boss"))
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :last_play => 1.month.ago,
+                                                          :game => Factory.create(:game, :name => "Space Alert"))
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :last_play => 1.day.ago,
+                                                          :game => Factory.create(:game, :name => "Stronghold"))
+    end
     should "know if advance time mode is active from search attribute" do
-      assert ACGameSearch.new(nil, {:mode => "played", :since => 1, :unit => "year"}).is_advanced_time_used?
-      assert !ACGameSearch.new(nil, {:mode => "played"}).is_advanced_time_used?
-      assert !ACGameSearch.new(nil, {:mode => "played", :since => 1}).is_advanced_time_used?
+      assert ACGameSearch.new(@acc, {:mode => "played", :since => 1, :unit => "year"}).is_advanced_time_used?
+      assert !ACGameSearch.new(@acc, {:mode => "played"}).is_advanced_time_used?
+      assert !ACGameSearch.new(@acc, {:mode => "played", :since => 1}).is_advanced_time_used?
     end
     
     should  "compute from date based on since, unit" do
-      since1year = ACGameSearch.new(nil, {:mode => "played", :since => 1, :unit => "year"})
+      since1year = ACGameSearch.new(@acc, {:mode => "played", :since => 1, :unit => "year"})
       assert_equal 1.year.ago.beginning_of_day, since1year.from_date
     end
     
-    should "search played games based on playing date" do
-      acc = Factory.create(:account)
-      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 2.year.ago,
-                                                          :game => Factory.create(:game, :name => "White Moon"))
-      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 1.year.ago, 
-                                                          :game => Factory.create(:game, :name => "I'm the boss"))
-      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 1.month.ago,
-                                                          :game => Factory.create(:game, :name => "Space Alert"))
-      acc.account_games << Factory.create(:account_game,  :account => acc, :last_play => 1.day.ago,
-                                                          :game => Factory.create(:game, :name => "Stronghold"))
-
-
-      since1year = ACGameSearch.new(acc, {:mode => "played", :since => 1, :unit => "year"})
+    should "find played games based on playing date" do
+      since1year = ACGameSearch.new(@acc, {:mode => "played", :since => 1, :unit => "year"})
       assert_equal 3, since1year.prepare_search.all.length
 
-      since1month = ACGameSearch.new(acc, {:mode => "played", :since => 1, :unit => "month"})
+      since1month = ACGameSearch.new(@acc, {:mode => "played", :since => 1, :unit => "month"})
       assert_equal 2, since1month.prepare_search.all.length
       
-      since1day = ACGameSearch.new(acc, {:mode => "played", :since => 1, :unit => "day"})
+      since1day = ACGameSearch.new(@acc, {:mode => "played", :since => 1, :unit => "day"})
       assert_equal 1, since1day.prepare_search.all.length
+    end
+    
+    should "find game not played since a time interval" do
+      since1year = ACGameSearch.new(@acc, {:mode => "not_played", :since => 1, :unit => "year"})
+      assert_equal 1, since1year.prepare_search.all.length
+      assert_equal "White Moon", since1year.prepare_search.all.first.game.name
+      
+      since1month = ACGameSearch.new(@acc, {:mode => "not_played", :since => 1, :unit => "month"})
+      assert_equal 2, since1month.prepare_search.all.length
+      
+      since1day = ACGameSearch.new(@acc, {:mode => "not_played", :since => 1, :unit => "day"})
+      assert_equal 3, since1day.prepare_search.all.length
     end
   end
   

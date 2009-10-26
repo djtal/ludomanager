@@ -83,7 +83,7 @@ class ACGameSearch
       if mode == "played"
         @search.last_play_gte(self.from_date)
       elsif mode == "not_played"
-        @search.parties_count_is(0)
+        @search.last_play_lte(self.from_date)
       end
     end
   end
