@@ -7,8 +7,15 @@ class GamesController < ApplicationController
     respond_to do |format|
       format.html do 
         @last = Game.find(:all, :order => "created_at DESC", :limit => 10)
-        @games = Game.paginate(:page => params[:page], :per_page => 15, :order => 'games.name ASC', 
+        if (params[:start])
+          @games = Game.name_begins_with_any(params[:start].upcase, 
+                                              params[:start].downcase).paginate(:page => params[:page],
+                                    :per_page => 15, :order => 'games.name ASC',  :include => [:tags,:editions])
+        else
+          @games = Game.paginate(:page => params[:page], :per_page => 15, :order => 'games.name ASC', 
                   :include => [:tags,:editions])
+        end
+        @first_letters = Game.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
       end
       format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
     end

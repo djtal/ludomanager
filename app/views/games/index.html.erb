@@ -5,7 +5,12 @@
 
 <h3>Les jeux...</h3>
 
-<%= yield :page_nav %>
+<div class="pagination clear">
+  <span><%= link_to "Tous", games_path %></span>
+    <% ("A".."Z").each do |letter| %>
+      <%= link_for_first_letter letter, :games_path %>
+    <% end %>
+</div>
 
 <div>
 	
