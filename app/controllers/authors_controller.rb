@@ -11,10 +11,10 @@ class AuthorsController < ApplicationController
     @first_letters = Author.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
     respond_to do |format|
       format.html do
-        if params[:start]
-          @authors = Author.start(params[:start]).paginate(opts)
+        @authors = if params[:start]
+          Author.start(params[:start]).paginate(opts)
         else
-          @authors = Author.paginate(opts)
+          Author.paginate(opts)
         end
       end
       format.json do
