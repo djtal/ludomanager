@@ -9,14 +9,14 @@ class AuthorsController < ApplicationController
       :page => params[:page],
       :include => :authorships
     }
-    if params[:start]
-        cdn = ["LOWER(authors.name) LIKE ?", params[:start].downcase + "%"]
-        opts.merge!({:conditions => cdn}) 
-    end
     @first_letters = Author.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
     respond_to do |format|
       format.html do
+        if params[:start]
+          @authors = Author.start(params[:start]).paginate(opts)
+        else
           @authors = Author.paginate(opts)
+        end
       end
       format.json do
           @authors = Author.find(:all, :order => "surname ASC")
