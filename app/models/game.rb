@@ -51,6 +51,7 @@ class Game < ActiveRecord::Base
                     
   
   acts_as_taggable
+  scope_procedure :start, searchlogic_lambda(:string) {|letter| name_begins_with_any(letter.downcase, letter.upcase).ascend_by_name}
 
   
   def self.search(query = "", page = 1)

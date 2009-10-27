@@ -8,9 +8,8 @@ class GamesController < ApplicationController
       format.html do 
         @last = Game.find(:all, :order => "created_at DESC", :limit => 10)
         if (params[:start])
-          @games = Game.name_begins_with_any(params[:start].upcase, 
-                                              params[:start].downcase).paginate(:page => params[:page],
-                                    :per_page => 15, :order => 'games.name ASC',  :include => [:tags,:editions])
+          @games = Game.start(params[:start]).paginate(:page => params[:page],
+                                    :per_page => 15,  :include => [:tags,:editions])
         else
           @games = Game.paginate(:page => params[:page], :per_page => 15, :order => 'games.name ASC', 
                   :include => [:tags,:editions])

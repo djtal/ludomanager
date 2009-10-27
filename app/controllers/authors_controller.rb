@@ -5,7 +5,6 @@ class AuthorsController < ApplicationController
   # GET /authors.xml
   def index
     opts = {
-      :order => "surname ASC",
       :page => params[:page],
       :include => :authorships
     }
