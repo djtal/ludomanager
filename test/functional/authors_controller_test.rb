@@ -76,20 +76,19 @@ class AuthorsControllerTest < ActionController::TestCase
       setup{ get :new}
       
       should_respond_with :redirect
-      should_redirect_to "new_session_path"
+      should_redirect_to("new_session_path"){new_session_path}
     end
     
     context "GET edit author form" do
       setup{ get :edit, :id => authors(:kinizia).id}
       should_respond_with :redirect
-      should_redirect_to "new_session_path"
+      should_redirect_to("new_session_path"){new_session_path}
     end
     
     context "DELETE an author" do
       setup{ delete :destroy ,:id => authors(:kinizia).id}
-      
       should_respond_with :redirect
-      should_redirect_to "new_session_path"
+      should_redirect_to("new_session_path"){new_session_path}
     end
     
     context "GET an author card" do

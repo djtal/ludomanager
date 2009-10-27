@@ -15,7 +15,7 @@ class PartiesControllerTest < ActionController::TestCase
 
       should_respond_with :success
       should_render_template :index
-      should_assign_to(:date){Time.now}
+      should_assign_to(:date)
     end
     
     context "GET index for a date" do

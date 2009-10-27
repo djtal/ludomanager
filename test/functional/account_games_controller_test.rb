@@ -39,7 +39,7 @@ class AccountGamesControllerTest < ActionController::TestCase
     [:index, :show, :edit, :new].each do |action|
       context "go to #{action}" do
         setup{ get action}
-        should_redirect_to "new_session_path"
+        should_redirect_to("login_path"){new_session_path}
       end
     end
   end

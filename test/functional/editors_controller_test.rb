@@ -16,7 +16,7 @@ class EditorsControllerTest < ActionController::TestCase
     context "GET an editor page" do
       setup{ get :show, :id => editors(:ystari).id}
       should_respond_with :success
-      should_assign_to :editor, :equals => "editors(:ystari)"
+      should_assign_to(:editor){editors(:ystari)}
     end
     
     should "GET edit form" do
@@ -62,7 +62,7 @@ class EditorsControllerTest < ActionController::TestCase
         put :update, :id => editors(:ystari).id, :editor => Factory.attributes_for(:editor, :name => "toto")
       end
       should_respond_with :redirect
-      should_redirect_to "editor_path(editors(:ystari))"
+      should_redirect_to("editor_path"){editor_path(editors(:ystari))}
       should_assign_to :editor
       should_change "Editor.find(editors(:ystari).id).name", :to => "toto"
     end
@@ -71,7 +71,7 @@ class EditorsControllerTest < ActionController::TestCase
       setup{ delete  :destroy, :id => editors(:ystari).id}
       should_change "Editor.count", :by => -1
       should_respond_with :redirect
-      should_redirect_to "editors_path"
+      should_redirect_to("editors_path"){editors_path}
     end
   end
   
@@ -93,20 +93,20 @@ class EditorsControllerTest < ActionController::TestCase
     context "GET an editor page" do
       setup{ get :show, :id => editors(:ystari).id}
       should_respond_with :success
-      should_assign_to :editor, :equals => "editors(:ystari)"
+      should_assign_to(:editor){editors(:ystari)}
     end
     
     context "GET new editor form" do
       setup{ get :new}
       should_respond_with :redirect
-      should_redirect_to "new_session_path"
+      should_redirect_to("loggin path"){new_session_path}
     end
     
     context "DELETE an editor" do
       setup{ delete  :destroy, :id => editors(:ystari).id}
       should_not_change "Editor.count"
       should_respond_with :redirect
-      should_redirect_to "new_session_path"
+      should_redirect_to("loggin path"){new_session_path}
     end
     
     should "be redirected when trying to edit an editor" do
