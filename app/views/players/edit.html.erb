@@ -11,7 +11,7 @@
   <%= form.check_box :save_and_next %>
   <%= form.label :save_and_next, "Traiter la partie suivante" %>
   <%= form.hidden_field :party_id, :value => @party.id %>
-  <%= submit_or_back_to party_path(@party), "Retour sur les parties du #{l @party.created_at.to_date}" %>
+  <%= submit_or_back_to show_parties_path(@party.created_at.to_date), "Retour sur les parties du #{l @party.created_at.to_date}" %>
 <% end %>
 
 <% content_for :newsbox do %>
