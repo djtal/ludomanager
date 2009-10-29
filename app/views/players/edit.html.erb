@@ -8,14 +8,10 @@
     <% end %>
   </div>
   <%= form.hidden_field :party_id, :value => @party.id %>
-  <% render :layout => "layouts/form_buttons" do  %>
-    <div class="right">
-      <strong><%= link_to "Retour sur les parties du #{l @party.created_at.to_date}", party_path(@party) %></strong>
-      ou <%= form.submit "Enregistrer" %>
-    </div>
-    <%= form.check_box :save_and_next %>
-    <%= form.label :save_and_next, "Traiter la partie suivante" %>
-  <% end %>
+  <%= form.check_box :save_and_next %>
+  <%= form.label :save_and_next, "Traiter la partie suivante" %>
+  <%= form.hidden_field :party_id, :value => @party.id %>
+  <%= submit_or_back_to party_path(@party), "Retour sur les parties du #{l @party.created_at.to_date}" %>
 <% end %>
 
 <% content_for :newsbox do %>
