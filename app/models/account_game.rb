@@ -27,6 +27,7 @@ class AccountGame < ActiveRecord::Base
   #need to play with named_scope
   named_scope :recent, lambda { { :conditions => ['created_at > ?', 3.month.ago] } }
   named_scope :no_played, :conditions => {:parties_count => 0}
+  scope_procedure :start, searchlogic_lambda(:string) {|letter| game_name_begins_with_any(letter.downcase, letter.upcase).ascend_by_game_name}
   
   cattr_reader :per_page
   @@per_page = 50
