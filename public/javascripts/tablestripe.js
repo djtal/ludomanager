@@ -1,6 +1,6 @@
 /*
-  This is just an extrat of TableKit strip feature
-  I make this eaucouse table kit is too heavy formy use
+  This is just an extract of TableKit strip feature
+  I make this eaucouse table kit is too heavy for my use
 */
 
 TableStrip = {

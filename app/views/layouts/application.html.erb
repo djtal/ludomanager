@@ -4,9 +4,9 @@
 	<meta http-equiv="Content-Type" content="text/html" charset="iso-8859-1" />
 	<%= javascript_include_tag :defaults, :cache => "base" %>
   <%= javascript_include_tag "tablekit", "listkit", "forms", 
-                              "protochart", "chart", "tablestripe", :cache => true  %>
+                              "protochart", "chart", "tablestripe", "prototip", :cache => true  %>
   <%= stylesheet_link_tag "blueprint/screen.css" %>
-	<%= stylesheet_link_tag  "application", "tablekit", "form", :cache => true  %>
+	<%= stylesheet_link_tag  "application", "tablekit", "form", "prototip", :cache => true  %>
 	<%= yield :head %>
 	<title><%= @title || "LudoManager" %></title>
 </head>

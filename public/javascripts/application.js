@@ -260,12 +260,19 @@ Calendar = {
 Application = {
   start: function(){
     this.loadSmartForm();
+    this.loadTip();
   },
   
   loadSmartForm: function(){
       $$(".smartForm").each(function(form) {
         new SmartForm(form);
       });
+  },
+  
+  loadTip: function(){
+    $$('li.tip img').each(function(img) {
+       new Tip(img, img.alt, { width: 'auto', 'stem': 'topMiddle', hook: {tip: "topMiddle", target: "bottomMiddle"} });
+     });
   },
   
 }
