@@ -1,4 +1,3 @@
 page["day_#{@date.mday}"].update(render(:partial => "calendar_cell", :locals => {:parties => @daily, :date => @date}))
-page["placeholder-1"].update(render(:partial => "legend"))
 page["placeholder-3"].update(render_widget("Les jeux du mois", :partial => "discovered"))
 page << "TableKit.load();"
