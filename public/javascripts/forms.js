@@ -1,3 +1,26 @@
+var AccountGameForm = Class.create({
+  initialize: function(form){
+    if (!$(form)) return;
+    this.form = $(form)
+    new Ajax.Request("/account_games/missing.json", {method: "get", onSuccess: this.loadMissingGames.bind(this)});
+  },
+  
+  loadMissingGames: function(response){
+     this.missing = response.responseJSON.inject($H(), function(acc, game){
+        acc.set(game.name, game.id);
+        return acc;
+      });
+    new Autocompleter.Local("account_game_game_name", 'account_game_game_name_lookup', this.missing.keys(), 
+    {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updategameId.bind(this)}); 
+  },
+  
+  updategameId: function(elt){
+    $("account_game_game_id").value = this.missing.get($F(elt));
+  }
+});
+
+
+
 var AuthorshipForm = Class.create({
   initialize: function(form){
     if (!$(form)) return;
@@ -94,8 +117,7 @@ var PlayerForm = Class.create({
   
 });
 
-var GameForm = Class.create();
-GameForm.addMethods({
+var GameForm = Class.create({
   initialize: function(form){
     if (!$(form)) return;
     this.form = $(form);
@@ -141,8 +163,7 @@ var ReplaceGameForm = Class.create({
   },
 })
 
-var PartyForm = Class.create();
-PartyForm.addMethods({
+var PartyForm = Class.create({
   initialize: function(form){
     if(!$(form) && !$("party_game"))
       return;
@@ -203,6 +224,7 @@ PartyForm.addMethods({
 document.observe("dom:loaded", function() {
     pf = $A();
     asf = new AuthorshipForm("authorship_form");
+    acf = new AccountGameForm("account_game_form")
     pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc})[0];
     rpgf = new ReplaceGameForm("replace_game");
     gf = new GameForm("game_form");

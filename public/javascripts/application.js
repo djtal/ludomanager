@@ -1,46 +1,5 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-// Simple utility methods for working with the DOM
-DOM = {
-  nextElement : function(element) {
-    element = $(element);
-    while (element = element.nextSibling) 
-    if (element.nodeType == 1) return element;
-    return null;
-  },
-  previousElement : function(element) {
-    element = $(element);
-    while (element = element.previousSibling) 
-    if (element.nodeType == 1) return element;
-    return null;
-  },
-  remove : function(element) {
-    element = $(element);
-    return element.parentNode.removeChild(element);
-  },
-  insertAfter : function(element, node, otherNode) {
-    element = $(element);
-    return element.insertBefore(node, otherNode.nextSibling);
-  },
-  addBefore : function(element, node) {
-    element = $(element);
-    return element.parentNode.insertBefore(node, element);
-  },
-  addAfter : function(element, node) {
-    element = $(element);
-    return $(element.parentNode).insertAfter(node, element);
-  },
-  replaceElement : function(element, node) {
-    $(element).parentNode.replaceChild(node, element);
-    return node;
-  }
-};
-
-
-// Add them to the element mixin
-Element.addMethods(DOM);
-
-
 var BShow = Behavior.create({
   initialize: function(){
     this.target = this.element.down(".function"); 
@@ -111,32 +70,6 @@ var BCalendarCell = Behavior.create({
       
   },
 });
-
-
-
-
-
-var AccountGameForm = Class.create()
-AccountGameForm.addMethods({
-  initialize: function(form){
-    if (!$(form)) return;
-    this.form = $(form)
-    new Ajax.Request("/account_games/missing.json", {method: "get", onSuccess: this.loadMissingGames.bind(this)});
-  },
-  
-  loadMissingGames: function(response){
-     this.missing = response.responseJSON.inject($H(), function(acc, game){
-        acc.set(game.name, game.id);
-        return acc;
-      });
-    new Autocompleter.Local("account_game_game_name", 'account_game_game_name_lookup', this.missing.keys(), 
-    {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updategameId.bind(this)}); 
-  },
-  
-  updategameId: function(elt){
-    $("account_game_game_id").value = this.missing.get($F(elt));
-  }
-})
 
 
 
@@ -366,7 +299,6 @@ var Tabs = Class.create({
 document.observe("dom:loaded", function() {
 
   new Tabs("gameTabs")
-  acf = new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
   if ($('search-results'))
     TableStrip.strip($('search-results').down('table'))
