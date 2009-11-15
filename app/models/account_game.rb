@@ -18,7 +18,6 @@
 #
 
 
-
 class AccountGame < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
   validates_uniqueness_of :game_id, :scope => :account_id
@@ -28,6 +27,7 @@ class AccountGame < ActiveRecord::Base
   #need to play with named_scope
   named_scope :recent, lambda { { :conditions => ['created_at > ?', 3.month.ago] } }
   named_scope :no_played, :conditions => {:parties_count => 0}
+  scope_procedure :start, searchlogic_lambda(:string) {|letter| game_name_begins_with_any(letter.downcase, letter.upcase).ascend_by_game_name}
   
   cattr_reader :per_page
   @@per_page = 50
@@ -38,40 +38,6 @@ class AccountGame < ActiveRecord::Base
     end
   end
   
-  
-  def self.search(query = {})
-    opts = {
-      :include => {:game => :tags},
-      :order => "games.name ASC",
-      :page => query.delete(:page)
-    }
-    if query[:search]
-      @tag_list = Tag.parse(query[:search][:tags]) if query[:search][:tags]
-      criterion = {}
-      if !query[:search][:player].blank?
-        criterion["games.min_player <= ?"] = query[:search][:player]
-        criterion["games.max_player >= ?"] = query[:search][:player]
-      end
-      if !query[:search][:difficulty].blank?
-        criterion["games.difficulty <= ?"] = query[:search][:difficulty]
-      end
-      if !query[:search][:parties].blank?
-         criterion["account_games.parties_count <= ?"] = query[:search][:parties]
-      end
-      opts[:conditions]  = [criterion.keys.join(" AND "), criterion.values].flatten if !criterion.empty?
-      
-      opts[:limit] = query[:search][:limit] if !query[:search][:limit].blank?
-    end
-    @ag = self.paginate(:all, opts)
-    #filter for tags
-    if @tag_list && !@tag_list.empty?
-      @ag = @ag.select do |ag|
-         found = ag.game.tags.inject(0){|acc, tag| acc + (@tag_list.include?(tag.name) ? 1 : 0)}
-         query[:search][:tags_mode] == "and" ? found == @tag_list.size : found > 0
-      end
-    end
-    @ag
-  end
   
   def self.last_buy(count, opts = {})
     options = {

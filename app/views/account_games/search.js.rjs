@@ -1,6 +1,7 @@
-page["search-results"].replace_html render_games(@ag, :mode => :full)
-page << "TableKit.Sortable.init($('search-results').down('table'));" unless @ag.empty?
-page << "ls.highlightSelectedTags();"
-
-page["smart-list"].update(render :partial => "smart_lists/new") unless @ag.empty?
-page << "new SmartListForm();"
+unless @ag.empty?
+  page["results"].replace_html(render :partial => "search_result", :collection => @ag)
+  page << "ls.highlightSelectedTags();"
+  page << "TableStrip.strip($('search-results').down('table'))"
+else
+  page["results"].replace_html(render :partial => "search_result_empty")
+end

@@ -25,8 +25,7 @@ class Editor < ActiveRecord::Base
                     :path => ":rails_root/public/system/:attachment/:id/:style/:editor.:extension",
                     :default_url   => "/system/:attachment/:style/missing.png"
                     
-  
-  has_one :logo_old, :as => :attachable, :class_name => "Asset"
   has_many :editions, :dependent => :destroy
   has_many :games, :through => :editions
+  scope_procedure :start, searchlogic_lambda(:string) {|letter| name_begins_with_any(letter.downcase, letter.upcase).ascend_by_name}
 end

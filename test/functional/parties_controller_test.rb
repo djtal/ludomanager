@@ -15,7 +15,7 @@ class PartiesControllerTest < ActionController::TestCase
 
       should_respond_with :success
       should_render_template :index
-      should_assign_to(:date){Time.now}
+      should_assign_to(:date)
     end
     
     context "GET index for a date" do
@@ -42,11 +42,22 @@ class PartiesControllerTest < ActionController::TestCase
     
     context "viewing parties per day" do
       setup{ Time.zone = 'Paris'}
-      should "show parties for current day" do
+      should "show parties for current day if no date is supplied" do
         get :show
-        assert_equal Time.zone.now.to_date, assigns(:date)
+        assert_equal Time.zone.now.to_date, assigns(:date).to_date
       end
       
+      should "show parties for given day if date suplied" do
+        
+      end
+      
+      should "know next day played" do
+        
+      end
+      
+      should "know previous play day" do
+        
+      end
     end
   end
 

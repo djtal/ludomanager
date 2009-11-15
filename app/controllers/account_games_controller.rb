@@ -6,20 +6,18 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-    opts = {
-      :include => :game,
-      :order => "games.name ASC",
-      :page => params[:page]
-    }
-    if params[:start]
-      cdn = ["LOWER(games.name) LIKE ?", params[:start].downcase + "%"]
-      opts.merge!({:conditions => cdn}) 
+
+    @account_games = if params[:start]
+      current_account.account_games.start(params[:start]).paginate(:include => :game, 
+                                                    :page => params[:page])
+    else
+      current_account.account_games.paginate(:include => :game, :order => "games.name ASC",
+                                                              :page => params[:page])
     end
+    
     #need to know wich letter have games or not
     games = current_account.games.group_by{ |g| g.name.first.downcase}
     @first_letters = games.keys
-    
-    @account_games = current_account.account_games.paginate(opts)
     ["recent", "no_played", "all"].each do |var|
       eval("@#{var}=#{current_account.account_games.send(var).size}")
     end
@@ -45,7 +43,8 @@ class AccountGamesController < ApplicationController
   end
   
   def all
-    @ag = current_account.account_games.search(params)
+    @search = ACGameSearch.new(current_account, params[:search])
+    @ag = @search.prepare_search.all(:include => {:game => :tags})
     render :action => :all, :layout => "simple"
   end
   
@@ -68,7 +67,8 @@ class AccountGamesController < ApplicationController
   end
   
   def search
-    @ag = current_account.account_games.search(params)
+    @search = ACGameSearch.new(current_account, params[:search])
+    @ag = @search.prepare_search.all(:include => {:game => :tags}).uniq
     respond_to do |format|
       format.html {render :action => :all, :layout => "simple"}
       format.js

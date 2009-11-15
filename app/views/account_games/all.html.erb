@@ -1,34 +1,51 @@
-<h3>Rechercher un jeu</h3>
+<h3>Rechercher un jeu dans ma ludotheque</h3>
 
-<% form_for "search" , :url => search_account_games_path, :method => :post, :html => {:id => "ludo-search"} do |f| %>
-	<div class="right ">
-	    <%= link_to "", "#", :id => "reset", :class => "form-reset" %>
-      <%= image_submit_tag "find.png", :class => "form-find" %>
+<% form_for "search" , :url => search_account_games_path, :method => :post, :html => {:id => "ludo-search", :class => "clear"} do |f| %>
+    <div class="column span-19">
+        <fieldset>
+	        <%= f.label :tag, "Avec le/les tags" %>
+      		<%= f.text_field :tags, :size => 80 %>
+      		<div class="auto_complete" id="tags_lookup_auto_complete"></div> 
+      		<%= f.label :players, "Pour " %>
+      		<%= f.text_field :players, :size => 2, :class => "trigger" %> <strong>Joueurs</strong>
+          <br />
+          Des Categories : <%= f.select :cat1, [["Aucune", -1]] + Game::Target %> ou <%= f.select :cat2, [["Aucune", -1]] + Game::Target %>
+    	    <hr />
+    	     <%= f.label :mode,  "Voir les jeux " %><%= f.label :mode_played, "joué" %><%= f.radio_button :mode, :played %> ou
+    	    <%= f.label :mode_not_played, "non joué" %><%= f.radio_button :mode, :not_played, :class => "trigger" %> 
+    	    <div id="time_advanced">
+    	      <%= f.label :since, "Depuis" %><%= f.text_field :since, :size => 2, :class => "trigger" %>
+    	      <%= f.select :unit, [["Annee", "year"], ["Mois", "month"], ["Jour", "day"]], :class => "trigger" %>
+    	    </div>
+    	</fieldset>
     </div>
-    <fieldset>	
-  		<div class="left">
-  		Contenant <%= f.label "search_tags_mode_or", "un des tags: " %><%= f.radio_button :tags_mode, :or, :checked=> true, :class => "trigger" %>
-  		<%= f.label "search_tags_mode_and", "tous les tags: " %><%= f.radio_button :tags_mode, :and, :class => "trigger" %>		
-  		<%= f.text_field :tags, :value => params[:search] ? params[:search][:tags] : "", :class => "important" %>
-  		<div class="auto_complete" id="tags_lookup_auto_complete"></div> 
-  		<%= f.label "search_player", "Pour " %>
-  		<%= f.text_field :player, :size => 2, :value => params[:search] ? params[:search][:player] : "", :class => "important trigger" %> <strong>Joueurs</strong>
-      </div>
-	</fieldset>
-	<fieldset>
-	  <%= f.label "search_difficulty", "Diffiulte" %>
-    <%= f.text_field :difficulty, :size => 2, :value => params[:search] ? params[:search][:difficulty] : "", :class => "important trigger" %>
-    <%= f.label :parties, "Nombre de parties" %>&nbsp;<%= f.text_field :parties, :value => params[:search] ? params[:search][:parties] : "", :size => 2, :class => "important trigger" %>
-	</fieldset>
-	<div></div>
+    <div class="column span-4 last clear" id="buttons">
+        <%= f.submit "Chercher" %><br />
+    	  ou<br />
+    	  <%= link_to "Nouvelle recherche", "#", :id => "reset", :class => "ss_textfield_delete ss_sprite" %>
+    </div>
 <% end %>
 
 
-<div id="smart-list"></div>
-
 <div id="search-results">
-	<%= render_games @ag, :mode => :full %>
+    <table>
+      <thead>
+        <th class="nosort"></th>
+        <th class="nosort span-11">Jeux</th>
+        <th class="nosort span-2">Cat&eacute;gorie</th>
+        <th class="nosort span-10">tags</th>
+        <th class="nosort span-1">Joueur</th>
+      </thead>
+      <tbody id="results">
+        <% unless @ag.empty? %>
+          <%= render :partial => "search_result", :collection => @ag %>
+        <% else %>
+          <%= render :partial => "search_result_empty" %>
+        <% end %>
+      </tbody>
+    </table>
 </div>
+
 
 
 <% content_for :subnav do %>

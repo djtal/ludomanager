@@ -4,15 +4,12 @@ class EditorsController < ApplicationController
   # GET /editors
   # GET /editors.xml
   def index
-    opts = {
-      :order => "name ASC",
-      :page => params[:page]
-    }
-    if params[:start]
-        cdn = ["LOWER(editors.name) LIKE ?", params[:start].downcase + "%"]
-        opts.merge!({:conditions => cdn}) 
+    @editors = if params[:start]
+      Editor.start(params[:start]).paginate(:page => params[:page])
+    else
+      Editor.paginate(:order => "name ASC", :page => params[:page])
     end
-    @editors = Editor.paginate(opts)
+    
     @first_letters = Editor.find(:all, :select => :name).map{|e| e.name.first.downcase}.uniq
     @last_active = Edition.find(:all,  :order => "editions.published_at DESC, editions.created_at DESC", 
                                         :group => :editor_id,
@@ -68,7 +65,6 @@ class EditorsController < ApplicationController
 
     respond_to do |format|
       if @editor.save
-        create_logo!
         flash[:notice] = 'Editor was successfully created.'
         format.html { redirect_to(@editor) }
         format.xml  { render :xml => @editor, :status => :created, :location => @editor }
@@ -86,7 +82,6 @@ class EditorsController < ApplicationController
 
     respond_to do |format|
       if @editor.update_attributes(params[:editor])
-        create_logo!
         flash[:notice] = 'Editor was successfully updated.'
         format.html { redirect_to(@editor) }
         format.xml  { head :ok }
@@ -114,16 +109,4 @@ class EditorsController < ApplicationController
   	@section = :editors
   end
 
-  protected
-  
-  def create_logo!
-    if params[:logo]
-      @editor.logo.destroy if params[:logo][:delete] && params[:logo].delete(:delete) == "1"
-      unless params[:logo][:uploaded_data].blank?
-        @editor.logo.destroy if @editor.logo
-        box = Asset.create params[:logo]
-        @editor.logo = box
-      end
-    end
-  end
 end

@@ -19,8 +19,9 @@ var AuthorshipForm = Class.create({
         autocomplete = "authorship_#{index}_auto_complete".interpolate({ index: authorship.id});
         new Autocompleter.Local(input, autocomplete, this.authorsName, 
                                 {fullSearch: true, frequency: 0, minChars: 1});
-        authorship.down(".add").observe("click", this.getForm.bindAsEventListener(this)).addClassName("link")
-        authorship.down(".remove").observe("click", this.removeAuthorship.bindAsEventListener(this, authorship)).addClassName("link")
+
+        input.next(".add").observe("click", this.getForm.bindAsEventListener(this)).addClassName("link")
+        input.next(".remove").observe("click", this.removeAuthorship.bindAsEventListener(this, authorship)).addClassName("link")
         this.authorships.set(authorship.id, authorship);
         this.last_index = authorship.id
       }
@@ -99,7 +100,6 @@ GameForm.addMethods({
     if (!$(form)) return;
     this.form = $(form);
     new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
-    new Ajax.Request("/authors.json", {method: "get", onSuccess: this.loadAuthor.bind(this)});
     this.bindUI();
   },
 
@@ -109,16 +109,8 @@ GameForm.addMethods({
     {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
   },
 
-  loadAuthor: function(response){
-    this.authorsName = response.responseJSON;
-    this.form.select("#authors input[type=text]").each(function(input){
-      new Autocompleter.Local(input, 'authors_lookup_auto_complete', this.authorsName, 
-      {fullSearch: true, frequency: 0, minChars: 1});  
-    }.bind(this));  
-  },
-  
   bindUI: function(){
-      $("game_photo_delete").observe("click", this.toggleFileSelector.bindAsEventListener(this))
+      //$("game_photo_delete").observe("click", this.toggleFileSelector.bindAsEventListener(this))
   },
   
   toggleFileSelector: function(ev){

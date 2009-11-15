@@ -37,18 +37,6 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
     t.datetime "remember_token_expires_at"
   end
 
-  create_table "assets", :force => true do |t|
-    t.string   "content_type"
-    t.string   "filename"
-    t.integer  "size",            :limit => 11
-    t.integer  "width",           :limit => 11
-    t.integer  "height",          :limit => 11
-    t.integer  "attachable_id",   :limit => 11
-    t.string   "attachable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "authors", :force => true do |t|
     t.string "name"
     t.string "surname"
@@ -87,16 +75,6 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
     t.integer  "editions_count",    :default => 0
   end
 
-  create_table "game_photos", :force => true do |t|
-    t.string  "content_type"
-    t.string  "filename"
-    t.integer "size",         :limit => 11
-    t.integer "parent_id",    :limit => 11
-    t.string  "thumbnail"
-    t.integer "width",        :limit => 11
-    t.integer "height",       :limit => 11
-    t.integer "game_id",      :limit => 11
-  end
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -116,13 +94,6 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
     t.datetime "box_updated_at"
   end
 
-  create_table "homepages", :force => true do |t|
-    t.integer  "account_id"
-    t.boolean  "public"
-    t.text     "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "members", :force => true do |t|
     t.text     "name"

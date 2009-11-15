@@ -10,12 +10,8 @@
 
 <fieldset>
   <legend>Un logo</legend>
-  <% fields_for :logo do |g| %>
-    <%= g.label :logo, "Le logo" %><br />
-		<%= g.file_field :logo %>
-		<%= g.check_box :delete %>
-		<%= g.label :delete, "Supprimer l'image actuel" %>
-  <% end %>
+    <p><%= form.label :logo, "Le logo" %><br />
+		<%= form.file_field :logo %></p>
 </fieldset>
 
 

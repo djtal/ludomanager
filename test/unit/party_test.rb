@@ -128,6 +128,7 @@ class PartyTest < ActiveSupport::TestCase
     should "find next party date after given date if date is supplied" do
       Factory.create(:party, :account => @account, :game => @game, :created_at => 1.month.from_now.beginning_of_month)
       Factory.create(:party, :account => @account, :game => @game, :created_at => 3.month.from_now.beginning_of_month)
+      Factory.create(:party, :account => @account, :game => @game, :created_at => 4.month.from_now.beginning_of_month)
       assert_equal 3.month.from_now.beginning_of_month, @account.parties.next_play_date_from(2.month.from_now)
     end
   end

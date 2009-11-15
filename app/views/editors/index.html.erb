@@ -35,9 +35,9 @@
       <ul class="strip">
         <% @last_active.each do |e| %>
           <li>
-            <%= image_tag(e.logo.url, :class => "mini", :size => "35x35") %><%= e.name %>
+            <%= image_tag(e.logo.url, :class => "mini", :size => "35x35") %><%= link_to e.name, editor_path(e) %>
           </li>
         <% end %>
       </ul>
-  <% end %>
+  <% end if @last_active %>
 <% end %>

@@ -227,7 +227,7 @@ LudoSearch.addMethods({
   },
 
   tagClicked: function(ev){
-    li = ev.findElement("li.tag")
+    li = ev.findElement("a.tag")
     if (!li) return;
     ev.stop();
     //tag not in query
@@ -240,14 +240,14 @@ LudoSearch.addMethods({
       this.tagField.setValue(val);
     } else { //tag in query
       this.searchedTags = this.searchedTags.without(li.innerHTML);
-      this.tagField.setValue(this.tagField.getValue().gsub(",*\\s*" + li.innerHTML, ""));
+      this.tagField.setValue(this.searchedTags.join(", "));
     }
     this.formChange(null);
   },
 
   highlightSelectedTags: function(){
     this.searchedTags.each(function(tag){
-      this.results.select("li." + tag).invoke("addClassName", "selected")
+      this.results.select("a." + tag).invoke("addClassName", "selected")
     }.bind(this));
   }
 
@@ -368,6 +368,7 @@ document.observe("dom:loaded", function() {
   new Tabs("gameTabs")
   acf = new AccountGameForm("account_game_form")
   ls = new LudoSearch("ludo-search");
+  TableStrip.strip($('search-results').down('table'))
   $$('.autohide').each(function(elt){
     BShow.attach(elt)
   });

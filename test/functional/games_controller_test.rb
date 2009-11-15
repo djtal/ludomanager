@@ -1,15 +1,35 @@
 require 'test_helper'
 
 class GamesControllerTest < ActionController::TestCase
-  
-  context "a non logged user GET general games page" do
-    setup { get :index }
-      
-    should_respond_with :success
-    should_render_template :index
-    should_not_set_the_flash 
-    should_assign_to :games
+  context "getting index page" do
+    context "with no parameters set" do
+      setup { get :index }
+
+      should_respond_with :success
+      should_render_template :index
+      should_not_set_the_flash 
+      should_assign_to :games
+    end
+    
+    context "seeting first letter" do
+      setup do
+        5.times{|t| Factory.create(:game, :name => "a#{t}")}
+        get :index, :start => "A"
+      end
+
+      should_respond_with :success
+      should_render_template :index
+      should_not_set_the_flash 
+      should_assign_to :games
+      should_assign_to :first_letters, :class => Array
+      should "filter only games starting with first_letters" do
+        assigns(:games).each do |g|
+          assert g.name.downcase.start_with?("a")
+        end
+      end
+    end
   end
+  
   
     
   context "a non logged user GET a specific game page" do
@@ -22,8 +42,7 @@ class GamesControllerTest < ActionController::TestCase
       should "not DELETE a game" do
         assert_no_difference "Game.count"do
           delete :destroy, :id => 1
-        end    
-        assert_redirected_to new_session_path
+        end
       end
   end
   
