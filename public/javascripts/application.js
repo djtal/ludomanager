@@ -1,5 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+
+
 var BShow = Behavior.create({
   initialize: function(){
     this.target = this.element.down(".function"); 
@@ -243,6 +245,23 @@ var SmartForm = Class.create({
   
 })
 
+/*
+  Use to create an in place editor with an autocomplete
+*/
+var AjaxInPlaceAutocomplete = Class.create(Ajax.InPlaceEditor,{
+  createForm: function($super){
+      $super();
+      this._controls.autocomplete = new Element("div", {"class": "auto_complete"});
+      this._form.insert(this._controls.autocomplete);
+      new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
+      
+  },
+  
+  loadTags: function(response){
+      new Autocompleter.Local(this._controls.editor, this._controls.autocomplete, response.responseJSON, 
+      {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+  },
+})
 
 
 Calendar = {
@@ -261,6 +280,7 @@ Application = {
   start: function(){
     this.loadSmartForm();
     this.loadTip();
+    this.loadTagInPlaceEdit();
   },
   
   loadSmartForm: function(){
@@ -275,6 +295,18 @@ Application = {
                               hook: {tip: "topMiddle", target: "bottomMiddle"} });
      });
   },
+  
+  loadTagInPlaceEdit: function(methsArgs){
+      $$(".tag-in-place-edit").each(function(element){
+        game_id = element.id.gsub(/in_place_edit_game_/, "")
+        url = "/games/#{game_id}/tags".interpolate({'game_id': game_id})
+        tag_list_url = "/games/#{game_id}/tags.text".interpolate({'game_id': game_id})
+        edit = element.next("a.in_place_edit_trigger")
+        new AjaxInPlaceAutocomplete(element, url, {externalControlOnly: true, externalControl: edit,
+                              loadTextURL: tag_list_url,
+                              size: 70, rows:1});
+      });
+  }
   
 }
 

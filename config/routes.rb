@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
   map.resources :tags, :collection => {:lookup => :get} 
   
   map.resources :games,
-                :has_many => [:authorships, :editions] ,
+                :has_many => [:authorships, :editions, :tags] ,
                 :collection => {:search => :get}, 
                 :member => {:replace => :get, :merge => :post} 
 

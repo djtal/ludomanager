@@ -1,8 +1,19 @@
 class TagsController < ApplicationController
   def index
-    @cloud = Tagging.count(:id, :group => :tag, :order => "count_id DESC",
-                            :conditions => ["taggings.taggable_type = ?", Game.acts_as_taggable_options[:taggable_type]])
-    @cloud = @cloud.to_a.paginate(:page => params[:page])
+    respond_to do |format|
+      format.html do
+        @cloud = Tagging.count(:id, :group => :tag, :order => "count_id DESC",
+                                :conditions => ["taggings.taggable_type = ?",     Game.acts_as_taggable_options[:taggable_type]])
+        @cloud = @cloud.to_a.paginate(:page => params[:page])
+      end
+      
+      format.text do
+        if params[:game_id]
+          tags = Game.find(params[:game_id]).tag_list
+        end
+        render :text => tags
+      end
+    end
   end
   
   def lookup
@@ -17,6 +28,13 @@ class TagsController < ApplicationController
     ids = @tag.taggings.find_all_by_taggable_type(Game.acts_as_taggable_options[:taggable_type], 
                                                     :select => :taggable_id).map(&:taggable_id)
     @games = Game.find(:all, :conditions => {:id => ids})
+  end
+  
+  
+  def create
+    @game = Game.find(params[:game_id])
+    @game.tag_with(params[:value])
+    render :partial => "tag_list"
   end
   
   def edit

@@ -17,7 +17,8 @@
     	  </div>
         <div class="block">
           <h4>Les tags</h4>
-          <%= game_tags_links game %>
+          <span class="<%= "tag-in-place-edit" if logged_in?  %>" id="<%= dom_id(game, :in_place_edit) %>"><%= game_tags_links game %></span>
+          <%= link_to("...", "#", :class => "in_place_edit_trigger tag") if logged_in? %>
         </div>
   	</div>
   </div>
