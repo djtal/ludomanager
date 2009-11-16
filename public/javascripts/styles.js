@@ -18,6 +18,15 @@ Prototip.Styles = {
       width: 15
     }
   },
+  
+  'ludomanager': {
+    border: 2,
+    radius: 2,
+    className: 'protoludo',
+    images: 'styles/default/',
+    borderColor: "#666",
+    stem: { height: 12, width: 15}
+  },
 
   'protoblue': {
     className: 'protoblue',

@@ -271,7 +271,8 @@ Application = {
   
   loadTip: function(){
     $$('li.tip img').each(function(img) {
-       new Tip(img, img.alt, { width: 'auto', 'stem': 'topMiddle', hook: {tip: "topMiddle", target: "bottomMiddle"} });
+       new Tip(img, img.alt, {'style': 'ludomanager', width: 'auto', 'stem': 'topMiddle',
+                              hook: {tip: "topMiddle", target: "bottomMiddle"} });
      });
   },
   

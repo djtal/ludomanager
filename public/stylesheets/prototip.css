@@ -47,6 +47,24 @@
 .prototip .hint .title,
 .prototip .hint .content { padding: 5px; }
 
+/* protoludo */
+.prototip .protoludo {
+	width: 250px;
+	color: #000;
+}
+.prototip .protoludo .toolbar {
+	background: #0d7cd0;
+	font-weight: bold;
+}
+.prototip .protoludo .title { padding: 5px; }
+.prototip .protoludo .content {
+	background: #DDD;
+	color: #653209;
+	padding: 3px;
+	font-weight: bold;
+	
+}
+
 /* protoblue */
 .prototip .protoblue {
 	width: 250px;
