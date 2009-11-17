@@ -74,43 +74,6 @@ var BCalendarCell = Behavior.create({
 });
 
 
-
-Sidebar = {
-  load: function(){
-    $$("#innernews .widget").each(function(widget){
-      new Widget(widget)
-    });
-  }
-}
-
-var Widget = Class.create();
-Widget.addMethods({
-  initialize: function(elt){
-    if (!$(elt))
-    return;
-    this.widget = $(elt);
-    this.title = this.widget.select("h3").first();
-    this.close = this.widget.select(".close").first();
-    this.content = this.widget.select("div.w-content").first();
-    this.widgitize();
-  },
-
-  widgitize: function(){
-    if (this.title)
-      this.title.observe("click", this.toggleContent.bindAsEventListener(this));
-    if(this.close)
-      this.close.observe("click", this.closeWidget.bindAsEventListener(this));
-  },
-
-  toggleContent: function(ev){
-    this.content.toggle();
-  },
-  
-  closeWidget: function(){
-    this.widget.remove();
-  }
-});
-
 var LudoSearch = Class.create();
 LudoSearch.addMethods({
   initialize: function(form){
@@ -188,62 +151,6 @@ LudoSearch.addMethods({
 
 });
 
-var SmartListForm = Class.create({
-  initialize: function(){
-    if(!$("smart_list_form")) return;
-    if(!$("ludo-search")) return;
-    this.form = $("smart_list_form")
-    this.query_form = $("ludo-search")
-    this.loadObservers()
-  }, 
-  
-  loadObservers: function(){
-    this.form.observe("submit", this.submit.bind(this));
-    this.form.select("span.close").each(function(elt) {
-      elt.observe("click",this.hide.bind(this))
-    }.bind(this));
-  },
-  
-  hide: function(){
-    this.form.hide()
-  },
-  
-  submit: function(ev){
-    ev.stop();
-    query = this.query_form.serialize(true)
-    this.form.request({parameters: query})
-  }
-})
-
-/*
-  Used to create live unobtrusive live form
-*/
-var SmartForm = Class.create({
-  initialize: function(form){
-    if(!$(form)) return;
-    this.form = $(form);
-    this.loadObservers();
-  },
-  
-  loadObservers: function(){
-    this.form.observe("change", this.submit.bindAsEventListener(this))
-  },
-  
-  submit: function(ev){
-      ev.stop();
-      this.form.request({onLoaded:this.lock.bind(this),
-                          onSuccess: this.unlock.bind(this)});
-  },
-  
-  lock: function(){
-      this.form.disable();
-  },
-  
-  unlock: function(){
-      this.form.enable();
-  },
-  
-})
 
 /*
   Use to create an in place editor with an autocomplete
@@ -276,17 +183,14 @@ Calendar = {
     Calendar.cells.invoke("desactivate")
   }
 }
+
+
 Application = {
+  
   start: function(){
-    this.loadSmartForm();
     this.loadTip();
     this.loadTagInPlaceEdit();
-  },
-  
-  loadSmartForm: function(){
-      $$(".smartForm").each(function(form) {
-        new SmartForm(form);
-      });
+    Calendar.load();
   },
   
   loadTip: function(){
@@ -337,7 +241,6 @@ var Tabs = Class.create({
 
 
 document.observe("dom:loaded", function() {
-
   new Tabs("gameTabs")
   ls = new LudoSearch("ludo-search");
   if ($('search-results'))
@@ -346,7 +249,4 @@ document.observe("dom:loaded", function() {
     BShow.attach(elt)
   });
   Application.start();
-  
-  Sidebar.load();
-  Calendar.load();
 })
