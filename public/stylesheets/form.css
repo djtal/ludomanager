@@ -26,3 +26,26 @@
   font-size: 1.5em;
   color: red;
 }
+
+.party-form{
+  background-color: #F2F2F2;
+  border: 2px solid #ccc;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 2px;
+  
+}
+
+.party-form ul{
+  margin: 0;
+  
+}
+
+.party-form .party-add{
+  margin-left: 15px;
+  color: red;
+  font-style: italic;
+  font-size: 11px;
+}
+
+.party-form img{ float:none;}

@@ -1,8 +1,9 @@
 <div style="position: relative;">
-  <div id="day_<%= date.day %>_form" style="z-index:1; position: absolute; display:none; width:300px; height:97px;">
+
+  <%= link_to_remote("jouer", {:url =>  new_party_path(:date => date), :method => :get}, :class => "right play" ) %>
+  <div id="day_<%= date.day %>_form" style="z-index:1; position: absolute; display:none; width:auto; height:97px;">
 
   </div>
-  <%= link_to_remote("jouer", {:url =>  new_party_path(:date => date), :method => :get}, :class => "right play" ) %>
   <span class="mday"><%= !parties ?  date.day : link_to(date.day, show_parties_path(date)) %></span>
   <% if parties %>
       <ul class="advanced" id="day_<%= date.day %>_more" style="display: none;">

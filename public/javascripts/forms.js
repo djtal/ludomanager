@@ -164,6 +164,7 @@ var PartyForm = Class.create({
     this.form.down("span.reset").observe("click", this.close.bindAsEventListener(this));
   },
   
+  
   updateDataField: function(){
     this.form.select(".party_game_name").each(function(field){
       this.newFieldAutocomplete(field);
@@ -186,7 +187,6 @@ var PartyForm = Class.create({
                               afterUpdateElement: this.updateForm.bind(this)});
       if (ac){
         this.data_fields.set(field.id, field.next("input.party_game_id"));
-        $(field).up("li").down(".remove_game").observe("click", this.removeGame.bindAsEventListener(this));
         $(field).focus();
       }
     }
