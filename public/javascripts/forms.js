@@ -206,7 +206,7 @@ var PartyForm = Class.create({
 
   close: function(){
     if (this.form_container)
-      this.form_container.squish();
+      this.form_container.hide();
   }
 });
 

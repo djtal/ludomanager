@@ -1,4 +1,4 @@
 page << "pf.invoke('close')"
 page["day_#{@date.day}_form"].update(render(:partial => "new"))
-page["day_#{@date.day}_form"].grow(:direction => "top-left")
+page["day_#{@date.day}_form"].show()
 page << "pf.push(new PartyForm('party_form_#{@form_id}'));"
