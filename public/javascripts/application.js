@@ -151,6 +151,24 @@ LudoSearch.addMethods({
 
 });
 
+/*
+  Specific Autocompleter for working with JSON data.
+  Work like Autocompleter.Local but take data from an AJAX request wich return data as JSON
+  
+  pass the url to get JSON data as the third parameter
+  
+*/
+var AjaxJSONAutocompleter = Class.create(Autocompleter.Local, {
+  initialize: function($super, element, update, dataUrl, options){
+    $super(element, update, $A(), options);
+    new Ajax.Request(dataUrl, {method: "get", onSuccess: this.loadDataArray.bind(this)});
+  },
+  
+  loadDataArray: function(response){
+      this.options.array = response.responseJSON;
+  },
+})
+
 
 /*
   Use to create an in place editor with an autocomplete
@@ -158,16 +176,14 @@ LudoSearch.addMethods({
 var AjaxInPlaceAutocomplete = Class.create(Ajax.InPlaceEditor,{
   createForm: function($super){
       $super();
-      this._controls.autocomplete = new Element("div", {"class": "auto_complete"});
-      this._form.insert(this._controls.autocomplete);
-      new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
-      
+      if (this.options.autocompleterDataUrl != ""){
+        this._controls.autocomplete = new Element("div", {"class": "auto_complete"});
+        this._form.insert(this._controls.autocomplete);
+        new AjaxJSONAutocompleter(this._controls.editor, this._controls.autocomplete, this.options.autocompleterDataUrl, 
+                                {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+      }
   },
   
-  loadTags: function(response){
-      new Autocompleter.Local(this._controls.editor, this._controls.autocomplete, response.responseJSON, 
-      {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
-  },
 })
 
 
@@ -208,6 +224,7 @@ Application = {
         edit = element.next("a.in_place_edit_trigger")
         new AjaxInPlaceAutocomplete(element, url, {externalControlOnly: true, externalControl: edit,
                               loadTextURL: tag_list_url,
+                              autocompleterDataUrl: '/tags/lookup.json',
                               size: 70, rows:1});
       });
   }

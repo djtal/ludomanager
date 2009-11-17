@@ -121,23 +121,13 @@ var GameForm = Class.create({
   initialize: function(form){
     if (!$(form)) return;
     this.form = $(form);
-    new Ajax.Request('/tags/lookup.json', {method: "get", onSuccess: this.loadTags.bind(this)});
     this.bindUI();
   },
 
-  loadTags: function(response){
-    this.tags = response.responseJSON;
-    new Autocompleter.Local('tag_tag_list', 'tags_lookup_auto_complete', this.tags, 
-    {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
-  },
-
   bindUI: function(){
-      //$("game_photo_delete").observe("click", this.toggleFileSelector.bindAsEventListener(this))
-  },
-  
-  toggleFileSelector: function(ev){
-      $("box_file_selector").toggleClassName("hide");  
-  },
+    new AjaxJSONAutocompleter('tag_tag_list', 'tags_lookup_auto_complete', '/tags/lookup.json', 
+                            {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+  }
 });
 
 var ReplaceGameForm = Class.create({
