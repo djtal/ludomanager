@@ -59,7 +59,7 @@ class PlayersController < ApplicationController
           new_party_player_url(next_party)
         end
       else
-        redirect_path = party_path(party)
+        redirect_path = show_parties_path(party.created_at.to_date)
       end
       redirect_path
   end

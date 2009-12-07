@@ -4,7 +4,7 @@
       <%= render_widget "Mon profil", :partial => "profile" %>
     </div>
     <div class="column span-8 last">
-      <%= render_widget "Top 5", :partial => "parties/most_played", :html => {:id => "top"} %>
+      <%= render_widget "Top 5", :partial => "parties/most_played", :locals => {:most_played => @most_played}, :html => {:id => "top"} %>
     </div>
   </div>
   

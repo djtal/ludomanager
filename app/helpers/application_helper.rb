@@ -3,9 +3,11 @@ module ApplicationHelper
 
   def render_widget(title, opts = {}, &block)
     html_opts = opts.delete(:html) 
+    locals = opts.delete(:locals) || {}
+    locals.merge!({:title => title, :html_opts => html_opts})
     options = {
       :layout => "layouts/widget",
-      :locals => {:title => title, :html_opts => html_opts}
+      :locals => locals
     }.merge(opts)
     render options, &block
   end
