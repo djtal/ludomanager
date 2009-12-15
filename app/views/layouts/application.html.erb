@@ -18,7 +18,7 @@
 	</div>
 	<div id="sub-nav" class="column span-24">
 	  <ul class="clear">
-	    <%= yield :subnav %>
+      	<%= render :partial => controller.subnav if controller.respond_to?(:subnav) %>
 	  </ul>
 	</div>
 	

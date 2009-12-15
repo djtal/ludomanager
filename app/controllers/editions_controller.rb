@@ -1,5 +1,7 @@
 class EditionsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
+  subnav :games
+  
   
   # GET /editions
   # GET /editions.xml

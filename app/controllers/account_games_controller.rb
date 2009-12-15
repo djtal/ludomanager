@@ -1,7 +1,7 @@
 class AccountGamesController < ApplicationController
   layout "application"
   before_filter :login_required
-  
+  subnav :account_games
   
   # GET /account_games
   # GET /account_games.xml

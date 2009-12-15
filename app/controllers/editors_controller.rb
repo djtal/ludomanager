@@ -1,5 +1,6 @@
 class EditorsController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :search]
+  subnav :editors
   
   # GET /editors
   # GET /editors.xml

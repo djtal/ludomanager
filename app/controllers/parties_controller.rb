@@ -1,5 +1,6 @@
 class PartiesController < ApplicationController
   before_filter :login_required
+  subnav :parties
   
   def index
     @date = Time.now

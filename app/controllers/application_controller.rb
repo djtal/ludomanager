@@ -1,6 +1,7 @@
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
+  
   helper :all
   include AuthenticatedSystem
   include HoptoadNotifier::Catcher
@@ -13,6 +14,17 @@ class ApplicationController < ActionController::Base
   before_filter :set_timezone
   before_filter :get_account_games, :if => :logged_in?
   
+  
+  
+  
+  def self.subnav(submenu)
+    cattr_accessor :subnav
+    if submenu.to_s != controller_name
+      self.subnav = "#{submenu}/subnav"
+    else
+      self.subnav = "subnav"
+    end
+  end
   
   protected
   
