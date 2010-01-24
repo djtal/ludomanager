@@ -11,8 +11,12 @@
           <br />
           Des Categories : <%= f.select :cat1, [["Aucune", -1]] + Game::Target %> ou <%= f.select :cat2, [["Aucune", -1]] + Game::Target %>
     	    <hr />
-    	     <%= f.label :mode,  "Voir les jeux " %><%= f.label :mode_played, "joué" %><%= f.radio_button :mode, :played %> ou
-    	    <%= f.label :mode_not_played, "non joué" %><%= f.radio_button :mode, :not_played, :class => "trigger" %> 
+    	    
+    	    <%= f.label :mode,  "Voir les jeux " %>
+    	    <%= f.label :mode_all, "Tous" %><%= f.radio_button :mode, :all, :class => "trigger" %> 
+    	    <%= f.label :mode_played, "joué" %><%= f.radio_button :mode, :played %> ou
+    	    <%= f.label :mode_not_played, "non joué" %><%= f.radio_button :mode, :not_played, :class => "trigger" %>
+    	    <%= f.label :mode_not_recent, "Recement ajouté" %><%= f.radio_button :mode, :recent, :class => "trigger" %> 
     	    <div id="time_advanced">
     	      <%= f.label :since, "Depuis" %><%= f.text_field :since, :size => 2, :class => "trigger" %>
     	      <%= f.select :unit, [["Annee", "year"], ["Mois", "month"], ["Jour", "day"]], :class => "trigger" %>

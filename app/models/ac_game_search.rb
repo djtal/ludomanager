@@ -45,8 +45,8 @@ class ACGameSearch
           @search.game_target_is(cat2)
       end
     end
-    self.add_time_condition
-
+    self.add_time_conditions
+    add_acquired_date_conditions
     @search
   end
   
@@ -63,12 +63,18 @@ class ACGameSearch
     @from_date ||= self.since.to_i.send(self.unit).ago.beginning_of_day
   end
   
+  def add_acquired_date_conditions
+    if mode == "recent"
+      @search.transdate_gte(3.month.ago)
+    end
+  end
+  
   def is_advanced_time_used?
     (self.mode == "played" || self.mode == "not_played") && self.since.to_i > 0 &&
           (['day', 'month', 'year'].include?(self.unit))
   end
   
-  def add_time_condition
+  def add_time_conditions
     if (!is_advanced_time_used?)
       if mode == "played"
         @search.parties_count_gt(0)

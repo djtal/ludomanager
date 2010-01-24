@@ -33,6 +33,18 @@ class TestACGameSearch < ActiveSupport::TestCase
     assert_equal 2, search.prepare_search.all.length
   end
   
+  should_eventually "order result by game name" do
+    acc = Factory.create(:account)
+    acc.games << Factory.create(:game, :name => "11 Nimt")
+    acc.games << Factory.create(:game, :name => "I'm the boss")
+    acc.games << Factory.create(:game, :name => "Assyria")
+    
+    search = ACGameSearch.new(acc)
+    res = search.prepare_search.all
+    assert_equal ["11 Nimt", "Assyria", "I'm the boss"], res.map{|acc| acc.game.name}
+    
+  end
+  
 
   should "filter player number based on min and max player on game" do
     acc = Factory.create(:account)
@@ -73,6 +85,25 @@ class TestACGameSearch < ActiveSupport::TestCase
     should "search using attr mode=not_played should filter not played games" do
       search = ACGameSearch.new(@acc, {:mode => "not_played"})
       assert_equal 2, search.prepare_search.all.length
+    end
+  end
+  
+  context "search using acquired date" do
+    setup do
+      @acc = Factory.create(:account)
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :transdate => 1.week.ago,
+                                                          :game => Factory.create(:game, :name => "White Moon"))
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :transdate => 10.day.ago,
+                                                          :game => Factory.create(:game, :name => "I'm the boss"))
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :transdate => 5.month.ago,
+                                                          :game => Factory.create(:game, :name => "Space Alert"))
+      @acc.account_games << Factory.create(:account_game,  :account => @acc, :transdate => 1.year.ago,
+                                                          :game => Factory.create(:game, :name => "Stronghold"))
+    end
+    
+    should "filter recently acquired game" do
+      search = ACGameSearch.new(@acc, {:mode => "recent"})
+      assert_equal 2,  search.prepare_search.all.length
     end
   end
 
