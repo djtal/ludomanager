@@ -1,7 +1,0 @@
-page["account_games_list"].update(render_games(@account_games, :mode => :overview))
-if(@smart)
-  page["smart_lists"].select("li").invoke("removeClassName", "selected")
-  page[dom_id(@smart)].addClassName("selected")
-end
-page << "new TableKit.load();"
-page << "Application.loadSmartForm();"
