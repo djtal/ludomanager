@@ -25,12 +25,12 @@ module AccountGamesHelper
 
   def status_indicator(account_game)
     content_tag(:span, account_game.recenty_acquired? ? "" : "&nbsp;", 
-                          :class => account_game.recenty_acquired? ? "ss_new ss_sprite" : "")
+                          :class => account_game.recenty_acquired? ? "ss_lightbulb ss_sprite" : "")
   end
   
   def parties_indicator(account_game)
     content_tag(:span, !account_game.played? ? "" : "&nbsp;", 
-                          :class => !account_game.played? ? "ss_sprite ss_exclamation" : "")
+                          :class => !account_game.played? ? "ss_sprite ss_error" : "")
   end
   
   def highlighted_tag_list(game)

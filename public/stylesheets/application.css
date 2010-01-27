@@ -10,10 +10,13 @@ a {
 	color: #422100;
 }
 
+em{background-color: transparent;}
 
 .container{
 	background: #EDF3EB;
 }
+
+.pad{padding-left: 5px;}
 
 #content {
   background: #FFF;
@@ -246,6 +249,7 @@ legend{
   text-align: center;
   vertical-align: middle;
 }
+.align-right{text-align: right;}
 
 #content hr{
   background: transparent url('../images/divider.png') no-repeat center center;
@@ -423,7 +427,6 @@ img.ac_status {
 }
 
 .meta{
-	color: #666;
 	font-weight: bold;
 }
 

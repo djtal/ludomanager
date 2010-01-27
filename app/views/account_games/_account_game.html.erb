@@ -1,11 +1,17 @@
 <tr id="<%= dom_id(account_game) %>">
-	<td class="center"><%= status_indicator account_game %><%= parties_indicator account_game %></td>
-	<td><%= link_to account_game.game.name, breakdown_parties_path(:game_id => account_game.game.id) %></td>
-	<td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
-	<td><span class="function">
+	<td class="pad">
+	  <%= link_to account_game.game.name, breakdown_parties_path(:game_id => account_game.game.id) %>
+	  <%= link_to "", game_path(account_game.game), :class => "ss_sprite ss_link_go" %>
+	  <%= status_indicator account_game %>
+	</td>
+	<td class="center"><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
+	<td class="align-right">
+	  <%= content_tag(:strong,"x #{account_game.parties_count}") if account_game.parties_count > 0 %>
+	  <%= parties_indicator account_game unless account_game.parties_count > 0 %>
+	  <%= content_tag(:em, "(#{time_ago_in_words(account_game.last_play)})") if account_game.last_play %>
+	</td>
+	<td><span class="function right clear">
 			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_page_white_edit" %>
 			<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, {:class => "ss_sprite ss_page_white_delete"} %>
 	</span></td>
-	<td><%= time_ago_in_words(account_game.last_play) if account_game.last_play %></td>
-	<td><div class="round <%= account_game.parties_count == 0 ? "orange" : "" %>"><%= account_game.parties_count %></div></td>
 </tr>
