@@ -42,11 +42,11 @@ class PlayersController < ApplicationController
   protected
   
   def find_next_to_register(current_party, date)
-    @parties = current_account.parties.find_all_by_created_at(date, :order => "created_at DESC")
+    @parties = current_account.parties.for_day(date)
     #get postion of current party
     cur = @parties.rindex(current_party)
     #advance from one if possible otherwise return to begening
-    next_index = cur + 1 <= @parties.size ? cur + 1 : 1
+    next_index = cur + 1 <= @parties.size - 1 ? cur + 1 : 0
     @parties[next_index]
   end
   
@@ -58,10 +58,10 @@ class PlayersController < ApplicationController
         else
           new_party_player_url(next_party)
         end
-      else
+    else
         redirect_path = show_parties_path(party.created_at.to_date)
-      end
-      redirect_path
+    end
+    redirect_path
   end
 
   

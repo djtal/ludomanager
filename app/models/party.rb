@@ -17,7 +17,12 @@ class Party < ActiveRecord::Base
   after_create :up_partie_cache, :update_played_date
   after_destroy :down_partie_cache
   
+  named_scope :for_day, lambda{ |date| 
+    { :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day], 
+      :order => "parties.created_at ASC" }
+  }
   
+
   
   def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
     return ActiveSupport::OrderedHash.new if  fromYear == nil || toYear == nil
@@ -25,7 +30,7 @@ class Party < ActiveRecord::Base
     yearly = (fromYear..toYear).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|
         start = DateTime.civil(year, month)
-        acc << self.count(:all, :conditions => ["created_at BETWEEN ? AND ?",start, start.end_of_month ])
+        acc << self.count(:all, :conditions => ["parties.created_at BETWEEN ? AND ?",start, start.end_of_month ])
       end
       breakdown
     end
@@ -43,9 +48,6 @@ class Party < ActiveRecord::Base
     return p.created_at if p
     nil
   end
-  
-  
-  
   
   def self.replace_game(old_game, new_game)
     if new_game && !new_game.new_record?

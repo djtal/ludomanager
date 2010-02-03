@@ -133,6 +133,25 @@ class PartyTest < ActiveSupport::TestCase
     end
   end
   
+  context "searching parties by date" do
+    setup do
+      @game  = Factory(:game)
+      @account = Factory.create(:account)
+      Time.zone = 'Paris'
+      @date = Time.zone.parse("02/01/2009")
+      Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
+      Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
+      Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
+      Factory.create(:party, :account => @account, :game => @game, :created_at => 1.month.from_now.beginning_of_month)
+      Factory.create(:party, :account => @account, :game => @game, :created_at => 3.month.from_now.beginning_of_month)
+      Factory.create(:party, :account => @account, :game => @game, :created_at => 4.month.from_now.beginning_of_month)
+    end
+    
+    should "return only the partie for given day" do
+      assert_equal 3, @account.parties.for_day(@date).size
+    end
+  end
+  
   
   
   def test_allow_more_player
