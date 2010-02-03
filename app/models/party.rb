@@ -26,6 +26,7 @@ class Party < ActiveRecord::Base
       :order => "parties.created_at ASC" }
   }
   
+  
 
   
   def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
@@ -33,8 +34,7 @@ class Party < ActiveRecord::Base
     raise Exception if fromYear > toYear
     yearly = (fromYear..toYear).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|
-        start = DateTime.civil(year, month)
-        acc << self.count(:all, :conditions => ["parties.created_at BETWEEN ? AND ?",start, start.end_of_month ])
+        acc << self.for_month(DateTime.civil(year, month)).count
       end
       breakdown
     end
@@ -59,9 +59,6 @@ class Party < ActiveRecord::Base
     end
   end
   
-  def self.group_by_game
-    find(:all, :include => :game).group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
-  end
   
   def self.by_game
     count(:id, :group => :game, :order => "count_id DESC")
@@ -88,22 +85,6 @@ class Party < ActiveRecord::Base
       opts[:conditions] = ["parties.created_at BETWEEN ? AND ?", start_date, end_date]
     end
     calculate(:count, :id, opts)
-  end
-  
-  def self.parties_for(year = nil)
-    opts = {
-      #:group => :game,
-      #:order => "count_id DESC",
-      :limit => count
-    }
-    
-    if year != nil && year.to_i > 0
-      
-      start_date = Time.now.in((year.to_i - Time.now.year).year).beginning_of_year
-      end_date = start_date.end_of_year
-      opts[:conditions] = ["parties.created_at BETWEEN ? AND ?", start_date, end_date]
-    end
-    find(:all, opts)
   end
   
   def members
