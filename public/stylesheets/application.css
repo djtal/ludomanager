@@ -10,8 +10,6 @@ a {
 	color: #422100;
 }
 
-em{background-color: transparent;}
-
 .container{
 	background: #EDF3EB;
 }
@@ -433,13 +431,9 @@ img.ac_status {
 
 /* Account Games */
 
-.status{
-	font-style: italic;	
-	font-weight: bold;
-	color: red;
-}
-.account_games a.bold {
-  font-weight: bold;
+.account_game em{
+  color: #666;
+  background-color: transparent;
 }
 
 ul.search-list{
