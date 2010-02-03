@@ -9,19 +9,25 @@
 	<div class="column span-17 last">
 	  <ul class="tabsContainer clear" id="gameTabs">
 	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
-	   <li class="tabs"><a href="#technics">D&eacute;tails</a></li>
 	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
 	   <li class="tabs"><a href="#links">Divers</a></li>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
-	    	  <h4>Descrition</h4>
 	    	  <%= image_tag(@game.box.url(:big), :class => "right box") %>
+	    	  <h4>Descrition</h4>
+      	  <p>
       	  <% if !@game.description.blank? %>
       	    <%=h @game.description %>
       	  <% else %>
       	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
       	  <% end %>
+      	  <br /><br />
+      	  <span class="ss_sprite ss_date">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></span>&nbsp;|&nbsp;
+     			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
+     			<span class="ss_sprite ss_user">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
+     		  <span class="ss_sprite ss_group">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
+      	  </p>
       	</div>
       	<div class="block">
       	 <h4>Les auteurs</h4>
@@ -32,14 +38,6 @@
       	 <span class="<%= "tag-in-place-edit" if logged_in?  %>" id="<%= dom_id(@game, :in_place_edit) %>"><%= game_tags_links @game %></span>
       	 <%= link_to("...", "#", :class => "in_place_edit_trigger tag") if logged_in? %>
       	</div>
-	  </div>
-	  <div id="technics" class="tabsBody">
-	   	 <ul>
-     	    <li class="ss_sprite ss_date">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></li>
-     			<li class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></li>
-     			<li class="ss_sprite ss_user">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></li>
-     		  <li class="ss_sprite ss_group">Public : <span class="meta"><%= @game.target_str.downcase %></span></li>
-     	</ul>
 	  </div>
 	  <div id="editions" class="tabsBody">
     		<%= render :partial => "editions/show" %>

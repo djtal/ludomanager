@@ -29,5 +29,5 @@
 	</div>
 </div> <!-- end main page -->
 </body>
-<%= render "shared/ga" %>
+<%= render "shared/ga" if Rails.env == "production" %>
 </html>
