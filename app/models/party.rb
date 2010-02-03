@@ -21,6 +21,10 @@ class Party < ActiveRecord::Base
     { :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day], 
       :order => "parties.created_at ASC" }
   }
+  named_scope :for_month, lambda{ |date|
+    { :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_month, date.end_of_month], 
+      :order => "parties.created_at ASC" }
+  }
   
 
   
@@ -53,13 +57,6 @@ class Party < ActiveRecord::Base
     if new_game && !new_game.new_record?
       update_all("game_id = #{new_game.id}", :game_id => old_game.id) 
     end
-  end
-  
-  def self.find_by_month(date = Time.now, opts = {})
-    options = {
-      :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_month, date.end_of_month]
-    }.merge(opts)
-    self.find(:all, options)
   end
   
   def self.group_by_game
