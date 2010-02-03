@@ -6,7 +6,7 @@
 	</td>
 	<td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
 	<td class="align-right">
-	  <%= content_tag(:strong,"x #{account_game.parties_count}") if account_game.parties_count > 0 %>
+	  <%= content_tag(:strong,"x #{account_game.parties_count}", :class => account_game.parties_count > 0 ? "" : "red") %>
 	  <%= content_tag(:em, "(#{time_ago_in_words(account_game.last_play)})", :class => "") if account_game.last_play %>
 	</td>
 	<td><span class="function right clear">
