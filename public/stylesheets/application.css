@@ -436,27 +436,6 @@ img.ac_status {
   background-color: transparent;
 }
 
-ul.search-list{
-	margin: 0;
-	padding: 0;
-}
-ul.search-list li{
-	margin: 2px 0;
-	padding: 2px;
-	list-style-type: none;
-}
-
-.form-reset{
-  background: url('../images/clear_left.png') no-repeat left center;
-  padding-left: 35px;
-  height: 32px;
-  float: left;
-  vertical-align: middle;
-}
-
-.form-find{
-  vertical-align: middle;
-}
 
 ul.tags{
   	list-style: none;
@@ -726,7 +705,9 @@ li.tabs a{
 
 .tabsBody{
   margin-top: 10px;
+  padding: 0 7px;
 }
+
 
 
 /* Flat Tabs */
