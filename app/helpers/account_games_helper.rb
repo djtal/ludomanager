@@ -1,28 +1,4 @@
 module AccountGamesHelper
-  def render_games(games, options = {})
-    opts = {
-      :mode => :full,
-      :class => "sortable"
-    }.merge(options)
-    head = "<th class=\"nosort span-1\">S</th><th class=\"span-7\">Nom</th><th class=\"nosort span-8\">Status</th
-    <th class=\"span-3 text\">Public</th><th class=\"nosort span-2 last\">Gerer</th><th>P</th>"
-    
-    extended_head = "<th class=\"nosort span-1\">S</th><th class=\"span-18 text\">Nom</th>
-    <th class=\"span-9 nosort \">Tags</th><th class=\"span-1 nosort \">Joueurs</th><th class=\"span-1\">Difficulte</th>
-    <th>Parties</th>"
-    if games.size > 0 
-      text = "<thead><tr>#{opts[:mode] == :overview ? head : extended_head}</tr></thead>"
-      text += "<tbody>"
-      text += render(:partial => "account_game", :collection => games, :locals =>{:mode => opts.delete(:mode)})
-      text +="</tbody>"
-      text = content_tag(:table, text, opts)
-    else
-      text = "<p class=\"empty\">Vous n'avez aucun jeux dans cette categorie.</p>"
-    end
-    text
-  end
-  
-
   def status_indicator(account_game)
     content_tag(:span, account_game.recenty_acquired? ? "" : "&nbsp;", 
                           :class => account_game.recenty_acquired? ? "ss_new ss_sprite" : "")

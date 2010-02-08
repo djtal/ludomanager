@@ -42,13 +42,6 @@ module ApplicationHelper
     content_tag(:span, content, :class => css)
   end
     
-    # Wrap your buttons in standard app form presentation
-    # See layout _form_buttons
-    #
-    def render_buttons(&block)
-      render :partial => "/layouts/form", &block
-    end
-    
     
     def flag_for_lang(lang, opts = {})
       options = {
