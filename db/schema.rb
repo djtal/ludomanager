@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090524124706) do
+ActiveRecord::Schema.define(:version => 20100210215239) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -35,6 +35,22 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
     t.datetime "updated_at"
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
+    t.string   "api_key",                   :limit => 40, :default => ""
+    t.boolean  "game",                                    :default => true
+    t.boolean  "party",                                   :default => true
+    t.boolean  "member",                                  :default => true
+  end
+
+  create_table "assets", :force => true do |t|
+    t.string   "content_type"
+    t.string   "filename"
+    t.integer  "size",            :limit => 11
+    t.integer  "width",           :limit => 11
+    t.integer  "height",          :limit => 11
+    t.integer  "attachable_id",   :limit => 11
+    t.string   "attachable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "authors", :force => true do |t|
@@ -46,6 +62,12 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
   create_table "authorships", :force => true do |t|
     t.integer "author_id", :limit => 11
     t.integer "game_id",   :limit => 11
+  end
+
+  create_table "collections", :force => true do |t|
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "editions", :force => true do |t|
@@ -75,6 +97,23 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
     t.integer  "editions_count",    :default => 0
   end
 
+  create_table "extensions", :force => true do |t|
+    t.integer  "base_game_id"
+    t.integer  "extension_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "game_photos", :force => true do |t|
+    t.string  "content_type"
+    t.string  "filename"
+    t.integer "size",         :limit => 11
+    t.integer "parent_id",    :limit => 11
+    t.string  "thumbnail"
+    t.integer "width",        :limit => 11
+    t.integer "height",       :limit => 11
+    t.integer "game_id",      :limit => 11
+  end
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -92,8 +131,16 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
     t.string   "box_content_type"
     t.integer  "box_file_size"
     t.datetime "box_updated_at"
+    t.integer  "collection_id"
   end
 
+  create_table "homepages", :force => true do |t|
+    t.integer  "account_id"
+    t.boolean  "public"
+    t.text     "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "members", :force => true do |t|
     t.text     "name"
@@ -138,5 +185,16 @@ ActiveRecord::Schema.define(:version => 20090524124706) do
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name"
+
+  create_table "user_pages", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.text     "template"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.boolean  "partial"
+    t.string   "extension"
+  end
 
 end
