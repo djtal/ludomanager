@@ -39,19 +39,6 @@ class AccountGame < ActiveRecord::Base
   end
   
   
-  def self.last_buy(count, opts = {})
-    options = {
-      :limit => count,
-      :order => "account_games.created_at DESC"
-    }.merge(opts)
-    find(:all, options)
-  end
-  
-  def image
-    game.image
-  end
-  
-  
   def recenty_acquired?
     return self.transdate > 3.month.ago
   end
