@@ -34,23 +34,9 @@ class Account < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation
 
-  has_many :account_games, :dependent => :delete_all do
-    def last
-      find(:all, :limit => 5, :inlcude => :game,  :order => "created_at DESC")
-    end
-  end
+  has_many :account_games, :dependent => :delete_all
   
   has_many :parties, :dependent => :delete_all do
-    def last_played(limit = 5)
-      
-      find(:all, :limit => limit, :order => "parties.created_at DESC")
-    end
-    
-    
-    def played_games
-      self.group_by(&:game).sort_by{ |game, parties| parties.size}.reverse
-    end
-    
     # return array containing 2 values
     # => total of parties played with game i own
     # => total of parties played with other game
@@ -62,7 +48,6 @@ class Account < ActiveRecord::Base
   end
   
   has_many :games, :through => :account_games
-  has_many :smart_lists, :dependent => :delete_all
   has_many :members, :dependent => :delete_all do
     # Import member data from csv file
     # format : name(mandatory);nickname(mandatory);email(optional)

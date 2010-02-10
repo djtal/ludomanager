@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
   
   map.show_parties "parties/show/:date", :controller => "parties", :action => "show"
   map.parties_resume "/parties/*date", :controller => "parties", :action => "index"
-  map.resources :accounts, :authors, :smart_lists, :editions
+  map.resources :accounts, :authors, :editions
   map.resources :players, :collection => {:new_partial_form => :get}
   map.resources :authorships, :collection => {:new_partial_form => :get}
   map.resources :members, 
