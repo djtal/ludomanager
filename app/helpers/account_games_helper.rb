@@ -9,10 +9,6 @@ module AccountGamesHelper
                           :class => !account_game.played? ? "ss_sprite ss_error" : "")
   end
   
-  def highlighted_tag_list(game)
-      search_tags = @tag_list ? @tag_list : []
-      game.tags.collect{|t| search_tags.include?(t.name) ? content_tag(:strong, t.name) : t.name}.join(", ")
-  end
   
   def selectable_tag_list(game)
     tags_li = game.tags.inject(""){|acc, t| acc << content_tag(:li, t.name, :class => "#{t.name} tag")}
