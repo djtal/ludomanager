@@ -435,7 +435,8 @@ img.ac_status {
 
 /* Account Games */
 
-.account_game em{
+.account_game em,
+.parties em{
   color: #666;
   background-color: transparent;
 }
@@ -489,11 +490,6 @@ ul#accounts li{
 	font-weight: bold;
 }
 
-.parties_count{
-	text-align: center;
-	color: #858585;
-	font-weight: bold;
-}
 /* Pseudo link Style */
 
 .link{

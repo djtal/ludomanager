@@ -1,8 +1,10 @@
 <tr id="<%= dom_id(game) %>">
-	<td class="<%= account_have_game?(game) ? "own green color" : "orange" %>">
+	<td class="pad">
 	  <%= link_to game.name, breakdown_parties_path(:game_id => game.id) %>
 	</td>
-	<td><%= last_play_date_table_cell(game) %></td>
-	<td class="center"><div class="round"><%= parties %></div></td>
+	<td class="align-right">
+	  <%= content_tag(:strong,"x #{parties}") %>
+    <%= content_tag(:em, "(#{time_ago_in_words(@last_played[game])})", :class => "") if @last_played[game] %>
+  </td>
 </tr>
 
