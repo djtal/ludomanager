@@ -14,22 +14,22 @@
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
 	    	  <%= image_tag(@game.box.url(:big), :class => "right box") %>
-	    	  <h4>Descrition</h4>
       	  <p>
       	  <% if !@game.description.blank? %>
       	    <%=h @game.description %>
       	  <% else %>
       	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
       	  <% end %>
+      	  </p>
       	  <br /><br />
       	  <span class="ss_sprite ss_date">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></span>&nbsp;|&nbsp;
      			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
      			<span class="ss_sprite ss_user">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
      		  <span class="ss_sprite ss_group">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
-      	  </p>
+      	  
       	</div>
       	<div class="block">
-      	 <h4>Les auteurs</h4>
+      	 <h4>Un jeu de :</h4>
       	 <%= authors_links(@game) %>
       	</div>
       	<div class="block">

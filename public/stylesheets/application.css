@@ -349,6 +349,10 @@ ul.horizontal li{
   text-align: center;
 }
 
+.game div#overview p{
+  min-height: 90px;
+}
+
 .block{
   margin-bottom: 20px;
 }
