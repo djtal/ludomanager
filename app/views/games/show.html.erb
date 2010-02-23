@@ -10,7 +10,6 @@
 	  <ul class="tabsContainer clear" id="gameTabs">
 	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
 	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
-	   <li class="tabs"><a href="#links">Divers</a></li>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
@@ -42,13 +41,6 @@
 	  <div id="editions" class="tabsBody">
     		<%= render :partial => "editions/show" %>
 	  </div>
-    <div id="links", class="tabsBody">
-      <div class="block">
-        <h4>Ils en parlent aussi...</h4>
-        Sa fiche sur TricTrac : <%= external_game_link(@game) %>
-      </div>
-    </div>
-
 	</div>
 	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
