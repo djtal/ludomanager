@@ -55,16 +55,6 @@ class AccountGamesController < ApplicationController
     end
   end
   
-  def import
-     if (params[:import][:file])
-         LudoImporter.new(:account => current_account).import(params[:import][:file].read)
-     end
-     redirect_to account_games_path
-  end
-  
-  def importer
-
-  end
   
   def search
     @search = ACGameSearch.new(current_account, params[:search])
