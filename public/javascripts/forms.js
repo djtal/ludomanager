@@ -10,12 +10,16 @@ var AccountGameForm = Class.create({
         acc.set(game.name, game.id);
         return acc;
       });
-    new Autocompleter.Local("account_game_game_name", 'account_game_game_name_lookup', this.missing.keys(), 
-    {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updategameId.bind(this)}); 
+      this.form.select(".game_autocomplete").each(function(cpl){
+        lookup = cpl.up().next(".auto_complete")
+        new Autocompleter.Local(cpl, lookup, this.missing.keys(), 
+         {fullSearch: true, frequency: 0, minChars: 1, afterUpdateElement: this.updategameId.bind(this)});
+      }.bind(this));
+
   },
   
-  updategameId: function(elt){
-    $("account_game_game_id").value = this.missing.get($F(elt));
+  updategameId: function(cpl){
+    cpl.up().next(".game_id").value = this.missing.get($F(cpl));
   }
 });
 

@@ -1,14 +1,20 @@
-<h3>Ajoutez un jeu a votre ludotheque...</h3>
+<h3>Ajoutez des jeux a ma ludotheque</h3>
 
-<% form_for(@account_game, :url => account_games_path, :html => {:id => "account_game_form"}) do |f| %>
-  <%= error_messages_for :account_game %>
-  <fieldset>
-    <p><%= label_tag :account_game_game_name, "Nom du jeu" %><span class="ss_sprite ss_help">(1)</span><br />
-    <%= text_field_tag :account_game_game_name, "",  :class => "title" %></p>
-    <div id="account_game_game_name_lookup" class="auto_complete"></div>
-    <%= f.hidden_field :game_id %>
-  </fieldset>  
-  <%= render :partial => f %>
+<% form_for(:account_games, :html => {:id => "account_game_form"}) do |form| %>
+  <%= label_tag :account_game_game_name, "Nom du jeu" %><span class="ss_sprite ss_help">(1)</span>
+  <% @account_games.each_with_index do |ac, index| %>
+    <% form.fields_for :account_game, :index => index do |f|  %>
+      <fieldset>
+        <p>
+        <%= text_field_tag "account_game_#{index}_game_name", "", :size => 50,  :class => "title game_autocomplete" %>
+        <%= f.date_select :transdate %></p>
+        <div id="account_game_<%= index %>_game_name_lookup" class="auto_complete"></div>
+        <%= f.hidden_field :edition_id %>
+        <%= f.hidden_field :game_id, :class => "game_id" %>   
+      </fieldset>  
+    <% end %>
+  <% end %>
+
   <%= submit_or_back_to games_path, "Retour sur la liste des jeux" %>
 <% end %>
 
