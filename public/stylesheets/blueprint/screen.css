@@ -17,7 +17,7 @@
    See the readme files for each plugin. Example:
    @import 'plugins/buttons/buttons.css'; */
    @import 'plugins/silksprite/sprite.css';
-   
+/*   @import 'plugins/ggreen/sprite.css'; */
 /* See the grid:
    Uncomment the line below to see the grid and baseline.
    .container { background: url(lib/grid.png); } */
