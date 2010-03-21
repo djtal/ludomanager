@@ -550,6 +550,10 @@ ul.advanced{
 	margin-bottom: 4px;
 }
 
+.widget hr{
+  margin: 5px 0;
+}
+
 .list ul,
 .widget ul{
 	margin: 0;
