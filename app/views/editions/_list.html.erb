@@ -3,7 +3,7 @@
   <% if logged_in? %>
     <div class="function right">
       <%= link_to "", edit_game_edition_path(@game, list), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
-      <%= link_to_remote "", {:url => game_edition_path(@game, list), :method => :delete},  :class => "ss_sprite ss_bin"  %>
+      <%= link_to_remote "", {:url => game_edition_path(@game, list), :method => :delete},  :class => "ss_sprite ss_trash"  %>
     </div>
   <% end %>
   <%= flag_for_lang(list.lang, :size => "20x20") %>
