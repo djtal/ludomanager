@@ -1,5 +1,6 @@
 class AuthorsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
+  subnav :authors
   
   # GET /authors
   # GET /authors.xml

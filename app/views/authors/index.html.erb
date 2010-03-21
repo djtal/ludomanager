@@ -33,11 +33,5 @@
 </div>
 
 <% content_for :newsbox do %>
-  <div id="placeholder-1">
-    <% render_widget "Administration" do %>
-      <ul>
-    		<li><%= link_to "Ajouter un auteur", new_author_path, :class => "ss_sprite ss_add" %></li>
-    	</ul>
-    <% end %>
-  </div>
-<% end if logged_in? %>
+
+<% end %>
