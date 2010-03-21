@@ -6,7 +6,6 @@
       <%= link_to_remote "", {:url => game_edition_path(@game, list), :method => :delete},  :class => "ss_sprite ss_trash"  %>
     </div>
   <% end %>
-  <%= flag_for_lang(list.lang, :size => "20x20") %>
-  <%= link_to list.editor.name, editor_path(list.editor) %> 
+  <%= link_to list.editor.name, editor_path(list.editor), :class => "ss_flag #{css_for_lang(list.editor.lang)}" %> 
    - <span class="meta"><%= list.name != "" ? list.name : @game.name %></span>
 </li>

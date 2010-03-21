@@ -1,5 +1,5 @@
 <tr class="autohide" id="<%= dom_id(edition) %>">
-  <td><%= flag_for_lang(edition.lang, :size => "20x20") %></td>
+  <td><span class=" right <%= css_for_lang(edition.lang) %>"></span></td>
   <td><%= link_to edition.name.blank? ? edition.game.name.humanize : edition.name.humanize , game_path(edition.game) %></td>
   <td><%= link_to edition.editor.name, edition.editor %></td>
   <td><%= edition.published_at ? edition.published_at.to_s(:month) : "NA" %></td>

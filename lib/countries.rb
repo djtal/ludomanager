@@ -1,7 +1,8 @@
 module Ludomanager
-  COUNTRIES = [ ["France", "fr"], [ "Angletere", "en"], ["Allemagne", "de"], 
-                ["Italie", "it"], ["Espagne", "es"], ["Russie", "ru"], ["Republique Tcheque", "cz"],
-                ["Japon", "jp"], ["Finlande", "fi"], ["Multi", "multi"]]
+  COUNTRIES = [ ["France", "fr", "france"], [ "Angletere", "en", "unitedstatesofamerica"], ["Allemagne", "de", "germany"], 
+                ["Italie", "it", "italy"], ["Espagne", "es", "spain"], ["Russie", "ru", "russianfederation"], 
+                ["Republique Tcheque", "cz", "czechrepublic"],
+                ["Japon", "jp", "japan"], ["Finlande", "fi", "finland"], ["Multi", "multi", "unitednations"]]
   ISOCODES = COUNTRIES.map{|c| c[1]}
   
   

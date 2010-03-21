@@ -1,6 +1,6 @@
 <% div_for editor, :class => "game clear" do %>
   <h3>
-	  <div class="right"><%= flag_for_lang(editor.lang) %></div>
+	  <span class=" right <%= css_for_lang(editor.lang) %>"></span>
 	  <%= link_to editor.name, editor_path(editor) %> 
 	</h3>
 	<div class="content">

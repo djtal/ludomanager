@@ -1,6 +1,6 @@
 <div class="left clear mini span-5">
   <%= image_tag(mini.game.box.url(:normal), :size => "45x45", :class => "mini left") %>
   <%= link_to(truncate(mini.name.blank? ? mini.game.name : mini.name, :length => 17), game_path(mini.game), :class => "empty") %>
-  <%= flag_for_lang(mini.lang, :size => "20x20") %><br />
+  <span class=" right <%= css_for_lang(mini.lang) %>"></span><br />
   <em><%= mini.game.target_str.downcase %></em>
 </div>

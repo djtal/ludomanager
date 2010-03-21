@@ -33,14 +33,10 @@
     <ul class="strip">
       <% @last.each do |edition| %>
         <li>
-          <%= flag_for_lang(edition.lang) %>
+          <span class=" right <%= css_for_lang(edition.lang) %>"></span>
           <b><%= link_to edition.name.blank? ? edition.game.name : edition.name, edit_game_edition_path(edition.game, edition) %></b>
            chez <span class="empty"><%= edition.editor.name %></span></li>
       <% end %>
     </ul>
   <% end %>
-<% end %>
-
-<% content_for :subnav do %>
-	<%= render :partial => "games/subnav" %>
 <% end %>

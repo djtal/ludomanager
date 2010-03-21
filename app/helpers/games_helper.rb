@@ -49,8 +49,9 @@ module GamesHelper
   end
   
   def langs_flag_for(game)
-    game.available_lang.inject("") do |acc, lang|
-      acc << flag_for_lang(lang, :size => "18x18")
+    game.editions.map(&:lang).uniq.inject("") do |acc, lang|
+      css = css_for_lang(lang)
+      acc << content_tag(:span, "", :class => "right ss_flag #{css}")
     end
   end
   
