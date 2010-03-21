@@ -4,11 +4,9 @@
       <ul class="strip" id="editions_list">
         <%= render :partial => "editions/list", :collection => @editions %>
       </ul>
-      <%= link_to "Ajoutez une edition", new_game_edition_path(@game) ,:class => "ss_sprite ss_add" %>
     </div>
 <% else %>
   <p class="empty">
-    Aucune editions n'existe pour le moment.<br />
-    <%= link_to "Ajoutez une edition", new_game_edition_path(@game), :class => "ss_sprite ss_add" %>
+    Aucune editions n'existe pour le moment
   </p>
 <% end %>
