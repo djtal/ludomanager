@@ -26,11 +26,28 @@ class AccountGamesControllerTest < ActionController::TestCase
       setup{ get :new}
       should_respond_with :success
       should_render_template :new
-      should_assign_to :account_game
+      should_assign_to :account_games
+    end
+    
+    context "creating new game(s)" do
+      setup do
+        @g1 = Factory.create(:game, :name => "Arkham Horror")
+        @g2 = Factory.create(:game, :name => "Pandemic")
+        @ac1 = Factory.attributes_for(:account_game, :game_id => @g1.id)
+        @ac2 = Factory.attributes_for(:account_game, :game_id => @g2.id)
+      end
       
-      should "default new account game date to current date" do
-        Time.zone = 'Paris'
-        assert_equal Time.zone.now.beginning_of_day, assigns(:account_game).transdate
+      
+      should "create one game" do
+        assert_difference("accounts(:quentin).account_games.count", 1) do 
+          post :create, {:account_game => {"1" => @ac1}}
+        end
+      end
+      
+      should "create multiple game in one times" do
+        assert_difference("accounts(:quentin).account_games.count", 2) do 
+          post :create, {:account_game => {"1" => @ac1, "2" => @ac2}}
+        end
       end
     end
   end

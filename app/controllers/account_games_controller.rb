@@ -67,10 +67,8 @@ class AccountGamesController < ApplicationController
   
   
   def new
-    @account_games = []
-    4.times do
-      @account_games << current_account.account_games.build
-    end
+    @new_games = []
+    4.times{ @new_games << current_account.account_games.build }
   end
   
   def edit
@@ -81,16 +79,18 @@ class AccountGamesController < ApplicationController
   # POST /account_games
   # POST /account_games.xml
   def create
-    @account_game = current_account.account_games.build(params[:account_game])
+    @new_games = current_account.account_games.create(params[:account_game].values)
     respond_to do |format|
-      if @account_game.save
+      if @new_games.inject(true){|acc, record| acc = acc && !record.new_record? }
         @account_games = current_account.account_games.all
-        flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
+        #flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
         format.html { redirect_to account_games_url}
         format.js
         format.xml  { head :created, :location => account_games_url }
       else
-        format.html { render :action => "new" }
+        format.html  do
+          render :action => "new" 
+        end
         format.xml  { render :xml => @account_game.errors.to_xml }
       end
     end

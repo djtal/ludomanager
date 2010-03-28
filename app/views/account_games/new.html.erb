@@ -1,16 +1,17 @@
 <h3>Ajoutez des jeux a ma ludotheque</h3>
 
-<% form_for(:account_games, :html => {:id => "account_game_form"}) do |form| %>
+<% form_for(:account_games, :url => account_games_path, :method => :post, :html => {:id => "account_game_form"}) do |form| %>
   <%= label_tag :account_game_game_name, "Nom du jeu" %><span class="ss_sprite ss_help">(1)</span>
-  <% @account_games.each_with_index do |ac, index| %>
-    <% form.fields_for :account_game, :index => index do |f|  %>
+  <% @new_games.each_with_index do |ac, index| %>
+    <% fields_for ac, :index => index do |f|  %>
       <fieldset>
         <p>
         <%= text_field_tag "account_game_#{index}_game_name", "", :size => 50,  :class => "title game_autocomplete" %>
         <%= f.date_select :transdate %></p>
         <div id="account_game_<%= index %>_game_name_lookup" class="auto_complete"></div>
         <%= f.hidden_field :edition_id %>
-        <%= f.hidden_field :game_id, :class => "game_id" %>   
+        <%= f.hidden_field :game_id, :class => "game_id" %>
+        <%= error_messages_for :account_game, :object => ac %>
       </fieldset>  
     <% end %>
   <% end %>

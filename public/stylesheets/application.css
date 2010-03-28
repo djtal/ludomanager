@@ -10,6 +10,12 @@ a {
 	color: #422100;
 }
 
+em{
+  color: #666;
+  background-color: transparent;
+}
+
+
 .container{
 	background: #EDF3EB;
 }
@@ -434,13 +440,6 @@ img.ac_status {
 
 
 /* Account Games */
-
-.account_game em,
-.parties em{
-  color: #666;
-  background-color: transparent;
-}
-
 
 ul.tags{
   	list-style: none;

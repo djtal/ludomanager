@@ -1,10 +1,10 @@
-<ul id="years" class="clear">
+<ul id="years" class="clear horizontal">
   <% ((Time.now.year - 3)..(Time.now.year)).each do |year| %>
-    <li class="tabs flat <%= "active" if @year.to_s == year.to_s %>">
+    <li class="<%= "active" if @year.to_s == year.to_s %>">
       <%= link_to_remote year, :url => most_played_parties_path(:year => year), :method => :get %>
     </li>
   <% end %>
-  <li class="tabs flat <%= "active" unless @year %>">
+  <li class="<%= "active" unless @year %>">
     <%= link_to_remote "Toutes", :url => most_played_parties_path(), :method => :get %>
   </li>
 </ul>
@@ -12,7 +12,7 @@
 	<ul class="strip">
 		<% @most_played.each do |game, count| %>
 			<li>
-				<div class="right round"><%= count %></div>
+				<strong class="right">x <%= count %></strong>
 				<%= image_tag(game.box.url(:thumb), :class => "mini") %>
 				<%= link_to game.name, game_path(game) %>
 			</li>
