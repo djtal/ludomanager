@@ -11,27 +11,19 @@
     <% end %>
 </div>
 
-<table class="sortable">
-  <thead>
-    <tr>
-      <th class="span-6 nosort">Nom Prenom</th>
-      <th class="span-<%= logged_in? ? "9" : "11" %> nosort"></th>
-      
-      <% if logged_in? %>
-        <th class="span-2 nosort">Gerer</th>
-      <% end %>
-      <th class="nosort center">Nb Jeux</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render :partial => @authors %>
-  </tbody>
-</table>
+<div>
+  <% if @authors.size > 0 %>
+    <%= render :partial => @authors, :spacer_template => "shared/spacer" %>
+  <% else %>
+    <span class="empty">Aucun editeurs actuellement en base.</span>
+  <% end %>
+</div>
+
 
 <div class="page-nav">
   <%= will_paginate @authors %>
 </div>
 
 <% content_for :newsbox do %>
-
+  
 <% end %>
