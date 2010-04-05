@@ -1,6 +1,4 @@
 class AuthorshipsController < ApplicationController
-  subnav :authors
-  
   # GET /authorships
   # GET /authorships.xml
   def index
@@ -27,17 +25,8 @@ class AuthorshipsController < ApplicationController
   def new
     @index = params[:index].to_i || 0
     @index += 1
-    if params[:game_id]
-      @game = Game.find(params[:game_id])
-      @authorships = 3.times.inject([]){|arr, index| arr << @game.authorships.build}
-      @back_path = game_path(@game)
-      self.subnav = "games/subnav"
-    elsif params[:author_id]
-      @author = Author.find(params[:author_id])
-      @authorships = 3.times.inject([]){|arr, index| arr << @author.authorships.build}
-      @back_path = author_path(@author)
-      self.subnav = "authors/subnav"
-    end
+    @game = Game.find(params[:game_id])
+    @authorship = @game.authorships.new
   end
   
   #used when adding via AJAX new athorship form fragment

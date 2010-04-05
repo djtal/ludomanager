@@ -1,15 +1,11 @@
-<h3>
-  <% if @game %>
-    Ajoutez un/des auteurs a <%= @game.name %>
-  <% elsif @author %>
-    Ajoutez un/des jeux pour <%= @author.display_name %>
-  <% end %>
-</h3>
+<h3>Ajoutez un/des auteur a <%= @game.name %></h3>
 
 
-<% form_for(:authorships, :url => authorships_path) do |form| %>
-  <% @authorships.each_with_index do |au, index| %>
-    <%= render :partial => form, :locals => {:index => index, :authorship => au} %>
-  <% end %>
-  <%= submit_or_back_to @back_path, "Retour" %>
+<%= error_messages_for :authorship %>
+
+<% form_for(:authorships, :url => game_authorships_path(@game), :html => {:id => "authorship_form"}) do |form| %>
+  <div id="authorships">
+    <%= render :partial => form, :locals => {:index => @index, :authorship => @authorship} %>
+  </div>
+  <%= submit_or_back_to game_path(@game), "Retour sur #{@game.name}" %>
 <% end %>
