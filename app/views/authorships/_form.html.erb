@@ -1,11 +1,18 @@
-<% fields_for :authorship, :index => index do |a| %>
+<% fields_for authorship, :index => index do |a| %>
 <div class="authorship" id="<%= index %>">
-  <p><%= label_tag "display_name_#{index}", "Auteur #{index}" %>
-  <span class="tips">(Sous la forme "prenom-nom")</span><br />
-  <%= text_field_tag "authorships_display_name_#{index}", authorship && authorship.author ? authorship.author.display_name : "", :name => "authorship[#{index}][display_name]", :class => "author_display_name text" %>
-  <%= image_tag("cd_store_up.gif", :class => "add btn") %>
-  <%= image_tag("cd_store_down.gif", :class => "remove btn") %>
-  </p>
-  <div class="auto_complete" id="authorship_<%= index %>_auto_complete"></div>
+  <% if @author %>
+    <p><%= label_tag "game_name_#{index}", "Nom du jeu" %><br />
+    <%= text_field_tag "game_name_#{index}", nil, :class => "text" %>
+    </p>
+    <div class="auto_complete" id="game_<%= index %>_auto_complete"></div>
+    <%= a.hidden_field :game_id %>
+  <% elsif @game %>
+    <p><%= label_tag "display_name_#{index}", "Auteur #{index}" %>
+    <span class="tips">(Sous la forme "prenom-nom")</span><br />
+    <%= text_field_tag "authorships_display_name_#{index}", authorship && authorship.author ? authorship.author.display_name : "", :name => "authorship[#{index}][display_name]", :class => "author_display_name text" %>
+    </p>
+    <%= a.hidden_field :game_id unless @game.new_record? %>
+    <div class="auto_complete" id="authorship_<%= index %>_auto_complete"></div>
+  <% end %>
 </div>
 <% end %>

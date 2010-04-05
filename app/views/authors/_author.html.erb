@@ -3,22 +3,27 @@
 	  <%= link_to "#{author.name} - #{author.surname}", author_path(author) %> 
 	</h3>
   <div class="content">
-    <div class="block">
-      <h4>Ces derniers jeu(x)</h4>
-      <% if author.authorships.size > 0 %>
-        <ul class="horizontal clear">
-          <% author.games.find(:all, :limit => 5).each do |g| %>
-            <li id="<%= dom_id(g) %>" class="surround tip">
-  	            <%= image_tag(g.box.url(:normal), :size => "45x45", :class => "mini", :alt => g.name) %>
-  	        </li>
-          <% end %>
-        </ul>
-        <% if author.authorships.count > 5  %>
-          <div>Et <%= author.authorships.count - 5   %> de plus.</div>
+    <div class="column span-3">
+      <div class="block">
+        <h4>En bref</h4>
+        Il a produit <strong><%= pluralize(author.authorships.count, "jeu", "jeux") %>.</strong>
+      </div>
+    </div>
+    <div class="column span 11 last">
+      <div class="block">
+        <h4>Ces derniers jeu(x)</h4>
+        <% if author.authorships.size > 0 %>
+          <ul class="horizontal clear">
+            <% author.games.find(:all, :limit => 5).each do |g| %>
+              <li id="<%= dom_id(g) %>" class="surround tip">
+    	            <%= image_tag(g.box.url(:normal), :size => "45x45", :class => "mini", :alt => g.name) %>
+    	        </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <span class="empty">Cet auteur n'a pas encore produit de jeu(x)</span>
         <% end %>
-      <% else %>
-        <span class="empty">Cet auteur n'a pas encore produit de jeu(x)</span>
-      <% end %>
+      </div>
     </div>
   </div>
 

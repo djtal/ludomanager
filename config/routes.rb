@@ -12,7 +12,8 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
   
   map.show_parties "parties/show/:date", :controller => "parties", :action => "show"
   map.parties_resume "/parties/*date", :controller => "parties", :action => "index"
-  map.resources :accounts, :authors, :editions
+  map.resources :accounts, :editions
+  
   map.resources :players, :collection => {:new_partial_form => :get}
   map.resources :authorships, :collection => {:new_partial_form => :get}
   map.resources :members, 
@@ -27,6 +28,9 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
                 :has_many => [:authorships, :editions, :tags] ,
                 :collection => {:search => :get}, 
                 :member => {:replace => :get, :merge => :post} 
+
+  map.resources :authors,
+                :has_many => :authorships
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'
   map.login  '/login', :controller => 'sessions', :action => 'new'
