@@ -1,10 +1,10 @@
-<li class="left"><%= link_to "Tous les editeur", editors_path %></li>
+<li class="left"><%= link_to "Tous les editeur", editors_path, :class => "ss_sprite ss_joystick" %></li>
 <% if logged_in? %>
-  <li class="left"><%= link_to "Ajouter un editeur", new_editor_path, :class => "ss_sprite ss_page_white_add" %></li>
+  <li class="left"><%= link_to "Ajouter un editeur", new_editor_path, :class => "ss_sprite ss_add" %></li>
 <% end %>
 <li class="right clear">
 	<% form_tag search_editors_path, :method => 'get', :class => "right" do %>
-      <%= label :search, "Nom de l'editeur" %>
+      <%= label :search, "Nom de l'editeur", {}, :class => "ss_sprite ss_search" %>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Go" %>
   <% end %>

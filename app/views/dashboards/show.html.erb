@@ -1,18 +1,21 @@
 <div class="column span-17">
   <div class="clear">
     <div class="column span-9">
-      <%= render_widget "Mon profil", :partial => "profile" %>
+      <%= render_widget "Mon profil", :sprite => "ss_pin", :partial => "profile" %>
     </div>
     <div class="column span-8 last">
-      <%= render_widget "Top 5", :partial => "parties/most_played", :locals => {:most_played => @most_played}, :html => {:id => "top"} %>
+      <%= render_widget "Top 5", 
+                        :sprite => "ss_favorite",
+                        :partial => "parties/most_played", 
+                        :locals => {:most_played => @most_played}, :html => {:id => "top"} %>
     </div>
   </div>
   
-  <%= render_widget "Evolutions des parties par mois", :partial => "monthly" %>
+  <%= render_widget "Evolutions des parties par mois", :sprite => "ss_stats",  :partial => "monthly" %>
 </div>
 
 <div class="column span-7 last">
-  <% render_widget "Activite recente" do %>
+  <% render_widget "Activite recente", :sprite => "ss_tower" do %>
     <div class="block">
       <h4>Vos derniers jeux rentr&eacute;s</h4>
       <%= render :partial => "account_games/last" %>

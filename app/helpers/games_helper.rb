@@ -35,9 +35,9 @@ module GamesHelper
   def manage_authors_link(game)
 
     if game.authorships.size > 0
-      link_to("Gerer les auteur", edit_game_authorship_path(@game), :class => "ss_sprite ss_page_white_add")
+      link_to("Gerer les auteur", edit_game_authorship_path(@game), :class => "ss_sprite ss_add_user")
     else
-      link_to("Gerer les auteur", new_game_authorship_path(@game), :class => "ss_sprite ss_page_white_add")
+      link_to("Gerer les auteur", new_game_authorship_path(@game), :class => "ss_sprite ss_add_user")
     end
   end
   
@@ -49,8 +49,9 @@ module GamesHelper
   end
   
   def langs_flag_for(game)
-    game.available_lang.inject("") do |acc, lang|
-      acc << flag_for_lang(lang, :size => "18x18")
+    game.editions.map(&:lang).uniq.inject("") do |acc, lang|
+      css = css_for_lang(lang)
+      acc << content_tag(:span, "", :class => "right ss_flag #{css}")
     end
   end
   

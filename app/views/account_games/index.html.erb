@@ -28,8 +28,8 @@
         <td colspan="4">
           <ul class="horizontal clear right">
             <li><span class="ss_sprite ss_folder"></span>Total : <span class="empty"><%= @all %></span></li>
-            <li><%= link_to("Recent : #{@recent}", all_account_games_path(:search => {:mode => "recent"}), :class => "ss_sprite ss_new") %></li>
-            <li><%= link_to "Non jouée : #{@no_played}", all_account_games_path(:search => {:mode => "not_played"}), :class => "ss_sprite ss_exclamation" %></li>
+            <li><%= link_to("Recent : #{@recent}", all_account_games_path(:search => {:mode => "recent"}), :class => "ss_sprite ss_coffee") %></li>
+            <li><%= link_to "Non jouée : #{@no_played}", all_account_games_path(:search => {:mode => "not_played"}), :class => "ss_sprite ss_warning" %></li>
           </ul>
         </td>
       </tr>
@@ -46,7 +46,7 @@
 
 <% content_for :newsbox do %>
   
-  <% render_widget "Repartition de vos jeux" do %>
+  <% render_widget "Repartition de vos jeux", :sprite => "ss_pie_chart" do %>
     <div id="ac_games_piechart" style="width: 200px; height:200px; left:40px;">
       
     </div>

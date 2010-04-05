@@ -25,13 +25,8 @@
   <%= will_paginate @editors %>
 </div>
 
-
-<% content_for :subnav do %>
-	<%= render :partial => "subnav" %>
-<% end %>
-
 <% content_for :newsbox do %>
-  <% render_widget "Dernieres activit&eacute;es" do %>
+  <% render_widget "Dernieres activit&eacute;es", :sprite => "ss_tower" do %>
       <ul class="strip">
         <% @last_active.each do |e| %>
           <li>

@@ -43,6 +43,7 @@ h3{
 }
 
 
+
 h4{
 	font-weight: bold;
 	font-size: 1.1em;
@@ -543,10 +544,18 @@ ul.advanced{
 	margin: 0;
 }
 
+.widget span.ss_sprite{
+  margin-top: 3px;
+}
+
 .widget .w-content{
 	padding: 4px 4px;	
 	margin-top: 4px;
 	margin-bottom: 4px;
+}
+
+.widget hr{
+  margin: 5px 0;
 }
 
 .list ul,

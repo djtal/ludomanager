@@ -1,0 +1,4 @@
+<li class="left"><%= link_to "Tous les auteurs", authors_path, :class => "ss_sprite ss_vcard" %></li>
+<% if logged_in? %>
+  <li class="left"><%= link_to "Ajouter un auteur", new_author_path, :class => "ss_sprite ss_add" %></li>
+<% end %>

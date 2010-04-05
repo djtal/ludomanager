@@ -12,11 +12,11 @@
   </td>
   <td><div class="function">
     <% if party_full.players.size > 0 %>
-      <%= link_to "", edit_party_player_path(party_full, party_full.players.first),  :class => "ss_sprite ss_group_edit"  %>
+      <%= link_to "", edit_party_player_path(party_full, party_full.players.first),  :class => "ss_sprite ss_pencil"  %>
     <% else %>
-      <%= link_to "", new_party_player_path(party_full), :class => "ss_sprite ss_group_add" %>
+      <%= link_to "", new_party_player_path(party_full), :class => "ss_sprite ss_add" %>
     <% end %>
-    |<%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_joystick_delete"  %>
+    |<%= link_to_remote "", {:url => party_path(party_full), :method => :delete},  :class => "ss_sprite ss_trash"  %>
   </div></td>
   <td class="center count">
     <div class="<%= party_full.players.size == 0 ? "round empty" : ""  %>">

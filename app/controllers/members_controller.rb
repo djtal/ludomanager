@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
   before_filter :login_required
+  subnav :members
   
   def index
     @members = current_account.members.paginate(:page => params[:page], :per_page => 20, 

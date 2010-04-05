@@ -1,9 +1,12 @@
-<li class="left"><%= link_to "Tous les jeux", games_path %></li>
-<li class="left"><%= link_to "Les Tags", tags_path %></li>
-<li class="left"><%= link_to "Les editions", editions_path %></li>
+<li class="left"><%= link_to "Tous les jeux", games_path, :class => "ss_sprite ss_gamepad" %></li>
+<li class="left"><%= link_to "Les Tags", tags_path, :class => "ss_sprite ss_tag" %></li>
+<li class="left"><%= link_to "Les editions", editions_path, :class => "ss_sprite ss_network" %></li>
+<% if logged_in? %>
+  <li class="left"><%= link_to "Ajouter un jeu", new_game_path, :class => "ss_sprite ss_add" %></li>
+<% end %>
 <li class="right clear">
 	<% form_tag search_games_path, :method => 'get', :class => "right" do %>
-      <%= label :search, "Nom du jeu" %>
+      <%= label :search, "Nom du jeu", {}, :class => "ss_sprite ss_search" %>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Go" %>
   <% end %>

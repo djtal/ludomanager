@@ -22,10 +22,10 @@
       	  <% end %>
       	  </p>
       	  <br /><br />
-      	  <span class="ss_sprite ss_date">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></span>&nbsp;|&nbsp;
+      	  <span class="ss_sprite ss_announcement">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></span>&nbsp;|&nbsp;
      			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
-     			<span class="ss_sprite ss_user">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
-     		  <span class="ss_sprite ss_group">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
+     			<span class="ss_sprite ss_users">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
+     		  <span class="ss_sprite ss_gamepad">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
       	  
       	</div>
       	<div class="block">
@@ -51,13 +51,24 @@
   <% render_widget "Administration" do %>
     <ul>
       <% if logged_in? %>
-        <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_page_white_edit" %></li>
+
+        <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_pencil" %></li>
         <li><%= link_to "Supprimer la fiche", game_path(@game), 
-                :method => :delete, :class => "ss_sprite ss_page_white_delete" %></li>
+                :method => :delete, :class => "ss_sprite ss_trash" %></li>
+        <hr />
+        <% if account_have_game?(@game) %>
+          <%= link_to_remote "Supprimez ce jeu de ma ludotheque", :url => {:controller => "account_games", 
+          										:action => 'destroy', :game_id => @game.id}, :method => :delete, :html => {:class => "ss_sprite ss_x"} %>
+        <% else %>
+          <%= link_to_remote "L'ajouter a ma ludotheque", 	:url =>account_games_path(:account_game => {:game_id => @game.id}),
+          				            :method => :post, :html => {:class => "ss_sprite ss_briefcase"}  %>
+        <% end %>
+        <hr />
         <li><%= manage_authors_link(@game) %></li>
-        <li><%= link_to "Ajouter une edition", new_game_edition_path(@game), :class => "ss_sprite ss_page_white_add" %></li>
+        <li><%= link_to "Ajouter une edition", new_game_edition_path(@game), :class => "ss_sprite ss_add" %></li>
       <% end %>
-      <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_arrow_undo" %></li>
+        <hr />
+      <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_left" %></li>
     </ul>
   <% end  %>
 

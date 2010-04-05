@@ -2,9 +2,10 @@
 module ApplicationHelper
 
   def render_widget(title, opts = {}, &block)
-    html_opts = opts.delete(:html) 
+    html_opts = opts.delete(:html)
+    sprite = opts.delete(:sprite)
     locals = opts.delete(:locals) || {}
-    locals.merge!({:title => title, :html_opts => html_opts})
+    locals.merge!({:title => title, :html_opts => html_opts, :sprite => sprite})
     options = {
       :layout => "layouts/widget",
       :locals => locals
@@ -43,12 +44,13 @@ module ApplicationHelper
   end
     
     
-    def flag_for_lang(lang, opts = {})
+    def css_for_lang(lang, opts = {})
       options = {
         :size => "16x16",
         :class => "flag"
       }.merge(opts)
-      image_tag("flag/#{lang}.png",options) if lang
+      css = Ludomanager::COUNTRIES.select{|arr| arr[1] == lang}.flatten[2]
+      css ? "ss_flag fl_#{css}" : ""
     end
     
     def submit_or_back_to(back_to, back_to_text = "Annuler", opts = {})

@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(account_game) %>" class="account_game">
 	<td class="pad">
 	  <%= link_to account_game.game.name, breakdown_parties_path(:game_id => account_game.game.id) %>
-	  <%= link_to "", game_path(account_game.game), :class => "ss_sprite ss_link_go" %>
+	  <em><%= link_to "(fiche)", game_path(account_game.game) %></em>
 	  <%= status_indicator account_game %>
 	</td>
 	<td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
@@ -10,7 +10,7 @@
 	  <%= content_tag(:em, "(#{time_ago_in_words(account_game.last_play)})", :class => "") if account_game.last_play %>
 	</td>
 	<td><span class="function right clear">
-			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_page_white_edit" %>
-			<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, {:class => "ss_sprite ss_page_white_delete"} %>
+			<%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_pencil" %>
+			<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, {:class => "ss_sprite ss_trash"} %>
 	</span></td>
 </tr>

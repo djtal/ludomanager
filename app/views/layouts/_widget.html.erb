@@ -1,4 +1,7 @@
 <div class="widget" id="<%= html_opts[:id] if html_opts && html_opts[:id] %>">
+	<% if sprite %>
+	  <span class="left ss_sprite <%= sprite %>"></span>
+	<% end %>
 	<h3><%= title %></h3>
 	<div class="w-content">
     <%= yield %>
