@@ -1,16 +1,12 @@
 <h3>
-  <span class=" right <%= css_for_lang(@author.lang) %>"></span>
+  <span class="right <%= css_for_lang(@author.lang) %>"></span>
   Ludograhie de <%= @author.display_name%>
+  <% unless @author.homepage.blank? %>
+    (<%= link_to @author.homepage, "http://" + @author.homepage, :class => "small ss_sprite ss_world" %>)
+  <% end %>
 </h3>
 
 <% if @games.size > 0 %>
-  <p>
-    
-    <% if @author.homepage %>
-      <%= link_to "Son site internet", @author.homepage %>
-    <% end %>
-  </p>
-  
   <table class="sortable">
     <thead>
       <tr>
@@ -18,14 +14,14 @@
         <th class="span-7">Jeu</th>
         <th class="span-2">Public</th>
         <th class="span-<%= logged_in? ? "5" : "7" %> no-sort"></th>
-        <th class="span-3">Ann&eacute;e de sortie</th>
+        <th class="span-3">Sortie</th>
         <% if logged_in? %>
-          <th class="nosort">Status ludotheque</th>
+          <th class="nosort">Ludotheque</th>
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <%= render :partial => "games/game_quick_list", :collection => @games %>
+      <%= render :partial => "game", :collection => @games %>
     </tbody>
   </table>
 <% else %>
