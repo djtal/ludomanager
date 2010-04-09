@@ -1,5 +1,6 @@
 <% div_for author, :class => "game clear" do %>
   <h3>
+    <span class=" right <%= css_for_lang(author.lang) %>"></span>
 	  <%= link_to "#{author.name} - #{author.surname}", author_path(author) %> 
 	</h3>
   <div class="content">

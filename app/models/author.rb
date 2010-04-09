@@ -13,6 +13,7 @@ class Author < ActiveRecord::Base
   validates_presence_of :name
   has_many :authorships, :dependent => :destroy
   has_many :games, :through => :authorships
+  validates_inclusion_of :lang, :in => ::Ludomanager::ISOCODES, :allow_nil => true, :allow_blank => true
   
   
   scope_procedure :start, searchlogic_lambda(:string){|letter| name_begins_with_any(letter.downcase, letter.upcase).ascend_by_surname}

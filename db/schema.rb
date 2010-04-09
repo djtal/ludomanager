@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100210215239) do
+ActiveRecord::Schema.define(:version => 20100409192037) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20100210215239) do
     t.string "name"
     t.string "surname"
     t.string "homepage"
+    t.string "lang",     :default => ""
   end
 
   create_table "authorships", :force => true do |t|
@@ -132,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20100210215239) do
     t.integer  "box_file_size"
     t.datetime "box_updated_at"
     t.integer  "collection_id"
+    t.integer  "base_game_id"
   end
 
   create_table "homepages", :force => true do |t|
@@ -152,9 +154,10 @@ ActiveRecord::Schema.define(:version => 20100210215239) do
   end
 
   create_table "parties", :force => true do |t|
-    t.integer  "game_id",    :limit => 11
+    t.integer  "game_id",       :limit => 11
     t.datetime "created_at"
-    t.integer  "account_id", :limit => 11
+    t.integer  "account_id",    :limit => 11
+    t.integer  "players_count"
   end
 
   create_table "players", :force => true do |t|

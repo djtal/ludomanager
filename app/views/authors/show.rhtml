@@ -1,4 +1,7 @@
-<h3>Ludograhie de <%= @author.display_name%></h3>
+<h3>
+  <span class=" right <%= css_for_lang(@author.lang) %>"></span>
+  Ludograhie de <%= @author.display_name%>
+</h3>
 
 <% if @games.size > 0 %>
   <p>

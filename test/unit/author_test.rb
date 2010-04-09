@@ -7,6 +7,7 @@ class AuthorTest < ActiveSupport::TestCase
     should_have_many :authorships, :dependent => :destroy
     should_have_many :games, :through => :authorships
     
+    
   end
 
   context "parsing  author fullname" do
