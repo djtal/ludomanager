@@ -8,7 +8,7 @@
     <div class="column span-3 last"><%= image_tag(game.box.url(:normal), :class => "mini") %></div>
   	<div class="column span-14 last">
     	  <div class="block">
-    	    <h4>Description</h4>
+    	    <h4><span class="ss_sprite ss_document"></span>Description</h4>
     	    <% if !game.description.blank? %>
       	    <%=truncate(h(game.description), :length => 215, :omission => "... " + link_to("Voir la suite", game_path(game))) %>
       	  <% else %>
@@ -16,7 +16,7 @@
       	  <% end %>
     	  </div>
         <div class="block">
-          <h4>Les tags</h4>
+          <h4><span class="ss_sprite ss_tag"></span>Les tags</h4>
           <span class="<%= "tag-in-place-edit" if logged_in?  %>" id="<%= dom_id(game, :in_place_edit) %>"><%= game_tags_links game %></span>
           <%= link_to("...", "#", :class => "in_place_edit_trigger tag") if logged_in? %>
         </div>

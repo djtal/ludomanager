@@ -29,11 +29,11 @@
       	  
       	</div>
       	<div class="block">
-      	 <h4>Un jeu de :</h4>
+      	 <h4><span class="ss_sprite ss_vcard">Les auteurs</h4>
       	 <%= authors_links(@game) %>
       	</div>
       	<div class="block">
-      	 <h4>Les Tags</h4>
+      	 <h4><span class="ss_sprite ss_tag"></span>Les Tags</h4>
       	 <span class="<%= "tag-in-place-edit" if logged_in?  %>" id="<%= dom_id(@game, :in_place_edit) %>"><%= game_tags_links @game %></span>
       	 <%= link_to("...", "#", :class => "in_place_edit_trigger tag") if logged_in? %>
       	</div>
