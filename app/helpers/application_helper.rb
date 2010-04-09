@@ -45,10 +45,6 @@ module ApplicationHelper
     
     
     def css_for_lang(lang, opts = {})
-      options = {
-        :size => "16x16",
-        :class => "flag"
-      }.merge(opts)
       css = Ludomanager::COUNTRIES.select{|arr| arr[1] == lang}.flatten[2]
       css ? "ss_flag fl_#{css}" : ""
     end

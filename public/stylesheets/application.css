@@ -1,5 +1,3 @@
-/* @override http://localhost:3000/stylesheets/application.css?1220797423 */
-
 /* ----- Structure and Layout ----- */
 
 body {
@@ -14,7 +12,6 @@ em{
   color: #666;
   background-color: transparent;
 }
-
 
 .container{
 	background: #EDF3EB;
@@ -32,7 +29,6 @@ h1{
 	color:#422100;
 }
 
-
 h3{
 	border-bottom: 1px solid #6CAB54;
 	border-top: 1px solid #6CAB54;
@@ -41,8 +37,6 @@ h3{
 	font-variant: small-caps;
 	padding: 5px 10px;
 }
-
-
 
 h4{
 	font-weight: bold;
@@ -84,11 +78,9 @@ p.info{
 
 /* ----- Navigation -----  */
 
-
 #header {
 	background: url('../images/nav-head.gif') repeat-x;
 }
-	
 
 #sub-nav ul,
 #header ul {
@@ -134,7 +126,6 @@ p.info{
 	margin-bottom: 10px;
 }
 
-
 #sub-nav ul li{
 	margin: 5px 0 0 0;
 	padding: 2px 12px;
@@ -151,9 +142,6 @@ p.info{
 #innernews ul{
 	list-style: none;	
 }
-
-
-
 
 /* ------ Forms ------- */
 
@@ -172,7 +160,6 @@ legend{
 	padding-left: 3px;
 	padding-right: 3px;
 }
-
 
 .buttons{
 	border-top: solid 2px #DCEAD7;
@@ -197,11 +184,9 @@ legend{
 	color: #858585;
 }
 
-
 .important{
 	font-size: 1.7em;
 }
-
 
 /* ------ Footer ----- */
 
@@ -226,8 +211,6 @@ legend{
 	color: #422100;
 	text-decoration: underline;
 }
-
-
 
 .flash{
 	background-color: #FFF700;
@@ -283,7 +266,6 @@ div.auto_complete ul strong.highlight {
 	padding:0; 
 } 
 
-
 .form-image{
 	margin-right: 5px;
 }
@@ -298,13 +280,6 @@ form img.btn{
 #authorship_form p{
   margin: 0;
 }
-
-
-
-.search_wrapper{
-	position:absolute;
-}
-
 
 ul.horizontal{
   margin: 0;
@@ -338,7 +313,6 @@ ul.horizontal li{
 	border-bottom: 1px solid #6CAB54;
 }
 
-
 .game ul{
   margin: 0;
   list-style: none;
@@ -364,29 +338,11 @@ ul.horizontal li{
   border-bottom: 1px dotted;
 }
 
-img.flag{
-  margin: 0;
-  vertical-align: middle;
-}
-
 img.mini{
   padding: 2px;
   background-color: #fff;
   border: solid 1px #ddd;
   
-}
-
-.surround{
-  padding: 3px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border: solid 1px #fff;
-
-}
-
-.surround:hover{
-  border: solid 1px #666;
-  background-color: #ddd;
 }
 
 .content{
@@ -406,7 +362,6 @@ img.mini{
 	vertical-align: middle;
 }
 
-
 #games h3{
 	background-color: #E6F7D4;
 	border-bottom: 1px solid #6CAB54;
@@ -418,7 +373,6 @@ img.mini{
 .meta{
 	font-weight: bold;
 }
-
 
 /* Account Games */
 
@@ -438,15 +392,8 @@ ul.tags li.selected{
 	font-weight: bold;
 }
 
-#account_games_list label{
-  font-weight: normal;
-}
-
-
 /* Accounts & Login */
-.center_box{
-	margin:0px auto;
-}
+
 #accounts{
 	border: solid 5px #ccc;
 	margin: 10px;
@@ -458,7 +405,6 @@ ul#accounts img{
 	float: left;
 }
 
-
 ul#accounts li{
 	padding: 2px;
 	list-style: none;
@@ -469,7 +415,6 @@ ul#accounts li{
 	font-size: 2em;
 	font-weight: bold;
 }
-
 
 .less,
 .more {
@@ -592,7 +537,6 @@ ul.strip li.selected{
 
 #years{ margin-bottom: 10px;  margin-left:auto; margin-right: auto; width: 210px;}
 
-
 /* Tabs */
 
 ul.tabsContainer{
@@ -628,8 +572,6 @@ li.tabs a{
   padding: 0 7px;
 }
 
-
-
 /* Flat Tabs */
 ul.tabs.flat{
   border-collaspse: collapse;
@@ -647,7 +589,6 @@ li.tabs.flat{
   margin-right: 0;
   margin-left: 0;
 }
-
 
 /* Editions */
 
@@ -667,8 +608,6 @@ div.mini{
 div.mini img.mini{
   margin: 0 6px 0 0;
 }
-
-
 
 /* Legend */
 
