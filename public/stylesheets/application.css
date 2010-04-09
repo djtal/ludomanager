@@ -58,10 +58,6 @@ h4{
 .red{color: red;}
 .color a{ color: inherit; font-weight: bold;}
 
-div.round.orange{
-  background-color: orange;
-}
-
 .small,
 .small a{
   color: #666;
@@ -348,12 +344,6 @@ ul.horizontal li{
   list-style: none;
 }
 
-
-.game h4{
-  font-size: 1em;
-  text-align: center;
-}
-
 .game div#overview p{
   min-height: 90px;
 }
@@ -404,10 +394,11 @@ img.mini{
 }
 .game .account_managment{
  	margin-top: 5px;
-  	background-color: #E6F7D4;
+  background-color: #E6F7D4;
 	width: 100%;
 	text-align: center;
 	padding : 2px 0; 
+	font-variant:small-caps;
 }
 
 .game .account_managment img{
@@ -415,9 +406,6 @@ img.mini{
 	vertical-align: middle;
 }
 
-.game .account_managment a{
-  font-variant:small-caps;
-}
 
 #games h3{
 	background-color: #E6F7D4;
@@ -425,12 +413,6 @@ img.mini{
 	border-top: 1px solid #6CAB54;
 	padding-left: 10px;
 	font-size: 16px;
-}
-
-img.ac_status {
-  vertical-align: middle;
-  margin-right: 5px;
-  margin-top: 3px;
 }
 
 .meta{
@@ -488,29 +470,12 @@ ul#accounts li{
 	font-weight: bold;
 }
 
-/* Pseudo link Style */
-
-.link{
-	cursor: pointer;
-}
-
-.link.active{
-	font-weight: bold;
-	color: #666;
-}
 
 .less,
 .more {
 	font-style: italic;
 	color: gray;
 	font-variant: small-caps;
-}
-
-ul.advanced{
-  background-color: #ccc;
-   position: absolute; 
-   width: 100%;
-   z-index:1;
 }
 
 .function{
@@ -602,29 +567,6 @@ li.roweven {
 	background-color: #F2F2F2;
 }
 
-.round{
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  background-color: #6CAB54;
-  padding: 1px 4px;
-  text-align: center;
-  color: #fff;
-}
-
-.count .round{
-  border: 1px solid #DDDDDD;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 4px;
-  background-color: inherit;
-  color: #000;
-  font-weight: normal;
-  padding:0;
-}
-
-.round.empty{
-  background-color: yellow;
-}
-
 a.tag,
 div.tag{
   -moz-border-radius: 17px;
@@ -648,35 +590,7 @@ ul.strip li.selected{
   background-color: #ffb;
 }
 
-/* Specific Widget Styles */
-
-
-#smart_list_form {
-	padding: 10px;
-	border: solid 2px #DCEAD7;
-	background-color: #E6F7D4;
-}
-
-
-
-#smart_list_form .close {
-	font-weight: bold;
-	font-style: italic;
-}
-
-#smart_list_form div.right {
-	background-color: white;
-	padding: 4px;
-	border: solid 1px #DCEAD7;
-}
-
-input#smart_list_title {
-	font-size: 20px;
-	font-weight: bold;
-}
-
 #years{ margin-bottom: 10px;  margin-left:auto; margin-right: auto; width: 210px;}
-
 
 
 /* Tabs */
@@ -753,7 +667,6 @@ div.mini{
 div.mini img.mini{
   margin: 0 6px 0 0;
 }
-
 
 
 
