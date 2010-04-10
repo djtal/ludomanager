@@ -1,7 +1,6 @@
 <li class="clear" id="<%= dom_id(list) %>">
-  <span><%= list.published_at.year if list.published_at %></span>
-  &nbsp;|&nbsp;
   <%= link_to list.editor.name, editor_path(list.editor) %> 
    - <span class="meta"><%= list.name != "" ? list.name : @game.name %></span>
-   (<span class="ss_flag <%= css_for_lang(list.lang) %>"></span>)
+   (<span class="ss_flag <%= css_for_lang(list.lang) %>"></span>) en  
+   <span><%= list.published_at.year if list.published_at %></span>
 </li>

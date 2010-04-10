@@ -25,11 +25,11 @@
       	  <span class="ss_sprite ss_announcement">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></span>&nbsp;|&nbsp;
      			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
      			<span class="ss_sprite ss_users">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
-     		  <span class="ss_sprite ss_gamepad">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
+     		  <span class="ss_sprite ss_tv">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
       	  
       	</div>
       	<div class="block">
-      	 <h4><span class="ss_sprite ss_vcard">Les auteurs</h4>
+      	 <h4><span class="ss_sprite ss_vcard"></span>Les auteurs</h4>
       	 <%= authors_links(@game) %>
       	</div>
       	<div class="block">
@@ -66,8 +66,8 @@
         <hr />
         <li><%= manage_authors_link(@game) %></li>
         <li><%= link_to "Ajouter une edition", new_game_edition_path(@game), :class => "ss_sprite ss_add" %></li>
+         <hr />
       <% end %>
-        <hr />
       <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_left" %></li>
     </ul>
   <% end  %>

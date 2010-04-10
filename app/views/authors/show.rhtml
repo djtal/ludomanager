@@ -36,8 +36,8 @@
         <% if logged_in? %>
           <li><%= link_to "Editer", edit_author_path(@author), :class => "ss_sprite ss_trash" %></li>
           <li><%= link_to "Effacer", author_path(@author), :method => :delete, :class => "ss_sprite ss_pencil" %></li>
+    	    <hr />
     	  <% end %>
-    	  <hr />
     	  <li><%= link_to "Retour a la liste des auteur", authors_path, :class => "ss_sprite ss_left" %></li>
     	</ul>
     <% end %>

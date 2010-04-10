@@ -31,8 +31,8 @@
         <% if logged_in? %>
           <li><%= link_to "Editer", edit_editor_path(@editor), :class => "ss_sprite ss_pencil" %></li>
           <li><%= link_to "Effacer", editor_path(@editor), :method => :delete, :class => "ss_sprite ss_trash" %></li>
-    	  <% end %>
     	    <hr />
+    	  <% end %>
     	    <li><%= link_to "Retour sur la liste des editeur", editors_path, :class => "ss_sprite ss_left" %></li>
     	</ul>
     <% end  %>
