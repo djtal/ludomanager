@@ -7,7 +7,7 @@
               <td class="span-1"><%= image_tag(g[0].box.url(:thumb), :class => "mini") %></td>
               <td>
                 <%= link_to g[0].name, game_path(g[0]), :class => "empty" %>
-                <%= content_tag(:span,"", :class => "ss_sprite ss_new") if g[1] %>
+                <%= content_tag(:span,"", :class => "ss_sprite ss_coffee") if g[1] %>
                 <%= content_tag(:span, "(x#{g[2]})") if g[2] > 1 %>
               </td>
             </tr>
