@@ -17,8 +17,8 @@
         <td><%= link_to t[0].name.humanize, tag_path(t[0].name) %></td>
         <% if logged_in? %>
           <td><div class="function">
-            <%= link_to "", edit_tag_path(t[0].name), :class => "ss_sprite ss_tag_blue_edit" %>
-            <%= link_to_remote "", :url => tag_path(t[0].name), :method => :delete, :html => {:class => "ss_sprite ss_tag_blue_delete"} %>
+            <%= link_to "", edit_tag_path(t[0].name), :class => "ss_sprite ss_pencil" %>
+            <%= link_to_remote "", :url => tag_path(t[0].name), :method => :delete, :html => {:class => "ss_sprite ss_trash"} %>
           </div></td>
         <% end %>
         <td class="center"><div class="round"><%= t[1] %></div></td>
