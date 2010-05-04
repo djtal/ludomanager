@@ -59,7 +59,7 @@ class PartyTest < ActiveSupport::TestCase
   end
   
   context "Parties yearly breakdown" do
-  
+    
     should "return an hash" do
       assert_equal ActiveSupport::OrderedHash, Party.yearly_breakdown.class
     end
@@ -76,6 +76,17 @@ class PartyTest < ActiveSupport::TestCase
       result = Party.yearly_breakdown(2008, 2008)
       assert_equal Array, result[2008].class
       assert_equal 12, result[2008].size
+    end
+    
+    should  "count the number of played parties for each month in given years range" do
+      account = Factory.create(:account)
+      game = Factory.create(:game)
+      10.times{Factory.create(:party, :game => game, :account => account, :created_at => DateTime.civil(2010, 1))}
+      12.times{Factory.create(:party, :game => game, :account => account, :created_at => DateTime.civil(2010, 3))}
+      
+      breakdown = account.parties.yearly_breakdown(2010, 2010)
+      assert_equal 10, breakdown[2010][0]
+      assert_equal 12, breakdown[2010][2]
     end
     
   end

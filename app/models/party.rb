@@ -34,7 +34,7 @@ class Party < ActiveRecord::Base
     raise Exception if fromYear > toYear
     yearly = (fromYear..toYear).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|
-        acc << self.for_month(DateTime.civil(year, month)).count
+        acc << self.count_by_month(:id, month, :year => year)
       end
       breakdown
     end
