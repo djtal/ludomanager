@@ -21,13 +21,6 @@ class Party < ActiveRecord::Base
     { :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day], 
       :order => "parties.created_at ASC" }
   }
-  named_scope :for_month, lambda{ |date|
-    { :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_month, date.end_of_month], 
-      :order => "parties.created_at ASC" }
-  }
-  
-  
-
   
   def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
     return ActiveSupport::OrderedHash.new if  fromYear == nil || toYear == nil
