@@ -8,7 +8,7 @@ class PartiesController < ApplicationController
     @date = @date.to_time
     @prev_date = @date - 1.month - 1.day
     @next_date = @date + 1.month - 1.day
-    @parties = current_account.parties.for_month(@date)
+    @parties = current_account.parties.by_month(@date.month, :year => @date.year)
     @count = @parties.size
     @days = @parties.group_by{ |p| p.created_at.mday}
     #need to group by game to reduce number of line in calendar
@@ -81,7 +81,7 @@ class PartiesController < ApplicationController
   def create
     current_account.parties.create(params[:parties].values)
     @date = params[:parties].values.first[:created_at].to_time
-    @parties = current_account.parties.for_month(@date)
+    @parties = current_account.parties.by_month(@date.month, :year => @date.year)
     @daily = @parties.select{|p| p.created_at.to_date == @date.to_date}.group_by(&:game)
     @count = @parties.size
     find_yours(@parties)
