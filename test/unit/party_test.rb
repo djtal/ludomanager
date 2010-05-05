@@ -91,6 +91,28 @@ class PartyTest < ActiveSupport::TestCase
     
   end
   
+  context "finding newly played game" do
+    setup do
+      Party.destroy_all
+      account = Factory.create(:account)
+      @ever_played = Factory.create(:game, :name => "Rattus")
+      @unplayed_game = Factory.create(:game, :name => "Asterodys")
+      @ref_date = Date.civil(2010, 4, 1)
+      Factory.create(:party, :game => @ever_played, :account => account, :created_at => @ref_date - 1.month )
+      Factory.create(:party, :game => @ever_played, :account => account, :created_at => @ref_date + 5.day )
+      Factory.create(:party, :game => @unplayed_game, :account => account, :created_at => @ref_date + 15.day )
+    end
+    
+    
+    should  "return an array of uniq game played since from date until to date" do
+      newly = Party.newly_played_since(@ref_date, @ref_date.end_of_month)
+      assert_equal [@unplayed_game], newly
+      newly = Party.newly_played_since(@ref_date, @ref_date  + 10.day)
+      assert_equal [], newly
+    end
+    
+  end
+  
   context "Party" do
     should "replace parties of one game by another" do
       account = Factory.create(:account)

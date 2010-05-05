@@ -34,6 +34,13 @@ class Party < ActiveRecord::Base
     yearly
   end
   
+  def self.newly_played_since(since, to)
+    ever_played = self.past(since).map(&:game_id).uniq
+    played = self.between(since, to).map(&:game_id).uniq
+    newly_played_ids = played.reject{|game_id| ever_played.include?(game_id)}
+    Game.find(newly_played_ids)
+  end
+  
   def self.previous_play_date_from(date= Time.zone.now)
     p = find(:first, :conditions => ["created_at < ?", date.beginning_of_day], :order => "created_at DESC")
     return p.created_at if p

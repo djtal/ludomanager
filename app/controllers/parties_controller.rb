@@ -9,7 +9,6 @@ class PartiesController < ApplicationController
     @prev_date = @date - 1.month - 1.day
     @next_date = @date + 1.month - 1.day
     @parties = current_account.parties.by_month(@date.month, :year => @date.year)
-    @count = @parties.size
     @days = @parties.group_by{ |p| p.created_at.mday}
     #need to group by game to reduce number of line in calendar
     @days = @days.inject({}) do |acc, parties| 
