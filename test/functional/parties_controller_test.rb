@@ -8,7 +8,6 @@ class PartiesControllerTest < ActionController::TestCase
       Time.zone = 'Paris'
     end
     
-    
     context "GET parties index" do
       setup do
         get :index
