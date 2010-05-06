@@ -18,7 +18,7 @@ class PartiesController < ApplicationController
       acc[day] = played.group_by{|p| p.game}
       acc
     end
-    find_played(@parties)
+    @games = compute_monthly_played(@parties, @date.beginning_of_month)
     find_yours(@parties)
   end
   
@@ -134,14 +134,11 @@ class PartiesController < ApplicationController
     @yours = parties.size - @other
   end
   
-  def find_played(parties)
-    @games = []
-    previous_played_games = current_account.parties.find(:all, :select => :game_id,
-    :conditions => ["parties.created_at < ?", @date.beginning_of_month]).map(&:game_id).uniq
-    parties.map(&:game).uniq.each do |g|
-      @games << [g, !previous_played_games.include?(g.id), @parties.select{ |p| p.game_id == g.id}.size ]
+  def compute_monthly_played(parties, beginning_of_month)
+    played = current_account.parties.past(beginning_of_month, :group => :game_id).map(&:game_id)
+    parties.map(&:game).uniq.sort_by{|game| game.name}.inject([]) do |acc, g|
+      acc << [g, !played.include?(g.id), parties.select{ |p| p.game_id == g.id}.size ]
     end
-    @games = @games.sort_by{ |set| set[2]}.reverse
   end
   
   def set_section
