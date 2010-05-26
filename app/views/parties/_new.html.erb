@@ -3,9 +3,11 @@
      <ul id="parties">
        <%= render :partial => "form", :locals  => {:f => f} %>
      </ul>
+     <%= link_to_remote("Plus de parties...", {:url => add_party_form_parties_path(:date => @party.created_at.to_date), :method => :get},
+                             :class => "ss_sprite ss_add left") %>
      <div class=" clear">
          <div class="right">
-             <strong><span class="link reset">Annuler</span> ou <%= submit_tag "Jouer" %></strong>
+             <strong><span class="link reset">Annuler</span> ou <%= submit_tag "Enregistrer" %></strong>
          </div>
      </div>
 <% end %>

@@ -43,14 +43,5 @@
 
 .party-form ul{
   margin: 0;
-  
 }
 
-.party-form .party-add{
-  margin-left: 15px;
-  color: red;
-  font-style: italic;
-  font-size: 11px;
-}
-
-.party-form img{ float:none;}
