@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(account_game) %>" class="account_game">
 	<td class="pad">
 	  <%= link_to account_game.game.name, breakdown_parties_path(:game_id => account_game.game.id) %>
-	  <em><%= link_to "(fiche)", game_path(account_game.game) %></em>
+	  <%= link_to "", game_path(account_game.game), :class => "ss_sprite ss_monitor" %>
 	  <%= status_indicator account_game %>
 	</td>
 	<td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
