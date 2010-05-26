@@ -85,7 +85,7 @@ class PartiesController < ApplicationController
     @daily = @parties.select{|p| p.created_at.to_date == @date.to_date}.group_by(&:game)
     @count = @parties.size
     find_yours(@parties)
-    find_played(@parties)
+    @games = compute_monthly_played(@parties,  @date.beginning_of_month)
     respond_to do |format|
       format.js
     end
