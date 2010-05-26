@@ -21,20 +21,13 @@ class Party < ActiveRecord::Base
     { :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day], 
       :order => "parties.created_at ASC" }
   }
-  named_scope :for_month, lambda{ |date|
-    { :conditions => ["parties.created_at BETWEEN ? AND ?", date.beginning_of_month, date.end_of_month], 
-      :order => "parties.created_at ASC" }
-  }
-  
-  
-
   
   def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
     return ActiveSupport::OrderedHash.new if  fromYear == nil || toYear == nil
     raise Exception if fromYear > toYear
     yearly = (fromYear..toYear).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|
-        acc << self.for_month(DateTime.civil(year, month)).count
+        acc << self.count_by_month(:id, month, :year => year)
       end
       breakdown
     end

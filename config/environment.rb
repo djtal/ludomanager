@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
   config.gem "will_paginate"
   config.gem "paperclip"
   config.gem "newrelic_rpm"
-  
+  config.gem "by_star"
 end
 
 
