@@ -85,7 +85,9 @@ class AccountGamesController < ApplicationController
         @account_games = current_account.account_games.all
         #flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
         format.html { redirect_to account_games_url}
-        format.js
+        format.js do
+          @account_game = @new_games.first
+        end
         format.xml  { head :created, :location => account_games_url }
       else
         format.html  do
