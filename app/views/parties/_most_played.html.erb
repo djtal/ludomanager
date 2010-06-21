@@ -1,7 +1,7 @@
-<ul id="years" class="clear horizontal">
+<ul id="top-by-years" class="clear horizontal">
   <% ((Time.now.year - 3)..(Time.now.year)).each do |year| %>
     <li class="<%= "active" if @year.to_s == year.to_s %>">
-      <%= link_to_remote year, :url => most_played_parties_path(:year => year), :method => :get %>
+      <%= link_to_remote year, :url => most_played_parties_path(:year => year), :method => :get %>&nbsp;|
     </li>
   <% end %>
   <li class="<%= "active" unless @year %>">
@@ -9,15 +9,19 @@
   </li>
 </ul>
 <% if @most_played.size > 0 %>
-	<ul class="strip">
+	<table class="stripe">
+    <tbody>
 		<% @most_played.each do |game, count| %>
-			<li>
-				<strong class="right">x <%= count %></strong>
-				<%= image_tag(game.box.url(:thumb), :class => "mini") %>
-				<%= link_to game.name, game_path(game) %>
-			</li>
+			<tr>
+				<td class="span-1"><%= image_tag(game.box.url(:thumb), :class => "mini") %></td>
+				<td>
+				  <strong class="empty right">x <%= count %></strong>
+				  <%= link_to game.name, game_path(game), :class => "empty" %>
+				</td>
+			</tr>
 		<% end %>
-	</ul>
+	  </tbody>
+  </table>
 <% else %>
 <p class="empty">Vous n'avez jouez/saisie aucune parties actuellement</p>
 <% end%>
