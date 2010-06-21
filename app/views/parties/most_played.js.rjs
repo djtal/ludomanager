@@ -1,1 +1,1 @@
-page["top"].replace(render_widget("Top 5", :partial => "parties/most_played",  :locals => {:most_played => @most_played}, :html => {:id => "top"}))
+page["top"].replace(render_widget("Top 5", :partial => "parties/most_played",  :sprite => "ss_favorite", :locals => {:most_played => @most_played}, :html => {:id => "top"}))
