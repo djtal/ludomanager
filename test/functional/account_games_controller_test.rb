@@ -33,8 +33,10 @@ class AccountGamesControllerTest < ActionController::TestCase
       setup do
         @g1 = Factory.create(:game, :name => "Arkham Horror")
         @g2 = Factory.create(:game, :name => "Pandemic")
+        @g3 = Factory.create(:game, :name => "Castle Panic")
         @ac1 = Factory.attributes_for(:account_game, :game_id => @g1.id)
         @ac2 = Factory.attributes_for(:account_game, :game_id => @g2.id)
+        @ac3 = Factory.attributes_for(:account_game, :game_id => @g3.id)
       end
       
       
@@ -48,6 +50,15 @@ class AccountGamesControllerTest < ActionController::TestCase
         assert_difference("accounts(:quentin).account_games.count", 2) do 
           post :create, {:account_game => {"1" => @ac1, "2" => @ac2}}
         end
+        assert_redirected_to :account_games
+      end
+      
+      should "create only filled account games" do
+        assert_difference("accounts(:quentin).account_games.count", 1) do 
+          post :create, {:account_game => {"1" => @ac1, "2" => {:game_id => ""}, "3" => {:game_id => ""}}}
+        end
+        
+        assert_redirected_to account_games_path
       end
     end
   end

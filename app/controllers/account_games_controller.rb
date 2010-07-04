@@ -79,11 +79,12 @@ class AccountGamesController < ApplicationController
   # POST /account_games
   # POST /account_games.xml
   def create
-    @new_games = current_account.account_games.create(params[:account_game].values)
+    acc_games = params[:account_game].values.select{ |games| games["game_id"] != ""}
+    @new_games = current_account.account_games.create(acc_games)
     respond_to do |format|
       if @new_games.inject(true){|acc, record| acc = acc && !record.new_record? }
         @account_games = current_account.account_games.all
-        #flash[:now] = "#{@account_game.game.name} ajouté avec succes a votre ludotheque"
+        flash[:now] = "#{@new_games.count} jeux ont été ajoutés a votre ludotheque"
         format.html { redirect_to account_games_url}
         format.js do
           @account_game = @new_games.first
