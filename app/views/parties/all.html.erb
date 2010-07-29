@@ -1,6 +1,13 @@
 <h3>Vos parties par jeu</h3>
 
 <% if @parties.size > 0 %>
+  <div class="pagination clear">
+    <span><%= link_to "Tous", all_parties_path %></span>
+      <% ("A".."Z").each do |letter| %>
+        <%= link_for_first_letter letter, :all_parties_path %>
+      <% end %>
+  </div>
+  
   <table class="sortable">
     <thead>
       <tr>
@@ -34,6 +41,7 @@
   </div>
   
   <div id="placeholder-3">
+    
     <%= render_widget "Vos derniers parties", :sprite => "ss_tower", :partial => "last" %>
   </div>
 <% end %>

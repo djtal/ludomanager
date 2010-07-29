@@ -53,8 +53,14 @@ class Party < ActiveRecord::Base
   end
   
   
-  def self.by_game
-    count(:id, :group => :game, :order => "count_id DESC")
+  def self.by_game(game_first_letter = "")
+    opts = {
+      :include => :game,
+      :group => :game,
+      :order => "count_id DESC"
+    }
+    opts[:conditions] = ["lower(games.name) LIKE ?", "#{game_first_letter.downcase}%"] if game_first_letter
+    count(:id, opts)
   end
   
   

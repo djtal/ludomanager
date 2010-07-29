@@ -22,6 +22,15 @@ class PartiesControllerTest < ActionController::TestCase
       setup{ get :index}
     end
     
+    context "viwewing all played parties" do
+      setup do
+        get :all
+      end
+      should_respond_with :success
+      should_render_template :all
+      should_assign_to(:first_letters)
+    end
+    
     context "GET most played game" do
       context "with a given year" do
         setup{ xhr :get, :most_played, :year => 2008}
@@ -60,6 +69,8 @@ class PartiesControllerTest < ActionController::TestCase
       end
     end
   end
+  
+
 
   
   

@@ -2,11 +2,21 @@ require 'test_helper'
 
 class PartyTest < ActiveSupport::TestCase
   
-  context "a Party" do
+  context "Party" do
     should_validate_presence_of :game_id, :account_id
     should_belong_to :game
     should_belong_to :account
     should_have_many :players, :dependent => :destroy
+    
+    should "replace parties of one game by another" do
+      account = Factory.create(:account)
+      3.times do
+        Factory.create(:party, :account => account, :game => games(:coloreto_ext))
+      end
+      Party.replace_game(games(:coloreto_ext), games(:agricola))
+      assert_equal 0, Party.count(:all, :conditions => {:game_id => games(:coloreto_ext).id})
+      assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
+    end
   end
   
   context "A user playing a game he own" do
@@ -91,18 +101,6 @@ class PartyTest < ActiveSupport::TestCase
     
   end
   
-  context "Party" do
-    should "replace parties of one game by another" do
-      account = Factory.create(:account)
-      3.times do
-        Factory.create(:party, :account => account, :game => games(:coloreto_ext))
-      end
-      Party.replace_game(games(:coloreto_ext), games(:agricola))
-      assert_equal 0, Party.count(:all, :conditions => {:game_id => games(:coloreto_ext).id})
-      assert_equal 3, Party.count(:all, :conditions => {:game_id => games(:agricola).id})
-    end
-  end
-  
   context "previous_play_date_from" do
     setup do
       @game  = Factory(:game)
@@ -144,24 +142,49 @@ class PartyTest < ActiveSupport::TestCase
     end
   end
   
-  context "searching parties by date" do
-    setup do
-      @game  = Factory(:game)
-      @account = Factory.create(:account)
-      Time.zone = 'Paris'
-      @date = Time.zone.parse("02/01/2009")
-      Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
-      Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
-      Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
-      Factory.create(:party, :account => @account, :game => @game, :created_at => 1.month.from_now.beginning_of_month)
-      Factory.create(:party, :account => @account, :game => @game, :created_at => 3.month.from_now.beginning_of_month)
-      Factory.create(:party, :account => @account, :game => @game, :created_at => 4.month.from_now.beginning_of_month)
+  context "searching parties" do
+    context "by date" do
+      setup do
+        @game  = Factory(:game)
+        @account = Factory.create(:account)
+        Time.zone = 'Paris'
+        @date = Time.zone.parse("02/01/2009")
+        Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
+        Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
+        Factory.create(:party, :account => @account, :game => @game, :created_at => @date)
+        Factory.create(:party, :account => @account, :game => @game, :created_at => 1.month.from_now.beginning_of_month)
+        Factory.create(:party, :account => @account, :game => @game, :created_at => 3.month.from_now.beginning_of_month)
+        Factory.create(:party, :account => @account, :game => @game, :created_at => 4.month.from_now.beginning_of_month)
+      end
+
+      should "return only the partie for given day" do
+        assert_equal 3, @account.parties.for_day(@date).size
+      end
     end
     
-    should "return only the partie for given day" do
-      assert_equal 3, @account.parties.for_day(@date).size
+    context "by game" do
+      setup do
+        @user = Factory.create(:account)
+        @game_a = Factory.create(:game, :name => "asterodys")
+        @game_b = Factory.create(:game, :name => "battlestar galactica")
+        @game_c = Factory.create(:game, :name => "castle panic")
+        [@game_a, @game_b, @game_c].each do |game|
+          (1..10).each do
+            Factory.create(:party, :game => game, :account => @user)
+          end  
+        end
+      end
+      
+      should "return all played game if no filter provided" do
+        assert_equal 3, @user.parties.by_game.keys.size
+      end
+      should "return all played game if no filter provided" do
+        assert_equal 1, @user.parties.by_game("a").keys.size
+        assert_equal @game_a, @user.parties.by_game("a").keys.first
+      end
     end
   end
+
   
   
   
