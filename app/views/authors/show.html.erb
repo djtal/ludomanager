@@ -24,6 +24,8 @@
       <%= render :partial => "games/game_table", :collection => @games %>
     </tbody>
   </table>
+  
+  <%= will_paginate @games %>
 <% else %>
   <p class="empty">Cet auteur n'a encore aucun jeux a son actif</p>
 <% end %>

@@ -18,6 +18,8 @@
   </tbody>
 </table>
 
+<%= will_paginate @games if @games.size > 0 %>
+
 <% content_for :subnav do %>
 	<%= render :partial => "games/subnav" %>
 <% end %>

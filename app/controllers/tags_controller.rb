@@ -30,7 +30,7 @@ class TagsController < ApplicationController
     if (@tag)
       ids = @tag.taggings.find_all_by_taggable_type(Game.acts_as_taggable_options[:taggable_type], 
                                                       :select => :taggable_id).map(&:taggable_id)
-      @games = Game.find(:all, :conditions => {:id => ids})
+      @games = Game.paginate(:page => params[:page], :conditions => {:id => ids}, :order => "name ASC")
     else
       @games = []
       @tag = Tag.new(:name => params[:id])

@@ -7,7 +7,7 @@
   <% if logged_in? %>
     <td>
       <% if account_have_game?(game_table) %>
-          <%= link_to_remote "SupprimerG", :url => {:controller => "account_games", 
+          <%= link_to_remote "Supprimer", :url => {:controller => "account_games", 
           										:action => 'destroy', :game_id => game_table.id}, :method => :delete, :html => {:class => "ss_sprite ss_x"} %>
         <% else %>
           <%= link_to_remote "Ajouter", 	:url => account_games_path(:account_game => {"1" => {:game_id => game_table.id}}),

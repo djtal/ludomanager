@@ -27,10 +27,6 @@ module ApplicationHelper
     end
   end
   
-  def ac_game_status_for(game)
-    image_tag("modified.png", :class => "ac_status right") if account_have_game?(game)
-  end
-  
   def link_for_first_letter(letter, url_method)
     if ((@first_letters && @first_letters.include?(letter.downcase)) ||
         !@first_letters)
