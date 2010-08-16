@@ -36,9 +36,32 @@ class TagsControllerTest < ActionController::TestCase
   end
   
   
-  context "GET index" do
-    setup {get :index}
-    should_respond_with :success
+  context "GET tags index" do
+    context "without filter" do
+      setup {get :index}
+      should_respond_with :success
+      should_assign_to(:cloud)
+      should_assign_to(:first_letters) 
+    end
+    
+    context "filtered by tag first letter" do
+      setup do
+        %W(a b c d).each_with_index do |letter, index|
+          (index + 1).times do |time|
+            Factory.create(:tag, :name => letter * time)
+          end
+        end
+        get :index, :start => "c"
+      end
+      should_assign_to(:first_letters)
+      should_assign_to(:cloud)
+      should "contain only tags starting with given start letter" do
+        assert_equal 3, assigns(:cloud).size
+        assigns.each do |tag|
+          assert_equal "a", tag.name.first.downcase
+        end
+      end
+    end
   end
 
 end

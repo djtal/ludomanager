@@ -6,7 +6,9 @@ class TagsController < ApplicationController
       format.html do
         @cloud = Tagging.count(:id, :group => :tag, :order => "count_id DESC",
                                 :conditions => ["taggings.taggable_type = ?",     Game.acts_as_taggable_options[:taggable_type]])
+        @first_letters = @cloud.keys{|tag| tag.name.first.downcase}
         @cloud = @cloud.to_a.paginate(:page => params[:page])
+        
       end
       
       format.text do
