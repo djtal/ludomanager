@@ -6,15 +6,20 @@ class EditionsController < ApplicationController
   # GET /editions
   # GET /editions.xml
   def index
-    @editions = Edition.paginate( :all, 
-                                  :include => [:game, :editor], :order => "games.name",
-                                  :page => params[:page])
-    @last = Edition.find(:all, :include => [:game, :editor], :limit => 10, :order => "created_at DESC")
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @editions }
+    if params[:game_id]
+      @game = Game.find(params[:game_id])
+      @editions = @game.editions.paginate(:all, :page => params[:page], :include => :editor)
+    else
+      @editions = Edition.paginate( :all, 
+                                    :include => [:game, :editor], :order => "games.name",
+                                    :page => params[:page])
+      @last = Edition.find(:all, :include => [:game, :editor], :limit => 10, :order => "created_at DESC")
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @editions }
+      end
     end
+
   end
 
   # GET /editions/1

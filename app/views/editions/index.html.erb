@@ -2,7 +2,13 @@
 	<title>Les editeurs</title>
 <% end %>
 
-<h3>Gestion des &eacute;ditions</h3>
+<h3>
+  <% if @game %>
+    Les &eacute;ditions de <%= @game.name %> 
+  <% else %>
+    Gestion des &eacute;ditions
+  <% end %>  
+</h3>
 
 
 <table class="sortable">
@@ -38,5 +44,13 @@
            chez <span class="empty"><%= edition.editor.name %></span></li>
       <% end %>
     </ul>
-  <% end %>
+  <% end  if @last %>
+  
+  <% render_widget "Adminsitration" do %>
+    <ul>
+      <li><%= link_to "Ajouter",  new_game_edition_path(@game), :class => "ss_sprite ss_add" %></li>
+      <hr />
+      <li><%= link_to "Revenir sur #{@game.name}", game_path(@game), :class => "ss_sprite ss_left" %></li>
+    </ul>
+  <% end if @game %>
 <% end %>
