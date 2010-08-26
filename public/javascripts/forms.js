@@ -131,6 +131,8 @@ var GameForm = Class.create({
   bindUI: function(){
     new AjaxJSONAutocompleter('tag_tag_list', 'tags_lookup_auto_complete', '/tags/lookup.json', 
                             {fullSearch: true, frequency: 0, minChars: 1 , tokens : [',', ' ']});
+    new AjaxJSONAutocompleter('base_game_name', 'base_game_auto_complete', '/games.json',
+                            {fullSearch: true, frequency: 0, minChars: 1 })
   }
 });
 

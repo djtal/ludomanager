@@ -17,7 +17,12 @@ class GamesController < ApplicationController
         end
         @first_letters = Game.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
       end
-      format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
+      format.json do
+        opts = {}
+        opts[:conditions] = {:base_game_id => ""} if params[:base_game]
+        @games =  Game.find(:all)
+        render :json => @games.to_json(:only => [:id, :name])
+      end
     end
   end
   

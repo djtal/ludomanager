@@ -167,6 +167,11 @@ var AjaxJSONAutocompleter = Class.create(Autocompleter.Local, {
   loadDataArray: function(response){
       this.options.array = response.responseJSON;
   },
+  
+  updateElement: function($super, selectedElement) {
+    $super(selectedElement)
+    if (this.options.updateElement)
+  }
 })
 
 

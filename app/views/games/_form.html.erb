@@ -3,6 +3,10 @@
   <div class="clear">
     <p class="left"><%= f.label :name, "Nom du jeu (Obligatoire)" %><br />
     <%= f.text_field :name, :size => 60, :class => "title" %></p>
+    <p class="left"><%= f.label :base_game_id, "Jeu de base(si le jeu est une extension)" %><br />
+    <%= text_field_tag :base_game_name, {}, :size => 60, :class => "title" %>
+    <div class="auto_complete" id="base_game_auto_complete"></div>
+    <%= f.hidden_field :base_game_id %></p>
   </div>
 
 
