@@ -36,6 +36,9 @@ class Game < ActiveRecord::Base
     record.errors.add attr, 'ne peut pas etre  egal a 0' if value == 0
   end
   validate :min_max_player?
+  
+  has_many :extensions, :class_name => "Game", :foreign_key => "base_game_id", :dependent => :nullify
+  belongs_to :base_game, :class_name => "Game", :foreign_key => "base_game_id"
   has_many :parties, :dependent => :destroy
   has_many :account_games
   has_many :authorships, :dependent => :destroy

@@ -2,8 +2,12 @@ require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
   context "a Game" do
+    should_have_db_columns :base_game_id, :is_extension
+    
     should_validate_presence_of :name, :min_player, :max_player, :difficulty
     should_validate_uniqueness_of :name, :case_sensitive => true
+    should_have_many :extensions, :dependent => :nullify
+    should_belong_to :base_game
     should_have_many :parties
     should_have_many :editions, :authorships, :dependent => :destroy
     should_have_many :authors, :through => :authorships
