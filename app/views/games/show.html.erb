@@ -30,6 +30,12 @@
      			<span class="ss_sprite ss_users">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
      		  <span class="ss_sprite ss_tv">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
       	  
+      	  <% if @game.base_game %>
+      	    <br /><br />
+      	    <span class="ss_sprite ss_information">Ce jeu est une <strong>extension</strong> 
+      	      et n&eacute;cessite le jeu de base 
+      	    <%= link_to @game.base_game.name, game_path(@game.base_game), :class => "meta" %></span>
+          <% end %>
       	</div>
       	<div class="block">
       	 <h4><span class="ss_sprite ss_vcard"></span>Les auteurs</h4>
