@@ -357,6 +357,10 @@ img.mini{
 	font-variant:small-caps;
 }
 
+line-content{
+  margin-right: 4px;
+}
+
 .game .account_managment img{
 	margin: 0;
 	vertical-align: middle;

@@ -1,0 +1,6 @@
+<ul class="strip">
+  <% extensions.each do |extension| %>
+    <li><%= image_tag extension.box(:thumb), :class => "mini" %>
+    <span class="line-content"><%= link_to extension.name, game_path(extension) %></span></li>
+  <% end %>
+</ul>

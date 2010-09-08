@@ -36,7 +36,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.xml
   def show
-    @game = Game.find(params[:id], :include => [:tags, :authors])
+    @game = Game.find(params[:id], :include => [:tags, :authors, :extensions, :base_game])
     @editions = @game.editions.all(:order => "published_at ASC", :include => :editor)
     @title = @game.name
     respond_to do |format|

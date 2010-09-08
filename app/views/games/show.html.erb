@@ -8,8 +8,11 @@
 	</div>
 	<div class="column span-17 last">
 	  <ul class="tabsContainer clear" id="gameTabs">
-	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
-	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
+	    <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
+	    <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
+	    <% if show_extension_tab(@game) %>
+	      <li class="tabs"><a href="#extensions">&Eacute;xtensions</a></li>
+	    <% end %>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
@@ -41,6 +44,11 @@
 	  <div id="editions" class="tabsBody">
     		<%= render :partial => "editions/show" %>
 	  </div>
+	  <% if show_extension_tab(@game) %>
+	    <div id="extensions" class="tabsBody">
+	      <%= render :partial => "extension", :locals => {:extensions => @game.extensions} %>
+	    </div>
+	  <% end %>
 	</div>
 	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>

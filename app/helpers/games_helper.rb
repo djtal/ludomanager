@@ -1,5 +1,10 @@
 module GamesHelper
   
+  def show_extension_tab(game)
+    @show_extension_tab ||= game.base_game || game.extensions.count > 0
+    @show_extension_tab
+  end
+  
   
   def nb_player_tag(game)
     if game.min_player < game.max_player
