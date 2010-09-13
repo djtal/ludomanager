@@ -8,8 +8,12 @@
 	</div>
 	<div class="column span-17 last">
 	  <ul class="tabsContainer clear" id="gameTabs">
-	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
-	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
+	   <li class="tabs active left"><a href="#overview">Pr&eacute;sentation</a></li>
+	   <li class="tabs left"><a href="#editions">&Eacute;ditions</a></li>
+	   <li class="invisitab right clear">
+	      <%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_pencil" %>
+        <%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_trash" %>
+     </li>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
@@ -42,7 +46,6 @@
     		<%= render :partial => "editions/show" %>
 	  </div>
 	</div>
-	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
 
 

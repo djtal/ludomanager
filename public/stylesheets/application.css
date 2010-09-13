@@ -550,16 +550,23 @@ ul.tabsContainer{
   margin: 0;
 }
 
-li.tabs{
-  background-color: #EEEEEE;
-  float: left;
+ul.tabsContainer li{
   list-style-type: none;
   margin-right: 5px;
   margin-left: 5px;
+  padding: 3px 5px;
+}
+
+li.tabs{
+  background-color: #EEEEEE;
   border-top: solid 1px #6CAB54;
   border-left: solid 1px #6CAB54;
   border-right: solid 1px #6CAB54;
-  padding: 3px 5px;
+}
+
+li.invisitab{
+  border:none;
+  background-color: transparent;
 }
 
 li.tabs.active{
