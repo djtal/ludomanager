@@ -21,13 +21,18 @@
       </tr>
     </thead>
     <tbody>
-      <%= render @account_games %>
+      <%= render @order_account_games %>
     </tbody>
     <tfoot>
       <tr>
         <td colspan="4">
           <ul class="horizontal clear right">
-            <li><span class="ss_sprite ss_folder"></span>Total : <span class="empty"><%= @all %></span></li>
+            <li><span class="ss_sprite ss_folder"></span>
+              Total : <span class="empty"><%= pluralize(@all, "jeu", "jeux") %></span>
+              <% unless @exts_count.blank?  %>
+                dont : <span class="empty"><%= pluralize(@exts_count, "extension", "extensions") %></span>
+              <% end %>
+            </li>
             <li><%= link_to("Recent : #{@recent}", all_account_games_path(:search => {:mode => "recent"}), :class => "ss_sprite ss_coffee") %></li>
             <li><%= link_to "Non jouée : #{@no_played}", all_account_games_path(:search => {:mode => "not_played"}), :class => "ss_sprite ss_warning" %></li>
           </ul>

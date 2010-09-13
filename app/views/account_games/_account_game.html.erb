@@ -1,5 +1,5 @@
 <tr id="<%= dom_id(account_game) %>" class="account_game">
-	<td class="pad">
+	<td class="<%= account_game.game.base_game_id.blank? ? "pad" : "prepend-1" %>">
 	  <%= link_to account_game.game.name, breakdown_parties_path(:game_id => account_game.game.id) %>
 	  <%= link_to "", game_path(account_game.game), :class => "ss_sprite ss_monitor" %>
 	  <%= status_indicator account_game %>

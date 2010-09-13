@@ -63,7 +63,6 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
   
-  
   def merge
     @source = Game.find(params[:id])
     @destination = Game.find(params[:replace][:destination_id]) if params[:replace][:destination_id] != ""

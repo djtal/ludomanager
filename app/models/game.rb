@@ -31,12 +31,11 @@ class Game < ActiveRecord::Base
   validates_inclusion_of :target, :in => 0..4
   validates_inclusion_of :time_category, :in => 0..3
   validates_uniqueness_of :name, :case_sensitive => true
-  
   validates_each :min_player, :max_player  do |record, attr, value|
     record.errors.add attr, 'ne peut pas etre  egal a 0' if value == 0
   end
   validate :min_max_player?
-  
+
   has_many :extensions, :class_name => "Game", :foreign_key => "base_game_id", :dependent => :nullify
   belongs_to :base_game, :class_name => "Game", :foreign_key => "base_game_id"
   has_many :parties, :dependent => :destroy
