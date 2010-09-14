@@ -10,10 +10,12 @@
 	  <ul class="tabsContainer clear" id="gameTabs">
 	   <li class="tabs active left"><a href="#overview">Pr&eacute;sentation</a></li>
 	   <li class="tabs left"><a href="#editions">&Eacute;ditions</a></li>
-	   <li class="invisitab right clear">
-	      <%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_pencil" %>
-        <%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_trash" %>
-     </li>
+	   <% if logged_in? %>
+	     <li class="invisitab right clear">
+  	      <%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_pencil" %>
+          <%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_trash" %>
+       </li>
+     <% end %>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
@@ -54,11 +56,6 @@
   <% render_widget "Administration" do %>
     <ul>
       <% if logged_in? %>
-
-        <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_pencil" %></li>
-        <li><%= link_to "Supprimer la fiche", game_path(@game), 
-                :method => :delete, :class => "ss_sprite ss_trash" %></li>
-        <hr />
         <% if account_have_game?(@game) %>
           <%= link_to_remote "Supprimez ce jeu de ma ludotheque", :url => {:controller => "account_games", 
           										:action => 'destroy', :game_id => @game.id}, :method => :delete, :html => {:class => "ss_sprite ss_x"} %>
@@ -71,7 +68,7 @@
         <li><%= link_to "Gerer les editions", game_editions_path(@game), :class => "ss_sprite ss_joystick" %></li>
          <hr />
       <% end %>
-      <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_left" %></li>
+      <li><%= link_to "Retour a la liste de jeux", :back, :class => "ss_sprite ss_left" %></li>
     </ul>
   <% end  %>
 
