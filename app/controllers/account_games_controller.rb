@@ -6,7 +6,12 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-
+    @mode = if params[:mode]
+      params[:mode].to_sym 
+    else
+      :view
+    end
+    
     @account_games = if params[:start]
       current_account.account_games.start(params[:start]).paginate(:include => :game, 
                                                     :page => params[:page])

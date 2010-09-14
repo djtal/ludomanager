@@ -1,4 +1,7 @@
-<h3>Vos jeux de A a Z</h3>
+<h3>
+  Vos jeux de A a Z
+  <span class="right small"><%= link_to "Modifier", account_games_path(:mode => @mode == :view ? :edit : :view) %></span>
+</h3>
 
 <% if @account_games.size > 0 %>
 
@@ -14,10 +17,14 @@
   <table class="sortable">
     <thead>
       <tr>
-        <th class="span-8">Jeux</th>
-        <th class="span-3">Public</th>
-        <th class="span-4 align-right account_game nosort"><strong>x</strong><em>(derniere partie)</em></th>
-        <th class="span-2 last"></th>
+        <% if @mode == :edit %>
+          <th class="span-1">Gestion</th>
+        <% end %>
+        <th class="span-<%= @mode == :edit ? 7 : 8 %> nosort">Jeux</th>
+        <th class="span-1 nosort"></th>
+        <th class="span-4 nosort">Public</th>
+        <th class="span-4 nosort">Derniere partie</th>
+        <th class="span-1 align-right account_game nosort last pad"><strong>Nb</strong></th>
       </tr>
     </thead>
     <tbody>
