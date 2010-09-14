@@ -1,16 +1,9 @@
-
 <div class="account_managment column last">
   <% if logged_in? %>
     
     <%= link_to "Editer",  edit_game_path(game),  :class => "ss_sprite ss_pencil" %>
     <%= link_to_remote "Effacer", :url => game_path(game), :method => :delete,  :html => {:class => "ss_sprite ss_trash"} %>
     <%= image_tag "separator.png" %>
-    <% if account_have_game?(game) %>
-      <%= link_to_remote "Supprimez ce jeu de ma ludotheque", :url => {:controller => "account_games", 
-      										:action => 'destroy', :game_id => game.id}, :method => :delete, :html => {:class => "ss_sprite ss_x"} %>
-    <% else %>
-      <%= link_to_remote "L'ajouter a ma ludotheque", 	:url => account_games_path(:account_game => {"1" => {:game_id => game.id}}),
-      				            :method => :post, :html => {:class => "ss_sprite ss_briefcase"}  %>
-    <% end %>
+    <span id="my_account_game"><%= account_game_status_links_for(game) %></span>
   <% end %>
 </div>
