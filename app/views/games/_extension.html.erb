@@ -1,6 +1,11 @@
 <ul class="strip">
   <% extensions.each do |extension| %>
     <li class="clear">
+      <% if logged_in? %>
+        <div class="right" id="<%= dom_id(extension) %>-status">
+          <%= ac_game_status_link_to(extension, true) %>
+        </div>
+      <% end %>
       <div class="column"><%= image_tag extension.box(:thumb), :class => "mini" %></div>
       <div class="line-content span-6 column"><%= link_to extension.name, game_path(extension) %></div>
       <div class="column">

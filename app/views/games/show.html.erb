@@ -70,13 +70,7 @@
         <li><%= link_to "Supprimer la fiche", game_path(@game), 
                 :method => :delete, :class => "ss_sprite ss_trash" %></li>
         <hr />
-        <% if account_have_game?(@game) %>
-          <%= link_to_remote "Supprimez ce jeu de ma ludotheque", :url => {:controller => "account_games", 
-          										:action => 'destroy', :game_id => @game.id}, :method => :delete, :html => {:class => "ss_sprite ss_x"} %>
-        <% else %>
-          <%= link_to_remote "L'ajouter a ma ludotheque", 	:url =>account_games_path(:account_game => {:game_id => @game.id}),
-          				            :method => :post, :html => {:class => "ss_sprite ss_briefcase"}  %>
-        <% end %>
+        <%= ac_game_status_link_to(@game) %>
         <hr />
         <li><%= manage_authors_link(@game) %></li>
         <li><%= link_to "Gerer les editions", game_editions_path(@game), :class => "ss_sprite ss_joystick" %></li>

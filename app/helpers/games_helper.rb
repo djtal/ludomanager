@@ -5,6 +5,18 @@ module GamesHelper
     @show_extension_tab
   end
   
+  def ac_game_status_link_to(game, only_sprite = false)
+    if account_have_game?(game)
+      link_to_remote(only_sprite ? "" : "Supprimez ce jeu de ma ludotheque", 
+                          :url => {:controller => "account_games", 
+      										:action => 'destroy', :game_id => game.id}, :method => :delete, 
+      										:html => {:class => "ss_sprite ss_x"})
+    else
+      link_to_remote(only_sprite ? "" : "L'ajouter a ma ludotheque", 
+      	                  :url =>account_games_path(:account_game => {:game_id => game.id}),
+      				            :method => :post, :html => {:class => "ss_sprite ss_briefcase"})
+    end
+  end
   
   def nb_player_tag(game)
     if game.min_player < game.max_player
