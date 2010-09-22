@@ -1,6 +1,19 @@
 <ul class="strip">
   <% extensions.each do |extension| %>
-    <li><%= image_tag extension.box(:thumb), :class => "mini" %>
-    <span class="line-content"><%= link_to extension.name, game_path(extension) %></span></li>
+    <li class="clear">
+      <div class="column"><%= image_tag extension.box(:thumb), :class => "mini" %></div>
+      <div class="line-content span-6 column"><%= link_to extension.name, game_path(extension) %></div>
+      <div class="column">
+        <% if extension.min_player != @game.min_player || extension.max_player != @game.max_player %>
+          <span class="ss_sprite ss_users">Joueurs : <span class="meta"><%= extension.min_player %> a <%= extension.max_player %></span></span>     
+        <% end %>
+        <% if extension.target != @game.target %>
+          <span class="ss_sprite ss_tv">Public : <span class="meta"><%= extension.target_str.downcase %></span><span>
+        <% end %>
+        <% if extension.time_category != @game.time_category %>
+          <span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= extension.time_str %></span></span>
+        <% end %>
+      </div>
+    </li>
   <% end %>
 </ul>
