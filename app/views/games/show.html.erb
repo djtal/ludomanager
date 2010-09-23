@@ -13,6 +13,12 @@
 	    <% if show_extension_tab(@game) %>
 	      <li class="tabs"><a href="#extensions">&Eacute;xtensions</a></li>
 	    <% end %>
+	   <% if logged_in? %>
+	     <li class="invisitab right clear">
+  	      <%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_pencil" %>
+          <%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_trash" %>
+       </li>
+     <% end %>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
@@ -56,7 +62,6 @@
 	    </div>
 	  <% end %>
 	</div>
-	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
 
 
@@ -65,18 +70,13 @@
   <% render_widget "Administration" do %>
     <ul>
       <% if logged_in? %>
-
-        <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_pencil" %></li>
-        <li><%= link_to "Supprimer la fiche", game_path(@game), 
-                :method => :delete, :class => "ss_sprite ss_trash" %></li>
-        <hr />
-        <%= ac_game_status_link_to(@game) %>
+        <li id="my_account_game"><%= ac_game_status_link_to(@game) %></li>
         <hr />
         <li><%= manage_authors_link(@game) %></li>
         <li><%= link_to "Gerer les editions", game_editions_path(@game), :class => "ss_sprite ss_joystick" %></li>
          <hr />
       <% end %>
-      <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_left" %></li>
+      <li><%= link_to "Retour a la liste de jeux", :back, :class => "ss_sprite ss_left" %></li>
     </ul>
   <% end  %>
 
