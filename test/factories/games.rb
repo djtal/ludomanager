@@ -18,3 +18,7 @@ Factory.define :game_seq, :class => Game do |g|
 end
 
 
+Factory.define :extension, :class => Game do |g|
+  g.name "test"
+end
+

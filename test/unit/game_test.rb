@@ -55,4 +55,15 @@ class GameTest < ActiveSupport::TestCase
     end
   end
   
+  context "an Extension" do
+    should "defaut values from base game if they aren't defined" do
+      base_game = Factory.create(:game, :name => "Race For the Galaxy", 
+                                        :min_player => 3, :max_player => 5)
+      extension = Factory.build(:extension, :base_game => base_game)
+      extension.save
+      assert_equal base_game.min_player, extension.min_player
+      assert_equal base_game.max_player, extension.max_player
+    end
+  end
+  
 end
