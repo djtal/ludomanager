@@ -8,10 +8,10 @@
 	</div>
 	<div class="column span-17 last">
 	  <ul class="tabsContainer clear" id="gameTabs">
-	    <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
-	    <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
+	    <li class="tabs active left"><a href="#overview">Pr&eacute;sentation</a></li>
+	    <li class="tabs left"><a href="#editions">&Eacute;ditions</a></li>
 	    <% if show_extension_tab(@game) %>
-	      <li class="tabs"><a href="#extensions">&Eacute;xtensions</a></li>
+	      <li class="tabs left"><a href="#extensions">&Eacute;xtensions</a></li>
 	    <% end %>
 	   <% if logged_in? %>
 	     <li class="invisitab right clear">
@@ -70,7 +70,7 @@
   <% render_widget "Administration" do %>
     <ul>
       <% if logged_in? %>
-        <li id="my_account_game"><%= ac_game_status_link_to(@game) %></li>
+        <li id="<%= dom_id(@game)%>_status"><%= ac_game_status_link_to(@game) %></li>
         <hr />
         <li><%= manage_authors_link(@game) %></li>
         <li><%= link_to "Gerer les editions", game_editions_path(@game), :class => "ss_sprite ss_joystick" %></li>

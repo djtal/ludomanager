@@ -1,2 +1,3 @@
-page["my_account_game"].update(account_game_status_links_for(@account_game.game))
-page["my_account_game"].highlight
+page["#{dom_id(@account_game.game)}_status"].update(ac_game_status_link_to(@account_game.game, 
+                                                                           !@account_game.game.base_game_id.blank?))
+page["#{dom_id(@account_game.game)}_status"].highlight

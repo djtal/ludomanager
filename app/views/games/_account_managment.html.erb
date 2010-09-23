@@ -3,6 +3,6 @@
     <%= link_to "Editer",  edit_game_path(game),  :class => "ss_sprite ss_pencil" %>
     <%= link_to_remote "Effacer", :url => game_path(game), :method => :delete,  :html => {:class => "ss_sprite ss_trash"} %>
     <%= image_tag "separator.png" %>
-    <span id="my_account_game"><%= ac_game_status_link_to(game) %></span>
+    <span id="<%= dom_id(game) %>_status"><%= ac_game_status_link_to(game) %></span>
   <% end %>
 </div>
