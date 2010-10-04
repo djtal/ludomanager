@@ -54,7 +54,7 @@ class GamesController < ApplicationController
 
   # GET /games/1;edit
   def edit
-    @game = Game.find(params[:id])
+    @game = Game.find(params[:id], :include => :base_game)
     @authorships = @game.authorships
     @authorships << @game.authorships.new if @authorships.size == 0
   end
@@ -81,7 +81,7 @@ class GamesController < ApplicationController
     @game = Game.new(params[:game])
     respond_to do |format|
       if @game.save
-        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
+        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list] != ""
         flash[:notice] = 'Game was successfully created.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
@@ -103,7 +103,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     respond_to do |format|
       if @game.update_attributes(params[:game])
-        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
+        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list] != ""
         flash[:notice] = 'Game was successfully updated.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }

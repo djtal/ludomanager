@@ -96,6 +96,12 @@ class Game < ActiveRecord::Base
     langs
   end
   
+  def tag_list
+    tag_list = super()
+    tag_list = self.base_game.tag_list if tag_list.blank?
+    tag_list
+  end
+  
   
   protected
   
