@@ -13,7 +13,7 @@ class GameTest < ActiveSupport::TestCase
     should_have_many :authors, :through => :authorships
     should_have_many :editors, :through => :editions
     should_have_many :tags, :through => :taggings
-    should_have_attached_file :box
+    #should_have_attached_file :box
     
     should_ensure_value_in_range :difficulty, (1..5)
     
@@ -56,14 +56,55 @@ class GameTest < ActiveSupport::TestCase
   end
   
   context "an Extension" do
-    should "defaut values from base game if they aren't defined" do
+    
+    should "copy tags from base game if no tags defined when created" do
       base_game = Factory.create(:game, :name => "Race For the Galaxy", 
                                         :min_player => 3, :max_player => 5)
+      base_game.tag_with("card-driven,sc-fi")
       extension = Factory.build(:extension, :base_game => base_game)
-      extension.save
-      assert_equal base_game.min_player, extension.min_player
-      assert_equal base_game.max_player, extension.max_player
+      assert extension.save
+      extension = Game.find(extension.id)
+      assert_equal "card-driven,sc-fi", extension.tag_list
     end
+    
+    should "copy tags when adding an exinsting game as an extension for another game if no tags defined" do
+      base_game = Factory.create(:game, :name => "Race For the Galaxy", 
+                                        :min_player => 3, :max_player => 5)
+      base_game.tag_with("card-driven,sc-fi")
+      assert_equal "card-driven,sc-fi", base_game.tag_list 
+      extension = Factory.create(:game, :name => "Rebel vs Imperium")
+      assert_equal "", extension.tag_list
+      base_game.extensions << extension
+      extension = Game.find(extension.id)
+      assert_equal "card-driven,sc-fi", extension.tag_list
+    end
+    
+    should "copy tags if a game become a extension : ie add a base_game_id to the game" do
+      base_game = Factory.create(:game, :name => "Race For the Galaxy", 
+                                        :min_player => 3, :max_player => 5)
+      base_game.tag_with("card-driven,sc-fi")
+      assert_equal "card-driven,sc-fi", base_game.tag_list 
+      extension = Factory.create(:game, :name => "Rebel vs Imperium")
+      assert_equal "", extension.tag_list
+      extension.base_game = base_game
+      extension.save
+      extension = Game.find(extension.id)
+      assert_equal "card-driven,sc-fi", extension.tag_list
+    end
+    
+    should "not duplicate tags when copying" do
+      base_game = Factory.create(:game, :name => "Race For the Galaxy", 
+                                        :min_player => 3, :max_player => 5)
+      base_game.tag_with("card-driven,sc-fi")
+      assert_equal "card-driven,sc-fi", base_game.tag_list 
+      extension = Factory.create(:game, :name => "Rebel vs Imperium")
+      extension.tag_with("card-driven,sc-fi, test")
+      extension.base_game = base_game
+      extension.save
+      extension = Game.find(extension.id)
+      assert_equal "card-driven,sc-fi,test", extension.tag_list
+    end
+    
   end
   
 end

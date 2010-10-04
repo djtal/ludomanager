@@ -26,6 +26,8 @@ class Game < ActiveRecord::Base
   TimeCategory = [["< 30min", 0], ["Entre 30min/1h", 1],["Entre 1h et 1h30", 2], ["> 1h30", 3]]
 
   before_destroy :check_parties, :check_accounts
+  after_save :merge_tags, :if => Proc.new{|game| !game.base_game_id.blank?}
+  
   validates_presence_of :name, :difficulty, :min_player, :max_player
   validates_inclusion_of :difficulty, :in => 1..5
   validates_inclusion_of :target, :in => 0..4
@@ -96,6 +98,16 @@ class Game < ActiveRecord::Base
   
   
   protected
+  
+  def merge_tags(extension = nil)
+    if(!extension)
+      extension = self
+    end  
+    new_tags = extension.tags + extension.base_game.tags
+    new_tags.uniq.each do |t|
+      t.on(extension) unless extension.tags.include?(t)
+    end
+  end
   
   def check_parties
   	!parties_exists?

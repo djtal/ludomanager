@@ -20,5 +20,7 @@ end
 
 Factory.define :extension, :class => Game do |g|
   g.name "test"
+  g.min_player 2
+  g.max_player 4
 end
 
