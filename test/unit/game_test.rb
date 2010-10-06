@@ -36,6 +36,11 @@ class GameTest < ActiveSupport::TestCase
       assert_equal ["fr","en"], games(:battlelore).available_lang
     end
     
+    should "return blank string if no tags defined" do
+      game = Factory.create(:game, :name => "Hammster Roll")
+      assert_equal("", game.tag_list)
+    end
+    
   end
   
 
@@ -56,6 +61,13 @@ class GameTest < ActiveSupport::TestCase
   end
   
   context "an Extension" do
+    should "get base game tag list if no tags defined on extension" do
+      base =Factory.create(:game, :name => "Race for the Galaxy")
+      base.tag_with("card sc-fi")
+      extension = Factory.create(:extension, :base_game => base)
+      assert_equal(base.tag_list, extension.tag_list)
+    end
+    
     
     should "copy tags from base game if no tags defined when created" do
       base_game = Factory.create(:game, :name => "Race For the Galaxy", 
