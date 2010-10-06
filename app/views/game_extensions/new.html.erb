@@ -1,0 +1,9 @@
+<% content_for :head  do %>
+	<title>Ajoutez votre jeu au site</title>
+<% end %>
+
+<h3>Ajoutez une/des extension a <%= @base_game.name %>..</h3>
+
+<% simple_form_for @extension do |f| -%>
+  <%= render f %>
+<% end -%>

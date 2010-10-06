@@ -45,6 +45,7 @@ GEM
     searchlogic (2.4.12)
       activerecord (>= 2.0.0)
     shoulda (2.10.3)
+    simple_form (1.0.3)
     sqlite3-ruby (1.2.4)
     will_paginate (2.3.12)
 
@@ -60,5 +61,6 @@ DEPENDENCIES
   rails (~> 2.3.5)
   searchlogic (= 2.4.12)
   shoulda (= 2.10.3)
+  simple_form (= 1.0.3)
   sqlite3-ruby
   will_paginate (= 2.3.12)

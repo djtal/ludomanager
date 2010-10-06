@@ -24,9 +24,11 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
   map.resources :tags, :collection => {:lookup => :get} 
   
   map.resources :games,
-                :has_many => [:authorships, :editions, :tags] ,
+                :has_many => [:authorships, :editions, :tags, :game_extensions] ,
                 :collection => {:search => :get}, 
-                :member => {:replace => :get, :merge => :post} 
+                :member => {:replace => :get, :merge => :post}
+                
+  map.resources :game_extensions
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'
   map.login  '/login', :controller => 'sessions', :action => 'new'
