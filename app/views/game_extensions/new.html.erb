@@ -4,6 +4,6 @@
 
 <h3>Ajoutez une/des extension a <%= @base_game.name %>..</h3>
 
-<% simple_form_for @extension do |f| -%>
+<% simple_form_for @extension, :url => game_extensions_path(@base) do |f| -%>
   <%= render f %>
 <% end -%>
