@@ -1,5 +1,5 @@
 Factory.define :game do |g|
-  g.name 'Bombay'
+  g.sequence(:name) {|n| "game_#{n}" }
   g.min_player 2
   g.max_player 4
   g.difficulty 2
@@ -19,8 +19,9 @@ end
 
 
 Factory.define :extension, :class => Game do |g|
-  g.name "test"
+  g.sequence(:name) {|n| "extension_#{n}" }
   g.min_player 2
   g.max_player 4
+  g.association :base_game, :factory => :game
 end
 

@@ -57,7 +57,10 @@ class Game < ActiveRecord::Base
   acts_as_taggable
   scope_procedure :start, searchlogic_lambda(:string) {|letter| name_begins_with_any(letter.downcase, letter.upcase).ascend_by_name}
 
+  named_scope :extensions, :conditions => ["base_game_id <> ''"]
+  named_scope :base_games, :conditions => {:base_game_id => nil}
   
+    
   def self.search(query = "", page = 1)
     return [] if query.blank?
     games = find(:all, :conditions => ['LOWER(name) like ?', "%#{query.downcase}%"], :order => 'name')

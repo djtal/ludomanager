@@ -14,7 +14,6 @@ class GameTest < ActiveSupport::TestCase
     should_have_many :editors, :through => :editions
     should_have_many :tags, :through => :taggings
     #should_have_attached_file :box
-    
     should_ensure_value_in_range :difficulty, (1..5)
     
     should "have max player greater than min player" do
@@ -42,6 +41,45 @@ class GameTest < ActiveSupport::TestCase
     end
     
   end
+  
+  context "base_games named_scope" do
+    setup do
+      base = Factory(:game)
+      5.times do
+        Factory(:game)
+        Factory(:extension, :base_game => base)
+      end
+    end
+    
+    should_have_named_scope :base_games
+    
+    should "return only base games ie not extension" do
+      base_games = Game.base_games
+      base_games.each do |b|
+        assert !b.base_game_id
+      end
+    end
+  end
+  
+  context "extensions named_scope" do
+    setup do
+      base = Factory(:game)
+      5.times do
+        Factory(:game)
+        Factory(:extension, :base_game => base)
+      end
+    end
+    
+    should_have_named_scope :extensions
+    
+    should "return only base games ie not extension" do
+      extensions = Game.extensions
+      extensions.each do |ext|
+        assert ext.base_game_id
+      end
+    end
+  end
+  
   
 
   

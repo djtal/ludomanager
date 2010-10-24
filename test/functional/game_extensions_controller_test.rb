@@ -2,6 +2,20 @@ require 'test_helper'
 
 class GameExtensionsControllerTest < ActionController::TestCase
   
+  context "on GET to :index" do
+    setup do
+      @base = Factory(:game)
+      5.times do
+        Factory.create(:extension, :base_game => @base)
+      end
+      get :index, :format => "json"
+      @games = Game.extensions.find(:all)
+    end
+    
+    should_respond_with :success
+    should_respond_with_content_type :json
+  end
+  
   context "adding extensions to game" do
     setup do
       @base = Factory.create(:game, :name => "Race for the galaxy")

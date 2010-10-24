@@ -1,5 +1,16 @@
 class GameExtensionsController < ApplicationController
   
+  
+  def index
+    respond_to do |format|
+      format.json do
+        @games = Game.extensions.find(:all)
+        render :json => @games
+      end
+    end
+  end
+  
+  
   def new
     @base_game = Game.find(params[:game_id])
     @extension = @base_game.extensions.build

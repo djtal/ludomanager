@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class GamesControllerTest < ActionController::TestCase
+  
   context "getting index page" do
     context "with no parameters set" do
       setup { get :index }
@@ -45,6 +46,30 @@ class GamesControllerTest < ActionController::TestCase
         end
       end
   end
+  
+  context "on GET to :index in JSON" do
+    
+    context "for all game including extension" do
+      setup do
+        get :index, :format => "json"
+      end
+
+      should_respond_with :success
+      should_respond_with_content_type :json
+    end
+    
+    context "for all game that can be extension for another game" do
+      setup do
+        get :index, :format => "json", :type => "base_game"
+      end
+      
+      should_respond_with :success
+      should_respond_with_content_type :json
+    end
+    
+  end
+    
+  
   
   
   context "a logged User" do
