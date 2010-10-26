@@ -137,6 +137,21 @@ var GameForm = Class.create({
   }
 });
 
+
+var ExtensionGameForm = Class.create({
+  initialize: function(form){
+    if (!$(form)) return;
+    this.form = $(form);
+    this.bindUI();
+  },
+
+  bindUI: function(){
+    new AjaxJSONAutocompleter('base_game_name', 'base_game_auto_complete', '/games.json',
+                            {fullSearch: true, frequency: 0, minChars: 1, 
+                              updateFormElement: 'game_base_game_id',keyAttr: 'name', updateAttr: 'id' })
+  }
+});
+
 var ReplaceGameForm = Class.create({
   initialize: function(form){
     if (!$(form)) return;
