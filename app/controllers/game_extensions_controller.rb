@@ -1,19 +1,25 @@
 class GameExtensionsController < ApplicationController
-  
+  subnav :games
   
   def index
+    if params[:game_id]
+      @base = Game.find(params[:game_id], :include => :extensions)
+      @extensions = @base.extensions
+    else
+      @extensions = Game.extensions.find(:all)
+    end
     respond_to do |format|
+      format.html
       format.json do
-        @games = Game.extensions.find(:all)
-        render :json => @games
+        render :json => @extensions
       end
     end
   end
   
   
   def new
-    @base_game = Game.find(params[:game_id])
-    @extensions = [@base_game.extensions.build, @base_game.extensions.build]
+    @base_game = Game.find(params[:game_id], :include => :extensions)
+    @extensions = [@base_game.extensions.build, @base_game.extensions.build, @base_game.extensions.build]
   end
   
   
@@ -31,10 +37,26 @@ class GameExtensionsController < ApplicationController
     else
       respond_to do |wants|
         wants.html do
-          @extensions = [@base_game.extensions.build, @base_game.extensions.build]
+          @extensions = [@base_game.extensions.build, @base_game.extensions.build, @base_game.extensions.build]
           render :new
         end
       end
+    end
+  end
+  
+  
+  def destroy_multiple
+    @base = Game.find(params[:game_id])
+    ids = params[:extensions].values.map{|ext| ext["id"] if ext["delete"] == "1"}.reject{|id| id.blank?}
+    exts = Game.find(ids)
+    if (exts)
+      exts.each do |ext|
+        ext.update_attribute :base_game_id, nil
+      end
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to(game_game_extensions_path(@base))  }
     end
   end
 end
