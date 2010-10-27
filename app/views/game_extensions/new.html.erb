@@ -4,7 +4,7 @@
 
 <h3>Ajoutez une/des extension a <%= @base_game.name %>..</h3>
 
-<% simple_form_for :games, :url => game_game_extensions_path(@base) do |f| -%>
+<% simple_form_for :games, :url => game_game_extensions_path(@base), :html => {:id => "extensions-form"} do |f| -%>
   <% @extensions.each_with_index do |ext, index| %>
     <% fields_for(ext, :index => index) do -%>
       <%= render :partial =>  "form", :locals => {:form => f, :index => index} %>
