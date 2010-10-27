@@ -16,12 +16,10 @@ class GameExtensionsController < ApplicationController
     end
   end
   
-  
   def new
-    @base_game = Game.find(params[:game_id], :include => :extensions)
-    @extensions = [@base_game.extensions.build, @base_game.extensions.build, @base_game.extensions.build]
+    @base = Game.find(params[:game_id], :include => :extensions)
+    @extensions = [@base.extensions.build, @base.extensions.build, @base.extensions.build]
   end
-  
   
   def create
     @base_game = Game.find(params[:game_id])
@@ -43,7 +41,6 @@ class GameExtensionsController < ApplicationController
       end
     end
   end
-  
   
   def destroy_multiple
     @base = Game.find(params[:game_id])
