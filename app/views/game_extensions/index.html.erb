@@ -16,7 +16,7 @@
                 <%= f.hidden_field :id, :index => index, :value => extension.id %>
               </div>
               <div class="column"><%= image_tag extension.box(:thumb), :class => "mini" %></div>
-              <div class="line-content span-6 column"><%= extension.name %></div>
+              <div class="line-content span-6 column"><%= link_to(extension.name, game_path(extension)) %></div>
             </li>
         <% end %>
       </ul>
