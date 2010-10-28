@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100826192051) do
+ActiveRecord::Schema.define(:version => 20101028113724) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(:version => 20100826192051) do
     t.datetime "box_updated_at"
     t.integer  "collection_id"
     t.integer  "base_game_id"
-    t.boolean  "is_extension"
+    t.boolean  "standalone"
   end
 
   create_table "homepages", :force => true do |t|

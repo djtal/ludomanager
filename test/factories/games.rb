@@ -25,3 +25,7 @@ Factory.define :extension, :class => Game do |g|
   g.association :base_game, :factory => :game
 end
 
+Factory.define :standalone, :parent => :extension do |g|
+  g.sequence(:name) {|n| "standalone#{n}" }
+  g.standalone true
+end

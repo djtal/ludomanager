@@ -2,7 +2,7 @@ require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
   context "a Game" do
-    should_have_db_columns :base_game_id, :is_extension
+    should_have_db_columns :base_game_id, :standalone
     
     should_validate_presence_of :name, :min_player, :max_player, :difficulty
     should_validate_uniqueness_of :name, :case_sensitive => true
@@ -44,10 +44,10 @@ class GameTest < ActiveSupport::TestCase
   
   context "base_games named_scope" do
     setup do
-      base = Factory(:game)
+      @base = Factory(:game)
       5.times do
         Factory(:game)
-        Factory(:extension, :base_game => base)
+        Factory(:extension, :base_game => @base)
       end
     end
     
@@ -59,6 +59,18 @@ class GameTest < ActiveSupport::TestCase
         assert !b.base_game_id
       end
     end
+    
+    context "standalone extension" do
+      setup do
+        @standalone = Factory(:standalone, :base_game  => @base)
+      end
+
+      should "return base game and standalone extension" do
+        bases = Game.base_games.find(:all)
+        assert bases.include?(@standalone)
+      end
+    end
+    
   end
   
   context "extensions named_scope" do
