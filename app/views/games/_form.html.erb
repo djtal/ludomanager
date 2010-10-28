@@ -1,16 +1,18 @@
 <fieldset>
 	<legend>Le plus important</legend>
   <div class="clear">
-    <p class="left"><%= f.label :name, "Nom du jeu (Obligatoire)" %><br />
+    <p><%= f.label :name, "Nom du jeu (Obligatoire)" %><br />
     <%= f.text_field :name, :size => 60, :class => "title" %></p>
-    <p class="left"><%= f.label :base_game_id, "Jeu de base(si le jeu est une extension)" %><br />
-    <%= text_field_tag :base_game_name, {}, :size => 60, :class => "title",
+    
+    <div class="column span-9"><%= f.label :base_game_id, "Jeu de base(si le jeu est une extension)" %><br />
+    <%= text_field_tag :base_game_name, {}, :size => 60,
                        :value => @game.base_game_id ? @game.base_game.name : "" %>
     <div class="auto_complete" id="base_game_auto_complete"></div>
-    <%= f.hidden_field :base_game_id %></p>
+    <%= f.hidden_field :base_game_id %></div>
+    <div class="column span-4"><%= f.label "Jouable seul" %><br />
+    <%= f.check_box :standalone %></div>
   </div>
-
-
+  <br />
   <p><%= f.label :description, "Une petite description" %><br />
   <%= f.text_area :description, :rows => 5, :cols => 71 %></p>
 	<% fields_for :tag, @game  do |ff| %>
