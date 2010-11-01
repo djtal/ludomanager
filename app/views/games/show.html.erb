@@ -36,11 +36,15 @@
      		  <span class="ss_sprite ss_tv">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
      			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
       	  
-      	  <% if @game.base_game %>
+      	  <% if @game.base_game && !@game.standalone %>
       	    <br /><br />
       	    <span class="ss_sprite ss_information">Ce jeu est une <strong>extension</strong> 
       	      et n&eacute;cessite le jeu de base 
       	    <%= link_to @game.base_game.name, game_path(@game.base_game), :class => "meta" %></span>
+          <% elsif @game.base_game && @game.standalone %>
+              <br /><br />
+              <span class="ss_sprite ss_information">Ce jeu peut etre <strong>joué seul</strong> 
+                ou en tant <strong>qu'extension</strong> du jeu de base <%= link_to @game.base_game.name, game_path(@game.base_game), :class => "meta" %></span>
           <% end %>
       	</div>
       	<div class="block">

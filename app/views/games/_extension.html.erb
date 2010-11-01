@@ -7,7 +7,10 @@
         </div>
       <% end %>
       <div class="column"><%= image_tag extension.box(:thumb), :class => "mini" %></div>
-      <div class="line-content span-6 column"><%= link_to extension.name, game_path(extension) %></div>
+      <div class="line-content span-6 column">
+        <%= link_to extension.name, game_path(extension) %><br />
+        <%= "<strong>Jouable seul</strong>" if extension.standalone %>
+      </div>
       <div class="column">
         <% if extension.min_player != @game.min_player || extension.max_player != @game.max_player %>
           <span class="ss_sprite ss_users">Joueurs : <span class="meta"><%= extension.min_player %> a <%= extension.max_player %></span></span>     
