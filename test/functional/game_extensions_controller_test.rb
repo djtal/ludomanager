@@ -46,7 +46,7 @@ class GameExtensionsControllerTest < ActionController::TestCase
       setup { get :new, :game_id => @base.id }
 
       should_respond_with :success
-      should_assign_to(:base_game, :class => Game) {@base}
+      should_assign_to(:base, :class => Game) {@base}
       should_assign_to(:extensions, :class => Array)
       
     end
@@ -65,7 +65,7 @@ class GameExtensionsControllerTest < ActionController::TestCase
     context "on POST to :create with no id for extension" do
       setup { post :create, :game_id => @base.id, :games => {"1" => { :id => "", :base_game_id => @base.id } }}
       should_render_template :new
-      should_assign_to(:base_game, :class => Game){@base}
+      should_assign_to(:base, :class => Game){@base}
       should_assign_to(:extensions, :class => Array)
     end
     

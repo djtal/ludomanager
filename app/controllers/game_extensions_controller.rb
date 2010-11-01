@@ -22,20 +22,20 @@ class GameExtensionsController < ApplicationController
   end
   
   def create
-    @base_game = Game.find(params[:game_id])
+    @base = Game.find(params[:game_id])
     ids = params[:games].values.map{|g| g["id"] }.reject{|id| id.blank?}
     exts = Game.find(ids)
-    if(@base_game && exts.size > 0)
+    if(@base && exts.size > 0)
       exts.each do |ext|
-        ext.update_attribute(:base_game_id, @base_game.id)
+        ext.update_attribute(:base_game_id, @base.id)
       end
       respond_to do |wants|
-        wants.html { redirect_to(game_path(@base_game))  }
+        wants.html { redirect_to(game_path(@base))  }
       end
     else
       respond_to do |wants|
         wants.html do
-          @extensions = [@base_game.extensions.build, @base_game.extensions.build, @base_game.extensions.build]
+          @extensions = [@base.extensions.build, @base.extensions.build, @base.extensions.build]
           render :new
         end
       end
