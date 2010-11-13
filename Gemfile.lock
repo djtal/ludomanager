@@ -39,6 +39,7 @@ GEM
       activeresource (= 2.3.8)
       activesupport (= 2.3.8)
       rake (>= 0.8.3)
+    rails-footnotes (3.6.7)
     rake (0.8.7)
     rubyforge (2.0.4)
       json_pure (>= 1.1.7)
@@ -58,6 +59,8 @@ DEPENDENCIES
   newrelic_rpm (= 2.10.8)
   paperclip (= 2.3.1.1)
   rails (~> 2.3.5)
+  rails-footnotes
+  ruby-debug
   searchlogic (= 2.4.12)
   shoulda (= 2.10.3)
   sqlite3-ruby

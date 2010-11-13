@@ -15,3 +15,8 @@ group :test do
   gem 'shoulda', '2.10.3'
   gem 'factory_girl', '1.2.4'
 end
+
+group :development do 
+  gem 'ruby-debug'
+  gem 'rails-footnotes'
+end
