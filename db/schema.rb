@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100409192037) do
+ActiveRecord::Schema.define(:version => 20101028113724) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id",       :limit => 11
@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(:version => 20100409192037) do
     t.integer  "edition_id"
     t.date     "last_play"
   end
+
+  add_index "account_games", ["account_id"], :name => "index_account_games_on_account_id"
+  add_index "account_games", ["game_id"], :name => "index_account_games_on_game_id"
 
   create_table "accounts", :force => true do |t|
     t.string   "login"
@@ -65,6 +68,9 @@ ActiveRecord::Schema.define(:version => 20100409192037) do
     t.integer "game_id",   :limit => 11
   end
 
+  add_index "authorships", ["author_id"], :name => "index_authorships_on_author_id"
+  add_index "authorships", ["game_id"], :name => "index_authorships_on_game_id"
+
   create_table "collections", :force => true do |t|
     t.text     "name"
     t.datetime "created_at"
@@ -84,6 +90,9 @@ ActiveRecord::Schema.define(:version => 20100409192037) do
     t.integer  "box_file_size"
     t.datetime "box_updated_at"
   end
+
+  add_index "editions", ["editor_id"], :name => "index_editions_on_editor_id"
+  add_index "editions", ["game_id"], :name => "index_editions_on_game_id"
 
   create_table "editors", :force => true do |t|
     t.text     "name"
@@ -134,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20100409192037) do
     t.datetime "box_updated_at"
     t.integer  "collection_id"
     t.integer  "base_game_id"
+    t.boolean  "standalone"
   end
 
   create_table "homepages", :force => true do |t|
@@ -153,6 +163,8 @@ ActiveRecord::Schema.define(:version => 20100409192037) do
     t.text     "email"
   end
 
+  add_index "members", ["account_id"], :name => "index_members_on_account_id"
+
   create_table "parties", :force => true do |t|
     t.integer  "game_id",       :limit => 11
     t.datetime "created_at"
@@ -160,12 +172,18 @@ ActiveRecord::Schema.define(:version => 20100409192037) do
     t.integer  "players_count"
   end
 
+  add_index "parties", ["account_id"], :name => "index_parties_on_account_id"
+  add_index "parties", ["game_id"], :name => "index_parties_on_game_id"
+
   create_table "players", :force => true do |t|
     t.integer  "party_id",   :limit => 11
     t.integer  "member_id",  :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "players", ["member_id"], :name => "index_players_on_member_id"
+  add_index "players", ["party_id"], :name => "index_players_on_party_id"
 
   create_table "smart_lists", :force => true do |t|
     t.text     "title"

@@ -10,6 +10,8 @@ gem 'will_paginate', '2.3.12'
 gem 'paperclip', '2.3.1.1'
 gem 'newrelic_rpm', '2.10.8'
 gem 'by_star', '0.7.1'
+gem 'simple_form', "1.0.3"
+
 
 group :test do
   gem 'shoulda', '2.10.3'

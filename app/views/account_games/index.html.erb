@@ -1,4 +1,7 @@
-<h3>Vos jeux de A a Z</h3>
+<h3>
+  Vos jeux de A a Z
+  <span class="right small"><%= link_to "Modifier", account_games_path(:mode => @mode == :view ? :edit : :view) %></span>
+</h3>
 
 <% if @account_games.size > 0 %>
 
@@ -14,20 +17,29 @@
   <table class="sortable">
     <thead>
       <tr>
-        <th class="span-8">Jeux</th>
-        <th class="span-3">Public</th>
-        <th class="span-4 align-right account_game nosort"><strong>x</strong><em>(derniere partie)</em></th>
-        <th class="span-2 last"></th>
+        <% if @mode == :edit %>
+          <th class="span-1">Gestion</th>
+        <% end %>
+        <th class="span-<%= @mode == :edit ? 7 : 8 %> nosort">Jeux</th>
+        <th class="span-1 nosort"></th>
+        <th class="span-4 nosort">Public</th>
+        <th class="span-4 nosort">Derniere partie</th>
+        <th class="span-1 align-right account_game nosort last pad"><strong>Nb</strong></th>
       </tr>
     </thead>
     <tbody>
-      <%= render @account_games %>
+      <%= render @order_account_games %>
     </tbody>
     <tfoot>
       <tr>
         <td colspan="4">
           <ul class="horizontal clear right">
-            <li><span class="ss_sprite ss_folder"></span>Total : <span class="empty"><%= @all %></span></li>
+            <li><span class="ss_sprite ss_folder"></span>
+              Total : <span class="empty"><%= pluralize(@all, "jeu", "jeux") %></span>
+              <% unless @exts_count.blank?  %>
+                dont : <span class="empty"><%= pluralize(@exts_count, "extension", "extensions") %></span>
+              <% end %>
+            </li>
             <li><%= link_to("Recent : #{@recent}", all_account_games_path(:search => {:mode => "recent"}), :class => "ss_sprite ss_coffee") %></li>
             <li><%= link_to "Non jouée : #{@no_played}", all_account_games_path(:search => {:mode => "not_played"}), :class => "ss_sprite ss_warning" %></li>
           </ul>

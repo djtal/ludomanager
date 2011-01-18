@@ -1,0 +1,7 @@
+<div>
+  <%= text_field_tag :extension_game_name, {}, :size => 60, :class => "title", :id => "extension_game_name_#{index}" %>
+  <div class="auto_complete"></div>
+  <%= form.hidden_field :base_game_id, :index => index %>
+  <%= form.hidden_field :id, :index => index, :class => "auto_update" %>
+</div>
+
