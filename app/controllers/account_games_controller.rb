@@ -6,14 +6,23 @@ class AccountGamesController < ApplicationController
   # GET /account_games
   # GET /account_games.xml
   def index
-
-    @account_games = if params[:start]
-      current_account.account_games.start(params[:start]).paginate(:include => :game, 
-                                                    :page => params[:page])
-    else
-      current_account.account_games.paginate(:include => :game, :order => "games.name ASC",
-                                                              :page => params[:page])
+    find_opts = {
+      :include => :game,
+      :page => params[:page]
+    }
+    if params[:time]
+      find_opts[:conditions] = {:games => {:time_category => params[:time]}}
+    end  
+    if params[:target]
+      find_opts[:conditions]  = {:games => {:target => params[:target]}}
     end
+    
+    
+    @account_games = if params[:start]
+      current_account.account_games.start(params[:start])
+    else
+      current_account.account_games
+    end.paginate(find_opts)
     
     #need to know wich letter have games or not
     games = current_account.games.group_by{ |g| g.name.first.downcase}
