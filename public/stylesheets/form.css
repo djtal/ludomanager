@@ -41,7 +41,8 @@
   
 }
 
-.party-form ul{
+.party-form ul,
+.party-form ul li{
   margin: 0;
 }
 

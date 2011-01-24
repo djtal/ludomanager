@@ -1,5 +1,5 @@
 <% remote_form_for @party , :html => {:class => "party-form", :id => "party_form_#{@form_id}"} do |f| %>
-     <strong>Jeux jou&eacute;(s)</strong>
+     <strong>Jeux jou&eacute;(s)</strong><strong class="right">Joueurs</strong>
      <ul id="parties">
        <%= render :partial => "form", :locals  => {:f => f} %>
      </ul>

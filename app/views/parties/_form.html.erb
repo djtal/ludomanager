@@ -1,7 +1,9 @@
 <li class="party">
   <% fields_for :parties, @party, :index => Time.now.to_i do |p| %>
-    <%= text_field_tag "party[game][#{Time.now.to_i}]", nil, :class => "party_game_name", :size => 40 %><br />
+    <%= text_field_tag "party[game][#{Time.now.to_i}]", nil, :class => "party_game_name", :size => 40 %>
     <div class="auto_complete"></div>
+    &nbsp;&agrave;&nbsp;
+    <%= p.text_field :nb_player, :size => 2 %>
     <%= p.hidden_field :game_id,  :class => "party_game_id" %>
     <%= p.hidden_field :created_at %>
   <% end %>
