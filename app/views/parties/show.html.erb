@@ -1,21 +1,30 @@
 <h3>Vos parties du <%= l @date, :format => :long_ordinal %> </h3>
 
-<% if @parties.size > 0 %>
+<% if @grouped.size > 0 %>
 
-<table class="sortable">
-  <thead>
-    <tr>
-      <th class="span-1 nosort"></th>
-      <th class="span-14 nosort">Description</th>
-      <th class="span-2 nosort center">Gerer</th>
-      <th class="span-2 last nosort"><span class="ss_sprite ss_users">Joueurs</span></th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <%= render :partial => "party_full", :collection => @parties %>
-  </tbody>
-</table>
+<% @grouped.each do |game, parties| %>
+
+  <div class="column span-8 game">
+    <% unless @played_before.include?(game) %>
+      <strong class="right ss_coffee ss_sprite red">new</strong>
+    <% end %>
+    <h4><%= game.name %></h4> 
+    <div class="column span-3">
+  	  <%= image_tag(game.box.url(:normal), :class => "") %>
+    </div>
+    <div class="column span-5 last">
+      <ul>
+        <% parties.each_with_index do |p, index| %>
+          <li>#<%= index %> <%= pluralize(p.nb_player, "joueur", "joueurs") %></li>
+        <% end %>
+      </ul>
+    </div>
+    
+  </div>
+
+
+<% end %>
+
 
 <% else %>
   <p class="empty">
@@ -24,7 +33,7 @@
 
 <% end %>
 
-<div class="pagination">
+<div class="column pagination span-17 last">
   <%= @previous ? link_to("Precedentes", show_parties_path(@previous.to_date)) : "<span class='disabled'>Precedentes</span>" %>&nbsp;|&nbsp;
   <%= link_to "Retour sur le calendrier", parties_resume_path([@date.month, @date.year]) %>&nbsp;|&nbsp;
   <%= @next ? link_to("Suivantes", show_parties_path(@next.to_date)) : "<span class='disabled'>Suivantes</span>" %>
@@ -33,17 +42,9 @@
 
 
 <% content_for :newsbox do %>
-  <% render_widget "Etaient present" do %>
-    <% if @members.size > 0 %>
-      <ul class="strip">
-        <% @members.each do |member| %>
-          <li><%= member.display_name %></li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="empty">Vous n'avez pas encore saisies les joueurs sur les parties du <%= l @date, :format => :long_ordinal %></p>
-    <% end %>
-  <% end  %>
+  <% render_widget "Mes parties en bref" do %>
+
+  <% end %>
 <% end %>
 
 <% content_for :subnav do %>

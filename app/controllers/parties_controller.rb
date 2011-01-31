@@ -110,12 +110,13 @@ class PartiesController < ApplicationController
   
   def show
     @date = params[:date] ? Time.zone.parse(params[:date]) : Time.zone.now
-    @parties = current_account.parties.by_day(@date) do
+    parties = current_account.parties.by_day(@date) do
       {:include => [:game, :players], :order => "games.name ASC"}
     end
+    @grouped = parties.group_by{|p| p.game}
     @previous = current_account.parties.previous_play_date_from(@date)
     @next = current_account.parties.next_play_date_from(@date)
-    @members = @parties.collect{|p| p.members}.flatten.uniq
+    @played_before  = current_account.parties.past(@date.beginning_of_month, :include => :game).group_by(&:game).keys
     @date = @date.to_date
   end
   

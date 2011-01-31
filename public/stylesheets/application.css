@@ -292,6 +292,24 @@ ul.horizontal li{
 	float: left;
 }
 
+.parties .game{
+  margin: 3px 5px;
+  padding: 4px;
+  border :solid 2px #cdcdcd;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  min-height: 100px;
+}
+
+.parties .game img{
+  margin: 0;
+}
+
+.parties .game ul{
+  margin: 0;
+}
+
+
 /* ---- Games ---- */
 
 #game_form textarea{
@@ -632,7 +650,6 @@ div.mini img.mini{
 .legendColorBox.green div{ background-color: green;}
 .legendColorBox.red div{ background-color: red;}
 
-
 /* Pagination */
 .pagination{
 	margin-top: 5px;
@@ -641,13 +658,12 @@ div.mini img.mini{
   background: #F1F1F1;
   border: 1px solid #E5E5E5;
   text-align: center;
-  padding: 0.5em;
+  padding: 0.5em 0;
 }
 
 .pagination a{
 	font-weight: bold;
 }
-
 .pagination a, .pagination span {
     padding: .2em .4em; }
 .pagination span.disabled {
