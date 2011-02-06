@@ -111,9 +111,15 @@ class PartiesController < ApplicationController
   def show
     @date = params[:date] ? Time.zone.parse(params[:date]) : Time.zone.now
     parties = current_account.parties.by_day(@date) do
-      {:include => [:game, :players], :order => "games.name ASC"}
+      {:include => :game}
     end
-    @grouped = parties.group_by{|p| p.game}
+    @played = {}
+    Struct.new("Plays", :players, :plays)
+    parties.group_by{|p| p.game}.each do |game, parties|
+      @played[game] = parties.group_by {|p| p.nb_player}.inject([]) do |acc, hash|
+        acc << Struct::Plays.new(hash[0], hash[1].size)
+      end
+    end
     @previous = current_account.parties.previous_play_date_from(@date)
     @next = current_account.parties.next_play_date_from(@date)
     @played_before  = current_account.parties.past(@date.beginning_of_month, :include => :game).group_by(&:game).keys

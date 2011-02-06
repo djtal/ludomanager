@@ -1,8 +1,8 @@
 <h3>Vos parties du <%= l @date, :format => :long_ordinal %> </h3>
 
-<% if @grouped.size > 0 %>
+<% if @played.size > 0 %>
 
-<% @grouped.each do |game, parties| %>
+<% @played.each do |game, plays| %>
 
   <div class="column span-8 game">
     <% unless @played_before.include?(game) %>
@@ -14,8 +14,8 @@
     </div>
     <div class="column span-5 last">
       <ul>
-        <% parties.each_with_index do |p, index| %>
-          <li>#<%= index %> <%= pluralize(p.nb_player, "joueur", "joueurs") %></li>
+        <% plays.each do |p| %>
+          <li><%= pluralize(p.plays, "partie", "parties") %> @ <%= pluralize(p.players, "joueur", "joueurs") %>  </li>
         <% end %>
       </ul>
     </div>
