@@ -1,0 +1,2 @@
+module PartiesStatsHelper
+end
