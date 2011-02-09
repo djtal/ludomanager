@@ -4,7 +4,7 @@
   <strong>Par nombre de joueur</strong>
   <ul>
     <% @by_player.each do |player, count| %>
-      <li>@<%= player %> : <%= count %></li>
+      <li>@<%= player %> : <%= count.round(2) %>%</li>
     <% end %>
   </ul>
 </div>
@@ -13,7 +13,7 @@
   <strong>Par duree</strong>
   <ul>
     <% @by_time.each do |time, count| %>
-      <li><%= Game::TimeCategory[time][0] %> : <%= count %></li>
+      <li><%= Game::TimeCategory[time][0] %> : <%= count.round(2) %>%</li>
     <% end %>
   </ul>
 </div>
@@ -22,7 +22,7 @@
   <strong>Par cible</strong>
   <ul>
     <% @by_target.each do |target, count| %>
-      <li><%= Game::Target[target][0] %> : <%= count %></li>
+      <li><%= Game::Target[target][0] %> : <%= count.round(2) %>%</li>
     <% end %>
   </ul>
 </div>
