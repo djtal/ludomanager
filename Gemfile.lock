@@ -11,6 +11,7 @@ GEM
     activeresource (2.3.10)
       activesupport (= 2.3.10)
     activesupport (2.3.10)
+    builder (2.1.2)
     by_star (0.7.1)
       chronic (~> 0.2.3)
     cgi_multipart_eof_fix (2.5.0)
@@ -24,6 +25,9 @@ GEM
     hoe (2.7.0)
       rake (>= 0.8.7)
       rubyforge (>= 2.0.4)
+    hoptoad_notifier (2.4.6)
+      activesupport
+      builder
     json_pure (1.4.6)
     linecache (0.43)
     mongrel (1.1.5)
@@ -62,6 +66,7 @@ PLATFORMS
 DEPENDENCIES
   by_star (= 0.7.1)
   factory_girl (= 1.2.4)
+  hoptoad_notifier (~> 2.4)
   mongrel (= 1.1.5)
   newrelic_rpm (= 2.10.8)
   paperclip (= 2.3.1.1)

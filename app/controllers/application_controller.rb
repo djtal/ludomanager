@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   
   helper :all
   include AuthenticatedSystem
-  include HoptoadNotifier::Catcher
   protect_from_forgery
   filter_parameter_logging :password
   
@@ -25,6 +24,7 @@ class ApplicationController < ActionController::Base
       self.subnav = "subnav"
     end
   end
+  
   
   protected
   
