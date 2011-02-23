@@ -11,6 +11,7 @@ gem 'paperclip', '2.3.1.1'
 gem 'by_star', '0.7.1'
 
 gem "hoptoad_notifier", "~> 2.4"
+gem 'newrelic_rpm'
 
 group :test do
   gem 'shoulda', '2.10.3'
@@ -20,8 +21,4 @@ end
 group :development do 
   gem 'ruby-debug'
   gem 'rails-footnotes'
-end
-
-group :production do
-  gem 'newrelic_rpm', '2.10.8'
 end
