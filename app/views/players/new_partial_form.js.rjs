@@ -1,2 +1,0 @@
-page["party_players"].insert(render(:partial => "form", :locals => {:index => @index, :player => @player}))
-page << "pfs.setupPlayer($('party_player_#{@index}_member_name'), #{@index})"

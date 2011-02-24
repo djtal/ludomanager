@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|  map.resource :home
-
+  map.resources :accounts
   map.resources :editors,
                 :collection => {:search => :get}
 
@@ -14,10 +14,7 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
   map.parties_resume "/parties/*date", :controller => "parties", :action => "index"
   map.parties_stats "stats/:date", :controller => "parties_stats", :action => "show"
   map.resources :authors, :editions
-  map.resources :players, :collection => {:new_partial_form => :get}
   map.resources :authorships, :collection => {:new_partial_form => :get}
-  map.resources :members, 
-                :collection => {:importer => :get, :import => :post}
   
   map.resources :account_games,
                 :collection => {:all => :get, :search => :post, :missing  => :get, :group => :get}

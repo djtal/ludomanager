@@ -6,7 +6,6 @@ class PartyTest < ActiveSupport::TestCase
     should_validate_presence_of :game_id, :account_id
     should_belong_to :game
     should_belong_to :account
-    should_have_many :players, :dependent => :destroy
     
     should "replace parties of one game by another" do
       account = Factory.create(:account)
@@ -183,14 +182,6 @@ class PartyTest < ActiveSupport::TestCase
         assert_equal @game_a, @user.parties.by_game("a").keys.first
       end
     end
-  end
-
-  
-  
-  
-  def test_allow_more_player
-    assert !parties(:party_full_player).allow_more_players?
-    assert parties(:party_empty_player).allow_more_players?
   end
 
 end

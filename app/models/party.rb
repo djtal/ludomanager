@@ -13,7 +13,6 @@ class Party < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
   belongs_to :game
   belongs_to :account
-  has_many :players, :dependent => :destroy
   after_create :up_partie_cache, :update_played_date
   after_destroy :down_partie_cache
   
@@ -112,10 +111,6 @@ class Party < ActiveRecord::Base
       ac.last_play = self.created_at
       ac.save
     end
-  end
-  
-  def allow_more_players?
-    players.count < game.max_player
   end
   
   
