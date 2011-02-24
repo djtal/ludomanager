@@ -9,6 +9,8 @@ gem 'searchlogic', '2.4.12'
 gem 'will_paginate', '2.3.12'
 gem 'paperclip', '2.3.1.1'
 gem 'by_star', '0.7.1'
+gem 'simple_form', "1.0.3"
+
 
 gem "hoptoad_notifier", "~> 2.4"
 gem 'newrelic_rpm'

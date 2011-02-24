@@ -19,11 +19,20 @@ ActionController::Routing::Routes.draw do |map|  map.resource :home
   map.resources :account_games,
                 :collection => {:all => :get, :search => :post, :missing  => :get, :group => :get}
   map.resources :tags, :collection => {:lookup => :get} 
+
+  map.resources :game_extensions
   
   map.resources :games,
                 :has_many => [:authorships, :editions, :tags] ,
                 :collection => {:search => :get}, 
-                :member => {:replace => :get, :merge => :post} 
+                :member => {:replace => :get, :merge => :post} do |game|
+    
+    game.resources :game_extensions,
+                  :collection => {:destroy_multiple => :delete}
+                  
+  end
+                
+
 
   map.signup '/signup', :controller => 'accounts', :action => 'new'
   map.login  '/login', :controller => 'sessions', :action => 'new'

@@ -161,12 +161,31 @@ LudoSearch.addMethods({
 var AjaxJSONAutocompleter = Class.create(Autocompleter.Local, {
   initialize: function($super, element, update, dataUrl, options){
     $super(element, update, $A(), options);
+    if (this.options.updateFormElement)
+      this.options.updateFormElement = $(this.options.updateFormElement)
     new Ajax.Request(dataUrl, {method: "get", onSuccess: this.loadDataArray.bind(this)});
   },
   
   loadDataArray: function(response){
-      this.options.array = response.responseJSON;
+      if (this.options.keyAttr){
+        this.baseArray = response.responseJSON;
+        this.data = response.responseJSON.inject($H(), function(acc, object){
+          acc.set(object[this.options.keyAttr],object[this.options.updateAttr]);
+          return acc;
+        }, this)
+        this.options.array = this.data.keys();
+      } else {
+        this.options.array = response.responseJSON;
+      }
+      
   },
+  
+  updateElement: function($super, selectedElement) {
+    $super(selectedElement)
+    if (this.options.updateFormElement){
+      this.options.updateFormElement.setValue(this.data.get(this.element.value))
+    }
+  }
 })
 
 

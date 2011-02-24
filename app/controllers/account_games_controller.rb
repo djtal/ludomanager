@@ -16,20 +16,37 @@ class AccountGamesController < ApplicationController
     if params[:target]
       find_opts[:conditions]  = {:games => {:target => params[:target]}}
     end
-    
+
+    @mode = if params[:mode]
+      params[:mode].to_sym 
+    else
+      :view
+    end
     
     @account_games = if params[:start]
       current_account.account_games.start(params[:start])
     else
       current_account.account_games
     end.paginate(find_opts)
-    
+
+    end
+    #order base game no extension aplha
+    base_games, extensions = @account_games.partition{|ac_game| ac_game.game.base_game_id.blank?}
+    @order_account_games = base_games.sort_by{|ac_game| ac_game.game.name}.inject([]) do |acc, ac_game|
+      exts = extensions.select{|ext| ext.game.base_game_id == ac_game.game_id}
+      acc << ac_game
+      unless (exts.empty?)
+        acc << exts
+      end
+      acc
+    end.flatten
     #need to know wich letter have games or not
     games = current_account.games.group_by{ |g| g.name.first.downcase}
     @first_letters = games.keys
     ["recent", "no_played", "all"].each do |var|
       eval("@#{var}=#{current_account.account_games.send(var).size}")
     end
+    @exts_count = current_account.games.count(:all, :conditions => ["games.base_game_id > 0"])
     respond_to do |format|
       format.html # index.rhtml
       format.js

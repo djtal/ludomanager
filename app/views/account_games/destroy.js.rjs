@@ -1,0 +1,7 @@
+if(@context == :account_game)
+  page[dom_id(@account_game)].fade();
+elsif (@context == :game)
+  page["#{dom_id(@account_game.game)}_status"].update(ac_game_status_link_to(@account_game.game,
+                                                                             !@account_game.game.base_game_id.blank?))
+  page["#{dom_id(@account_game.game)}_status"].highlight
+end

@@ -1,0 +1,52 @@
+<% content_for :head  do %>
+	<title>Gerer les extensions de <%= @base.name %></title>
+<% end %>
+
+<h3>Gerer les extensions de <%= @base.name %>..</h3>
+
+<div class="extensions game">
+  <% if @base.extensions.size > 0 %>
+    <% simple_form_for(:extensions, :url => destroy_multiple_game_game_extensions_path(@base), 
+                      :html => {:method => :delete}) do |f| %>
+      <ul class="strip">
+        <% @extensions.each_with_index do |extension, index| %>
+            <li class="clear">
+              <div class="column">
+                <%= f.check_box :delete, :index => index %>
+                <%= f.hidden_field :id, :index => index, :value => extension.id %>
+              </div>
+              <div class="column"><%= image_tag extension.box(:thumb), :class => "mini" %></div>
+              <div class="line-content span-6 column"><%= link_to(extension.name, game_path(extension)) %></div>
+            </li>
+        <% end %>
+      </ul>
+      <div class="buttons clear">
+        <div class="right">
+          <strong><%= link_to "Retour sur #{@base.name}", game_path(@base) %></strong> ou <%= f.submit "Supprimez les extensions" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="empty">
+      <%= @base.name %> n'as aucune extensions pour le moment.
+    </p>
+  <% end %>
+</div>
+
+<% content_for :newsbox do %>
+  <% render_widget "Adminstration", :sprite => "ss_tower" do %>
+    <div class="clear">
+      <div class="column">
+        <%= image_tag(@base.box.url(:normal), :class => "mini left") %>
+      </div>
+      <div class="column">
+        <ul>
+          <li><%= link_to "Supprimer des extensions", game_game_extensions_path(@base), :class => "ss_sprite ss_trash" %></li>
+          <li><%= link_to "Ajouter des extensions", new_game_game_extension_path(@base), :class => "ss_sprite ss_add" %></li>
+          <hr /></hr>
+          <li><%= link_to "Retour sur #{@base.name}", game_path(@base), :class => "ss_sprite ss_document" %></li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>

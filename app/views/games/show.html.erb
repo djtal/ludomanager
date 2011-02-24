@@ -8,8 +8,17 @@
 	</div>
 	<div class="column span-17 last">
 	  <ul class="tabsContainer clear" id="gameTabs">
-	   <li class="tabs active"><a href="#overview">Pr&eacute;sentation</a></li>
-	   <li class="tabs"><a href="#editions">&Eacute;ditions</a></li>
+	    <li class="tabs active left"><a href="#overview">Pr&eacute;sentation</a></li>
+	    <li class="tabs left"><a href="#editions">&Eacute;ditions</a></li>
+	    <% if show_extension_tab(@game) %>
+	      <li class="tabs left"><a href="#extensions">&Eacute;xtensions</a></li>
+	    <% end %>
+	   <% if logged_in? %>
+	     <li class="invisitab right clear">
+  	      <%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_pencil" %>
+          <%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_trash" %>
+       </li>
+     <% end %>
 	  </ul>
 	  <div id ="overview" class="tabsBody">
 	    	<div class="block">
@@ -23,10 +32,20 @@
       	  </p>
       	  <br /><br />
       	  <span class="ss_sprite ss_announcement">Sortie en : <span class="meta"><%= @editions.size > 0 &&  @editions.first.published_at ? @editions.first.published_at.year : "----" %></span></span>&nbsp;|&nbsp;
-     			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
      			<span class="ss_sprite ss_users">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
      		  <span class="ss_sprite ss_tv">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
+     			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
       	  
+      	  <% if @game.base_game && !@game.standalone %>
+      	    <br /><br />
+      	    <span class="ss_sprite ss_information">Ce jeu est une <strong>extension</strong> 
+      	      et n&eacute;cessite le jeu de base 
+      	    <%= link_to @game.base_game.name, game_path(@game.base_game), :class => "meta" %></span>
+          <% elsif @game.base_game && @game.standalone %>
+              <br /><br />
+              <span class="ss_sprite ss_information">Ce jeu peut etre <strong>joué seul</strong> 
+                ou en tant <strong>qu'extension</strong> du jeu de base <%= link_to @game.base_game.name, game_path(@game.base_game), :class => "meta" %></span>
+          <% end %>
       	</div>
       	<div class="block">
       	 <h4><span class="ss_sprite ss_vcard"></span>Les auteurs</h4>
@@ -41,8 +60,12 @@
 	  <div id="editions" class="tabsBody">
     		<%= render :partial => "editions/show" %>
 	  </div>
+	  <% if show_extension_tab(@game) %>
+	    <div id="extensions" class="tabsBody">
+	      <%= render :partial => "extension", :locals => {:extensions => @game.extensions} %>
+	    </div>
+	  <% end %>
 	</div>
-	<%= render :partial => 'account_managment', :locals => {:game => @game} %>
 <% end %>
 
 
@@ -51,24 +74,14 @@
   <% render_widget "Administration" do %>
     <ul>
       <% if logged_in? %>
-
-        <li><%= link_to "Editer la fiche", edit_game_path(@game), :class => "ss_sprite ss_pencil" %></li>
-        <li><%= link_to "Supprimer la fiche", game_path(@game), 
-                :method => :delete, :class => "ss_sprite ss_trash" %></li>
-        <hr />
-        <% if account_have_game?(@game) %>
-          <%= link_to_remote "Supprimez ce jeu de ma ludotheque", :url => {:controller => "account_games", 
-          										:action => 'destroy', :game_id => @game.id}, :method => :delete, :html => {:class => "ss_sprite ss_x"} %>
-        <% else %>
-          <%= link_to_remote "L'ajouter a ma ludotheque", 	:url =>account_games_path(:account_game => {:game_id => @game.id}),
-          				            :method => :post, :html => {:class => "ss_sprite ss_briefcase"}  %>
-        <% end %>
+        <li id="<%= dom_id(@game)%>_status"><%= ac_game_status_link_to(@game) %></li>
         <hr />
         <li><%= manage_authors_link(@game) %></li>
         <li><%= link_to "Gerer les editions", game_editions_path(@game), :class => "ss_sprite ss_joystick" %></li>
-         <hr />
+        <li><%= link_to "Gerer les extensions", game_game_extensions_path(@game), :class => "ss_sprite ss_documents" %></li>
+        <hr />
       <% end %>
-      <li><%= link_to "Retour a la liste de jeux", games_path(), :class => "ss_sprite ss_left" %></li>
+      <li><%= link_to "Retour a la liste de jeux", :back, :class => "ss_sprite ss_left" %></li>
     </ul>
   <% end  %>
 

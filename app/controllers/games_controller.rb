@@ -17,7 +17,12 @@ class GamesController < ApplicationController
         end
         @first_letters = Game.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
       end
-      format.json{ render :json => Game.find(:all).to_json(:only => [:id, :name])}
+      format.json do
+        opts = {}
+        opts[:conditions] = {:base_game_id => ""} if params[:base_game]
+        @games =  Game.find(:all)
+        render :json => @games.to_json(:only => [:id, :name])
+      end
     end
   end
   
@@ -31,7 +36,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.xml
   def show
-    @game = Game.find(params[:id], :include => [:tags, :authors])
+    @game = Game.find(params[:id], :include => [:tags, :authors, :extensions, :base_game])
     @editions = @game.editions.all(:order => "published_at ASC", :include => :editor)
     @title = @game.name
     respond_to do |format|
@@ -49,7 +54,7 @@ class GamesController < ApplicationController
 
   # GET /games/1;edit
   def edit
-    @game = Game.find(params[:id])
+    @game = Game.find(params[:id], :include => :base_game)
     @authorships = @game.authorships
     @authorships << @game.authorships.new if @authorships.size == 0
   end
@@ -57,7 +62,6 @@ class GamesController < ApplicationController
   def replace
     @game = Game.find(params[:id])
   end
-  
   
   def merge
     @source = Game.find(params[:id])
@@ -77,7 +81,7 @@ class GamesController < ApplicationController
     @game = Game.new(params[:game])
     respond_to do |format|
       if @game.save
-        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
+        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list] != ""
         flash[:notice] = 'Game was successfully created.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
@@ -99,7 +103,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     respond_to do |format|
       if @game.update_attributes(params[:game])
-        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list]
+        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list] != ""
         flash[:notice] = 'Game was successfully updated.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
