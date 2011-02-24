@@ -1,7 +1,7 @@
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
-  
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   helper :all
   include AuthenticatedSystem
   protect_from_forgery
@@ -28,6 +28,11 @@ class ApplicationController < ActionController::Base
   
   protected
   
+  def not_found
+    respond_to do |format|
+      format.html{render :template => "shared/not_found"}
+    end
+  end
   
   def get_account_games
     @account_games = current_account.account_games.all
