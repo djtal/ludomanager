@@ -11,16 +11,23 @@ class AccountGamesControllerTest < ActionController::TestCase
       should_render_template :index
     end
     
+    
+    context "exporting his list of games" do
+      setup do
+        get :index, :format => :csv
+      end
+
+      should_respond_with :success
+      should_respond_with_content_type :csv
+    end
+    
+    
     context "go to search" do
       setup{ get :search}
       should_respond_with :success
       should_render_template :all
     end
     
-    context "export his AccountGames" do
-      setup{ get "index.csv"}
-      should_respond_with :success
-    end
     
     context "go to new account game form" do
       setup{ get :new}
