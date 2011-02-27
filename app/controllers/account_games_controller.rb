@@ -29,7 +29,6 @@ class AccountGamesController < ApplicationController
       current_account.account_games
     end.paginate(find_opts)
 
-    end
     #order base game no extension aplha
     base_games, extensions = @account_games.partition{|ac_game| ac_game.game.base_game_id.blank?}
     @order_account_games = base_games.sort_by{|ac_game| ac_game.game.name}.inject([]) do |acc, ac_game|

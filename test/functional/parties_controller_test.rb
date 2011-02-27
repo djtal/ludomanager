@@ -71,37 +71,33 @@ class PartiesControllerTest < ActionController::TestCase
   end
   
 
+  context "logged user playing parties" do
+      setup do
+        Time.zone = 'Paris'
+        @played_game1 = Factory(:game, :name => "6 Nimt")
+        @played_game2 = Factory(:game, :name => "11 Nimt")
+        @user = Factory(:account, :login => "djtal")
+        @request.session[:account_id] = @user.id
+        @play_date = "2008-04-04"
+      end
 
-  
-  
-  
-  def test_create_should_handle_multiple_parties_at_once
-    login_as :quentin
-    data = {}
-    data["parties"] = {
-      "1"=>{"game_id"=>games(:coloreto).id, "created_at"=>"2008-04-04"}, 
-      "2"=>{"game_id"=>games(:coloreto).id, "created_at"=>"2008-04-04"}
-    }
-    assert_difference "Party.count", 2 do
-      post "create", data
-      assert_response :success
-      assert_template "create"
-      assert_equal("2008-04-04".to_time, assigns(:date), "Cannot find @date")
-      assert_equal(2, assigns(:parties).size, "Cannot find @parties")
+      context "registering multiple parties of simple game at once" do
+        setup do
+          xhr :post, :create, :parties => {
+            "1" => {:game_id => @played_game1.id, :created_at => @play_date},
+            "2" => {:game_id => @played_game2.id, :created_at => @play_date},
+            "3" => {:game_id => @played_game2.id, :created_at => @play_date},
+          }
+        end
+        should_respond_with :success
+        should_render_template :create
+        should_respond_with_content_type :js
+        should_assign_to(:parties, :class => Array)
+
+        should "create parties at the given date" do
+          assert_equal 3, assigns(:parties).size
+        end
+      end
     end
-  end
-  
-  def test_create_should_handle_one_party
-    login_as :quentin
-    data = {}
-    data["parties"] = {"1"=>{"game_id"=>games(:coloreto).id, "created_at"=>"2008-04-04"}}
-    assert_difference "Party.count", 1 do
-      post "create", data
-      assert_response :success
-      assert_template "create"
-      assert_equal("2008-04-04".to_time, assigns(:date), "Cannot find @date")
-      assert_equal(1, assigns(:parties).size, "Cannot find @parties")
-    end
-  end
   
 end
