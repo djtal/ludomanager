@@ -98,6 +98,25 @@ class PartiesControllerTest < ActionController::TestCase
           assert_equal 3, assigns(:parties).size
         end
       end
+      
+      context "registering parties with a number of player" do
+        setup do
+           xhr :post, :create, :parties => {
+              "1" => {:game_id => @played_game1.id, :created_at => @play_date, :nb_player => 4},
+              "2" => {:game_id => @played_game2.id, :created_at => @play_date, :nb_player => 3},
+              "3" => {:game_id => @played_game2.id, :created_at => @play_date, :nb_player => 6},
+            }
+        end
+        should_respond_with :success
+        should_render_template :create
+        should_respond_with_content_type :js
+        should_assign_to(:parties, :class => Array)
+
+        should "create parties at the given date" do
+          assert_equal 3, assigns(:parties).size
+        end
+      end
+      
     end
   
 end
