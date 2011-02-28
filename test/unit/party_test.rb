@@ -67,34 +67,53 @@ class PartyTest < ActiveSupport::TestCase
     
   end
   
+  context "getting date range for played parties" do
+    setup do
+      
+    end
+
+    should "description" do
+      
+    end
+  end
+  
+  
   context "Parties yearly breakdown" do
+    setup do
+      @account = Factory.create(:account)
+      @g1 = Factory.create(:game, :name => "6 Nimt")
+      @g2 = Factory.create(:game, :name => "11 Nimt")
+      10.times{Factory.create(:party, :game => @g1, :account => @account, :created_at => DateTime.civil(2010, 1))}
+      12.times{Factory.create(:party, :game => @g2, :account => @account, :created_at => DateTime.civil(2010, 3))}
+    end
     
     should "return an hash" do
       assert_equal ActiveSupport::OrderedHash, Party.yearly_breakdown.class
     end
     
     should "return empty hash if no date given" do
-       assert_equal ActiveSupport::OrderedHash, Party.yearly_breakdown(nil, nil).class
+       assert_equal ActiveSupport::OrderedHash, Party.yearly_breakdown(:from => nil, :to => nil).class
     end
     
     should "raise an error if fromYear > toYear" do
-      assert_raise(Exception) { Party.yearly_breakdown(2009, 2006)}
+      assert_raise(InvalidDateRange) { Party.yearly_breakdown(:from => 2009, :to => 2006)}
     end
     
     should "return a an array for each month of each year between from and to year" do
-      result = Party.yearly_breakdown(2008, 2008)
+      result = Party.yearly_breakdown(:from => 2008, :to => 2008)
       assert_equal Array, result[2008].class
       assert_equal 12, result[2008].size
     end
     
-    should  "count the number of played parties for each month in given years range" do
-      account = Factory.create(:account)
-      game = Factory.create(:game)
-      10.times{Factory.create(:party, :game => game, :account => account, :created_at => DateTime.civil(2010, 1))}
-      12.times{Factory.create(:party, :game => game, :account => account, :created_at => DateTime.civil(2010, 3))}
-      
-      breakdown = account.parties.yearly_breakdown(2010, 2010)
+    should  "count the number of played parties for each month in given years range" do      
+      breakdown = @account.parties.yearly_breakdown(:from => 2010, :to => 2010)
       assert_equal 10, breakdown[2010][0]
+      assert_equal 12, breakdown[2010][2]
+    end
+    
+    should "filter by game_id if :game optiosn is supplied" do
+      breakdown = @account.parties.yearly_breakdown(:game => @g2, :from => 2010, :to => 2010)
+      assert_equal 0, breakdown[2010][0]
       assert_equal 12, breakdown[2010][2]
     end
     

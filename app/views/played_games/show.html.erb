@@ -14,29 +14,10 @@
   </div>
   <div class="column span-5 last">
     Repartition par anne&eacute:
-    <ul>
-      <%  @yearly.each do |year, parties| %>
-        <li><%= year %> : <%= parties.size %></li>
-      <% end %>
-    </ul>
   </div>
   
-  <div id="breakdown-play" class="column span-17 last">
-    <span id="game_id" style="display: none"><%= @game.id %></span>
-  </div>
+  <%= @chart.image_tag %>
   <% else %>
     <p class="empty">Vous navez encore jamais joue&eacute; a <%= @game.name %></p>
   <% end %>
 </div>
-
-
-<% content_for :newsbox do %>
-  <% render_widget "Ils y ont joué" do %>
-    <ul class="strip">
-      <% @members.each do |p| %>
-        <li><%= p.display_name %></li>
-      <% end %>
-    </ul>
-  <% end %>
-  
-<% end %>

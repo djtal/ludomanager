@@ -43,32 +43,6 @@ class PartiesController < ApplicationController
     end
   end
   
-  def breakdown
-    @game = Game.find(params[:game_id])
-    @parties = current_account.parties.find_all_by_game_id(@game.id, :order => "created_at ASC", :include => {:players => :member})
-    @yearly = @parties.group_by{|p| p.created_at.year}
-
-    
-    respond_to do |format|
-      format.html do
-        # grab all player for the game
-        @members = @parties.map(&:players).flatten.map(&:member).uniq
-      end
-      # gather data for bar graph
-      format.json do
-        @breakdown = @yearly.inject([]) do |acc, set|
-          parties = set[1].group_by{|p| p.created_at.month}
-          data = (1..12).inject([]) do |a, month|
-            a << [month, (parties[month].nil? ? 0 : parties[month].size)] 
-          end
-          acc << {:data => data, :label => set[0]}
-        end
-
-        render :json => @breakdown
-      end
-    end
-  end
-  
   def most_played
     @year = params[:year] || nil
     @most_played = current_account.parties.most_played(5, @year)

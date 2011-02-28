@@ -9,11 +9,7 @@ class DashboardsController < ApplicationController
     @most_played = current_account.parties.most_played(5)
     @played_games = current_account.parties.count(:game_id, :distinct => true)
     @today = Time.zone.now
-    if (current_account.parties.first)
-      firstPlay = current_account.parties.find(:first, :order => "created_at ASC")
-      fromYear = firstPlay.created_at.year > 3.year.ago.year ? firstPlay.created_at.year : 3.year.ago.year
-    end
-    @parties_breakdown = current_account.parties.yearly_breakdown(fromYear, @today.year)
+    @parties_breakdown = current_account.parties.yearly_breakdown(current_account.parties.play_range)
   end
   protected
   

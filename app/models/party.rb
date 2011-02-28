@@ -9,6 +9,8 @@
 #  account_id :integer(11)   
 #
 
+class InvalidDateRange < Exception; end
+
 class Party < ActiveRecord::Base
   validates_presence_of :game_id, :account_id
   belongs_to :game
@@ -21,16 +23,40 @@ class Party < ActiveRecord::Base
       :order => "parties.created_at ASC" }
   }
   
-  def self.yearly_breakdown(fromYear = Time.now.year, toYear = Time.now.year)
-    return ActiveSupport::OrderedHash.new if  fromYear == nil || toYear == nil
-    raise Exception if fromYear > toYear
-    yearly = (fromYear..toYear).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
+  def self.yearly_breakdown(opts = {})
+    options = {
+      :from => Time.zone.now.year, 
+      :to => Time.zone.now.year,
+      :scope => {}
+    }.merge(opts)
+    
+    if options[:game]
+      game = options.delete(:game)
+      options[:scope] = {
+        :conditions => {:game_id => game.id}
+      }
+    end
+    return ActiveSupport::OrderedHash.new if  options[:from] == nil || options[:to] == nil
+    raise InvalidDateRange if options[:from] > options[:to]
+    yearly = (options[:from]..options[:to]).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|
-        acc << self.count_by_month(:id, month, :year => year)
+        acc << self.count_by_month(:id, month, :year => year) do
+          options[:scope]
+        end
       end
       breakdown
     end
     yearly
+  end
+  
+  def self.play_range(opts = {})
+    options = {}
+    if opts[:game]
+      options[:conditions] = {:game_id => opts[:game].id}
+    end
+    firstPlay = self.minimum(:created_at, options)
+    from = firstPlay.year > 3.year.ago.year ? firstPlay.year : 3.year.ago.year
+    {:from => from, :to => Time.zone.now.year}
   end
   
   def self.previous_play_date_from(date= Time.zone.now)
@@ -85,9 +111,6 @@ class Party < ActiveRecord::Base
     calculate(:count, :id, opts)
   end
   
-  def members
-    players.map(&:member).compact
-  end
   
   def up_partie_cache
     ac = self.find_account_game

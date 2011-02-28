@@ -22,6 +22,7 @@ GEM
     factory_girl (1.2.4)
     fastthread (1.0.7)
     gem_plugin (0.2.3)
+    googlecharts (1.6.1)
     hoe (2.7.0)
       rake (>= 0.8.7)
       rubyforge (>= 2.0.4)
@@ -67,6 +68,7 @@ PLATFORMS
 DEPENDENCIES
   by_star (= 0.7.1)
   factory_girl (= 1.2.4)
+  googlecharts (~> 1.6.0)
   hoptoad_notifier (~> 2.4)
   mongrel (= 1.1.5)
   newrelic_rpm
