@@ -119,6 +119,29 @@ class PartyTest < ActiveSupport::TestCase
     
   end
   
+  context "player breadonw" do
+    setup do
+      @account = Factory.create(:account)
+      @g1 = Factory.create(:game, :name => "6 Nimt")
+      @g2 = Factory(:game, :name => "11 Nimt")
+      (2..10).each do |p|
+        10.times{Factory(:party, :game => @g1, :nb_player => p, :account => @account)}
+      end
+    end
+
+    should "return a new OrderedHash if game is not played" do
+      result = @account.parties.player_breakdown(:game => @g2)
+      assert_equal ActiveSupport::OrderedHash.new, result
+    end
+    
+    should "return a hash with nbPlayer as key and parties count as value" do
+      result = @account.parties.player_breakdown(:game => @g1)
+      assert_equal [2,3,4,5,6,7,8,9,10], result.keys
+      assert_equal [10,10,10,10,10,10,10,10,10], result.values
+    end
+  end
+  
+  
   context "previous_play_date_from" do
     setup do
       @game  = Factory(:game)
