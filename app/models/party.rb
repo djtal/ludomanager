@@ -49,6 +49,11 @@ class Party < ActiveRecord::Base
     yearly
   end
   
+  def self.player_breakdown(opts = {})
+    return ActiveSupport::OrderedHash.new if self.count(:id, :conditions => { :game_id => opts[:game].id}) == 0
+    self.count(:id, :conditions => {:game_id => opts[:game].id}, :group => :nb_player)
+  end
+  
   def self.play_range(opts = {})
     options = {}
     if opts[:game]

@@ -10,7 +10,16 @@
   <h4>Repartition par anne&eacute:</h4>
   <ul>
     <% (@range[:from]..@range[:to]).each_with_index do |year, index| %>
-      <li>@<%= year %> : <%= @yearly[index] %></li>
+      <li><%= year %> : <%= @yearly[index] %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="column span-5 last block">
+  <h4>Repartition par joueurs</h4>
+  <ul>
+    <% @players.each do |player, count| %>
+      <li><%= player ? player : "#" %> joueur(s) : <%= count %></li>
     <% end %>
   </ul>
 </div>

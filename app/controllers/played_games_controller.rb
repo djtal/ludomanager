@@ -25,6 +25,7 @@ class PlayedGamesController < ApplicationController
         @yearly = data.inject([]) do |acc, stats|
           acc << stats[1].sum
         end  
+        @players = current_account.parties.player_breakdown(:game => @game)
       end
     end
   end
