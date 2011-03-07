@@ -1,23 +1,17 @@
-<h3>Mes Jeux > <%= @game.name %></h3>
+<h3>Mes Jeux Jou&eacute; > <%= @game.name %></h3>
 
 
-<div class="column span-17 last">
-  <% if @parties.size > 0  %>
-  
-  <div class="column span-12">
-    <p>
-      Vous avez jouez <%= pluralize(@parties.size, "partie", "parties") %>
-      depuis le <%= l @parties.first.created_at.to_date %>.
-       
-      Votre derniere parties date du <%= l @parties.last.created_at.to_date %> 
-    </p>
-  </div>
-  <div class="column span-5 last">
-    Repartition par anne&eacute:
-  </div>
-  
-  <%= @chart.image_tag %>
-  <% else %>
-    <p class="empty">Vous navez encore jamais joue&eacute; a <%= @game.name %></p>
-  <% end %>
+<div class="column span-17 block">
+  <h4>Vos parties de <%= @range[:from] %> &aacute; <%= @range[:to] %></h4>
+  <%= @chart.image_tag %>  
 </div>
+
+<div class="column span-5 last block">
+  <h4>Repartition par anne&eacute:</h4>
+  <ul>
+    <% (@range[:from]..@range[:to]).each_with_index do |year, index| %>
+      <li>@<%= year %> : <%= @yearly[index] %></li>
+    <% end %>
+  </ul>
+</div>
+

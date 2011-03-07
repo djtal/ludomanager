@@ -15,8 +15,8 @@
     <%= render :partial => 'layouts/main_nav_bar' %>
 	</div>
 	<div id="sub-nav" class="column span-24">
-	  <ul>
-	    <%= yield :subnav %>
+	  <ul class="clear">
+      	<%= render :partial => controller.subnav if controller.respond_to?(:subnav) %>
 	  </ul>
 	</div>
 	<div class="column span-24 last <%= @section.to_s %>" id="content">
