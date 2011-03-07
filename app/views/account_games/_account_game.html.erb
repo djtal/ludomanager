@@ -7,8 +7,8 @@
     </td>
   <% end %>
 	<td class="<%= account_game.game.base_game_id.blank? ? "pad" : "prepend-1" %>">
-	  <%= link_to account_game.game.name, breakdown_parties_path(:game_id => account_game.game.id) %>
-	</td>
+	  <%= account_game.parties_count > 0 ? link_to(account_game.game.name, played_game_path(account_game.game)) : account_game.game.name %>
+	</td> 
 	<td><%= status_indicator account_game %></td>
 	<td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
 	<td>
