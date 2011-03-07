@@ -6,7 +6,7 @@ gem "sqlite3-ruby", '1.3.1', :require => "sqlite3"
 
 gem 'mongrel', '1.1.5'
 gem 'searchlogic', '2.4.12'
-gem 'will_paginate', '2.3.12'
+gem 'will_paginate', '2.3.15'
 gem 'paperclip', '2.3.1.1'
 gem 'by_star', '0.7.1'
 gem 'simple_form', "1.0.3"
