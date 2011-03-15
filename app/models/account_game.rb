@@ -38,6 +38,12 @@ class AccountGame < ActiveRecord::Base
     end
   end
   
+  # work like a find but order group games and extensions
+  #
+  def self.find_sort(opts = {})
+
+  end
+  
   
   def recenty_acquired?
     return self.transdate > 3.month.ago
