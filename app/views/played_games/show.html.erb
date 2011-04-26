@@ -1,10 +1,15 @@
-<h3>Mes Jeux Jou&eacute; > <%= @game.name %></h3>
+<h3>
+  <div class="right"> <%= link_to "Retour", :back %></div>
+  Mes Jeux Jou&eacute; > <%= @game.name %>
+</h3>
 
 
 <div class="column span-17 block">
   <h4>Vos parties de <%= @range[:from] %> &aacute; <%= @range[:to] %></h4>
   <%= @chart.image_tag %>  
+  
 </div>
+
 
 <div class="column span-5 last block">
   <h4>Repartition par anne&eacute:</h4>
