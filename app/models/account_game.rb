@@ -38,6 +38,14 @@ class AccountGame < ActiveRecord::Base
     end
   end
   
+  def self.breakdown(key) 
+    count(:include => :game, :group => "games.#{key.to_s}").inject({}) do |acc, data|
+      acc[Game::Target[data[0]][0]] = data[1]
+      acc
+    end
+    
+  end
+  
   # work like a find but order group games and extensions
   #
   def self.find_sort(opts = {})

@@ -49,6 +49,14 @@ class Party < ActiveRecord::Base
     yearly
   end
   
+  def self.breakdown(key) 
+    count(:include => :game, :group => "games.#{key.to_s}").inject({}) do |acc, data|
+      acc[Game::Target[data[0]][0]] = data[1]
+      acc
+    end
+    
+  end
+  
   def self.player_breakdown(opts = {})
     return ActiveSupport::OrderedHash.new if self.count(:id, :conditions => { :game_id => opts[:game].id}) == 0
     self.count(:id, :conditions => {:game_id => opts[:game].id}, :group => :nb_player)

@@ -17,7 +17,7 @@ class PlayedGamesController < ApplicationController
         @chart = Gchart.new(  :type => :bar,
                               :size => '670x200', 
                               :alt => "Evolution des parties par mois",
-                              :bg => {:color => 'efefef', :type => 'gradient'},
+                              :theme => :thirty7signals,
                               :axis_with_labels => ['x', 'y'], 
                               :axis_labels => [(1..12).map{|m| t('date.month_names')[m].first} * year], 
                               :axis_range => [nil, [breakdown.min, breakdown.max, 1]],

@@ -31,6 +31,13 @@ class PartiesController < ApplicationController
     #used to find last played date for each game you've played
     @last_played = current_account.parties.maximum(:created_at, :group => :game)
     @last_parties = current_account.parties.last_play(10).group_by(&:game)
+    chart_data = current_account.partiesn.breakdown(:target)
+    @chart = Gchart.new(  :type => :pie,
+                            :size => '200x200', 
+                            :alt => "Evolution des parties par mois",
+                            :legend => chart_data.keys,
+                            :data => chart_data.values,
+                            :theme => :thirty7signals)
   end
   
   def group

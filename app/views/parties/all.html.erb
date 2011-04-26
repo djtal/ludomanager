@@ -33,10 +33,7 @@
 <% content_for :newsbox do %>
   <div id="placeholder-2">
     <% render_widget "Repartition de vos parties", :sprite => "ss_pie_chart" do %>
-      <div id="parties_piechart" style="width: 200px; height:200px; left:40px;">
-
-      </div>
-      <div id="chart-legend"></div>
+      <%= @chart.image_tag %>
     <% end %>
   </div>
   

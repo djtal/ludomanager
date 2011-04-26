@@ -48,6 +48,13 @@ class AccountGamesController < ApplicationController
           eval("@#{var}=#{current_account.account_games.send(var).size}")
         end
         @exts_count = current_account.games.count(:all, :conditions => ["games.base_game_id > 0"])
+        chart_data = current_account.account_games.breakdown(:target)
+        @chart = Gchart.new(  :type => :pie,
+                                :size => '200x200', 
+                                :alt => "Evolution des parties par mois",
+                                :legend => chart_data.keys,
+                                :data => chart_data.values,
+                                :theme => :thirty7signals)
       end
       format.js
       format.csv do 
