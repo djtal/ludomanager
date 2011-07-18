@@ -49,13 +49,13 @@ class AccountGamesController < ApplicationController
         end
         @exts_count = current_account.games.count(:all, :conditions => ["games.base_game_id > 0"])
         chart_data = current_account.account_games.breakdown(:target)
-        @chart_uri = Gchart.new(:type => :pie,
+        @chart = Gchart.new(:type => :pie,
                                 :size => '220x220', 
                                 :alt => "Evolution des parties par mois",
                                 :legend => chart_data.keys,
                                 :legend_position => "bottom",
                                 :data => chart_data.values,
-                                :theme => :keynote)
+                                :theme => :ludomanager)
       end
       format.js
       format.csv do 
