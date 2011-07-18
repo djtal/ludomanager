@@ -7,5 +7,6 @@ doc/api
 doc/app
 public/assets/**/*
 public/boxes/**/*
+public/system/**/**/*
 public/game_photos/**/*
 vendor/gems/*
