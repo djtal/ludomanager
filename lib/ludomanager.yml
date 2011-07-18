@@ -1,0 +1,13 @@
+#custom theme for graph mainly copied form original keynote theme
+:ludomanager:
+  :colors:
+    - &blue 6886B4
+    - &yellow FDD84E
+    - &green 72AE6E
+    - &red D1695E
+    - &purple 8A6EAF
+    - &orange EFAA43
+    - &white FFFFFF
+    - &black !str 000000
+  :bar_colors: [ *blue, *yellow, *green, *red, *purple, *orange ]
+  :chart_background: *white

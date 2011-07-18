@@ -1,0 +1,1 @@
+Chart::Theme.add_theme_file("#{File.dirname(__FILE__)}/../../lib/ludomanager.yml")
