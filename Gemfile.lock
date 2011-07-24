@@ -52,6 +52,7 @@ GEM
     rails-footnotes (3.6.7)
     rake (0.9.2)
     rbx-require-relative (0.0.5)
+    rdoc (3.8)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
@@ -77,6 +78,7 @@ DEPENDENCIES
   paperclip (= 2.3.1.1)
   rails (~> 2.3.5)
   rails-footnotes
+  rdoc
   ruby-debug
   searchlogic (= 2.4.12)
   shoulda (= 2.10.3)
