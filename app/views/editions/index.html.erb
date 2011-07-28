@@ -46,11 +46,9 @@
     </ul>
   <% end  if @last %>
   
-  <% render_widget "Adminsitration" do %>
-    <ul>
+  <% render_widget "Adminsitration", :sprite => "ss_tower", :layout => "layouts/game_widget", :locals => {:game => @game} do %>
       <li><%= link_to "Ajouter",  new_game_edition_path(@game), :class => "ss_sprite ss_add" %></li>
       <hr />
       <li><%= link_to "Revenir sur #{@game.name}", game_path(@game), :class => "ss_sprite ss_left" %></li>
-    </ul>
   <% end if @game %>
 <% end %>

@@ -1,0 +1,18 @@
+<div class="widget" id="<%= html_opts[:id] if html_opts && html_opts[:id] %>">
+	<% if sprite %>
+	  <span class="left ss_sprite <%= sprite %>"></span>
+	<% end %>
+	<h3><%= title %></h3>
+	<div class="w-content">
+    <div class="clear">
+      <div class="column">
+        <%= image_tag(game.box.url(:normal), :class => "mini left") %>
+      </div>
+      <div class="column">
+        <ul>
+          <%= yield %>
+        </ul>
+      </div>
+    </div>
+	</div>
+</div>

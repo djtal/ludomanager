@@ -6,6 +6,7 @@ Rails.backtrace_cleaner.add_silencer { |line| line =~ /actionpack/ }
 Rails.backtrace_cleaner.add_silencer { |line| line =~ /rake/ }
 Rails.backtrace_cleaner.add_silencer { |line| line =~ /System/ }
 Rails.backtrace_cleaner.add_silencer { |line| line =~ /vendor/ }
+Rails.backtrace_cleaner.add_silencer { |line| line =~ /gems/ }
 
 
 

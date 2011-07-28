@@ -1,12 +1,17 @@
 class AuthorshipsController < ApplicationController
-  # GET /authorships
-  # GET /authorships.xml
+  subnav :games
+
   def index
-    @authorships = Authorship.find(:all)
+    if params[:game_id]
+      @base = Game.find(params[:game_id])
+      @authorships = @base.authorships.find(:all, :include => :author)
+    else
+      @authorships = Authorship.find(:all)
+    end
+    
 
     respond_to do |format|
-      format.html # index.rhtml
-      format.xml  { render :xml => @authorships.to_xml }
+      format.html
     end
   end
 

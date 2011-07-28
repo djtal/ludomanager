@@ -34,19 +34,10 @@
 </div>
 
 <% content_for :newsbox do %>
-  <% render_widget "Adminstration", :sprite => "ss_tower" do %>
-    <div class="clear">
-      <div class="column">
-        <%= image_tag(@base.box.url(:normal), :class => "mini left") %>
-      </div>
-      <div class="column">
-        <ul>
+  <% render_widget "Adminsitration", :sprite => "ss_tower", :layout => "layouts/game_widget", :locals => {:game => @base} do %>
           <li><%= link_to "Supprimer des extensions", game_game_extensions_path(@base), :class => "ss_sprite ss_trash" %></li>
           <li><%= link_to "Ajouter des extensions", new_game_game_extension_path(@base), :class => "ss_sprite ss_add" %></li>
           <hr /></hr>
           <li><%= link_to "Retour sur #{@base.name}", game_path(@base), :class => "ss_sprite ss_document" %></li>
-        </ul>
-      </div>
-    </div>
   <% end %>
 <% end %>

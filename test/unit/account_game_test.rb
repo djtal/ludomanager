@@ -5,7 +5,7 @@ class AccountGameTest < ActiveSupport::TestCase
   
   context "Finding ACGames and sorting them by game & extensions" do
     setup do
-      @account = Factory(::account, :login => "Dj T@l")
+      @account = Factory(:account, :login => "Dj T@l")
       
     end
 
