@@ -138,25 +138,6 @@ var GameForm = Class.create({
 });
 
 
-var ExtensionGameForm = Class.create({
-  initialize: function(form){
-    if (!$(form)) return;
-    this.form = $(form);
-    this.bindUI();
-  },
-
-  bindUI: function(){
-    this.form.getInputs("text", "extension_game_name").each(function(input, index){
-      au = input.next(".auto_complete")
-      updateElt = input.next(".auto_update")
-      new AjaxJSONAutocompleter(input, au, '/games.json',
-                              {fullSearch: true, frequency: 0, minChars: 1, 
-                                updateFormElement: updateElt ,keyAttr: 'name', updateAttr: 'id' })
-    })
-
-  }
-});
-
 var ReplaceGameForm = Class.create({
   initialize: function(form){
     if (!$(form)) return;
@@ -245,5 +226,4 @@ document.observe("dom:loaded", function() {
     pfs = $$("form.member").inject($A(), function(acc,form){ acc.push(new PlayerForm(form)); return acc})[0];
     rpgf = new ReplaceGameForm("replace_game");
     gf = new GameForm("game_form");
-    ef = new ExtensionGameForm("extensions-form")
 });

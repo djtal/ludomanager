@@ -18,6 +18,7 @@ class GameExtensionsController < ApplicationController
   
   def new
     @base = Game.find(params[:game_id], :include => :extensions)
+    @games = Game.find(:all) - @base.extensions - [@base]
     @extensions = [@base.extensions.build, @base.extensions.build, @base.extensions.build]
   end
   
