@@ -46,3 +46,11 @@
   margin: 0;
 }
 
+.inline input,
+.inline select,
+.inline label{
+  float: left;
+}
+  
+}
+

@@ -1,8 +1,18 @@
 <h3>Ajouter une edition de <%= @game.name %></h3>
 
 
-<% form_for(@edition, :url => game_editions_path(@game)) do |f| %>
+<% simple_form_for(@edition, :url => game_editions_path(@game)) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => f %>
   <%= submit_or_back_to game_path(@game), "retour sur #{@game.name}" %>
+<% end %>
+
+
+<% content_for :newsbox do %>
+  <% render_widget "Adminsitration", :sprite => "ss_tower", :layout => "layouts/game_widget", :locals => {:game => @game} do %>
+      <li><%= link_to "Supprimer des &eacute;ditions", :class => "ss_sprite ss_trash" %></li>
+      <li><%= link_to "Ajouter",  new_game_edition_path(@game), :class => "ss_sprite ss_add" %></li>
+      <hr />
+      <li><%= link_to "Revenir sur #{@game.name}", game_path(@game), :class => "ss_sprite ss_left" %></li>
+  <% end if @game %>
 <% end %>

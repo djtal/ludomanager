@@ -1,13 +1,9 @@
-<p><%= form.label :editor_id, "Editeur" %><br />
-<%= form.collection_select :editor_id, @editors, :id, :name %></p>
+<%= form.association :editor, :collection => @editors, :label => "Editeur", :input_html => {:class => "chzn-select" } %>
 
-<p><%= form.label :name, "Nom du jeu" %><br />
-<span class="tips">Seullement si le nom est different de celui de la fiche.</span><br />
-<%= form.text_field :name %></p>
+<div class="inline clear">
+  <%= form.input :lang, :collection => Ludomanager::COUNTRIES.collect{ |arr| [arr[0], arr[1]]} %>
 
-<p><%= form.label :lang, "Pays" %><br />
-<%= form.select :lang, Ludomanager::COUNTRIES.collect{ |arr| [arr[0], arr[1]]} %></p>
+  <%= form.input :published_at, :start_year => 1960, :default => Time.now, :discard_day => true, :discard_month => true, :label => "Date de parution"  %>
+</div>
 
-
-<p><%= form.label :published_at, "Date de parution" %><br />
-<%= form.date_select :published_at, :start_year => 1960, :default => Time.now, :discard_day => true, :discard_month => true %></p>
+<%= form.input :name, :as => :string, :label => "Nom du jeu", :hint => "Seulement si le nom est different de celui de la fiche." %>
