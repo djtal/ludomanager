@@ -36,6 +36,7 @@ class GameExtensionsController < ApplicationController
     else
       respond_to do |wants|
         wants.html do
+          @games = Game.find(:all) - @base.extensions - [@base]
           @extensions = [@base.extensions.build, @base.extensions.build, @base.extensions.build]
           render :new
         end

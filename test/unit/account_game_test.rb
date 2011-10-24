@@ -3,17 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AccountGameTest < ActiveSupport::TestCase
   fixtures :all
   
-  context "Finding ACGames and sorting them by game & extensions" do
-    setup do
-      @account = Factory(:account, :login => "Dj T@l")
-      
-    end
-
-    should "retunr an array" do
-      assert_equal 
-    end
-  end
-  
   context "Replace a games with a new one (case of merging game id)" do
     setup do
       
