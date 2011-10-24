@@ -13,7 +13,7 @@ module PartiesHelper
     name = ""
     if mode == :simple
       name = truncate(game.name, :length => parties > 1 ? 9 : 12)
-    elsif mode = :advanced
+    elsif mode == :advanced
       name = game.name
     end 
  end
