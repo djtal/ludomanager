@@ -24,7 +24,7 @@ class GameExtensionsController < ApplicationController
   
   def create
     @base = Game.find(params[:game_id])
-    ids = params[:games].values.map{|g| g["id"] }.reject{|id| id.blank?}
+    ids = params[:extensions][:games].values.map{|g| g["id"] }.reject{|id| id.blank?}
     exts = Game.find(ids)
     if(@base && exts.size > 0)
       exts.each do |ext|

@@ -7,7 +7,7 @@
 
 <% simple_form_for :extensions, :url => game_game_extensions_path(@base), :html => {:id => "extensions-form"} do |f| -%>
   <% @extensions.each_with_index do |ext, index| %>
-    <% f.fields_for(ext, :index => index) do |fields| -%>
+    <% f.fields_for(:games, :index => index) do |fields| -%>
       <%= render "form",  :form => fields , :index => index %>
     <% end -%>
   <% end %>
@@ -19,7 +19,7 @@
 <% end -%>
 
 <% content_for :newsbox do %>
-  <% render_widget "Adminstration", :sprite => "ss_tower" do %>
+  <% render_widget "Administration", :sprite => "ss_tower" do %>
     <div class="clear">
       <div class="column">
         <%= image_tag(@base.box.url(:normal), :class => "mini left") %>

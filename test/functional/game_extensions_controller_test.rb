@@ -52,7 +52,8 @@ class GameExtensionsControllerTest < ActionController::TestCase
     end
     
     context "on POST to :create with one extension" do
-      setup { post :create, :game_id => @base.id, :games => {"1" => { :id => @ext.id, :base_game_id => @base.id } }}
+      setup { post :create, :game_id => @base.id, 
+                    :extensions => {:games => {"1" => { :id => @ext.id, :base_game_id => @base.id } }}}
       
       should_respond_with :redirect
       should_redirect_to("base game path") {game_path(@base)}
@@ -63,7 +64,8 @@ class GameExtensionsControllerTest < ActionController::TestCase
     end
     
     context "on POST to :create with no id for extension" do
-      setup { post :create, :game_id => @base.id, :games => {"1" => { :id => "", :base_game_id => @base.id } }}
+      setup { post :create, :game_id => @base.id, 
+                    :extensions => {:games => {"1" => { :id => "", :base_game_id => @base.id } }}}
       should_render_template :new
       should_assign_to(:base, :class => Game){@base}
       should_assign_to(:extensions, :class => Array)
@@ -71,11 +73,11 @@ class GameExtensionsControllerTest < ActionController::TestCase
     
     context "on POST to :create with multiple extensions" do
       setup do
-        post :create, :game_id => @base.id, :games => {
+        post :create, :game_id => @base.id, :extensions => {:games => {
           "1" => { :id => @ext.id, :base_game_id => @base.id },
           "2" => { :id => @ext2.id, :base_game_id => @base.id },
           "3" => { :id => @ext3.id, :base_game_id => @base.id }
-        }
+        }}
       end
       should_respond_with :redirect
       should_redirect_to("base game path") {game_path(@base)}
