@@ -17,7 +17,7 @@ SimpleForm.setup do |config|
   config.wrapper_tag = :p
 
   # How the label text should be generated altogether with the required text.
-  # config.label_text = lambda { |label, required| "#{required} #{label}" }
+  config.label_text = lambda { |label, required| "#{label} (#{required})" }
 
   # Series of attemps to detect a default label method for collection
   # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]

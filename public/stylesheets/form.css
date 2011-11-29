@@ -1,3 +1,11 @@
+.block label{
+  display: block;
+}
+
+.block span .hint{
+  font-style: italic;
+}
+
 #ludo-search{
   background-color: #E6F7D4;
 	border: solid 2px #DCEAD7;

@@ -16,7 +16,6 @@ class AccountGameTest < ActiveSupport::TestCase
   end
   
   
-  
   def test_can_own_only_once_a_game
     assert clean_game_account.save
     assert !clean_game_account.save

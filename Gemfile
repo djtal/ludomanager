@@ -21,6 +21,8 @@ group :test do
 end
 
 group :development do 
+  gem 'term-ansicolor'
+  gem 'wirb'
   gem 'ruby-debug'
   gem 'rails-footnotes'
 end

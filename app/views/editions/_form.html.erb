@@ -1,9 +1,10 @@
-<%= form.association :editor, :collection => @editors, :label => "Editeur", :input_html => {:class => "chzn-select" } %>
-
-<div class="inline clear">
-  <%= form.input :lang, :collection => Ludomanager::COUNTRIES.collect{ |arr| [arr[0], arr[1]]} %>
-
-  <%= form.input :published_at, :start_year => 1960, :default => Time.now, :discard_day => true, :discard_month => true, :label => "Date de parution"  %>
+<div class="block">
+  <%= form.association  :editor, :collection => @editors, 
+                        :label => "Editeur", 
+                        :input_html => {:class => "chzn-select" } %>
+  <%= form.input  :lang, :collection => Ludomanager::COUNTRIES.collect{ |arr| [arr[0], arr[1]]} %>
+  <%= form.input  :published_at, :start_year => 1960, :default => Time.now, 
+                  :discard_day => true, :discard_month => true, :label => "Date de parution"  %>
+  <%= form.input  :name, :as => :string,
+                  :label => "Nom du jeu", :hint => "Seulement si le nom est different de celui de la fiche." %>
 </div>
-
-<%= form.input :name, :as => :string, :label => "Nom du jeu", :hint => "Seulement si le nom est different de celui de la fiche." %>
