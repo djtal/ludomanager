@@ -1,5 +1,6 @@
-PATH
-  remote: ../../googlecharts
+GIT
+  remote: git://github.com/djtal/googlecharts.git
+  revision: a7ab69a41bca30993b701291ac6288c5acdcd3b9
   specs:
     googlecharts (1.6.7)
 

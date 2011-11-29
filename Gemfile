@@ -10,7 +10,8 @@ gem 'paperclip', "~> 2.4"
 gem 'by_star', '0.7.1'
 gem 'simple_form', "~> 1.0.4"
 #gem 'googlecharts', "~> 1.6.0"
-gem "googlecharts", :path => "../../googlecharts"
+gem "googlecharts", :git => "git://github.com/djtal/googlecharts.git"
+#gem "googlecharts", :path => "../../googlecharts"
 gem "rdoc"
 
 gem 'newrelic_rpm'
