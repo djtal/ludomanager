@@ -40,7 +40,7 @@ class AccountGame < ActiveRecord::Base
   
   def self.breakdown(key) 
     count(:include => :game, :group => "games.#{key.to_s}").inject({}) do |acc, data|
-      acc[Game::Target[data[0]][0]] = data[1]
+      acc[Game::Target[data[0].to_i][0]] = data[1]
       acc
     end
     
