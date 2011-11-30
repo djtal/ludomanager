@@ -1,7 +1,6 @@
 source :rubygems
 
 gem "rails", "~> 2.3.12"
-gem "sqlite3-ruby", '1.3.1', :require => "sqlite3"
 
 gem 'searchlogic', '2.4.12'
 gem 'will_paginate', '~> 2.3.16'
@@ -20,10 +19,15 @@ group :test do
   gem 'factory_girl', '1.2.4'
 end
 
-group :development do 
+group :development do
+  gem "sqlite3-ruby", '~> 1.3.0', :require => "sqlite3"
   gem 'term-ansicolor'
   gem 'wirb'
   gem 'ruby-debug'
   gem 'rails-footnotes'
   gem 'thin'
+end
+
+group :production do  
+  gem 'mysql'
 end

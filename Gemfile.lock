@@ -30,6 +30,7 @@ GEM
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     mime-types (1.17.2)
+    mysql (2.8.1)
     newrelic_rpm (3.3.0)
     paperclip (2.4.5)
       activerecord (>= 2.3.0)
@@ -58,7 +59,9 @@ GEM
       activerecord (>= 2.0.0)
     shoulda (2.10.3)
     simple_form (1.0.4)
-    sqlite3-ruby (1.3.1)
+    sqlite3 (1.3.4)
+    sqlite3-ruby (1.3.3)
+      sqlite3 (>= 1.3.3)
     term-ansicolor (1.0.7)
     thin (1.3.1)
       daemons (>= 1.0.9)
@@ -74,6 +77,7 @@ DEPENDENCIES
   by_star (~> 1.0.0)
   factory_girl (= 1.2.4)
   googlecharts!
+  mysql
   newrelic_rpm
   paperclip (~> 2.4)
   rails (~> 2.3.12)
@@ -83,7 +87,7 @@ DEPENDENCIES
   searchlogic (= 2.4.12)
   shoulda (= 2.10.3)
   simple_form (~> 1.0.4)
-  sqlite3-ruby (= 1.3.1)
+  sqlite3-ruby (~> 1.3.0)
   term-ansicolor
   thin
   will_paginate (~> 2.3.16)
