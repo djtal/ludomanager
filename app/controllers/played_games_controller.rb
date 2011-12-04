@@ -1,5 +1,6 @@
 class PlayedGamesController < ApplicationController
-  subnav :parties
+  before_filter :login_required
+  subnav :account_games
   layout "simple"
   
   def show
@@ -28,6 +29,12 @@ class PlayedGamesController < ApplicationController
         @players = current_account.parties.player_breakdown(:game => @game)
       end
     end
+  end
+  
+  protected
+  
+  def set_section
+    @section = :account_games
   end
   
 end
