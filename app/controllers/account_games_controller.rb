@@ -40,7 +40,7 @@ class AccountGamesController < ApplicationController
           acc
         end.flatten
         #need to know wich letter have games or not
-        @first_letters = current_account.games.find(:all, :select => :name).map{|g| g.name.first.downcase}.uniq
+        @first_letters = current_account.games.first_letters
         ["recent", "no_played", "all"].each do |var|
           eval("@#{var}=#{current_account.account_games.send(var).count}")
         end

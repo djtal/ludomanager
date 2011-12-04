@@ -26,7 +26,7 @@ class PartiesController < ApplicationController
   def all
     @parties = current_account.parties.by_game(params[:start])
     #always get all played game to compute first letters
-    @first_letters = current_account.parties.by_game.keys.map{ |g| g.name.first.downcase}.uniq
+    @first_letters = current_account.played_games.first_letters
     @parties = @parties.to_a.paginate(:page => params[:page])
     #used to find last played date for each game you've played
     @last_played = current_account.parties.maximum(:created_at, :group => :game)

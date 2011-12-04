@@ -15,7 +15,7 @@ class GamesController < ApplicationController
           Game.paginate(:page => params[:page], :per_page => 15, :order => 'games.name ASC', 
                   :include => [:tags,:editions])
         end
-        @first_letters = Game.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
+        @first_letters = Game.first_letters
       end
       format.json do
         opts = {}

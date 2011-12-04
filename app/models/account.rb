@@ -48,6 +48,7 @@ class Account < ActiveRecord::Base
   end
   
   has_many :games, :through => :account_games
+  has_many :played_games, :through => :parties, :source => :game
   has_many :members, :dependent => :delete_all do
     # Import member data from csv file
     # format : name(mandatory);nickname(mandatory);email(optional)
