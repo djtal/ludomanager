@@ -68,7 +68,11 @@ class Party < ActiveRecord::Base
       options[:conditions] = {:game_id => opts[:game].id}
     end
     firstPlay = self.minimum(:created_at, options)
-    from = firstPlay.year > 3.year.ago.year ? firstPlay.year : 3.year.ago.year
+    from = if firstPlay
+      firstPlay.year > 3.year.ago.year ? firstPlay.year : 3.year.ago.year
+    else
+      nil
+    end
     {:from => from, :to => Time.zone.now.year}
   end
   

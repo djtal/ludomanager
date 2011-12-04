@@ -69,11 +69,13 @@ class PartyTest < ActiveSupport::TestCase
   
   context "getting date range for played parties" do
     setup do
-      
+      @account = Factory.create(:account)
     end
 
-    should "description" do
-      
+    should "should raise nothing if user has played no parties" do
+      assert_nothing_raised do
+        @account.parties.play_range
+      end
     end
   end
   
