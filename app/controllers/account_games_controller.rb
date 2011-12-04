@@ -36,18 +36,15 @@ class AccountGamesController < ApplicationController
         @order_account_games = base_games.sort_by{|ac_game| ac_game.game.name}.inject([]) do |acc, ac_game|
           exts = extensions.select{|ext| ext.game.base_game_id == ac_game.game_id}
           acc << ac_game
-          unless (exts.empty?)
-            acc << exts
-          end
+          acc << exts unless exts.empty?
           acc
         end.flatten
         #need to know wich letter have games or not
-        games = current_account.games.group_by{ |g| g.name.first.downcase}
-        @first_letters = games.keys
+        @first_letters = current_account.games.find(:all, :select => :name).map{|g| g.name.first.downcase}.uniq
         ["recent", "no_played", "all"].each do |var|
-          eval("@#{var}=#{current_account.account_games.send(var).size}")
+          eval("@#{var}=#{current_account.account_games.send(var).count}")
         end
-        @exts_count = current_account.games.count(:all, :conditions => ["games.base_game_id > 0"])
+        @exts_count = current_account.games.extensions.count
         chart_data = current_account.account_games.breakdown(:target)
         @chart = Gchart.new(:type => :pie,
                                 :size => '220x220', 

@@ -49,7 +49,14 @@ class AccountGame < ActiveRecord::Base
   # work like a find but order group games and extensions
   #
   def self.find_sort(opts = {})
-
+    account_games = self.paginate(opts)
+    base_games, extensions = account_games.partition{|ac_game| ac_game.game.base_game_id.blank?}
+    order_account_games = base_games.sort_by{|ac_game| ac_game.game.name}.inject([]) do |acc, ac_game|
+      exts = extensions.select{|ext| ext.game.base_game_id == ac_game.game_id}
+      acc << ac_game
+      acc << exts unless (exts.empty?)
+      acc
+    end.flatten
   end
   
   
