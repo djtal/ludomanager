@@ -1,7 +1,7 @@
-Publique;Nom;Duree;Joueur
+Publique;Nom;Duree;Niveau;Joueur
 <% @account_games.each do |target, games| -%>
   <%= "#{Game::Target[target].first} - #{games.size}" %>
   <% games.each do |g| -%>
-    ;<%= [g.name, Game::TimeCategory[g.time_category].first] * ";" %>;<%= (g.min_player..g.max_player).to_a * ";" %>
+    ;<%= [g.name, Game::TimeCategory[g.time_category].first, g.difficulty] * ";" %>;<%= (g.min_player..g.max_player).to_a * ";" %>
   <% end %>
 <% end %>
