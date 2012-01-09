@@ -78,7 +78,9 @@
         <hr />
         <li><%= manage_authors_link(@game) %></li>
         <li><%= link_to "Gerer les editions", game_editions_path(@game), :class => "ss_sprite ss_joystick" %></li>
-        <li><%= link_to "Gerer les extensions", game_game_extensions_path(@game), :class => "ss_sprite ss_documents" %></li>
+        <% unless @game.extension? %>
+          <li><%= link_to "Gerer les extensions", game_game_extensions_path(@game), :class => "ss_sprite ss_documents" %></li>
+        <% end %>
         <hr />
       <% end %>
       <li><%= link_to "Retour a la liste de jeux", :back, :class => "ss_sprite ss_left" %></li>

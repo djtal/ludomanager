@@ -73,6 +73,11 @@ class Game < ActiveRecord::Base
     find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
   end
   
+  
+  def extension?
+    !self.base_game_id.blank?
+  end
+  
   def min_max_player?
     if min_player && max_player
       self.errors.add :max_player, "le nombre maxi de joueur ne peut etre inferieur au nombre mini" if min_player > max_player

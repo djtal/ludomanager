@@ -40,7 +40,15 @@ class GameTest < ActiveSupport::TestCase
       assert_equal("", game.tag_list)
     end
     
+    should "know if is an extension" do
+      game = Factory.create(:game)
+      assert !game.extension?
+      extension = Factory.create(:extension)
+      assert extension.extension?
+    end
+    
   end
+  
   
   context "base_games named_scope" do
     setup do
