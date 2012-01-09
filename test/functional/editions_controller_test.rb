@@ -11,6 +11,13 @@ class EditionsControllerTest < ActionController::TestCase
       assert_response :success
     end
     
+    should "GET edit an edition" do
+      game = Factory.create(:game)
+      edition = Factory.create(:edition, :game => game)
+      get :edit, :game_id => game.id, :edition_id => edition.id
+      assert_response :success
+    end
+    
     should "DELETE an edition" do
         assert_difference('Edition.count', -1) do
           delete :destroy, :id => editions(:battlelore_fr).id
