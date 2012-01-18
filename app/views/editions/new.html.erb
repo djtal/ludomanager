@@ -4,7 +4,7 @@
 <% simple_form_for(@edition, :url => game_editions_path(@game)) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => f %>
-  <%= submit_or_back_to game_path(@game), "retour sur #{@game.name}" %>
+  <%= submit_or_back_to game_editions_path(@game), "retour sur #{@game.name}" %>
 <% end %>
 
 

@@ -61,7 +61,7 @@ class EditionsController < ApplicationController
     respond_to do |format|
       if @edition.save
         flash[:notice] = 'Edition was successfully created.'
-        format.html { redirect_to(@game) }
+        format.html { redirect_to game_editions_path(@game) }
         format.xml  { render :xml => @edition, :status => :created, :location => @edition }
       else
         format.html do
@@ -82,7 +82,7 @@ class EditionsController < ApplicationController
     respond_to do |format|
       if @edition.update_attributes(params[:edition])
         flash[:notice] = 'Edition was successfully updated.'
-        format.html { redirect_to(@game) }
+        format.html { redirect_to game_editions_path(@game) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -98,7 +98,7 @@ class EditionsController < ApplicationController
     @edition.destroy
 
     respond_to do |format|
-      format.html { redirect_to(editions_url) }
+      format.html { rredirect_to game_editions_path(@edition.game)  }
       format.js
       format.xml  { head :ok }
     end
