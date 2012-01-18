@@ -5,10 +5,8 @@
     <%= f.text_field :name, :size => 60, :class => "title" %></p>
     
     <div class="column span-9"><%= f.label :base_game_id, "Jeu de base(si le jeu est une extension)" %><br />
-    <%= text_field_tag :base_game_name, {}, :size => 60,
-                       :value => @game.base_game_id ? @game.base_game.name : "" %>
-    <div class="auto_complete" id="base_game_auto_complete"></div>
-    <%= f.hidden_field :base_game_id %></div>
+    <%= f.collection_select :base_game_id, @base_games, :id, :name , {:include_blank => 'Aucune'}, 
+      {:class => "chzn-select"} %></div>
     <div class="column span-4"><%= f.label "Jouable seul" %><br />
     <%= f.check_box :standalone %></div>
   </div>

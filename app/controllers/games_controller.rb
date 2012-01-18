@@ -48,6 +48,7 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    @base_games = Game.base_games.find(:all)
     @authorships = []
     3.times{@authorships << @game.authorships.new}
   end
@@ -55,6 +56,7 @@ class GamesController < ApplicationController
   # GET /games/1;edit
   def edit
     @game = Game.find(params[:id], :include => :base_game)
+    @base_games = Game.base_games.find(:all)
     @authorships = @game.authorships
     @authorships << @game.authorships.new if @authorships.size == 0
   end
@@ -88,6 +90,7 @@ class GamesController < ApplicationController
         format.xml  { head :created, :location => game_path(@game) }
       else
         format.html do
+          @base_games = Game.base_games.find(:all)
           @authorships = []
           3.times{@authorships << Authorship.new}
           render :action => "new"
@@ -101,6 +104,7 @@ class GamesController < ApplicationController
   # PUT /games/1.xml
   def update
     @game = Game.find(params[:id])
+    
     respond_to do |format|
       if @game.update_attributes(params[:game])
         @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list] != ""
@@ -109,6 +113,7 @@ class GamesController < ApplicationController
         format.html { redirect_to game_path(@game) }
         format.xml  { head :ok }
       else
+        @base_games = Game.base_games.find(:all)
         if !@game.authors
           @authors = []
           3.times{@authors << Author.new}
