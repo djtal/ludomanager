@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem "rails", "~> 2.3.12"
+gem "rake"
 
 gem 'searchlogic', '2.4.12'
 gem 'will_paginate', '~> 2.3.16'

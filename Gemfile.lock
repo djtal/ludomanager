@@ -102,6 +102,7 @@ DEPENDENCIES
   paperclip (~> 2.4)
   rails (~> 2.3.12)
   rails-footnotes
+  rake
   rdoc
   recap (~> 1.0.0)
   ruby-debug
