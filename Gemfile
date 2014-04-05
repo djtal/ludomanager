@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem "rails", "~> 2.3.12"
 
@@ -14,6 +14,8 @@ gem "rdoc"
 
 gem 'newrelic_rpm'
 
+gem 'recap', '~>1.0.0'
+
 group :test do
   gem 'shoulda', '2.10.3'
   gem 'factory_girl', '1.2.4'
@@ -28,6 +30,6 @@ group :development do
   gem 'thin'
 end
 
-group :production do  
-  gem 'mysql'
+group :production do
+  gem 'mysql2'
 end
