@@ -15,6 +15,7 @@ gem "googlecharts", :git => "git://github.com/djtal/googlecharts.git"
 gem "rdoc"
 
 gem 'newrelic_rpm'
+gem 'foreman'
 
 gem 'recap', '~>1.0.0'
 
