@@ -7,16 +7,16 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (2.3.18)
-      actionpack (= 2.3.18)
-    actionpack (2.3.18)
-      activesupport (= 2.3.18)
+    actionmailer (2.3.14)
+      actionpack (= 2.3.14)
+    actionpack (2.3.14)
+      activesupport (= 2.3.14)
       rack (~> 1.1.0)
-    activerecord (2.3.18)
-      activesupport (= 2.3.18)
-    activeresource (2.3.18)
-      activesupport (= 2.3.18)
-    activesupport (2.3.18)
+    activerecord (2.3.14)
+      activesupport (= 2.3.14)
+    activeresource (2.3.14)
+      activesupport (= 2.3.14)
+    activesupport (2.3.14)
     by_star (1.0.1)
       activerecord (>= 2.0.0)
       chronic
@@ -53,12 +53,12 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     rack (1.1.6)
-    rails (2.3.18)
-      actionmailer (= 2.3.18)
-      actionpack (= 2.3.18)
-      activerecord (= 2.3.18)
-      activeresource (= 2.3.18)
-      activesupport (= 2.3.18)
+    rails (2.3.14)
+      actionmailer (= 2.3.14)
+      actionpack (= 2.3.14)
+      activerecord (= 2.3.14)
+      activeresource (= 2.3.14)
+      activesupport (= 2.3.14)
       rake (>= 0.8.3)
     rails-footnotes (3.6.7)
     rake (10.2.2)
@@ -100,7 +100,7 @@ DEPENDENCIES
   mysql2 (~> 0.2.7)
   newrelic_rpm
   paperclip (~> 2.4)
-  rails (~> 2.3.12)
+  rails (= 2.3.14)
   rails-footnotes
   rake
   rdoc
