@@ -1,6 +1,10 @@
 development:
-  adapter: sqlite3
-  database: db/ludomanager_development.sqlite3
+  adapter: mysql2
+  database: ludo_legacy
+  username: root
+  password:
+  pool: 5
+  socket: '/tmp/mysql.sock'
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -15,3 +19,4 @@ production:
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PWD'] %>
   socket: <%= ENV['DATABASE_SOCKET'] %>
+  pool: 5

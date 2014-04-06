@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem "rails", "~> 2.3.12"
+gem 'mysql2', '~> 0.2.7'
 gem "rake"
 
 gem 'searchlogic', '2.4.12'
@@ -29,8 +30,4 @@ group :development do
   gem 'ruby-debug'
   gem 'rails-footnotes'
   gem 'thin'
-end
-
-group :production do
-  gem 'mysql2'
 end
