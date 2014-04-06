@@ -31,3 +31,7 @@ group :development do
   gem 'rails-footnotes'
   gem 'thin'
 end
+
+group :production do
+  gem "unicorn"
+end
