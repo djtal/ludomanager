@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module AuthorsHelper
   def published_game_date_range_for(games)
     dates = games.collect{ |g| g.publish_year != "" ? g.publish_year : nil}.compact

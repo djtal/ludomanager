@@ -1,6 +1,6 @@
 development:
   adapter: mysql2
-  database: ludo_legacy
+  database: ludomanager_dev
   username: root
   password:
   pool: 5

@@ -1,7 +1,8 @@
-# This controller handles the login/logout function of the site.  
+# # encoding: UTF-8
+# This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
   layout "simple"
-  
+
   # render new.rhtml
   def new
   end
@@ -11,12 +12,12 @@ class SessionsController < ApplicationController
     if logged_in?
       if params[:remember_me] == "1"
         current_account.remember_me unless current_account.remember_token?
-        cookies[:auth_token] = { :value => self.current_account.remember_token , :expires => self.current_account.remember_token_expires_at }
+        cookies[:auth_token] = { value: self.current_account.remember_token , expires: self.current_account.remember_token_expires_at }
       end
       redirect_back_or_default('/dashboard')
-      flash[:notice] = "Vous etes connecté"
+      flash[:notice] = 'Vous etes connecté'
     else
-      render :action => 'new'
+      render action: :new
     end
   end
 
@@ -24,7 +25,7 @@ class SessionsController < ApplicationController
     self.current_account.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "Vous etes maintenant deconectez"
+    flash[:notice] = 'Vous etes maintenant deconectez'
     redirect_back_or_default('/')
   end
 end

@@ -1,19 +1,4 @@
-# == Schema Information
-# Schema version: 20090324224831
-#
-# Table name: accounts
-#
-#  id                        :integer       not null, primary key
-#  login                     :string(255)   
-#  email                     :string(255)   
-#  crypted_password          :string(40)    
-#  salt                      :string(40)    
-#  created_at                :datetime      
-#  updated_at                :datetime      
-#  remember_token            :string(255)   
-#  remember_token_expires_at :datetime      
-#
-
+# # encoding: UTF-8
 
 require 'digest/sha1'
 class Account < ActiveRecord::Base
@@ -21,35 +6,35 @@ class Account < ActiveRecord::Base
   attr_accessor :password
 
   validates_presence_of     :login, :email
-  validates_presence_of     :password,                   :if => :password_required?
-  validates_presence_of     :password_confirmation,      :if => :password_required?
-  validates_length_of       :password, :within => 4..40, :if => :password_required?
-  validates_confirmation_of :password,                   :if => :password_required?
-  validates_length_of       :login,    :within => 3..40
-  validates_length_of       :email,    :within => 3..100
-  validates_uniqueness_of   :login, :email, :case_sensitive => false
+  validates_presence_of     :password,                   if: :password_required?
+  validates_presence_of     :password_confirmation,      if: :password_required?
+  validates_length_of       :password, within: 4..40, if: :password_required?
+  validates_confirmation_of :password,                   if: :password_required?
+  validates_length_of       :login,    within: 3..40
+  validates_length_of       :email,    within: 3..100
+  validates_uniqueness_of   :login, :email, case_sensitive: false
   before_save :encrypt_password
-  
+
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation
 
-  has_many :account_games, :dependent => :delete_all
-  
-  has_many :parties, :dependent => :delete_all do
+  has_many :account_games, dependent: :delete_all
+
+  has_many :parties, dependent: :delete_all do
     # return array containing 2 values
     # => total of parties played with game i own
     # => total of parties played with other game
     def split_mine(games)
       ids = games.map{|g| g.id}
-      mine = count(:conditions => {:game_id => ids})
+      mine = count(conditions: { game_id: ids } )
       [mine , count - mine]
     end
   end
-  
-  has_many :games, :through => :account_games
-  has_many :played_games, :through => :parties, :source => :game
-  has_many :members, :dependent => :delete_all do
+
+  has_many :games, through: :account_games
+  has_many :played_games, through: :parties, source: :game
+  has_many :members, dependent: :delete_all do
     # Import member data from csv file
     # format : name(mandatory);nickname(mandatory);email(optional)
     def import(data)
@@ -57,7 +42,7 @@ class Account < ActiveRecord::Base
       errors = {}
       line = 1
       ::CSV::Reader.parse(data, ";") do |row|
-        member = self.new(:name => row[0], :nickname => row[1], :email => row[2], :account => proxy_owner)
+        member = self.new(name: row[0], nickname: row[1], email: row[2], account: proxy_owner)
         if member.save
           imported += 1
         else
@@ -67,7 +52,7 @@ class Account < ActiveRecord::Base
       end
       return imported, errors
     end
-    
+
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -93,7 +78,7 @@ class Account < ActiveRecord::Base
   end
 
   def remember_token?
-    remember_token_expires_at && Time.now.utc < remember_token_expires_at 
+    remember_token_expires_at && Time.now.utc < remember_token_expires_at
   end
 
   # These create and unset the fields required for remembering users between browser closes
@@ -123,16 +108,16 @@ class Account < ActiveRecord::Base
   end
 
   protected
-    # before filter 
+    # before filter
     def encrypt_password
       return if password.blank?
       self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
       self.crypted_password = encrypt(password)
     end
-      
+
     def password_required?
       crypted_password.blank? || !password.blank?
     end
-    
-    
+
+
 end

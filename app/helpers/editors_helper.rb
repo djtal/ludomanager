@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module EditorsHelper
   def other_editor_for(edition, curent_editor)
     other = edition.game.editors.map(&:name)

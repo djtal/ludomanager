@@ -1,26 +1,27 @@
+# encoding: UTF-8
 class AccountGamesController < ApplicationController
   layout "application"
   before_filter :login_required
   subnav :account_games
-  
+
   # GET /account_games
   # GET /account_games.xml
   def index
     respond_to do |format|
       format.html do
         find_opts = {
-          :include => :game,
-          :page => params[:page]
+          include: :game,
+          page: params[:page]
         }
         if params[:time]
-          find_opts[:conditions] = {:games => {:time_category => params[:time]}}
-        end  
+          find_opts[:conditions] = { games: { time_category: params[:time] } }
+        end
         if params[:target]
-          find_opts[:conditions]  = {:games => {:target => params[:target]}}
+          find_opts[:conditions]  = { games: { target: params[:target] } }
         end
 
         @mode = if params[:mode]
-          params[:mode].to_sym 
+          params[:mode].to_sym
         else
           :view
         end
@@ -46,65 +47,65 @@ class AccountGamesController < ApplicationController
         end
         @exts_count = current_account.games.extensions.count
         chart_data = current_account.account_games.breakdown(:target)
-        @chart = Gchart.new(:type => :pie,
-                                :size => '220x220', 
-                                :alt => "Evolution des parties par mois",
-                                :legend => chart_data.keys,
-                                :legend_position => "bottom",
-                                :data => chart_data.values,
-                                :theme => :ludomanager)
+        @chart = Gchart.new( type: :pie,
+                                size: '220x220',
+                                alt: 'Evolution des parties par mois',
+                                legend: chart_data.keys,
+                                legend_position: :bottom,
+                                data: chart_data.values,
+                                theme: :ludomanager)
       end
       format.js
-      format.csv do 
+      format.csv do
         @account_games = current_account.games.group_by(&:target)
-        render :layout => false
-      end  
-      format.xml  { render :xml => @account_games.to_xml }
+        render layout: false
+      end
+      format.xml  { render xml: @account_games.to_xml }
     end
   end
-  
+
   def group
-    @ac_games = current_account.games.count(:group => :target)
+    @ac_games = current_account.games.count(group: :target)
     respond_to do |format|
       format.json do
-        data = @ac_games.inject([]){ |acc, group| acc << {:data => [[1,group[1]]], :label => Game::Target[group[0]][0]}}
-        render :json => data
-      end
+        data = @ac_games.inject([]){ |acc, group| acc << { data: [[1,group[1]]], label: Game::Target[group[0]][0] } }
+      render json: data
+    end
     end
   end
-  
+
   def all
     @search = ACGameSearch.new(current_account, params[:search])
-    @ag = @search.prepare_search.all(:include => {:game => :tags})
-    render :action => :all, :layout => "simple"
+    @ag = @search.prepare_search.all( include: { game: :tags } )
+    render action: :all, layout: :simple
   end
-  
+
   def missing
-    @missing = Game.find(:all, :select => "id, name", :conditions => ["(id NOT IN (?))", @account_games.map(&:game_id)])
+    @missing = Game.find(:all, select: "id, name", conditions: ["(id NOT IN (?))", @account_games.map(&:game_id)])
     respond_to do |format|
-      format.json{ render :json => @missing.to_json(:only => [:id, :name])}
+      format.json { render json: @missing.to_json(only: [:id, :name]) }
     end
   end
-  
-  
+
+
   def search
     @search = ACGameSearch.new(current_account, params[:search])
-    @ag = @search.prepare_search.all(:include => {:game => :tags}).uniq
+    @ag = @search.prepare_search.all(include: { game: :tags } ).uniq
     respond_to do |format|
-      format.html {render :action => :all, :layout => "simple"}
+      format.html { render action: :all, layout: :simple }
       format.js
     end
   end
-  
-  
+
+
   def new
     @new_games = []
     4.times{ @new_games << current_account.account_games.build }
   end
-  
+
   def edit
     @account_game = current_account.account_games.find(params[:id])
-    @editions = Edition.find(:all, :order => "published_at ASC", :conditions => {:game_id => @account_game.game_id})
+    @editions = Edition.find(:all, order: "published_at ASC", conditions: { game_id: @account_game.game_id })
   end
 
   # POST /account_games
@@ -120,16 +121,16 @@ class AccountGamesController < ApplicationController
         format.js do
           @account_game = @new_games.first
         end
-        format.xml  { head :created, :location => account_games_url }
+        format.xml  { head :created, location: account_games_url }
       else
         format.html  do
-          render :action => "new" 
+          render action: :new
         end
-        format.xml  { render :xml => @account_game.errors.to_xml }
+        format.xml  { render xml: @account_game.errors.to_xml }
       end
     end
   end
-  
+
   def update
     @account_game = current_acc ount.account_games.find(params[:id])
     #why this line
@@ -137,12 +138,12 @@ class AccountGamesController < ApplicationController
     respond_to do |format|
       if @account_game.update_attributes(params[:account_game])
         flash[:notice] = 'AccountGame was successfully created.'
-        format.js{ render :json => @account_game}
-        format.html { redirect_to account_games_url}
-        format.xml  { head :created, :location => accout_games_url}
+        format.js { render json: @account_game }
+        format.html { redirect_to account_games_url }
+        format.xml  { head :created, location: accout_games_url }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @account_game.errors.to_xml }
+        format.html { render action: :edit }
+        format.xml  { render xml: @account_game.errors.to_xml }
       end
     end
   end
@@ -165,7 +166,7 @@ class AccountGamesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   protected
 
   def set_section

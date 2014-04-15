@@ -1,15 +1,16 @@
+# encoding: UTF-8
 class AuthorsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show]
+  before_filter :login_required, except: [:index, :show]
   subnav :authors
-  
+
   # GET /authors
   # GET /authors.xml
   def index
     opts = {
-      :page => params[:page],
-      :include => :authorships
+      page: params[:page],
+      include: :authorships
     }
-    @first_letters = Author.find(:all, :select => :name).map{|a| a.name.first.downcase}.uniq
+    @first_letters = Author.find(:all, select: :name).map { |a| a.name.first.downcase }.uniq
     respond_to do |format|
       format.html do
         @authors = if params[:start]
@@ -19,10 +20,10 @@ class AuthorsController < ApplicationController
         end
       end
       format.json do
-          @authors = Author.find(:all, :order => "surname ASC")
-          render :json => @authors.map{|a| a.display_name}.to_json
+          @authors = Author.find(:all, order: 'surname ASC' )
+          render json: @authors.map(&:display_name).to_json
       end
-      format.xml  { render :xml => @authors.to_xml }
+      format.xml  { render xml: @authors.to_xml }
     end
   end
 
@@ -30,10 +31,10 @@ class AuthorsController < ApplicationController
   # GET /authors/1.xml
   def show
     @author = Author.find(params[:id])
-    @games = @author.games.paginate(:page => params[:page], :include => :editions, :order => "editions.created_at ASC")
+    @games = @author.games.paginate(page: params[:page], include: :editions, order: 'editions.created_at ASC' )
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @author.to_xml }
+      format.xml  { render xml: @author.to_xml }
     end
   end
 
@@ -54,10 +55,10 @@ class AuthorsController < ApplicationController
     respond_to do |format|
       if @author.save
         format.html { redirect_to author_url(@author) }
-        format.xml  { head :created, :location => author_url(@author) }
+        format.xml  { head :created, location: author_url(@author) }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @author.errors.to_xml }
+        format.html { render action: :new }
+        format.xml  { render xml: @author.errors.to_xml }
       end
     end
   end
@@ -73,8 +74,8 @@ class AuthorsController < ApplicationController
         format.html { redirect_to author_url(@author) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @author.errors.to_xml }
+        format.html { render action: 'edit' }
+        format.xml  { render xml: @author.errors.to_xml }
       end
     end
   end
@@ -91,9 +92,9 @@ class AuthorsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   protected
-  
+
   def set_section
     @section = :authors
   end

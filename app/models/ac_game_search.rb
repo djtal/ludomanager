@@ -1,10 +1,11 @@
+# # encoding: UTF-8
 # Heavily inspired by http://robots.thoughtbot.com/post/159805369/search-by-quacking-like-activerecord
 #
 class ACGameSearch
   attr_accessor :tags, :tags_mode, :players, :cat1, :cat2, :mode, :since, :unit
   attr_accessor :account
-  
-  
+
+
   def initialize(account, params = nil)
     params ||= {}
     self.account = account
@@ -13,30 +14,30 @@ class ACGameSearch
       self.send("#{key}=", value)
     end
   end
-  
+
   def cat1=(value)
     @cat1 = value.to_i
   end
-  
+
   def cat2=(value)
     @cat2 = value.to_i
   end
-  
+
   def prepare_search
-    @search =  Searchlogic::Search.new(AccountGame, {:conditions => {:account_id => account.id}})
-    
+    @search =  Searchlogic::Search.new(AccountGame, { conditions: { account_id: account.id } } )
+
     if players.to_i > 0
       @search.game_min_player_lte(players)
       @search.game_max_player_gte(players)
     end
-    
+
     if !tags.blank?
       tags_list =tags.split(/\s|,\s*|;\s*/)
       @search.game_tags_name_like_any(tags_list)
     end
-    
+
     if (cat1 && cat2)
-      case(true) 
+      case(true)
         when cat1 >= 0 && cat2 >= 0 && cat1 != cat2
           @search.game_target_is_any([cat1, cat2])
         when  cat1 >= 0 && cat2 == -1
@@ -49,7 +50,7 @@ class ACGameSearch
     add_acquired_date_conditions
     @search
   end
-  
+
   def id
     nil
   end
@@ -57,23 +58,23 @@ class ACGameSearch
   def new_record?
     true
   end
-  
-  
+
+
   def from_date
     @from_date ||= self.since.to_i.send(self.unit).ago.beginning_of_day
   end
-  
+
   def add_acquired_date_conditions
     if mode == "recent"
       @search.transdate_gte(3.month.ago)
     end
   end
-  
+
   def is_advanced_time_used?
     (self.mode == "played" || self.mode == "not_played") && self.since.to_i > 0 &&
           (['day', 'month', 'year'].include?(self.unit))
   end
-  
+
   def add_time_conditions
     if (!is_advanced_time_used?)
       if mode == "played"

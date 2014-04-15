@@ -1,14 +1,15 @@
+# encoding: UTF-8
 class AuthorshipsController < ApplicationController
   subnav :games
 
   def index
     if params[:game_id]
       @base = Game.find(params[:game_id])
-      @authorships = @base.authorships.find(:all, :include => :author)
+      @authorships = @base.authorships.find(:all, include: :author)
     else
       @authorships = Authorship.find(:all)
     end
-    
+
 
     respond_to do |format|
       format.html
@@ -22,7 +23,7 @@ class AuthorshipsController < ApplicationController
 
     respond_to do |format|
       format.html # show.rhtml
-      format.xml  { render :xml => @authorship.to_xml }
+      format.xml  { render xml: @authorship.to_xml }
     end
   end
 
@@ -33,7 +34,7 @@ class AuthorshipsController < ApplicationController
     @game = Game.find(params[:game_id])
     @authorship = @game.authorships.new
   end
-  
+
   #used when adding via AJAX new athorship form fragment
   def new_partial_form
     @index = params[:index].to_i || 0
@@ -43,7 +44,7 @@ class AuthorshipsController < ApplicationController
 
   # GET /authorships/1;edit
   def edit
-    @game = Game.find(params[:game_id], :include => :authorships)
+    @game = Game.find(params[:game_id], include: :authorships)
     @authorships = @game.authorships
     @authorships << @game.authorships.new if @authorships.size == 0
   end
@@ -56,7 +57,7 @@ class AuthorshipsController < ApplicationController
     respond_to do |format|
         flash[:notice] = 'Les autheurs sont enregistres'
         format.html { redirect_to game_path(@game) }
-        format.xml  { head :created, :location => authorship_url(@authorship) }
+        format.xml  { head :created, location: authorship_url(@authorship) }
     end
   end
 
@@ -71,8 +72,8 @@ class AuthorshipsController < ApplicationController
         format.html { redirect_to authorship_url(@authorship) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @authorship.errors.to_xml }
+        format.html { render action: edit }
+        format.xml  { render xml: @authorship.errors.to_xml }
       end
     end
   end

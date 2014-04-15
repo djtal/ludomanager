@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails", "2.3.14"
+gem "rails", "~> 2.3"
 gem 'mysql2', '~> 0.2.7'
 gem "rake"
 
@@ -10,7 +10,7 @@ gem 'paperclip', "~> 2.4"
 gem 'by_star', '~>1.0.0'
 gem 'simple_form', "~> 1.0.4"
 #gem 'googlecharts', "~> 1.6.0"
-gem "googlecharts", :git => "git://github.com/djtal/googlecharts.git"
+gem "googlecharts", git: "git://github.com/djtal/googlecharts.git"
 #gem "googlecharts", :path => "../../googlecharts"
 gem "rdoc"
 
@@ -25,12 +25,9 @@ group :test do
 end
 
 group :development do
-  gem "sqlite3-ruby", '~> 1.3.0', :require => "sqlite3"
+  gem "sqlite3-ruby", '~> 1.3.0', require: "sqlite3"
   gem 'term-ansicolor'
-  gem 'wirb'
-  gem 'ruby-debug'
   gem 'rails-footnotes'
-  gem 'thin'
 end
 
 group :production do
