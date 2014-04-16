@@ -7,6 +7,8 @@ bundle_path = "#{app_path}/vendor/bundle"
 # working_directory "/path/to/your/app"
 working_directory "#{app_path}"
 
+preload_app true
+
 # Unicorn PID file location
 # pid "/path/to/pids/unicorn.pid"
 pid "#{app_path}/tmp/pids/unicorn.pid"
