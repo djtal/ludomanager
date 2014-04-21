@@ -3,8 +3,6 @@ class EditorsController < ApplicationController
   before_filter :login_required, except: [:index, :show, :search]
   subnav :editors
 
-  # GET /editors
-  # GET /editors.xml
   def index
     @editors = if params[:start]
       Editor.start(params[:start]).paginate(page: params[:page])
@@ -16,10 +14,6 @@ class EditorsController < ApplicationController
     @last_active = Edition.find(:all,  order: 'editions.published_at DESC, editions.created_at DESC',
                                        group: :editor_id,
                                        include: :editor, limit: 10).map(&:editor)
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render xml: @editors }
-    end
   end
 
   def search
@@ -29,8 +23,6 @@ class EditorsController < ApplicationController
     render action: :index
   end
 
-  # GET /editors/1
-  # GET /editors/1.xml
   def show
     @editor = Editor.find(params[:id], include: :editions)
     editions = @editor.editions.find(:all, order: 'published_at DESC', include: { game: :editors } )
@@ -38,64 +30,38 @@ class EditorsController < ApplicationController
     blank = editions.select { |ed| ed.published_at.nil? }
     @editions = yearly.group_by{ |e| e.published_at.year }
     @editions["blank"] = blank if blank.any?
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render xml: @editor }
-    end
   end
 
-  # GET /editors/new
-  # GET /editors/new.xml
   def new
     @editor = Editor.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render xml: @editor }
-    end
   end
 
-  # GET /editors/1/edit
   def edit
     @editor = Editor.find(params[:id])
   end
 
-  # POST /editors
-  # POST /editors.xml
   def create
     @editor = Editor.new(params[:editor])
 
-    respond_to do |format|
-      if @editor.save
-        flash[:notice] = 'Editor was successfully created.'
-        format.html { redirect_to(@editor) }
-        format.xml  { render xml: @editor, status: :created, location: @editor }
-      else
-        format.html { render action: new }
-        format.xml  { render xml: @editor.errors, status: :unprocessable_entity }
-      end
+    if @editor.save
+      flash[:notice] = 'Editor was successfully created.'
+      redirect_to(@editor)
+    else
+      render action: :new
     end
   end
 
-  # PUT /editors/1
-  # PUT /editors/1.xml
   def update
     @editor = Editor.find(params[:id])
 
-    respond_to do |format|
-      if @editor.update_attributes(params[:editor])
-        flash[:notice] = 'Editor was successfully updated.'
-        format.html { redirect_to @editor }
-        format.xml  { head :ok }
-      else
-        format.html { render action: :edit }
-        format.xml  { render xml: @editor.errors, status: :unprocessable_entity }
-      end
+    if @editor.update_attributes(params[:editor])
+      flash[:notice] = 'Editor was successfully updated.'
+      redirect_to @editor
+    else
+      render action: :edit
     end
   end
 
-  # DELETE /editors/1
-  # DELETE /editors/1.xml
   def destroy
     @editor = Editor.find(params[:id])
     @editor.destroy
@@ -103,7 +69,6 @@ class EditorsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(editors_url) }
       format.js
-      format.xml  { head :ok }
     end
   end
 

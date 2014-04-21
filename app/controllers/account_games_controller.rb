@@ -4,8 +4,6 @@ class AccountGamesController < ApplicationController
   before_filter :login_required
   subnav :account_games
 
-  # GET /account_games
-  # GET /account_games.xml
   def index
     respond_to do |format|
       format.html do
@@ -60,7 +58,6 @@ class AccountGamesController < ApplicationController
         @account_games = current_account.games.group_by(&:target)
         render layout: false
       end
-      format.xml  { render xml: @account_games.to_xml }
     end
   end
 
@@ -108,8 +105,6 @@ class AccountGamesController < ApplicationController
     @editions = Edition.find(:all, order: "published_at ASC", conditions: { game_id: @account_game.game_id })
   end
 
-  # POST /account_games
-  # POST /account_games.xml
   def create
     acc_games = params[:account_game].values.select{ |games| games["game_id"] != ""}
     @new_games = current_account.account_games.create(acc_games)
@@ -121,12 +116,10 @@ class AccountGamesController < ApplicationController
         format.js do
           @account_game = @new_games.first
         end
-        format.xml  { head :created, location: account_games_url }
       else
         format.html  do
           render action: :new
         end
-        format.xml  { render xml: @account_game.errors.to_xml }
       end
     end
   end
@@ -140,16 +133,12 @@ class AccountGamesController < ApplicationController
         flash[:notice] = 'AccountGame was successfully created.'
         format.js { render json: @account_game }
         format.html { redirect_to account_games_url }
-        format.xml  { head :created, location: accout_games_url }
       else
         format.html { render action: :edit }
-        format.xml  { render xml: @account_game.errors.to_xml }
       end
     end
   end
 
-  # DELETE /account_games/1
-  # DELETE /account_games/1.xml
   def destroy
     if params[:game_id]
       @account_game = current_account.account_games.find_by_game_id(params[:game_id])
@@ -157,13 +146,10 @@ class AccountGamesController < ApplicationController
     else
       @account_game = AccountGame.find(params[:id])
       @context = :account_game
-    end
-    @account_game.destroy
     @account_games = current_account.account_games.all
     respond_to do |format|
       format.html { redirect_to account_games_url }
       format.js
-      format.xml  { head :ok }
     end
   end
 

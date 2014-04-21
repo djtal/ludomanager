@@ -3,8 +3,6 @@ class GamesController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :search]
   subnav :games
 
-  # GET /games
-  # GET /games.xml
   def index
     respond_to do |format|
       format.html do
@@ -33,20 +31,12 @@ class GamesController < ApplicationController
     render action: :index
   end
 
-
-  # GET /games/1
-  # GET /games/1.xml
   def show
     @game = Game.find(params[:id], include: [:tags, :authors, :extensions, :base_game])
     @editions = @game.editions.all(order: 'published_at ASC', include: :editor)
     @title = @game.name
-    respond_to do |format|
-      format.html # show.rhtml
-      format.xml  { render xml: @game.to_xml }
-    end
   end
 
-  # GET /games/new
   def new
     @game = Game.new
     @base_games = Game.base_games.find(:all)
@@ -54,7 +44,6 @@ class GamesController < ApplicationController
     3.times{@authorships << @game.authorships.new}
   end
 
-  # GET /games/1;edit
   def edit
     @game = Game.find(params[:id], include: :base_game)
     @base_games = Game.base_games.find(:all)
@@ -78,8 +67,6 @@ class GamesController < ApplicationController
     redirect_to game_path(@source)
   end
 
-  # POST /games
-  # POST /games.xml
   def create
     @game = Game.new(params[:game])
     respond_to do |format|
@@ -88,7 +75,6 @@ class GamesController < ApplicationController
         flash[:notice] = 'Game was successfully created.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
-        format.xml  { head :created, location: game_path(@game) }
       else
         format.html do
           @base_games = Game.base_games.find(:all)
@@ -96,13 +82,10 @@ class GamesController < ApplicationController
           3.times{@authorships << Authorship.new}
           render action: :new
         end
-        format.xml  { render xml: @game.errors.to_xml }
       end
     end
   end
 
-  # PUT /games/1
-  # PUT /games/1.xml
   def update
     @game = Game.find(params[:id])
 
@@ -112,7 +95,6 @@ class GamesController < ApplicationController
         flash[:notice] = 'Game was successfully updated.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
-        format.xml  { head :ok }
       else
         @base_games = Game.base_games.find(:all)
         if !@game.authors
@@ -123,34 +105,28 @@ class GamesController < ApplicationController
           (3 - @authors.size).times{@authors << Author.new }
         end
         format.html { render action: :edit }
-        format.xml  { render xml: @game.errors.to_xml }
       end
     end
   end
 
-  # DELETE /games/1
-  # DELETE /games/1.xml
   def destroy
     @game = Game.find(params[:id])
     if @game.destroy
-	    respond_to do |format|
-	      format.html { redirect_to games_path }
-	      format.js
-	      format.xml  { head :ok }
-    	end
-	else
-		respond_to do |format|
-	      format.html do
-	      	 flash[:notice] = "Vous ne pouvez pas effacez un jeu deja joué"
-	      	 redirect_to games_path
-      	  end
-	      format.xml  { head :ok }
-    	end
-	  end
+      respond_to do |format|
+        format.html { redirect_to games_path }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html do
+          flash[:notice] = "Vous ne pouvez pas effacez un jeu deja joué"
+          redirect_to games_path
+        end
+      end
+    end
   end
 
   protected
-
 
   def set_section
   	@section = :games
