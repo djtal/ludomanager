@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421180354) do
+ActiveRecord::Schema.define(:version => 20140421181404) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id"
@@ -93,15 +93,6 @@ ActiveRecord::Schema.define(:version => 20140421180354) do
     t.datetime "box_updated_at"
     t.integer  "base_game_id"
     t.boolean  "standalone"
-  end
-
-  create_table "members", :force => true do |t|
-    t.text     "name"
-    t.text     "nickname"
-    t.integer  "account_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "email"
   end
 
   create_table "parties", :force => true do |t|

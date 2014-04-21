@@ -2,13 +2,6 @@
   <td><%= image_tag(party_full.game.box.url(:thumb), :class => "mini") %></td>
   <td>
     <strong><%= party_full.game.name %></strong><br />
-      <% if party_full.players.size > 0 %>
-        <span class="players more">
-          <%= party_full.members.map(&:display_name) * ", " %>
-        </span>
-      <% else %>
-        <span class="empty">Vous n'avez pas saisie de joueurs pour cette partie.</span>
-      <% end %>
   </td>
   <td><div class="function">
     <% if party_full.players.size > 0 %>
