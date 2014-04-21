@@ -67,7 +67,7 @@ class AccountGamesController < ApplicationController
       format.json do
         data = @ac_games.inject([]){ |acc, group| acc << { data: [[1,group[1]]], label: Game::Target[group[0]][0] } }
       render json: data
-    end
+      end
     end
   end
 
@@ -146,6 +146,7 @@ class AccountGamesController < ApplicationController
     else
       @account_game = AccountGame.find(params[:id])
       @context = :account_game
+    end
     @account_games = current_account.account_games.all
     respond_to do |format|
       format.html { redirect_to account_games_url }
