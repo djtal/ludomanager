@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140421174352) do
+ActiveRecord::Schema.define(:version => 20140421180354) do
 
   create_table "account_games", :force => true do |t|
     t.integer  "game_id"
@@ -38,18 +38,6 @@ ActiveRecord::Schema.define(:version => 20140421174352) do
     t.boolean  "game",                                    :default => true
     t.boolean  "party",                                   :default => true
     t.boolean  "member",                                  :default => true
-  end
-
-  create_table "assets", :force => true do |t|
-    t.string   "content_type"
-    t.string   "filename"
-    t.integer  "size",            :limit => 8
-    t.integer  "width",           :limit => 8
-    t.integer  "height",          :limit => 8
-    t.integer  "attachable_id"
-    t.string   "attachable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "authors", :force => true do |t|
@@ -87,17 +75,6 @@ ActiveRecord::Schema.define(:version => 20140421174352) do
     t.integer  "editions_count",    :default => 0
   end
 
-  create_table "game_photos", :force => true do |t|
-    t.string  "content_type"
-    t.string  "filename"
-    t.integer "size"
-    t.integer "parent_id"
-    t.string  "thumbnail"
-    t.integer "width"
-    t.integer "height"
-    t.integer "game_id"
-  end
-
   create_table "games", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -132,14 +109,6 @@ ActiveRecord::Schema.define(:version => 20140421174352) do
     t.datetime "created_at"
     t.integer  "account_id"
     t.integer  "nb_player"
-  end
-
-  create_table "smart_lists", :force => true do |t|
-    t.text     "title"
-    t.text     "query"
-    t.integer  "account_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "taggings", :force => true do |t|
