@@ -33,16 +33,14 @@ class Game < ActiveRecord::Base
 
   acts_as_taggable
 
-  scope :extensions, conditions: ["base_game_id <> ''"]
-  scope :base_games, conditions: ["base_game_id IS ? OR (base_game_id <> '' AND standalone = ? )",nil,  true]
-
+  scope :extensions, -> { where.not(base_game_id: nil) }
+  scope :base_games, -> { where("base_game_id IS ? OR (base_game_id <> '' AND standalone = ? )", nil, true) }
 
   def self.search(query = "", page = 1)
     return [] if query.blank?
     games = find(:all, conditions: ['LOWER(name) like ?', "%#{query.downcase}%"], order: 'name')
     editions = Edition.find(:all, conditions: ['LOWER(name) like ?', "%#{query.downcase}%"], order: 'name').map(&:game)
     (games + editions).uniq.compact.sort_by(&:name).paginate(per_page: 10, page: page)
-
   end
 
   def self.first_letters

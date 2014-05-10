@@ -11,9 +11,9 @@ class Party < ActiveRecord::Base
   after_create :up_partie_cache, :update_played_date
   after_destroy :down_partie_cache
 
-  scope :for_day, lambda{ |date|
-    { conditions: ["parties.created_at BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day],
-      order: 'parties.created_at ASC' }
+  scope :for_day, lambda { |date|
+    scope = where("parties.created_at BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day)
+    scope.order('parties.created_at ASC')
   }
 
   def self.yearly_breakdown(opts = {})

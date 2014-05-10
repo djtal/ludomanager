@@ -10,8 +10,8 @@ class AccountGame < ActiveRecord::Base
   before_create :setup_default
 
   #need to play with scope
-  scope :recent, lambda { { conditions: ['created_at > ?', 3.month.ago] } }
-  scope :no_played, conditions: { :parties_count => 0}
+  scope :recent, -> { where("created_at > ?", 3.month.ago)}
+  scope :no_played, -> { where("parties_count > 0") }
 
   cattr_reader :per_page
   @@per_page = 50
