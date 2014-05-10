@@ -1,8 +1,9 @@
 # encoding: UTF-8
 
 class Authorship < ActiveRecord::Base
-  validates_presence_of :author_id, :game_id
-  validates_uniqueness_of :author_id, scope: :game_id
+  validates :author_id, :game_id, presence: true
+  validates :author_id, uniqueness: { scope: :game_id }
+
   belongs_to :author
   belongs_to :game
 

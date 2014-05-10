@@ -7,14 +7,12 @@ class Game < ActiveRecord::Base
   before_destroy :check_parties, :check_accounts
   after_save :merge_tags, if: proc { |game| !game.base_game_id.blank? }
 
-  validates_presence_of :name, :difficulty, :min_player, :max_player
-  validates_inclusion_of :difficulty, in: 1..5
-  validates_inclusion_of :target, in: 0..4
-  validates_inclusion_of :time_category, in: 0..3
-  validates_uniqueness_of :name, case_sensitive: true
-  validates_each :min_player, :max_player  do |record, attr, value|
-    record.errors.add attr, 'ne peut pas etre  egal a 0' if value == 0
-  end
+  validates :name, :difficulty, :min_player, :max_player, presence: true
+  validates :difficulty, inclusion: { in: 1..5 }
+  validates :target, inclusion: { in: 0..4 }
+  validates :time_category, inclusion: { in: 0..3 }
+  validates :name, uniqueness: { case_sensitive: true }
+  validates :min_player, :max_player, numericality: { greater_than: 0}
   validate :min_max_player?
 
   has_many :extensions, class_name: 'Game', foreign_key: 'base_game_id', dependent: :nullify

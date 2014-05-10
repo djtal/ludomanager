@@ -1,11 +1,14 @@
 # encoding: UTF-8
 
 class AccountGame < ActiveRecord::Base
-  validates_presence_of :game_id, :account_id
-  validates_uniqueness_of :game_id, scope: :account_id
+  validates :game_id, :account_id, presence: true
+  validates :game_id, uniqueness: { scope: :account_id }
+
   belongs_to :game
   belongs_to :account
+
   before_create :setup_default
+
   #need to play with scope
   scope :recent, lambda { { conditions: ['created_at > ?', 3.month.ago] } }
   scope :no_played, conditions: { :parties_count => 0}
@@ -15,8 +18,8 @@ class AccountGame < ActiveRecord::Base
 
   def self.replace_game(old_game, new_game)
     if new_game && !new_game.new_record?
-    update_all("game_id = #{new_game.id}", game_id: old_game.id)
-  end
+      update_all("game_id = #{new_game.id}", game_id: old_game.id)
+    end
   end
 
   def self.breakdown(key)
@@ -24,7 +27,6 @@ class AccountGame < ActiveRecord::Base
       acc[Game::Target[data[0].to_i][0]] = data[1]
       acc
     end
-
   end
 
   # work like a find but order group games and extensions

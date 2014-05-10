@@ -3,9 +3,11 @@
 class InvalidDateRange < Exception; end
 
 class Party < ActiveRecord::Base
-  validates_presence_of :game_id, :account_id
+  validates :game_id, :account_id, presence: true
+
   belongs_to :game
   belongs_to :account
+
   after_create :up_partie_cache, :update_played_date
   after_destroy :down_partie_cache
 

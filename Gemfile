@@ -33,6 +33,7 @@ gem 'paperclip'
 gem 'by_star'
 gem 'simple_form'
 gem "googlecharts", git: "git://github.com/djtal/googlecharts.git"
+gem 'acts-as-taggable-on'
 
 gem 'newrelic_rpm'
 gem 'foreman'

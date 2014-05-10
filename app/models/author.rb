@@ -1,12 +1,11 @@
 # encoding: UTF-8
 
 class Author < ActiveRecord::Base
-  validates_presence_of :name
+  validates :name, presence: true
+  validates :lang, inclusion: { in: ::Ludomanager::ISOCODES, allow_nil: true, allow_blank: true }
+
   has_many :authorships, dependent: :destroy
   has_many :games, through: :authorships
-  validates_inclusion_of :lang, in: ::Ludomanager::ISOCODES, allow_nil: true, allow_blank: true
-
-
 
   def self.find_or_create_from_str str = nil
     return nil if !str
