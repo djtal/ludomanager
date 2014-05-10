@@ -1,49 +1,81 @@
-ActionController::Routing::Routes.draw do |map|  map.resource :home
-  map.resources :accounts
-  map.resources :editors,
-                :collection => {:search => :get}
-                
-  map.resources :played_games
+Rails.application.routes.draw do
+  resource :home
+  resources :accounts
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  
-  map.resources :parties, 
-                :collection => {:all => :get, :add_party_form => :get, :group => :get, 
-                                :breakdown => :get, :most_played => :get},
-                :has_many => :players
-  
-  map.show_parties "parties/show/:date", :controller => "parties", :action => "show"
-  map.parties_resume "/parties/*date", :controller => "parties", :action => "index"
-  map.resources :authors, :editions
-  map.resources :authorships, :collection => {:new_partial_form => :get}
-  
-  map.resources :account_games,
-                :collection => {:all => :get, :search => :post, :missing  => :get, :group => :get}
-  map.resources :tags, :collection => {:lookup => :get} 
-
-  map.resources :game_extensions
-  
-  map.resources :games,
-                :has_many => [:authorships, :editions, :tags] ,
-                :collection => {:search => :get}, 
-                :member => {:replace => :get, :merge => :post} do |game|
-    
-    game.resources :game_extensions,
-                  :collection => {:destroy_multiple => :delete}
-                  
+  resources :editors do
+    collection do
+      get 'search'
+    end
   end
-                
+
+  resources :played_games
+
+  resources :parties do
+
+    collection do
+      get :all
+      get :add_party_form
+      get :group
+      get :breakdown
+      get :most_played
+    end
+
+    resources :players
+  end
+
+  get "parties/show/:date" => "parties#show", as: "show_parties"
+  get "/parties/*date" => "parties#index", as: :parties_resume
+
+  resources :authors, :editions
+  resources :authorships do
+    collection do
+      get :new_partial_form
+    end
+  end
+
+  resources :account_games do
+    collection do
+      get :all
+      post :search
+      get :missing
+      get :group
+    end
+  end
+
+  resources :tags do
+    collection do
+      get :lookup
+    end
+  end
+
+  resources :game_extensions
+
+  resources :games do
+    resources :authorships, :editions, :tags
+
+    collection do
+      get :search
+    end
+
+    member do
+      get :replace
+      post :merge
+    end
+
+    resources :game_extensions do
+      collection do
+        delete :destroy_multiple
+      end
+    end
+  end
 
 
-  map.signup '/signup', :controller => 'accounts', :action => 'new'
-  map.login  '/login', :controller => 'sessions', :action => 'new'
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  
-  map.resource :session
-  map.resource :dashboard
-  
-  map.root  :controller => "games"
 
-  # Install the default route as the lowest priority.
-  map.connect ':controller/:action/:id'
+  get '/signup' => 'accounts#new', as: :signup
+  get '/login'  => 'sessions#new', as: :login
+  get '/logout' => 'sessions#destroy', as: :logout
+
+  resource :session
+  resource :dashboard
+
 end

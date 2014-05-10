@@ -9,7 +9,7 @@ class Party < ActiveRecord::Base
   after_create :up_partie_cache, :update_played_date
   after_destroy :down_partie_cache
 
-  named_scope :for_day, lambda{ |date|
+  scope :for_day, lambda{ |date|
     { conditions: ["parties.created_at BETWEEN ? AND ?", date.beginning_of_day, date.end_of_day],
       order: 'parties.created_at ASC' }
   }

@@ -34,10 +34,9 @@ class Game < ActiveRecord::Base
 
 
   acts_as_taggable
-  scope_procedure :start, searchlogic_lambda(:string) { |letter| name_begins_with_any(letter.downcase, letter.upcase).ascend_by_name }
 
-  named_scope :extensions, conditions: ["base_game_id <> ''"]
-  named_scope :base_games, conditions: ["base_game_id IS ? OR (base_game_id <> '' AND standalone = ? )",nil,  true]
+  scope :extensions, conditions: ["base_game_id <> ''"]
+  scope :base_games, conditions: ["base_game_id IS ? OR (base_game_id <> '' AND standalone = ? )",nil,  true]
 
 
   def self.search(query = "", page = 1)
