@@ -11,12 +11,8 @@
     <% end %>
 </div>
 
-<div>
-  <% if @authors.size > 0 %>
-    <%= render :partial => @authors, :spacer_template => "shared/spacer" %>
-  <% else %>
-    <span class="empty">Aucun editeurs actuellement en base.</span>
-  <% end %>
+<div id="authors">
+  <%= render @authors || content_tag(:p, "Desolé. Aucun editeurs ne corespond a vos criteres.  ") %>
 </div>
 
 
@@ -25,5 +21,5 @@
 </div>
 
 <% content_for :newsbox do %>
-  
+
 <% end %>

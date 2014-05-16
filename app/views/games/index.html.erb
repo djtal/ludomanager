@@ -1,5 +1,5 @@
 
-<%  content_for :page_nav do%>
+<% content_for :page_nav do %>
     <%= will_paginate @games %>
 <% end %>
 
@@ -13,15 +13,11 @@
 </div>
 
 <div>
-	
+
 	<div id="games">
-		<% if @games.size > 0 %>
-			<%= render :partial => @games, :spacer_template => "shared/spacer" %>
-		<% else %>
-			Desolé. Aucun jeux ne corespond a vos criteres.
-		<% end %>
+    <%= render @games || content_tag(:p, "Desolé. Aucun jeux ne corespond a vos criteres.  ") %>
 	</div>
-	
+
 </div>
 
 <%= yield :page_nav %>

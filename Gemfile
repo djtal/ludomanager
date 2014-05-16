@@ -40,6 +40,11 @@ gem 'foreman'
 
 gem 'recap', '~>1.0.0'
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
 group :test do
   gem 'shoulda', '2.10.3'
   gem 'factory_girl', '1.2.4'

@@ -70,7 +70,7 @@ module GamesHelper
     game.editions.map(&:lang).uniq.inject("") do |acc, lang|
       css = css_for_lang(lang)
       acc << content_tag(:span, "", class: "right ss_flag #{css}")
-    end
+    end.html_safe
   end
 
   def external_game_link(game)

@@ -3,16 +3,25 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  helper :all
-  include AuthenticatedSystem
-  protect_from_forgery
-  filter_parameter_logging :password
+  # include AuthenticatedSystem
+  protect_from_forgery with: :exception
 
   # If you want "remember me" functionality, add this before_filter to Application Controller
-  before_filter :login_from_cookie
+  # before_filter :login_from_cookie
   before_filter :set_section
   before_filter :set_timezone
   before_filter :get_account_games, if: :logged_in?
+
+  # Until we migrate to devise
+  def current_account
+    Account.first
+  end
+
+  def logged_in?
+    false
+  end
+
+  helper_method :logged_in?, :current_account
 
 
 

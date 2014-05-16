@@ -1,7 +1,7 @@
-<% div_for editor, :class => "game clear" do %>
+<%= content_tag_for :div, editor, class: "game clear" do %>
   <h3>
 	  <span class=" right <%= css_for_lang(editor.lang) %>"></span>
-	  <%= link_to editor.name, editor_path(editor) %> 
+	  <%= link_to editor.name, editor %>
 	</h3>
 	<div class="content">
 	  <div class="column span-3 last"><%= image_tag(editor.logo.url(), :size => "70x70", :class => "mini") %></div>
@@ -10,7 +10,7 @@
   	    <h4>Ces dernieres sorties</h4>
   	     <% if editor.editions.count > 0 %>
   	      <ul class="horizontal">
-  	        <% editor.editions.find(:all, :limit => 5, :order => "published_at DESC ", :include => :game).each do |e| %>
+  	        <% editor.editions.limit(5).order(published_at: :desc).includes(:game).each do |e| %>
     	        <li id="<%= dom_id(e) %>" class="surround tip">
     	            <%= image_tag(e.game.box.url(:normal), :size => "45x45", :class => "mini", :alt => e.game.name) %>
     	        </li>
@@ -22,12 +22,9 @@
   	    <% else %>
   	      <p class="empty">Cet &eacute;diteur n'a plubli&eacute; auncun jeux pour le moment.</p>
   	    <% end %>
-
-
   	  </div>
-    </div> 
+    </div>
 	</div>
-
 <% end %>
 
 

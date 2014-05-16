@@ -4,17 +4,13 @@ class AuthorsController < ApplicationController
   subnav :authors
 
   def index
-    opts = {
-      page: params[:page],
-      include: :authorships
-    }
-    @first_letters = Author.find(:all, select: :name).map { |a| a.name.first.downcase }.uniq
+    @first_letters = Author.where.not(surname: nil).pluck(:surname).map { |name| name.first.downcase }.uniq
     respond_to do |format|
       format.html do
         @authors = if params[:start]
           Author.start(params[:start]).paginate(opts)
         else
-          Author.paginate(opts)
+          Author.includes(:authorships).paginate(page: params[:page], per_page: 15)
         end
       end
       format.json do

@@ -7,13 +7,12 @@ class EditorsController < ApplicationController
     @editors = if params[:start]
       Editor.start(params[:start]).paginate(page: params[:page])
     else
-      Editor.paginate(order: 'name ASC', page: params[:page])
+      Editor.order(:name).paginate(page: params[:page])
     end
 
-    @first_letters = Editor.find(:all, select: :name).map { |e| e.name.first.downcase }.uniq
-    @last_active = Edition.find(:all,  order: 'editions.published_at DESC, editions.created_at DESC',
-                                       group: :editor_id,
-                                       include: :editor, limit: 10).map(&:editor)
+    @first_letters = Editor.pluck(:name).map { |name| name.first.downcase }.uniq
+    @last_active = Edition.includes(:editor).limit(10).group(:editor_id).order('editions.published_at DESC, editions.created_at DESC')
+    @last_active = @last_active.map(&:editor)
   end
 
   def search

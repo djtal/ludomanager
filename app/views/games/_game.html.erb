@@ -1,7 +1,7 @@
-<% div_for game, :class => "autohide clear" do %>
+<%= content_tag_for :div,  game, class: "autohide clear" do %>
 	<h3>
 	  <div class="right"><%= langs_flag_for(game) %></div>
-	  <%= link_to game.name, game_path(game) %> 
+	  <%= link_to game.name, game %>
 	  <span class="small"><%= other_name_for(game, game.editions) %></span>
 	</h3>
   <div class="clear content">
@@ -9,8 +9,8 @@
   	<div class="column span-14 last">
     	  <div class="block">
     	    <h4><span class="ss_sprite ss_document"></span>Description</h4>
-    	    <% if !game.description.blank? %>
-      	    <%=truncate(h(game.description), :length => 215, :omission => "... " + link_to("Voir la suite", game_path(game))) %>
+    	    <% if game.description.present? %>
+            <%= truncate(game.description, length: 215, omission: " #{link_to("Voir la suite", game)}") %>
       	  <% else %>
       	      <span class="empty">Ce jeux ne possede aucun description actuellement</span>
       	  <% end %>

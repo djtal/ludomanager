@@ -1,14 +1,14 @@
-<% div_for author, :class => "game clear" do %>
+<%= content_tag_for :div, author, class: "game clear" do %>
   <h3>
     <span class=" right <%= css_for_lang(author.lang) %>"></span>
-	  <%= link_to "#{author.name} - #{author.surname}", author_path(author) %> 
+	  <%= link_to "#{author.name} - #{author.surname}", author_path(author) %>
 	</h3>
   <div class="content">
     <div class="block">
       <h4>Ces derniers jeu(x)</h4>
       <% if author.authorships.size > 0 %>
         <ul class="horizontal clear">
-          <% author.games.find(:all, :limit => 5).each do |g| %>
+          <% author.games.limit(5).each do |g| %>
             <li id="<%= dom_id(g) %>" class="surround tip">
   	            <%= image_tag(g.box.url(:normal), :size => "45x45", :class => "mini", :alt => g.name) %>
   	        </li>

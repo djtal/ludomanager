@@ -14,11 +14,7 @@
 
 
 <div>
-  <% if @editors.size > 0 %>
-		<%= render :partial => @editors, :spacer_template => "shared/spacer" %>
-	<% else %>
-		Aucun editeurs actuellement en base.
-	<% end %>
+  <%= render @editors || content_tag(:p, "Desolé. Aucun editeur ne corespond a vos criteres.  ") %>
 </div>
 
 <div class="page-nav">
