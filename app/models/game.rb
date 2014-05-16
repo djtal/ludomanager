@@ -29,6 +29,7 @@ class Game < ActiveRecord::Base
                               normal: ['70x70!', :png],
                               big: ['90x90!', :png]},
                     default_url: '/system/:attachment/:style/missing.png'
+  validates_attachment :box, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
 
   acts_as_taggable
