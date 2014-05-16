@@ -17,9 +17,8 @@ class EditorsController < ApplicationController
   end
 
   def search
-    @editors = Editor.paginate( page: params[:page],
-                                conditions: ["LOWER(name) LIKE ?","%#{params[:search].downcase}%"],
-                                order: 'name ASC')
+    @editors = Editor.where("LOWER(name) LIKE ?", "%#{params[:search].downcase}").order(:name)
+    @editors = @editors.paginate( page: params[:page])
     render action: :index
   end
 

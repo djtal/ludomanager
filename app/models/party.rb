@@ -31,7 +31,7 @@ class Party < ActiveRecord::Base
     end
     return ActiveSupport::OrderedHash.new if  options[:from] == nil || options[:to] == nil
     raise InvalidDateRange if options[:from] > options[:to]
-    yearly = (options[:from]..options[:to]).inject(ActiveSupport::OrderedHash.new) do |breakdown, year|
+    yearly = (options[:from]..options[:to]).inject({}) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|
         acc << self.count_by_month(:id, month, year: year) do
           options[:scope]
@@ -51,16 +51,13 @@ class Party < ActiveRecord::Base
   end
 
   def self.player_breakdown(opts = {})
-    return ActiveSupport::OrderedHash.new if self.count(:id, conditions: { game_id: opts[:game].id}) == 0
-    self.count(:id, conditions: { game_id: opts[:game].id}, group: :nb_player)
+    where(game_id: opts[:game]).group(:nb_player).count(:id)
   end
 
   def self.play_range(opts = {})
-    options = {}
-    if opts[:game]
-      options[:conditions] = { game_id: opts[:game].id }
-    end
-    firstPlay = self.minimum(:created_at, options)
+    scope = self
+    scope = self.where(game_id: opts[:game]) if opts[:game].present
+
     from = if firstPlay
       firstPlay.year > 3.year.ago.year ? firstPlay.year : 3.year.ago.year
     else
@@ -70,55 +67,44 @@ class Party < ActiveRecord::Base
   end
 
   def self.previous_play_date_from(date= Time.zone.now)
-    p = find(:first, conditions: ["created_at < ?", date.beginning_of_day], order: 'created_at DESC')
-    return p.created_at if p
-    nil
+    where("created_at < ?", date.beginning_of_day).order(created_at: :desc).first
+    p.present ? p.created_at  : nil
   end
 
   def self.next_play_date_from(date= Time.zone.now)
-    p = find(:first, conditions: ["created_at > ?", date.end_of_day], order: 'created_at ASC')
-    return p.created_at if p
-    nil
+    where("created_at > ?", date.beginning_of_day).order(created_at: :desc).first
+    p.present ? p.created_at  : nil
   end
 
   def self.replace_game(old_game, new_game)
     if new_game && !new_game.new_record?
-      update_all("game_id = #{new_game.id}", game_id: old_game.id)
+      where(game_id: game.id).update_all(game_id: old_game.id)
     end
   end
 
 
   def self.by_game(game_first_letter = "")
-    opts = {
-      include: :game,
-      group: :game,
-      order: 'count_id DESC'
-    }
-    opts[:conditions] = ["lower(games.name) LIKE ?", "#{game_first_letter.downcase}%"] if game_first_letter
-    count(:id, opts)
+    scope = self.includes(:game).group(:game)
+    scope = scope.where("lower(games.name) LIKE ?", "#{game_first_letter}") if game_first_letter.present?
+    scope.order('count_id desc').count(:id)
   end
 
 
-  def self.last_play(count, opts = {})
+  def self.last_play(count)
+    order(created_at: "desc").limit(count)
+  end
+
+  def self.most_played(year = Time.zone.now.year, opts = {})
     options = {
-      limit: count,
-      order: 'parties.created_at DESC'
-    }.merge(opts)
-    find(:all, options)
-  end
-
-  def self.most_played(count, year = nil)
-    opts = {
-      group: :game,
-      order: 'count_id DESC',
-      limit: count
-    }
-    if year != nil && year.to_i > 0
-      start_date = Time.now.in((year.to_i - Time.now.year).year).beginning_of_year
-      end_date = start_date.end_of_year
-      opts[:conditions] = ["parties.created_at BETWEEN ? AND ?", start_date, end_date]
+      count: 5
+    }.reverse_merge(opts)
+    scope = self.includes(:game).group(:game)
+    if year.to_i > 0
+      start_date = (year.to_i - Time.now.year).year.from_now.beginning_of_year
+      scope = scope.where"parties.created_at BETWEEN ? AND ?", start_date, start_date.end_of_year
     end
-    calculate(:count, :id, opts)
+    scope = scope.limit(options[:count])
+    scope.order('count_id desc').count(:id)
   end
 
 
@@ -148,7 +134,7 @@ class Party < ActiveRecord::Base
 
 
   def find_account_game
-    AccountGame.find(:first, conditions: { game_id: self.game_id, account_id: self.account_id })
+    AccountGame.where(game_id: self.game_id, account_id: self.account_id).first
   end
 
 end

@@ -9,6 +9,8 @@ class Edition < ActiveRecord::Base
 
   before_save :set_lang
 
+  scope :for_text, lambda { |q| where('LOWER(name) like ?', "%#{q.downcase}%")}
+
   def select_name
     "#{editor.name} - #{lang} - #{published_at.year if published_at}"
   end

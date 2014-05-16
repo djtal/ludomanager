@@ -13,6 +13,7 @@ class AccountGame < ActiveRecord::Base
   scope :recent, -> { where("created_at > ?", 3.month.ago)}
   scope :no_played, -> { where("parties_count > 0") }
 
+
   cattr_reader :per_page
   @@per_page = 50
 
@@ -52,7 +53,7 @@ class AccountGame < ActiveRecord::Base
   end
 
   def parties_played_count
-    Party.count(conditions: { game_id: game_id, account_id: account_id})
+    Party.where(game_id: game_id, account_id: account_id).count
   end
 
   protected

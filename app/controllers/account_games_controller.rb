@@ -7,16 +7,9 @@ class AccountGamesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        find_opts = {
-          include: :game,
-          page: params[:page]
-        }
-        if params[:time]
-          find_opts[:conditions] = { games: { time_category: params[:time] } }
-        end
-        if params[:target]
-          find_opts[:conditions]  = { games: { target: params[:target] } }
-        end
+        scope = current_account.account_games.include(:game)
+        scope = scope.where(games: {time_category: params[:time] }) if params[:time].present?
+        scope = scope.where(games: { target: params[:target] }) if params[:target].present?
 
         @mode = if params[:mode]
           params[:mode].to_sym
@@ -24,20 +17,18 @@ class AccountGamesController < ApplicationController
           :view
         end
 
-        @account_games = if params[:start]
-          current_account.account_games.start(params[:start])
-        else
-          current_account.account_games
-        end.paginate(find_opts)
+        @account_games = scope.paginate(per_page: params[:per_page])
 
         #order base game no extension aplha
-        base_games, extensions = @account_games.partition{|ac_game| ac_game.game.base_game_id.blank?}
+        base_games, extensions = @account_games.partition{ |ac_game| ac_game.game.base_game_id.blank? }
+
         @order_account_games = base_games.sort_by{|ac_game| ac_game.game.name}.inject([]) do |acc, ac_game|
           exts = extensions.select{|ext| ext.game.base_game_id == ac_game.game_id}
           acc << ac_game
           acc << exts unless exts.empty?
           acc
         end.flatten
+
         #need to know wich letter have games or not
         @first_letters = current_account.games.first_letters
         ["recent", "no_played", "all"].each do |var|
@@ -78,7 +69,7 @@ class AccountGamesController < ApplicationController
   end
 
   def missing
-    @missing = Game.find(:all, select: "id, name", conditions: ["(id NOT IN (?))", @account_games.map(&:game_id)])
+    @missing = Game.where.not(id: @account_games.map(&:id))
     respond_to do |format|
       format.json { render json: @missing.to_json(only: [:id, :name]) }
     end
@@ -101,8 +92,8 @@ class AccountGamesController < ApplicationController
   end
 
   def edit
-    @account_game = current_account.account_games.find(params[:id])
-    @editions = Edition.find(:all, order: "published_at ASC", conditions: { game_id: @account_game.game_id })
+    @account_game = current_account.account_games.find_id(params[:id])
+    @editions = Edition.where(game_id: @account_game.game_id).order(:published_at)
   end
 
   def create
@@ -110,7 +101,7 @@ class AccountGamesController < ApplicationController
     @new_games = current_account.account_games.create(acc_games)
     respond_to do |format|
       if @new_games.inject(true){|acc, record| acc = acc && !record.new_record? }
-        @account_games = current_account.account_games.all
+        @account_games = current_account.account_games
         flash[:now] = "#{@new_games.count} jeux ont été ajoutés a votre ludotheque"
         format.html { redirect_to account_games_url}
         format.js do
@@ -125,7 +116,7 @@ class AccountGamesController < ApplicationController
   end
 
   def update
-    @account_game = current_acc ount.account_games.find(params[:id])
+    @account_game = current_account.account_games.find_by_id(params[:id])
     #why this line
     params[:account_game] = params[:account_game][@account_game.id.to_s] if params[:account_game].size == 1
     respond_to do |format|
@@ -144,7 +135,7 @@ class AccountGamesController < ApplicationController
       @account_game = current_account.account_games.find_by_game_id(params[:game_id])
       @context = :game
     else
-      @account_game = AccountGame.find(params[:id])
+      @account_game = AccountGame.find_by_id(params[:id])
       @context = :account_game
     end
     @account_games = current_account.account_games.all

@@ -35,16 +35,17 @@ class Game < ActiveRecord::Base
 
   scope :extensions, -> { where.not(base_game_id: nil) }
   scope :base_games, -> { where("base_game_id IS ? OR (base_game_id <> '' AND standalone = ? )", nil, true) }
+  scope :for_text, lambda { |q| where('LOWER(name) like ?', "%#{q.downcase}%")}
+  scope :latest, lambda { |l| order(:created_at).limit(l) }
 
   def self.search(query = "", page = 1)
     return [] if query.blank?
-    games = find(:all, conditions: ['LOWER(name) like ?', "%#{query.downcase}%"], order: 'name')
-    editions = Edition.find(:all, conditions: ['LOWER(name) like ?', "%#{query.downcase}%"], order: 'name').map(&:game)
+    games = for_text(query).to_a + Edition.for_text(q).includes(:game)
     (games + editions).uniq.compact.sort_by(&:name).paginate(per_page: 10, page: page)
   end
 
   def self.first_letters
-    find(:all, select: :name).map{ |a| a.name.first.downcase }.uniq
+    all.pluck(:name).map { |n| name.first.downcase }.uniq
   end
 
 
@@ -77,9 +78,7 @@ class Game < ActiveRecord::Base
 
 
   def available_lang
-    langs = []
-    langs = editions.map(&:lang).compact.uniq if editions.any?
-    langs
+    editions.pluck('DISTINCT lang')
   end
 
   def tag_list

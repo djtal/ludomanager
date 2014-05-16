@@ -23,8 +23,7 @@ class Account < ActiveRecord::Base
     # => total of parties played with game i own
     # => total of parties played with other game
     def split_mine(games)
-      ids = games.map{|g| g.id}
-      mine = count(conditions: { game_id: ids } )
+      mine = where(game_id: games).count
       [mine , count - mine]
     end
   end
