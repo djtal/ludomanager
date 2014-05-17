@@ -9,7 +9,7 @@
 
 
 <% content_for :newsbox do %>
-  <% render_widget "Adminsitration", :sprite => "ss_tower", :layout => "layouts/game_widget", :locals => {:game => @game} do %>
+  <%= render_widget "Adminsitration", :sprite => "ss_tower", :layout => "layouts/game_widget", :locals => {:game => @game} do %>
       <li><%= link_to "Supprimer des &eacute;ditions", :class => "ss_sprite ss_trash" %></li>
       <li><%= link_to "Ajouter",  new_game_edition_path(@game), :class => "ss_sprite ss_add" %></li>
       <hr />

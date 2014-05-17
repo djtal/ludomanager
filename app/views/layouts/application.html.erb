@@ -27,12 +27,12 @@
 	</div>
 
 	<div class="column last span-7" id="innernews">
-	  <% render_widget "Information", :sprite => "ss_mail" do %>
+	  <%= render_widget "Information", :sprite => "ss_mail" do %>
       <p><%= flash[:now] %></p>
     <%  end if flash[:now] %>
 
 		<%= yield :newsbox %>
-	  <% render_widget "A vous de jouer" do %>
+	  <%= render_widget "A vous de jouer" do %>
 	    Vous aussi gerez votre ludotheque grace a ludomanager. Pour cela enregistrez vous des maintenant.
 	    <%= link_to "A vous de jouez", signup_path %>...
 	  <% end unless logged_in? %>

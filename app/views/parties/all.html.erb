@@ -7,7 +7,7 @@
         <%= link_for_first_letter letter, :all_parties_path %>
       <% end %>
   </div>
-  
+
   <table class="sortable">
     <thead>
       <tr>
@@ -21,7 +21,7 @@
       <% end %>
     </tbody>
   </table>
-  
+
   <div class="page-nav">
     <%= will_paginate @parties %>
 	</div>
@@ -32,13 +32,13 @@
 
 <% content_for :newsbox do %>
   <div id="placeholder-2">
-    <% render_widget "Repartition de vos parties", :sprite => "ss_pie_chart" do %>
+    <%= render_widget "Repartition de vos parties", :sprite => "ss_pie_chart" do %>
       <%= @chart.image_tag %>
     <% end %>
   </div>
-  
+
   <div id="placeholder-3">
-    
+
     <%= render_widget "Vos derniers parties", :sprite => "ss_tower", :partial => "last" %>
   </div>
 <% end %>

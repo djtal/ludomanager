@@ -19,7 +19,7 @@
 <% end -%>
 
 <% content_for :newsbox do %>
-  <% render_widget "Administration", :sprite => "ss_tower" do %>
+  <%= render_widget "Administration", :sprite => "ss_tower" do %>
     <div class="clear">
       <div class="column">
         <%= image_tag(@base.box.url(:normal), :class => "mini left") %>

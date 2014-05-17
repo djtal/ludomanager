@@ -3,7 +3,7 @@
   <span class="small"><%= other_name_for(@game, @editions) %></span>
 </h3>
 
-<% div_for @game, :class => "clear" do %>
+<%= content_tag_for :div,  @game, class: "clear" do %>
 	<div class="column span-4 last">
 	</div>
 	<div class="column span-17 last">
@@ -35,15 +35,15 @@
      			<span class="ss_sprite ss_users">Joueurs : <span class="meta"><%= @game.min_player %> a <%= @game.max_player %></span></span>&nbsp;|&nbsp;
      		  <span class="ss_sprite ss_tv">Public : <span class="meta"><%= @game.target_str.downcase %></span><span>
      			<span class="ss_sprite ss_clock ">Dur&eacute;e : <span class="meta"><%= @game.time_str %></span></span>&nbsp;|&nbsp;
-      	  
+
       	  <% if @game.base_game && !@game.standalone %>
       	    <br /><br />
-      	    <span class="ss_sprite ss_information">Ce jeu est une <strong>extension</strong> 
-      	      et n&eacute;cessite le jeu de base 
+      	    <span class="ss_sprite ss_information">Ce jeu est une <strong>extension</strong>
+      	      et n&eacute;cessite le jeu de base
       	    <%= link_to @game.base_game.name, game_path(@game.base_game), :class => "meta" %></span>
           <% elsif @game.base_game && @game.standalone %>
               <br /><br />
-              <span class="ss_sprite ss_information">Ce jeu peut etre <strong>joué seul</strong> 
+              <span class="ss_sprite ss_information">Ce jeu peut etre <strong>joué seul</strong>
                 ou en tant <strong>qu'extension</strong> du jeu de base <%= link_to @game.base_game.name, game_path(@game.base_game), :class => "meta" %></span>
           <% end %>
       	</div>
@@ -71,7 +71,7 @@
 
 <% content_for :newsbox do %>
 
-  <% render_widget "Administration" do %>
+  <%= render_widget "Administration" do %>
     <ul>
       <% if logged_in? %>
         <li id="<%= dom_id(@game)%>_status"><%= ac_game_status_link_to(@game) %></li>
@@ -87,14 +87,14 @@
     </ul>
   <% end  %>
 
-  <% render_widget "Statistiques" do %>
+  <%= render_widget "Statistiques" do %>
 		<span class="flash"><%= pluralize(@game.account_games.size, "membre</span> a", "membres</span> ont") %>
 		ce jeu dans leurs ludotheque.
     <br />
-		Nos membres ont joués un total de 
+		Nos membres ont joués un total de
 		<span class='flash'><%= pluralize(@game.parties.count, "partie</span>", "parties</span>") %> de ce jeu.
 	<% end %>
-	
+
 <% end %>
 
 

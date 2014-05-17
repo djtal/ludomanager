@@ -12,7 +12,7 @@
         <%= f.hidden_field :edition_id %>
         <%= f.hidden_field :game_id, :class => "game_id" %>
         <%= error_messages_for :account_game, :object => ac %>
-      </fieldset>  
+      </fieldset>
     <% end %>
   <% end %>
 
@@ -24,12 +24,12 @@
 <% end %>
 
 <% content_for :newsbox do %>
-  <% render_widget "Aide" do %>
+  <%= render_widget "Aide" do %>
     <div class="block">
       <h4>(1) Nom de votre jeu</h4>
       Commencez a taper le nom de votre jeu. L'application vous proposera automatiquement les jeux correspondant que vous
       ne possedez pas encore.
     </div>
   <% end %>
-  
+
 <% end %>

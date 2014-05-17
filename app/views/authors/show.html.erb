@@ -24,7 +24,7 @@
       <%= render :partial => "games/game_table", :collection => @games %>
     </tbody>
   </table>
-  
+
   <%= will_paginate @games %>
 <% else %>
   <p class="empty">Cet auteur n'a encore aucun jeux a son actif</p>
@@ -33,7 +33,7 @@
 
 <% content_for :newsbox do %>
   <div id="placeholder-1">
-    <% render_widget "Administration" do %>
+    <%= render_widget "Administration" do %>
       <ul>
         <% if logged_in? %>
           <li><%= link_to "Editer", edit_author_path(@author), :class => "ss_sprite ss_trash" %></li>

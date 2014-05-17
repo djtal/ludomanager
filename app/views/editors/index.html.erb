@@ -22,7 +22,7 @@
 </div>
 
 <% content_for :newsbox do %>
-  <% render_widget "Dernieres activit&eacute;es", :sprite => "ss_tower" do %>
+  <%= render_widget "Dernieres activit&eacute;es", :sprite => "ss_tower" do %>
       <ul class="strip">
         <% @last_active.each do |e| %>
           <li>

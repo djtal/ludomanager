@@ -57,12 +57,12 @@
 
 
 <% content_for :newsbox do %>
-  
-  <% render_widget "Repartition de vos jeux", :sprite => "ss_pie_chart" do %>
+
+  <%= render_widget "Repartition de vos jeux", :sprite => "ss_pie_chart" do %>
     <%= @chart.image_tag %>
   <% end %>
-  
-  <% render_widget "Mes jeux en bref" do %>
+
+  <%= render_widget "Mes jeux en bref" do %>
     <div class="block">
       <h4>Par niveaux</h4>
       <ul>
@@ -73,16 +73,16 @@
     </div>
     <div class="block">
       <h4>Par dur&egrave;e</h4>
-      <ul>  
+      <ul>
         <% Game::TimeCategory.each do |time| %>
           <li><%= link_to time[0], account_games_path(:time => time[1]) %></li>
         <% end %>
     </ul>
     </div>
-  
+
   <% end %>
-  
-  
+
+
 <% end %>
 
 <% content_for :subnav do %>

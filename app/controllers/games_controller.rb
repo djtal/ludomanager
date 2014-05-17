@@ -27,8 +27,8 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find_by_id(params[:id]).includes(:tags, :authors, :extensions, :base_game)
-    @editions = @game.editions.includes(:editors).order(:published_at)
+    @game = Game.includes(:tags, :authors, :extensions, :base_game).find_by_id(params[:id])
+    @editions = @game.editions.includes(:editor).order(:published_at)
     @title = @game.name
   end
 

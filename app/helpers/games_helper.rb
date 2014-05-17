@@ -62,8 +62,9 @@ module GamesHelper
   # Return all foreign game name for an editions list
   #
   def other_name_for(game, editions )
-    txt = editions.map{|e| e.name unless e.name.blank? }.uniq.compact * " , "
-    txt = "(#{txt})" unless txt.blank?
+    return "" unless editions
+    names = editions.where.not(name: "").distinct.pluck("name").compact
+    "(#{names * ', '})" if names.any?
   end
 
   def langs_flag_for(game)

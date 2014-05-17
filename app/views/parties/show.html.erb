@@ -8,7 +8,7 @@
     <% unless @played_before.include?(game) %>
       <strong class="right ss_coffee ss_sprite red">new</strong>
     <% end %>
-    <h4><%= game.name %></h4> 
+    <h4><%= game.name %></h4>
     <div class="column span-3">
   	  <%= image_tag(game.box.url(:normal), :class => "") %>
     </div>
@@ -19,7 +19,7 @@
         <% end %>
       </ul>
     </div>
-    
+
   </div>
 
 
@@ -42,7 +42,7 @@
 
 
 <% content_for :newsbox do %>
-  <% render_widget "Mes parties en bref" do %>
+  <%= render_widget "Mes parties en bref" do %>
 
   <% end %>
 <% end %>

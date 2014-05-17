@@ -4,10 +4,10 @@
 
 <h3>
   <% if @game %>
-    Les &eacute;ditions de <%= @game.name %> 
+    Les &eacute;ditions de <%= @game.name %>
   <% else %>
     Gestion des &eacute;ditions
-  <% end %>  
+  <% end %>
 </h3>
 
 
@@ -35,7 +35,7 @@
 </div>
 
 <% content_for :newsbox do %>
-  <% render_widget "Les dernieres editions", :sprite => "ss_tower" do %>
+  <%= render_widget "Les dernieres editions", :sprite => "ss_tower" do %>
     <ul class="strip">
       <% @last.each do |edition| %>
         <li>
@@ -45,8 +45,8 @@
       <% end %>
     </ul>
   <% end  if @last %>
-  
-  <% render_widget "Adminsitration", :sprite => "ss_tower", :layout => "layouts/game_widget", :locals => {:game => @game} do %>
+
+  <%= render_widget "Adminsitration", :sprite => "ss_tower", :layout => "layouts/game_widget", :locals => {:game => @game} do %>
       <li><%= link_to "Ajouter",  new_game_edition_path(@game), :class => "ss_sprite ss_add" %></li>
       <hr />
       <li><%= link_to "Revenir sur #{@game.name}", game_path(@game), :class => "ss_sprite ss_left" %></li>

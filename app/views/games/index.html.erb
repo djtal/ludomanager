@@ -24,7 +24,7 @@
 
 <% content_for :newsbox do %>
 
-  <% render_widget "Les derniers ajouts", :sprite => "ss_tower" do %>
+  <%= render_widget "Les derniers ajouts", :sprite => "ss_tower" do %>
     <ul class="strip">
       <% @last.each do |game| %>
         <li>
