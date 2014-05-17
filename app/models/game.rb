@@ -46,7 +46,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.first_letters
-    all.pluck(:name).map { |n| name.first.downcase }.uniq
+    pluck(:name).map { |n| n.first.downcase }.uniq
   end
 
 
