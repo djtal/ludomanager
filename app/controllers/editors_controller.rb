@@ -22,11 +22,11 @@ class EditorsController < ApplicationController
   end
 
   def show
-    @editor = Editor.find(params[:id], include: :editions)
-    editions = @editor.editions.find(:all, order: 'published_at DESC', include: { game: :editors } )
+    @editor = Editor.includes(:editions).find_by_id(params[:id])
+    editions = @editor.editions.includes(:game).order(:published_at)
     yearly = editions.reject { |ed| ed.published_at.nil? }
     blank = editions.select { |ed| ed.published_at.nil? }
-    @editions = yearly.group_by{ |e| e.published_at.year }
+    @editions = yearly.group_by { |e| e.published_at.year }
     @editions["blank"] = blank if blank.any?
   end
 

@@ -10,6 +10,7 @@ class Edition < ActiveRecord::Base
   before_save :set_lang
 
   scope :for_text, lambda { |q| where('LOWER(name) like ?', "%#{q.downcase}%")}
+  scope :latest, lambda { |l| order(created_at: :desc).limit(l) }
 
   def select_name
     "#{editor.name} - #{lang} - #{published_at.year if published_at}"

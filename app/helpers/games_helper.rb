@@ -29,20 +29,16 @@ module GamesHelper
 
 
   def game_tags_links(game)
-    if game.tags.size > 0
-      game.tags.collect do |tag|
-        link_to(tag.name, tag_path(tag.name), class: "tag #{tag.name}")
-      end
+    if game.tags.any?
+      game.tags.map {  |tag| link_to(tag.name, tag_path(tag.name), class: "tag #{tag.name}") }.join.html_safe
     else
       content_tag(:span,"Ce jeux n'est pas encore categoris&eacute;", class: "empty" )
     end
   end
 
   def authors_links(game)
-    if game.authorships.size > 0
-      game.authors.collect do | a|
-        a ? link_to(a.display_name, author_path(a)) : ""
-      end.compact.join(", ")
+    if game.authors
+      game.authors.map { | a| link_to(a.display_name, a) }.compact.join(',').html_safe
     else
       content_tag(:span, "Ce jeu ne possede pas encore d'auteurs;", class: "empty")
     end

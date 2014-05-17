@@ -21,8 +21,8 @@ class AuthorsController < ApplicationController
   end
 
   def show
-    @author = Author.find(params[:id])
-    @games = @author.games.paginate(page: params[:page], include: :editions, order: 'editions.created_at ASC' )
+    @author = Author.find_by_id(params[:id])
+    @games = @author.games.includes(:editions).order('editions.created_at asc').paginate(page: params[:page])
   end
 
   def new
@@ -30,7 +30,7 @@ class AuthorsController < ApplicationController
   end
 
   def edit
-    @author = Author.find(params[:id])
+    @author = Author.find_by_id(params[:id])
   end
 
   def create
@@ -64,6 +64,7 @@ class AuthorsController < ApplicationController
   end
 
   protected
+
 
   def set_section
     @section = :authors

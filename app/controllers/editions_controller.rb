@@ -8,16 +8,13 @@ class EditionsController < ApplicationController
       @game = Game.find(params[:game_id])
       @editions = @game.editions.paginate(:all, page: params[:page], include: :editor)
     else
-      @editions = Edition.paginate( :all,
-                                    include: [:game, :editor], order => 'games.name asc',
-                                    page: params[:page])
-      @last = Edition.find(:all, include: [:game, :editor], limit: 10, order: 'created_at DESC')
+      @editions = Edition.includes(:game, :editor).order('games.name asc').paginate(page: params[:page])
+      @last = Edition.includes(:game, :editor).latest(10)
     end
-
   end
 
   def show
-    @edition = Edition.find(params[:id])
+    @edition = Edition.find_by_id(params[:id])
   end
 
   def new
@@ -45,8 +42,8 @@ class EditionsController < ApplicationController
   end
 
   def update
-    @game = Game.find(params[:game_id])
-    @edition = Edition.find(params[:id])
+    @game = Game.find_by_id(params[:game_id])
+    @edition = Edition.find_by_id(params[:id])
 
     if @edition.update_attributes(params[:edition])
       flash[:notice] = 'Edition was successfully updated.'
@@ -61,7 +58,7 @@ class EditionsController < ApplicationController
     @edition.destroy
 
     respond_to do |format|
-      format.html { rredirect_to game_editions_path(@edition.game)  }
+      format.html { redirect_to game_editions_path(@edition.game)  }
       format.js
     end
   end

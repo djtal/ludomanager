@@ -5,8 +5,8 @@ class TagsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @cloud = Tagging.count(:id, group: :tag, order: 'count_id DESC',
-                               conditions: ["taggings.taggable_type = ?", Game.acts_as_taggable_options[:taggable_type]])
+        @cloud = ActsAsTaggableOn::Tagging.where(taggings: { taggable_type: 'Game' })
+        @cloud = @cloud.group(:tag).order('count_id desc').count(:id)
         @first_letters = @cloud.keys { |tag| tag.name.first.downcase }
         @cloud = @cloud.to_a.paginate(page: params[:page])
       end
@@ -21,18 +21,17 @@ class TagsController < ApplicationController
   end
 
   def lookup
-    @tags = Tag.find(:all)
+    @tags = ActsAsTaggableOn::Tag.find(:all)
     respond_to do |format|
       format.json { render json: @tags.map(&:name).to_json }
     end
   end
 
   def show
-    @tag = Tag.find_by_name(params[:id])
+    @tag = ActsAsTaggableOn::Tag.find_by_name(params[:id])
     if @tag
-      ids = @tag.taggings.find_all_by_taggable_type(Game.acts_as_taggable_options[:taggable_type],
-                                                    select: :taggable_id).map(&:taggable_id)
-      @games = Game.paginate(page: params[:page], conditions: { id: ids}, order: 'name ASC')
+      ids = @tag.taggings.where(taggable_type: Game).pluck(:taggable_id)
+      @games = Game.where(id: ids).order(:name).paginate(page: params[:page])
     else
       @games = []
       @tag = Tag.new(name: params[:id])
@@ -51,7 +50,7 @@ class TagsController < ApplicationController
   end
 
   def update
-    @tag = Tag.find(params[:id])
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
     if @tag.update_attributes(params[:tag])
       redirect_to tags_path
     else
@@ -60,7 +59,7 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    @tag = Tag.find_by_name(params[:id])
+    @tag = ActsAsTaggableOn::Tag.find(params[:id])
     if @tag.destroy
       respond_to do |format|
         format.js
