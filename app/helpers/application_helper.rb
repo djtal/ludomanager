@@ -55,5 +55,6 @@ module ApplicationHelper
       txt += "<strong>#{link_to back_to_text, back_to}</strong>	 ou #{submit_tag options[:submit_text]}"
       txt += "</div>"
       txt += "</div>"
+      txt.html_safe
     end
 end

@@ -15,8 +15,8 @@
 	    <% end %>
 	   <% if logged_in? %>
 	     <li class="invisitab right clear">
-  	      <%= link_to "", edit_game_path(@game), :class => "ss_sprite ss_pencil" %>
-          <%= link_to "", game_path(@game), :method => :delete, :class => "ss_sprite ss_trash" %>
+  	      <%= link_to "", [:edit, @game], class: "ss_sprite ss_pencil" %>
+          <%= link_to "", @game, method: :delete, class: "ss_sprite ss_trash" %>
        </li>
      <% end %>
 	  </ul>

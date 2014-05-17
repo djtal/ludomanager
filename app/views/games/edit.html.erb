@@ -5,10 +5,9 @@
 
 <h3>Edition de <%= @game.name %></h3>
 
-<%= error_messages_for :game %>
 
-<% form_for(@game, :url => game_path(@game), :html => { :method => :put, :multipart => true, :id => "game_form"}) do |f| %>
-	<%= render :partial => 'form', :locals => {:f => f} %>
+<%= form_for(@game, html: { id: "game_form"} ) do |f| %>
+	<%= render f %>
   <div class="buttons clear">
     <div class="right ">
     	  <strong><%= link_to "Retour sur la liste des jeux", games_path %></strong> ou <%= submit_tag "Enregistrez"%>

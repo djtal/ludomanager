@@ -3,19 +3,11 @@
 <% end %>
 
 <h3>Ajoutez un jeu...</h3>
-<% form_for(@game, :url => games_path, :html => {:multipart => true, :id => "game_form"}) do |f| %>
-
-	<%= render :partial => 'form', :locals => {:f => f} %>
+<%= form_for(@game, html: { id: "game_form" }) do |f| %>
+	<%= render  f %>
   <%= submit_or_back_to games_path, "Retour sur la liste des jeux" %>
 <% end %>
 
 <% content_for :subnav do %>
 	<%= render :partial => "subnav" %>
-<% end %>
-
-
-<% content_for :newsbox do %>
-  <%= render_widget "Attention" do %>
-    <%= error_messages_for :game %>
-  <% end %>
 <% end %>

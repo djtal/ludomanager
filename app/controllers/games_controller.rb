@@ -34,13 +34,13 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-    @base_games = Game.base_games.find(:all)
+    @base_games = Game.base_games
     @authorships = []
     3.times{ @authorships << @game.authorships.new }
   end
 
   def edit
-    @game = Game.find_by_id(params[:id]).includes(:base_game)
+    @game = Game.includes(:base_game).find_by_id(params[:id])
     @base_games = Game.base_games
     @authorships = @game.authorships
     @authorships << @game.authorships.new if @authorships.size == 0
@@ -63,10 +63,9 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(params[:game])
+    @game = Game.new(game_params)
     respond_to do |format|
       if @game.save
-        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list] != ""
         flash[:notice] = 'Game was successfully created.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to game_path(@game) }
@@ -85,8 +84,7 @@ class GamesController < ApplicationController
     @game = Game.find_by_id(params[:id])
 
     respond_to do |format|
-      if @game.update_attributes(params[:game])
-        @game.tag_with params[:tag][:tag_list] if params[:tag] && params[:tag][:tag_list] != ""
+      if @game.update_attributes(game_params)
         flash[:notice] = 'Game was successfully updated.'
         @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to @game }
@@ -122,6 +120,13 @@ class GamesController < ApplicationController
   end
 
   protected
+
+  def game_params
+    params[:game]
+    params.require(:game).permit(:name, :description, :base_game_id, :standalone,
+                                :box, :min_player, :max_player, :target, :time_category,
+                                :difficulty, :tag_list)
+  end
 
   def set_latest
     @lest = Game.latest(10)

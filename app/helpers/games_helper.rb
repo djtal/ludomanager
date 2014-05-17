@@ -8,13 +8,13 @@ module GamesHelper
 
   def ac_game_status_link_to(game, only_sprite = false)
     if account_have_game?(game)
-      link_to_remote(only_sprite ? "" : "Supprimez ce jeu de ma ludotheque",
-                          url: { controller: :account_games,
-      										action: :destroy, game_id: game.id}, method: :delete,
+      ac = current_account.games.find_by_id(game)
+      link_to(only_sprite ? "" : "Supprimez ce jeu de ma ludotheque",
+                          account_game_path(ac), method: :delete,
       										html: { class: "ss_sprite ss_x" } )
     else
-      link_to_remote(only_sprite ? "" : "L'ajouter a ma ludotheque",
-      	                  url: account_games_path(account_game: { "1" => { game_id: game.id }}),
+      link_to(only_sprite ? "" : "L'ajouter a ma ludotheque",
+      	                  account_games_path(account_game: { "1" => { game_id: game.id }}),
       				            method: :post, html: { class: "ss_sprite ss_briefcase" })
     end
   end

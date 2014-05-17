@@ -1,47 +1,44 @@
 <fieldset>
 	<legend>Le plus important</legend>
   <div class="clear">
-    <p><%= f.label :name, "Nom du jeu (Obligatoire)" %><br />
-    <%= f.text_field :name, :size => 60, :class => "title" %></p>
-    
-    <div class="column span-9"><%= f.label :base_game_id, "Jeu de base(si le jeu est une extension)" %><br />
-    <%= f.collection_select :base_game_id, @base_games, :id, :name , {:include_blank => 'Aucune'}, 
+    <p><%= form.label :name, "Nom du jeu (Obligatoire)" %><br />
+    <%= form.text_field :name, :size => 60, :class => "title" %></p>
+
+    <div class="column span-9"><%= form.label :base_game_id, "Jeu de base(si le jeu est une extension)" %><br />
+    <%= form.collection_select :base_game_id, @base_games, :id, :name , {:include_blank => 'Aucune'},
       {:class => "chzn-select"} %></div>
-    <div class="column span-4"><%= f.label "Jouable seul" %><br />
-    <%= f.check_box :standalone %></div>
+    <div class="column span-4"><%= form.label "Jouable seul" %><br />
+    <%= form.check_box :standalone %></div>
   </div>
   <br />
-  <p><%= f.label :description, "Une petite description" %><br />
-  <%= f.text_area :description, :rows => 5, :cols => 71 %></p>
-	<% fields_for :tag, @game  do |ff| %>
-	  <%= render :partial => "tags/new", :locals => {:f => ff} %>
-	<% end %>
-</fieldset>
+  <p><%= form.label :description, "Une petite description" %><br />
+  <%= form.text_area :description, :rows => 5, :cols => 71 %></p>
+  <%= render "tags/new", f: form %>
 
 <fieldset>
   <legend>Associer une image de la boite</legend>
-  <p><%= f.label :box, "Image de la boite" %><br />
-  <%= f.file_field :box %></p>
+  <p><%= form.label :box, "Image de la boite" %><br />
+  <%= form.file_field :box %></p>
 </fieldset>
 
 <fieldset>
 	<legend>Le coin technique</legend>
- 	  <p><%= f.label :min_player, "De " %><%= f.text_field :min_player, :size => 2 %>
- 	  &nbsp;<%= f.label :max_player, "A " %><%= f.text_field :max_player, :size => 2 %>
+ 	  <p><%= form.label :min_player, "De " %><%= form.text_field :min_player, :size => 2 %>
+ 	  &nbsp;<%= form.label :max_player, "A " %><%= form.text_field :max_player, :size => 2 %>
  	  &nbsp;joueurs (Obligatoire)</p>
- 	  <p><%= f.label :target, "Type de public" %>
- 	  <%= f.select :target, Game::Target  %></p>
- 	  <p><%= f.label :time_category, "Durée de jeu moyenne" %>
- 	  <%= f.select :time_category, Game::TimeCategory %></p>
- 	  
- 	  <p><%= f.label "Niveau de difficult&eacute; (1 a 5) " %><%= f.select :difficulty, (1..5) %></p>
+ 	  <p><%= form.label :target, "Type de public" %>
+ 	  <%= form.select :target, Game::Target  %></p>
+ 	  <p><%= form.label :time_category, "Durée de jeu moyenne" %>
+ 	  <%= form.select :time_category, Game::TimeCategory %></p>
+
+ 	  <p><%= form.label "Niveau de difficult&eacute; (1 a 5) " %><%= form.select :difficulty, (1..5) %></p>
 </fieldset>
 
 <fieldset id="authorship_form">
   <legend>Les auteurs</legend>
   <div id="authorships">
-		<% @authorships.each_with_index do |authorship, index| %>
+		<%= @authorships.each_with_index do |authorship, index| %>
       <%= render :partial => "authorships/form", :locals => {:index => index + 1, :authorship => authorship } %>
-	  <% end %>		
+	  <% end %>
 	</div>
 </fieldset>
