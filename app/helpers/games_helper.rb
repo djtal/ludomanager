@@ -47,9 +47,8 @@ module GamesHelper
   # use a new or edit path for games authors if have any
   #
   def manage_authors_link(game)
-
-    if game.authorships.size > 0
-      link_to("Gerer les auteur", edit_game_authorship_path(@game), class: "ss_sprite ss_add_user")
+    if game.authorships.present?
+      link_to("Gerer les auteur", edit_game_authorship_path(@game, @game), class: "ss_sprite ss_add_user")
     else
       link_to("Gerer les auteur", new_game_authorship_path(@game), class: "ss_sprite ss_add_user")
     end

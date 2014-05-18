@@ -1,13 +1,14 @@
 # encoding: UTF-8
+
 class AuthorshipsController < ApplicationController
   subnav :games
 
   def index
     if params[:game_id]
-      @base = Game.find(params[:game_id])
-      @authorships = @base.authorships.find(:all, include: :author)
+      @base = Game.find_by_id(params[:game_id])
+      @authorships = @base.authorships.includes(:author)
     else
-      @authorships = Authorship.find(:all)
+      @authorships = Authorship.unscoped
     end
   end
 
@@ -30,9 +31,8 @@ class AuthorshipsController < ApplicationController
   end
 
   def edit
-    @game = Game.find(params[:game_id], include: :authorships)
-    @authorships = @game.authorships
-    @authorships << @game.authorships.new if @authorships.size == 0
+    @game = Game.includes(:authorships).find_by_id(params[:game_id])
+    @game.authors.build
   end
 
   def create

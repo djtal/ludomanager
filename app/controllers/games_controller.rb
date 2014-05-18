@@ -86,7 +86,6 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.update_attributes(game_params)
         flash[:notice] = 'Game was successfully updated.'
-        @game.authorships.create_from_names(params[:authorship])
         format.html { redirect_to @game }
       else
         @base_games = Game.base_games
@@ -122,10 +121,9 @@ class GamesController < ApplicationController
   protected
 
   def game_params
-    params[:game]
     params.require(:game).permit(:name, :description, :base_game_id, :standalone,
                                 :box, :min_player, :max_player, :target, :time_category,
-                                :difficulty, :tag_list)
+                                :difficulty, :tag_list, authors_attributes: [ :display_name ])
   end
 
   def set_latest

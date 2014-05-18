@@ -21,6 +21,7 @@ class Game < ActiveRecord::Base
   has_many :account_games
   has_many :authorships, dependent: :destroy
   has_many :authors, through: :authorships
+  accepts_nested_attributes_for :authors
   has_many :editions, dependent: :destroy
   has_many :editors, through: :editions
 
