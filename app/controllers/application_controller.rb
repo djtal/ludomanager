@@ -2,7 +2,7 @@
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  # rescue_from ActiveRecord::RecordNotFound, with: :not_found
   # include AuthenticatedSystem
   protect_from_forgery with: :exception
 
@@ -18,7 +18,11 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    false
+    true
+  end
+
+  def login_required
+    true
   end
 
   helper_method :logged_in?, :current_account

@@ -5,8 +5,6 @@
 <h3>Mettre a jour un auteur</h3>
 
 <% form_for(:author, :url => author_path(@author), :html => { :method => :put }) do |f| %>
-  <%= error_messages_for :author %>
-  
   <%= render :partial => "form", :locals => {:f => f} %>
   <div class="buttons clear">
     <div class="right ">

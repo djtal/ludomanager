@@ -1,7 +1,5 @@
 <h3>Mon compte</h3>
 
-<%= error_messages_for :account %>
-
 <% form_for :account, :url => accounts_path do |f| -%>
   <%= render :partial => 'form', :locals => {:f => f} %>
   <%= submit_or_back_to games_path, "Annuler" %>
