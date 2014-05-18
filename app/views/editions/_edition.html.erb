@@ -7,7 +7,7 @@
   <% if logged_in? %>
     <td><div class="function">
       <%= link_to "", edit_game_edition_path(edition.game, edition), :class => "ss_sprite ss_pencil" %>&nbsp;|&nbsp;
-      <%= link_to_remote "", {:url => edition_path(edition), :method => :delete},  :class => "ss_sprite ss_trash"  %>
+      <%= link_to "", edition_path(edition), :method => :delete,  :class => "ss_sprite ss_trash"  %>
     </div></td>
   <% end %>
 </tr>

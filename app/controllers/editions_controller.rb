@@ -6,7 +6,7 @@ class EditionsController < ApplicationController
   def index
     if params[:game_id]
       @game = Game.find(params[:game_id])
-      @editions = @game.editions.paginate(:all, page: params[:page], include: :editor)
+      @editions = @game.editions.includes(:editor).paginate(page: params[:page])
     else
       @editions = Edition.includes(:game, :editor).order('games.name asc').paginate(page: params[:page])
       @last = Edition.includes(:game, :editor).latest(10)
