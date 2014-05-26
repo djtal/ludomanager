@@ -1,8 +1,8 @@
 <h3>Ajouter une edition de <%= @game.name %></h3>
 
 
-<% simple_form_for(@edition, :url => game_editions_path(@game)) do |f| %>
-  <%= render :partial => f %>
+<%= simple_form_for [@game, @edition]  do |f| %>
+  <%= render f %>
   <%= submit_or_back_to game_editions_path(@game), "retour sur #{@game.name}" %>
 <% end %>
 

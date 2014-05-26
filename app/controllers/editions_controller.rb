@@ -19,22 +19,21 @@ class EditionsController < ApplicationController
 
   def new
     @game = Game.find(params[:game_id])
-    @editors = Editor.all(order: 'name ASC')
     @edition = Edition.new
+    @editors = Editor.order(:name)
   end
 
   def edit
-    @game = Game.find(params[:game_id])
-    @editors = Editor.all(order: 'name ASC')
-    @edition = Edition.find(params[:id])
+    @game = Game.find_by_id(params[:game_id])
+    @edition = @game.editions.find_by_id(params[:id])
+    @editors = Editor.order(:name)
   end
 
   def create
-    @game = Game.find(params[:game_id])
-    @edition = @game.editions.build(params[:edition])
+    @game = Game.find_by_id(params[:game_id])
+    @edition = @game.editions.build(edition_params)
     if @edition.save
-      flash[:notice] = 'Edition was successfully created.'
-      redirect_to game_editions_path(@game)
+      redirect_to @game, notice: "L'edition a été ajouter a #{@game.name}"
     else
       @editors = Editor.all(order: 'name ASC')
       render action: :new
@@ -43,23 +42,30 @@ class EditionsController < ApplicationController
 
   def update
     @game = Game.find_by_id(params[:game_id])
-    @edition = Edition.find_by_id(params[:id])
+    @edition = @game.editions.find_by_id(params[:id])
 
-    if @edition.update_attributes(params[:edition])
-      flash[:notice] = 'Edition was successfully updated.'
-      redirect_to game_editions_path(@game)
+    if @edition.update_attributes(edition_params)
+      redirect_to @game, notice: "Edition mise a jour avec succes"
     else
       render action: :edit
     end
   end
 
   def destroy
-    @edition = Edition.find(params[:id])
+    @game = Game.find_by_id(params[:game_id])
+    @edition = @game.editions.find_by_id(params[:id])
     @edition.destroy
 
     respond_to do |format|
-      format.html { redirect_to game_editions_path(@edition.game)  }
+      format.html { redirect_to @game }
       format.js
     end
+  end
+
+
+  protected
+
+  def edition_params
+    params.require(:edition).permit(:editor_id, :name, :lang, :published_at)
   end
 end
