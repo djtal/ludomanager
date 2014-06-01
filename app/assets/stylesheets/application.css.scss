@@ -1,0 +1,714 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require blueprint.css
+ *= require ggrensprite
+ *= require world-flags
+ *= require choosen
+ *= require form
+ *= require prototip
+ *= require tablekit
+ *= require_self
+ */
+
+/* ----- Structure and Layout ----- */
+
+body {
+	background: #99CC66 url('../images/background.png') repeat-x;
+}
+
+a {
+	color: #422100;
+}
+
+em{
+  color: #666;
+  background-color: transparent;
+}
+
+.container{
+	background: #EDF3EB;
+}
+
+.pad{padding-left: 5px;}
+
+#content {
+  background: #FFF;
+	margin-bottom: 15px;
+}
+
+h1{
+	border-bottom: 1px solid;
+	color:#422100;
+}
+
+h3{
+	border-bottom: 1px solid #6CAB54;
+	border-top: 1px solid #6CAB54;
+	background: #E6F7D4;
+	color: #653209;
+	font-variant: small-caps;
+	padding: 5px 10px;
+}
+
+h4{
+	font-weight: bold;
+	font-size: 1.1em;
+	margin-bottom: 0.5em;
+	color:#422100;
+}
+
+.color{ font-weight: bold;}
+.red{ color: red;}
+.orange{color: orange;}
+.green{color: green;}
+.red{color: red;}
+.color a{ color: inherit; font-weight: bold;}
+
+.small,
+.small a{
+  color: #666;
+  margin: 0;
+}
+
+td, th{vertical-align:middle;}
+
+.calendar td,
+.calendar th{
+  vertical-align: top;
+}
+
+p.info{
+  background: transparent url(../images/info.png) no-repeat  center left;
+  padding-left : 30px;
+}
+
+.empty{
+	text-align: center;
+	font-weight: bold;
+	color: #666;
+}
+
+/* ----- Navigation -----  */
+
+#header {
+	background: url('../images/nav-head.gif') repeat-x;
+}
+
+#sub-nav ul,
+#header ul {
+	margin: 0;
+	padding: 0 0 0 27px;
+	list-style: none;
+}
+
+#header .active{
+	border-bottom: 3px solid #99CC66;
+	font-weight: bold;
+	text-decoration: none;
+	color: #F1F7EE;
+	margin: 5px 0 0 0;
+	padding: 4px 12px;
+	text-align: center;
+}
+
+#header li a {
+	float: left;
+	margin: 5px 0 0 0;
+	padding: 4px 12px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #F1F7EE;
+}
+
+#header li a:hover {
+	color: #FFFFFF;
+	background: #99CC66;
+
+}
+
+#header li a.active {
+	color: #FFFFFF;
+	background: #86BA72;
+	border-bottom: 2px solid #6CAB54;
+	border-right: 2px solid #6CAB54;
+}
+
+#sub-nav{
+	background: #fff url("../images/tab_bottom_sub_bg.gif") left top repeat-x;
+	margin-bottom: 10px;
+}
+
+#sub-nav ul li{
+	margin: 5px 0 0 0;
+	padding: 2px 12px;
+	color: #666666;
+	font-weight: bold;
+}
+
+/* Sidebar */
+
+#innernews {
+  	background: transparent;
+}
+
+#innernews ul{
+	list-style: none;
+}
+
+/* ------ Forms ------- */
+
+fieldset{
+	background-color: #E6F7D4;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+	border-top: solid 2px #DCEAD7;
+	padding: 3px;
+	margin-bottom: 5px;
+}
+
+legend{
+	font-weight: bold;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.buttons{
+	border-top: solid 2px #DCEAD7;
+	background-color: #E6F7D4;
+	padding: 5px;
+}
+
+.buttons a{
+	border-bottom: 1px dotted #422100;
+	text-decoration:none;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+.buttons a:hover{
+	background-color: #99CC66;
+}
+
+.tips{
+	margin-top: 0;
+	font-size: 0.8em;
+	color: #858585;
+}
+
+.important{
+	font-size: 1.7em;
+}
+
+/* ------ Footer ----- */
+
+#footer {
+	text-align: center;
+	clear:both;
+	font-size: .8em;
+	color: #666666;
+}
+
+#footer a {
+	color: #333333;
+	text-decoration: none;
+}
+
+#footer a:visited {
+	color: #333333;
+	text-decoration: none;
+}
+
+#footer a:hover {
+	color: #422100;
+	text-decoration: underline;
+}
+
+.flash{
+	background-color: #FFF700;
+	padding-left: 2px;
+	padding-right: 2px;
+	font-weight: bold;
+}
+
+.right{
+	float:right;
+}
+
+.left{
+	float: left;
+}
+
+.center{
+  text-align: center;
+  vertical-align: middle;
+}
+.align-right{text-align: right;}
+
+#content hr{
+  background: transparent url('../images/divider.png') no-repeat center center;
+  height: 16px;
+  margin: 20px 0;
+}
+
+/* ---- Forms ----*/
+
+div.auto_complete {
+	width: 350px;
+	background: #fff;
+}
+div.auto_complete ul {
+	border:1px solid #888;
+	margin:0;
+	padding:0;
+	width:100%;
+	list-style-type:none;
+}
+div.auto_complete ul li {
+	margin:0;
+	padding:3px;
+}
+div.auto_complete ul li.selected {
+	background-color: #ffb;
+}
+
+div.auto_complete ul strong.highlight {
+	color: #800;
+	margin:0;
+	padding:0;
+}
+
+.form-image{
+	margin-right: 5px;
+}
+
+form img.btn{
+  float: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+#authorship_form p{
+  margin: 0;
+}
+
+ul.horizontal{
+  margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.horizontal li{
+	margin: 0 0 0 10px;
+	float: left;
+}
+
+.parties .game{
+  margin: 3px 5px;
+  padding: 4px;
+  border :solid 2px #cdcdcd;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  min-height: 100px;
+}
+
+.parties .game img{
+  margin: 0;
+}
+
+.parties .game ul{
+  margin: 0;
+}
+
+
+/* ---- Games ---- */
+
+#game_form textarea{
+  height: auto;
+  width:94%;
+}
+
+#games{
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+#game .game{
+  margin-bottom: 30px;
+  list-style: none;
+}
+
+.game{
+	border-bottom: 1px solid #6CAB54;
+}
+
+.game ul{
+  margin: 0;
+  list-style: none;
+}
+
+.game div#overview p{
+  min-height: 90px;
+}
+
+.block{
+  margin-bottom: 20px;
+}
+
+.block h4{
+  text-align : left;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin: 2px 0 5px 0;
+}
+
+.block a{
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
+img.mini{
+  padding: 2px;
+  background-color: #fff;
+  border: solid 1px #ddd;
+
+}
+
+.content{
+	padding: 0 4px;
+}
+.game .account_managment{
+ 	margin-top: 5px;
+  background-color: #E6F7D4;
+	width: 100%;
+	text-align: center;
+	padding : 2px 0;
+	font-variant:small-caps;
+}
+
+line-content{
+  margin-right: 4px;
+}
+
+.game .account_managment img{
+	margin: 0;
+	vertical-align: middle;
+}
+
+#games h3{
+	background-color: #E6F7D4;
+	border-bottom: 1px solid #6CAB54;
+	border-top: 1px solid #6CAB54;
+	padding-left: 10px;
+	font-size: 16px;
+}
+
+.meta{
+	font-weight: bold;
+}
+
+/* Account Games */
+
+ul.tags{
+  	list-style: none;
+	margin: 0;
+}
+
+ul.tags li{
+	float: left;
+	margin-right: 2px;
+
+}
+
+ul.tags li.selected{
+	color: #422100;
+	font-weight: bold;
+}
+
+/* Accounts & Login */
+
+#accounts{
+	border: solid 5px #ccc;
+	margin: 10px;
+	text-align: center;
+}
+
+ul#accounts img{
+	vertical-align: middle;
+	float: left;
+}
+
+ul#accounts li{
+	padding: 2px;
+	list-style: none;
+	border-bottom: solid 1px #ccc;
+}
+
+#accounts .login{
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.less,
+.more {
+	font-style: italic;
+	color: gray;
+	font-variant: small-caps;
+}
+
+.function{
+  text-align: center;
+}
+
+/* Widget Styles */
+
+.widget{
+	margin-top: 0;
+	margin-bottom: 20px;
+	background: #FFF;
+	border-bottom: 1px solid #6CAB54;
+	border-left: 1px solid #6CAB54;
+	border-right: 1px solid #6CAB54;
+	-moz-border-radius-topright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
+}
+
+.widget h3{
+	padding-top: 1px;
+	padding-bottom: 1px;
+	-moz-border-radius-topright: 15px;
+	-webkit-border-top-right-radius: 8px;
+	border-top: 1px solid #6CAB54;
+	border-right: 1px solid #6CAB54;
+	margin: 0;
+}
+
+.widget span.ss_sprite{
+  margin-top: 3px;
+}
+
+.widget .w-content{
+	padding: 4px 4px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.widget hr{
+  margin: 5px 0;
+}
+
+.list ul,
+.widget ul{
+	margin: 0;
+	padding-left: 0;
+	list-style-type: none;
+}
+
+.list ul li,
+.widget ul li{
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+tr img,
+td img,
+li img{
+	margin: 0;
+	vertical-align: middle;
+}
+
+.widget table{
+  width: 100%;
+}
+
+
+#chart-legend table{
+  width: auto;
+}
+
+#chart-legend td{
+  border:none;
+}
+
+ul.strip li{
+  border-bottom: 1px solid #DDDDDD;
+  padding: 3px;
+}
+
+li.rowodd {
+	background-color: #FFF;
+}
+
+li.roweven {
+	background-color: #F2F2F2;
+}
+
+a.tag,
+div.tag{
+  -moz-border-radius: 17px;
+  -webkit-border-radius: 8px;
+  padding: 0 6px;
+  background-color: #EEEEEE;
+  border: 1px solid #DDDDDD;
+  margin-right: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+a.tag:hover,
+a.tag.selected{
+  background-color: #666;
+  color: #fff;
+}
+
+tr.selected,
+ul.strip li.selected{
+  background-color: #ffb;
+}
+
+#top-by-years{
+  margin: 0 auto 10px auto;
+  width:220px;
+}
+
+ul#top-by-years li{ margin: 0 4px;}
+ul#top-by-years li.active{ font-weight: bold;}
+ul#top-by-years li .pad{margin-left:5px;}
+/* Tabs */
+
+ul.tabsContainer{
+  border-bottom: solid 2px #6CAB54;
+  margin: 0;
+}
+
+ul.tabsContainer li{
+  list-style-type: none;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 3px 5px;
+}
+
+li.tabs{
+  background-color: #EEEEEE;
+  border-top: solid 1px #6CAB54;
+  border-left: solid 1px #6CAB54;
+  border-right: solid 1px #6CAB54;
+}
+
+li.invisitab{
+  border:none;
+  background-color: transparent;
+}
+
+li.tabs.active{
+  font-weight: bold;
+  background-color: #E6F7D4;
+}
+
+li.tabs a{
+  font-size: 12px;
+  color: #422100;
+  text-decoration: none;
+}
+
+.tabsBody{
+  margin-top: 10px;
+  padding: 0 7px;
+}
+
+/* Flat Tabs */
+ul.tabs.flat{
+  border-collaspse: collapse;
+}
+
+li.tabs.flat{
+  background-color: #EEEEEE;
+  float: left;
+  list-style-type: none;
+  border-top: solid 1px #6CAB54;
+  border-left: solid 1px #6CAB54;
+  border-right: solid 1px #6CAB54;
+  border-bottom: solid 1px #6CAB54;
+  padding: 3px 5px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Editions */
+
+ul#editions_list{
+  padding: 0;
+  margin: 7px 0 15px 0;
+}
+
+div.mini{
+  margin: 3px 5px;
+  padding: 4px;
+  border :solid 2px #cdcdcd;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+div.mini img.mini{
+  margin: 0 6px 0 0;
+}
+
+/* Legend */
+
+.legendColorBox{
+  border: 1px solid #ddd;
+  padding: 1px;
+  margin-right: 10px;
+}
+
+.legendColorBox div{
+  width: 14px;
+  height: 10px;
+}
+
+.legendColorBox.orange div{ background-color: orange;}
+.legendColorBox.green div{ background-color: green;}
+.legendColorBox.red div{ background-color: red;}
+
+/* Pagination */
+.pagination{
+	margin-top: 5px;
+	margin-bottom: 10px;
+	text-align: center;
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 0.5em 0;
+}
+
+.pagination a{
+	font-weight: bold;
+}
+.pagination a, .pagination span {
+    padding: .2em .4em; }
+.pagination span.disabled {
+    color: #AAA; }
+.pagination span.current {
+    font-weight: bold;
+    background: transparent url(apple-circle.gif) no-repeat 50% 50%; }
+.pagination a {
+    text-decoration: none;
+    color: black; }
+.pagination a:hover, .pagination a:focus {
+      text-decoration: underline; }
+
+
+

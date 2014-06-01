@@ -2,11 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html" charset="iso-8859-1" />
-	<%= stylesheet_link_tag "blueprint/screen.css" %>
-	<%= stylesheet_link_tag  "application", "tablekit", "form", "prototip", "choosen", :cache => true  %>
-	<%= javascript_include_tag :defaults, :cache => "base" %>
-  <%= javascript_include_tag "tablekit", "listkit", "forms", "tablestripe", "choosen.min", :cache => true  %>
-  <%= javascript_include_tag  "prototip" %>
+	<%= stylesheet_link_tag  "application" %>
+	<%= javascript_include_tag :application %>
   <%= render "shared/ga" if Rails.env == "production" %>
 	<%= yield :head %>
 	<title><%= @title || "LudoManager" %></title>

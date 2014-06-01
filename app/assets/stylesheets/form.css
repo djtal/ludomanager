@@ -1,0 +1,68 @@
+select.chzn-select{
+  width:auto;
+}
+
+.block label{
+  display: block;
+}
+
+.block span .hint{
+  font-style: italic;
+}
+
+#ludo-search{
+  background-color: #E6F7D4;
+	border: solid 2px #DCEAD7;
+	padding: 5px;
+}
+
+#ludo-search fieldset{
+  background: none;
+  border-top: none;
+}
+
+#ludo-search #buttons{
+  border: solid 1px #DCEAD7;
+  padding: 5px;
+  text-align: center;
+  height: 100%;
+}
+
+#ludo-search hr{
+  background: none;
+  margin: 5px 0;
+  border-top: 1px solid #666;
+  height: 0;
+}
+.errorExplanation h2{
+  font-size: 1.5em;
+  color: red;
+}
+
+.account_games select,
+.account_games input{
+  width: auto;
+}
+
+.party-form{
+  background-color: #F2F2F2;
+  border: 2px solid #ccc;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 2px;
+  
+}
+
+.party-form ul,
+.party-form ul li{
+  margin: 0;
+}
+
+.inline input,
+.inline select,
+.inline label{
+  float: left;
+}
+  
+}
+
