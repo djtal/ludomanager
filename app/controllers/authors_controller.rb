@@ -34,27 +34,26 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    @author = Author.new(params[:author])
+    @author = Author.new(author_params)
     if @author.save
-      redirect_to author_url(@author)
+      redirect_to @author, notice: "Auteur creer avec succes"
     else
       render action: :new
     end
   end
 
   def update
-    @author = Author.find(params[:id])
+    @author = Author.find_by_id(params[:id])
 
-    if @author.update_attributes(params[:author])
-      flash[:notice] = 'Author was successfully updated.'
-      redirect_to author_url(@author)
+    if @author.update_attributes(author_params)
+      redirect_to @author, notice: "Auteur mis a jour"
     else
       render action: :edit
     end
   end
 
   def destroy
-    @author = Author.find(params[:id])
+    @author = Author.find_by_id(params[:id])
     @author.destroy
 
     respond_to do |format|
@@ -64,6 +63,10 @@ class AuthorsController < ApplicationController
   end
 
   protected
+
+  def author_params
+    params.require(:author).permit(:name, :surname, :lang, :homepage)
+  end
 
 
   def set_section

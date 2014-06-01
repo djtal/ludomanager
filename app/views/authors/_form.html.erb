@@ -1,0 +1,11 @@
+<fieldset>
+  <legend>Les bases</legend>
+  <p><%= form.label :name, "Nom :" %><br />
+  <%= form.text_field :name, class: "important" %></p>
+  <p><%= form.label :surname, "Prenom" %><br />
+  <%= form.text_field :surname, class: "important" %></p>
+  <p><%= form.label :lang, "Pays" %><br />
+  <%= form.select :lang, Ludomanager::COUNTRIES.collect{ |arr| [arr[0], arr[1]]} %></p>
+  <p><%= form.label :homepage, "Site internet" %><br />
+  <%= form.text_field :homepage, size: 60 %></p>
+</fieldset>

@@ -1,0 +1,10 @@
+<% content_for :head  do %>
+	<title>Mettre a jour un auteur</title>
+<% end %>
+
+<h3>Mettre a jour un auteur</h3>
+
+<%= form_for @author do |f| %>
+  <%= render f %>
+  <%= submit_or_back_to authors_path, "Retour sur la liste des auteurs" %>
+<% end %>

@@ -4,7 +4,7 @@
 
 <h3>Creer un nouvel auteur</h3>
 
-<% form_for(:author, :url => authors_path) do |f| %>
-  <%= render :partial => "form", :locals => {:f => f} %>
+<%= form_for @author do |f| %>
+  <%= render f %>
   <%= submit_or_back_to authors_path, "Retour sur la liste des auteurs" %>
 <% end %>
