@@ -6,7 +6,7 @@
 
 <div class="extensions game">
   <% if @base.extensions.size > 0 %>
-    <% simple_form_for(:extensions, :url => destroy_multiple_game_game_extensions_path(@base),
+    <%= simple_form_for(:extensions, :url => destroy_multiple_game_game_extensions_path(@base),
                       :html => {:method => :delete}) do |f| %>
       <ul class="strip">
         <% @extensions.each_with_index do |extension, index| %>

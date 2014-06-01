@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   TimeCategory = [["< 30min", 0], ["Entre 30min/1h", 1],["Entre 1h et 1h30", 2], ["> 1h30", 3]]
 
   before_destroy :check_parties, :check_accounts
-  after_save :merge_tags, if: proc { |game| !game.base_game_id.blank? }
+  # after_save :merge_tags, if: proc { |game| !game.base_game_id.blank? }
 
   validates :name, :difficulty, :min_player, :max_player, presence: true
   validates :difficulty, inclusion: { in: 1..5 }
@@ -16,6 +16,7 @@ class Game < ActiveRecord::Base
   validate :min_max_player?
 
   has_many :extensions, class_name: 'Game', foreign_key: 'base_game_id', dependent: :nullify
+  accepts_nested_attributes_for :extensions
   belongs_to :base_game, class_name: 'Game', foreign_key: 'base_game_id'
   has_many :parties, dependent: :destroy
   has_many :account_games

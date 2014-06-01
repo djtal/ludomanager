@@ -123,7 +123,8 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:name, :description, :base_game_id, :standalone,
                                 :box, :min_player, :max_player, :target, :time_category,
-                                :difficulty, :tag_list, authors_attributes: [ :display_name ])
+                                :difficulty, :tag_list, authors_attributes: [ :display_name ],
+                                extensions_attributes: [:id] )
   end
 
   def set_latest

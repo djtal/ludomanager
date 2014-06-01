@@ -5,12 +5,12 @@
 <h3>Ajoutez une/des extension a <%= @base.name %>..</h3>
 
 
-<% simple_form_for :extensions, :url => game_game_extensions_path(@base), :html => {:id => "extensions-form"} do |f| -%>
-  <% @extensions.each_with_index do |ext, index| %>
-    <% f.fields_for(:games, :index => index) do |fields| -%>
-      <%= render "form",  :form => fields , :index => index %>
+<%= simple_form_for :extensions, url: game_extensions_path(game_id: @base), html: {:id => "extensions-form"} do |f| -%>
+  <%- @extensions.each_with_index do |ext, index| %>
+    <%= f.fields_for :games, ext, index: index do |fields| -%>
+      <%= render "form",  :form => fields  %>
     <% end -%>
-  <% end %>
+  <% end -%>
   <div class="buttons clear">
     <div class="right">
       <strong><%= link_to "Retour sur #{@base.name}", game_path(@base) %></strong> ou <%= f.submit "Ajoutez les extensions" %>

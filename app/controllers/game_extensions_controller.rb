@@ -4,10 +4,10 @@ class GameExtensionsController < ApplicationController
 
   def index
     if params[:game_id]
-      @base = Game.find(params[:game_id], include: :extensions )
+      @base = Game.includes(:extensions).find_by_id(params[:game_id])
       @extensions = @base.extensions
     else
-      @extensions = Game.extensions.find(:all)
+      @extensions = Game.extensions
     end
     respond_to do |format|
       format.html
@@ -16,13 +16,13 @@ class GameExtensionsController < ApplicationController
   end
 
   def new
-    @base = Game.find(params[:game_id], include: :extensions )
+    @base = Game.includes(:extensions).find_by_id(params[:game_id])
     @games = Game.base_games - [@base]
     @extensions = [@base.extensions.build, @base.extensions.build, @base.extensions.build]
   end
 
   def create
-    @base = Game.find(params[:game_id])
+    @base = Game.find_by_id(params[:game_id])
     ids = params[:extensions][:games].values.map{|g| g["id"] }.reject{|id| id.blank?}
     exts = Game.find(ids)
     if(@base && exts.size > 0)
@@ -35,7 +35,7 @@ class GameExtensionsController < ApplicationController
     else
       respond_to do |wants|
         wants.html do
-          @games = Game.find(:all) - @base.extensions - [@base]
+          @games = Game.all - @base.extensions - [@base]
           @extensions = [@base.extensions.build, @base.extensions.build, @base.extensions.build]
           render :new
         end
@@ -44,7 +44,7 @@ class GameExtensionsController < ApplicationController
   end
 
   def destroy_multiple
-    @base = Game.find(params[:game_id])
+    @base = Game.find_by_id(params[:game_id])
     ids = params[:extensions].values.map{|ext| ext["id"] if ext["delete"] == "1"}.reject{|id| id.blank?}
     exts = Game.find(ids)
     if (exts)
