@@ -10,6 +10,8 @@ class Editor < ActiveRecord::Base
                     path: ':rails_root/public/system/:attachment/:id/:style/:editor.:extension',
                     default_url: '/system/:attachment/:style/missing.png'
 
+  validates_attachment :logo, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+
   has_many :editions, dependent: :destroy
   has_many :games, through: :editions
 end

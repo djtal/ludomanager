@@ -35,39 +35,43 @@ class EditorsController < ApplicationController
   end
 
   def edit
-    @editor = Editor.find(params[:id])
+    @editor = Editor.find_by_id(params[:id])
   end
 
   def create
-    @editor = Editor.new(params[:editor])
-
+    @editor = Editor.new(editor_params)
     if @editor.save
-      flash[:notice] = 'Editor was successfully created.'
-      redirect_to(@editor)
+      redirect_to @editor, notice: "L'editeur #{@editor.name} créer avec success"
     else
       render action: :new
     end
   end
 
   def update
-    @editor = Editor.find(params[:id])
+    @editor = Editor.find_by_id(params[:id])
 
-    if @editor.update_attributes(params[:editor])
-      flash[:notice] = 'Editor was successfully updated.'
-      redirect_to @editor
+    if @editor.update_attributes(editor_params)
+      redirect_to @editor, notice: "L'editeur #{@editor.name} mis a jour."
     else
       render action: :edit
     end
   end
 
   def destroy
-    @editor = Editor.find(params[:id])
+    @editor = Editor.find_by_id(params[:id])
     @editor.destroy
 
     respond_to do |format|
       format.html { redirect_to(editors_url) }
       format.js
     end
+  end
+
+  protected
+
+  def editor_params
+    params.require(:editor).permit(:name, :logo, :homepage, :lang )
+
   end
 
   def set_section
