@@ -37,8 +37,12 @@
 <fieldset id="authorship_form">
   <legend>Les auteurs</legend>
   <div id="authorships">
-		<%= @authorships.each_with_index do |authorship, index| %>
-      <%= render :partial => "authorships/form", :locals => {:index => index + 1, :authorship => authorship } %>
+    <%= form.fields_for :authors do |fa| %>
+      <p><%= fa.label :display_name, "Auteur" %>
+      <span class="tips">(Sous la forme "prenom-nom")</span><br />
+      <%= fa.text_field :display_name %>
+      <span class="ss_sprite ss_add add btn" ></span>
+      <span class="ss_sprite ss_trash remove btn"></span> </p>
 	  <% end %>
 	</div>
 </fieldset>

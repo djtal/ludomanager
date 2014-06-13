@@ -42,8 +42,7 @@ class GamesController < ApplicationController
   def edit
     @game = Game.includes(:base_game).find_by_id(params[:id])
     @base_games = Game.base_games
-    @authorships = @game.authorships
-    @authorships << @game.authorships.new if @authorships.size == 0
+    @game.authors.build unless @game.authors.present?
   end
 
   def replace
@@ -67,8 +66,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.save
         flash[:notice] = 'Game was successfully created.'
-        @game.authorships.create_from_names(params[:authorship])
-        format.html { redirect_to game_path(@game) }
+        redirect_to @game, notice: "Jeu creer avec succes"
       else
         format.html do
           @base_games = Game.base_games
