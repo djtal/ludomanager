@@ -18,6 +18,8 @@ gem 'newrelic_rpm'
 gem 'foreman'
 
 gem 'recap', '~>1.0.0'
+gem 'aws-sdk'
+gem 'nokogiri', '~>1.5.11' # because 1.6 require ruby 1.9?3 at least
 
 group :test do
   gem 'shoulda', '2.10.3'
