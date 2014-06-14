@@ -101,7 +101,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    whenever (0.8.2)
+    whenever (0.8.4)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
     will_paginate (2.3.16)
@@ -113,6 +113,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   by_star (~> 1.0.0)
+  capistrano (~> 2.15.4)
   factory_girl (= 1.2.4)
   foreman
   googlecharts!
@@ -133,6 +134,6 @@ DEPENDENCIES
   term-ansicolor
   thin
   unicorn
-  whenever
+  whenever (= 0.8.4)
   will_paginate (~> 2.3.16)
   wirb
