@@ -16,6 +16,7 @@ class Party < ActiveRecord::Base
     scope.order('parties.created_at ASC')
   }
 
+
   def self.yearly_breakdown(opts = {})
     options = {
       from: Time.zone.now.year,
@@ -33,9 +34,7 @@ class Party < ActiveRecord::Base
     raise InvalidDateRange if options[:from] > options[:to]
     yearly = (options[:from]..options[:to]).inject({}) do |breakdown, year|
       breakdown[year] = (1..12).inject([]) do |acc, month|
-        acc << self.count_by_month(:id, month, year: year) do
-          options[:scope]
-        end
+        acc << self.by_month(month, year: year).count
       end
       breakdown
     end
@@ -56,10 +55,10 @@ class Party < ActiveRecord::Base
 
   def self.play_range(opts = {})
     scope = self
-    scope = self.where(game_id: opts[:game]) if opts[:game].present
+    scope = self.where(game_id: opts[:game]) if opts[:game].present?
 
-    from = if firstPlay
-      firstPlay.year > 3.year.ago.year ? firstPlay.year : 3.year.ago.year
+    from = if first_played = self.minimum(:created_at)
+      first_played.year > 3.year.ago.year ? first_played.year : 3.year.ago.year
     else
       nil
     end
@@ -91,7 +90,7 @@ class Party < ActiveRecord::Base
 
 
   def self.last_play(count)
-    order(created_at: "desc").limit(count)
+    order(created_at: :desc).limit(count)
   end
 
   def self.most_played(year = Time.zone.now.year, opts = {})

@@ -1,11 +1,11 @@
 <ul id="top-by-years" class="clear horizontal">
   <% ((Time.now.year - 3)..(Time.now.year)).each do |year| %>
     <li class="<%= "active" if @year.to_s == year.to_s %>">
-      <%= link_to_remote year, :url => most_played_parties_path(:year => year), :method => :get %>&nbsp;|
+      <%= link_to year, most_played_parties_path(year: year), :method => :get %>&nbsp;|
     </li>
   <% end %>
   <li class="<%= "active" unless @year %>">
-    <%= link_to_remote "Toutes", :url => most_played_parties_path(), :method => :get %>
+    <%= link_to "Toutes", most_played_parties_path, :method => :get %>
   </li>
 </ul>
 <% if @most_played.size > 0 %>
