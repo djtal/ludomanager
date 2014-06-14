@@ -5,6 +5,7 @@ tmp/**/*
 .DS_Store
 doc/api
 doc/app
+config/deploy_config.rb
 public/assets/**/*
 public/boxes/**/*
 public/system/**/**/*
