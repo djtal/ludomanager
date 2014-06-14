@@ -1,3 +1,7 @@
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
+
 namespace :rails do
   namespace :assets do
     namespace :precompile do
