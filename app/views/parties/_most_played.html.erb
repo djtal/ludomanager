@@ -8,7 +8,7 @@
     <%= link_to "Toutes", most_played_parties_path, :method => :get %>
   </li>
 </ul>
-<% if @most_played.size > 0 %>
+<% if most_played.any? %>
 	<table>
     <tbody>
 		<% @most_played.each do |game, count| %>

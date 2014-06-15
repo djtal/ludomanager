@@ -100,7 +100,7 @@ class Party < ActiveRecord::Base
     scope = self.includes(:game).group(:game)
     if year.to_i > 0
       start_date = (year.to_i - Time.now.year).year.from_now.beginning_of_year
-      scope = scope.where"parties.created_at BETWEEN ? AND ?", start_date, start_date.end_of_year
+      scope = scope.where("parties.created_at BETWEEN ? AND ?", start_date, start_date.end_of_year)
     end
     scope = scope.limit(options[:count])
     scope.order('count_id desc').count(:id)
