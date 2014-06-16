@@ -4,9 +4,9 @@ class PartiesController < ApplicationController
   subnav :parties
 
   def index
-    @date = Time.now
-    @date = Date.new(params[:date][1].to_i, params[:date][0].to_i, -1) if params[:date] && params[:date].size == 2
+    @date = params[:date].present? ? Date.strptime(params[:date], '%m/%Y') : Time.zone.now
     @date = @date.to_time
+    params[:start_date] = @date
     @prev_date = @date - 1.month - 1.day
     @next_date = @date + 1.month - 1.day
     @parties = current_account.parties.by_month(@date.month, year: @date.year)
@@ -30,7 +30,7 @@ class PartiesController < ApplicationController
     @first_letters = current_account.played_games.first_letters
     @parties = @parties.to_a.paginate(page: params[:page])
     #used to find last played date for each game you've played
-    @last_played = current_account.parties.maximum(:created_at, group: :game)
+    @last_played = current_account.parties.group(:game).maximum(:created_at)
     @last_parties = current_account.parties.last_play(10).group_by(&:game)
     chart_data = current_account.parties.breakdown(:target)
     @chart = Gchart.new( type: :pie,
@@ -105,7 +105,7 @@ class PartiesController < ApplicationController
     end
     @previous = current_account.parties.previous_play_date_from(@date)
     @next = current_account.parties.next_play_date_from(@date)
-    @played_before  = current_account.parties.past(@date.beginning_of_month, include: :game).group_by(&:game).keys
+    @played_before  = current_account.parties.include(:game).before(@date.beginning_of_month).group_by(&:game).keys
     @date = @date.to_date
   end
 
@@ -126,7 +126,7 @@ class PartiesController < ApplicationController
   end
 
   def compute_monthly_played(parties, beginning_of_month)
-    played = current_account.parties.past(beginning_of_month, group: :game_id).map(&:game_id)
+    played = current_account.parties.group(:game_id).before(beginning_of_month).pluck(:game_id)
     parties.map(&:game).uniq.sort_by{ |game| game.name }.inject([]) do |acc, g|
       acc << [g, !played.include?(g.id), parties.select { |p| p.game_id == g.id }.size ]
     end

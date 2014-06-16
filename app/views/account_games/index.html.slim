@@ -1,0 +1,74 @@
+- if @account_games.any?
+
+  div(ng-app="AccountGames" ng-controller="AccountGamesController" )
+    ul.list-inline
+      li.pull-right
+        = link_to export_account_games_path(format: :csv) do
+          = fa_icon 'file-text-o', class: "btn btn-default btn-circle"
+          | &nbsp;Export csv
+      li.filter(class="#{"active" if params[:kind].blank? }")
+        = link_to pluralize(current_account.account_games.size, "jeu", "jeux"), account_games_path
+      li.filter(class="#{"active" if params[:kind] == "extensions"}")
+        = link_to  extensions_account_games_path do
+          = fa_icon 'link', class: "btn btn-default btn-circle"
+          | &nbsp;#{pluralize(current_account.account_games.game_extensions.count , "extension", "extensions")}
+      li.filter(class="#{"active" if params[:kind] == "never-played"}")
+        = link_to never_played_account_games_path  do
+          = fa_icon 'warning', class: "btn btn-default btn-circle btn-danger"
+          | &nbsp;#{current_account.account_games.no_played.count} Non Joués
+      li.filter(class="#{"active" if params[:kind] == "recent"}")
+        = link_to recent_account_games_path  do
+          = fa_icon 'coffee', class: "btn btn-default btn-circle btn-success"
+          | &nbsp;#{current_account.account_games.recent.count} Recent
+
+    ul.list-inline
+      li
+        = link_to new_account_game_path, class: "btn btn-primary"
+          = fa_icon "plus-circle"
+          | Ajouter...
+      li
+        = link_to '#delete-account-game-modal', "ng-class" => "{disabled: delete_disabled }", class: "btn btn-danger", data: { toggle: "modal" } do
+          = fa_icon("trash-o")
+          | Supprimer {{selected}}
+
+
+    table.table.table-hover.listing-with-images
+      thead
+        tr
+          th
+          th.col-md-1 Boite
+          th(class="col-md-#{@mode == :edit ? 4 : 5 }") Jeux
+          th.col-md-1 Statut
+          th.col-md-1 Joueurs
+          th.col-md-1 Public
+          th.col-md-1 Durée
+          th.col-md-1 Difficulté
+          th Parties
+        tbody
+          = render @account_games
+
+    = will_paginate @paginated_account_games, renderer: BootstrapPagination::Rails
+
+    = simple_form_for :delete_account_games, url: delete_multiple_account_games_path do |f|
+      #delete-account-game-modal.modal.fade
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(data-dismiss="modal" aria-hidden="true") &times;
+              h4.modal-title Suppression de {{selected}}
+            .modal-body
+              = f.input_field :ids, as: :hidden, value: "{{selected_ids}}"
+              | Etes vous sur de vouloir supprimer {{selected}} de votre ludotheque
+            .modal-footer
+              button.btn.btn-default(data-dismiss="modal" aria-hidden="true") Annuler
+              button.btn.btn-primary Supprimer
+
+
+
+- else
+  .alert.alert-warning
+    strong Attention :
+    Vous ne possedez aucun jeux pour le moment.
+    = link_to "En ajouter maintenant", new_account_game_path, class: "alert-link"
+
+

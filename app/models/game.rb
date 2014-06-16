@@ -37,7 +37,7 @@ class Game < ActiveRecord::Base
 
   acts_as_taggable
 
-  scope :extensions, -> { where.not(base_game_id: nil) }
+  scope :extensions, -> { where.not(games: { base_game_id: nil }) }
   scope :base_games, -> { where("base_game_id IS ? OR (base_game_id <> '' AND standalone = ? )", nil, true) }
   scope :for_text, lambda { |q| where('LOWER(name) like ?', "%#{q.downcase}%")}
   scope :latest, lambda { |l| order(:created_at).limit(l) }
@@ -89,6 +89,11 @@ class Game < ActiveRecord::Base
     tag_list = super()
     tag_list = self.base_game.tag_list if !self.base_game_id.blank? && tag_list.blank?
     tag_list
+  end
+
+  def to_builder
+    Jbuilder.new do |game|
+    end
   end
 
 

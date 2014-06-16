@@ -1,0 +1,48 @@
+@import "bootstrap";
+@import "font-awesome";
+@import "sb-admin";
+@import "bootstrap-datetimepicker.min";
+@import "typeaheadjs";
+@import "typeahead-bootstrap";
+
+.tt-hint {
+  color: #999
+}
+
+
+select.date {
+  margin-right: 5px;
+}
+
+.listing-with-images td {
+  vertical-align: middle !important;
+}
+
+.table-legend {
+  border-radius: 50% 50% 50% 50%;
+}
+
+span.extension-indicator {
+  width: 18px;
+  display: inline-block;
+  padding-right: 3px;
+}
+.account_game .edition {
+  margin-left: 18px;
+}
+
+.filter.active {
+  font-weight: bold;
+  a {
+    color: black;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+a.game-preview {
+  display: none;
+}
+tr.account_game:hover a.game-preview {
+  display: inline;
+}

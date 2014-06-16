@@ -33,12 +33,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :account_games do
+  resources :account_games, path: "mes-jeux", except: :destroy do
     collection do
-      get :all
-      post :search
-      get :missing
-      get :group
+      get "recent"  => "account_games#index", kind: "recent", path: "recent"
+      get "never_played"  => "account_games#index", kind: "never-played", path: "non-joue"
+      get "extensions"  => "account_games#index", kind: "extensions", path: "extensions"
+      get "export"
+      post :delete_multiple
     end
   end
 

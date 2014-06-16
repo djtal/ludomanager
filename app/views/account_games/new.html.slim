@@ -1,0 +1,15 @@
+= simple_form_for "account_games", url: account_games_path, html: { class: "form-horizontal", id: "account-games-form" } do |form|
+  - @new_games.each_with_index do |ac, index|
+    .row
+      = form.fields_for ac, index: index do |f|
+        .col-md-6
+          = f.input :game, as: :string, input_html: { class: "game-typeahead" }
+          = f.input :game_id, as: :hidden, input_html: { class: "game-typeahead-id"}
+        .col-md-3
+          = f.input :transdate, as: :string, input_html: { class: 'date-time-picker'}
+        .col-md-3
+          = f.input :edition_id
+  = form.submit "Ajouter", class: "btn btn-primary"
+  | &nbsp;
+  = link_to "Retour a la liste des jeux", :back, class: "btn btn-default"
+

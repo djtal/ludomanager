@@ -42,7 +42,7 @@ class Party < ActiveRecord::Base
   end
 
   def self.breakdown(key)
-    count(include: :game, group: "games.#{key.to_s}").inject({}) do |acc, data|
+    joins(:game).group("games.#{key.to_s}").count.inject({}) do |acc, data|
       acc[Game::Target[data[0].to_i][0]] = data[1]
       acc
     end

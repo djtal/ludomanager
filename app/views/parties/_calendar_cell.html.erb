@@ -1,5 +1,5 @@
 <div>
-  <%= link_to_remote("jouer", {:url =>  new_party_path(:date => date), :method => :get}, :class => "right play" ) %>
+  <%= link_to "jouer", new_party_path(:date => date), :method => :get, :class => "right play" %>
   <div id="day_<%= date.day %>_form" style="z-index:1; position: absolute; display:none; width:auto; height:97px;">
 
   </div>
@@ -20,5 +20,5 @@
   		<% end %>
   	</ul>
   <% end %>
-  
+
 </div>

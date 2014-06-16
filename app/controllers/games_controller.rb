@@ -6,7 +6,7 @@ class GamesController < ApplicationController
 
   def index
     respond_to do |format|
-      @games = Game
+      @games = Game.unscoped
       format.html do
         @last = Game.latest(10)
         @games = @games.start(params[:start]) if (params[:start])
@@ -16,7 +16,6 @@ class GamesController < ApplicationController
       end
       format.json do
         @games = @games.where(base_game_id: "") if params[:base_game]
-        render json: @games.to_json( only: [:id, :name])
       end
     end
   end

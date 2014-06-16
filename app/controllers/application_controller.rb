@@ -1,10 +1,16 @@
-# # encoding: UTF-8
+# encoding: UTF-8
+
+require "app_responder"
+
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   # rescue_from ActiveRecord::RecordNotFound, with: :not_found
   # include AuthenticatedSystem
   protect_from_forgery with: :exception
+
+  self.responder = AppResponder
+  respond_to :html
 
   # If you want "remember me" functionality, add this before_filter to Application Controller
   # before_filter :login_from_cookie

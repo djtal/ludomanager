@@ -1,0 +1,33 @@
+= cache account_game do
+  = content_tag_for :tr, account_game do
+    td
+      input(type='checkbox' ng-change="toggleModel(#{account_game.to_json})" ng-model="item#{account_game.id}Status")
+    td
+      = image_tag(account_game.game.box.url(:normal), size: "70x70", class: "img-thumbnail")
+    td(class= "vert-align #{account_game.game.base_game_id.blank? ? '' : "col-md-offset-3"}")
+      span.extension-indicator
+        - if account_game.game.extension?
+          = fa_icon 'link'
+      - if account_game.parties_count > 0
+        = link_to(account_game.game.name, played_game_path(account_game.game))
+      - else
+        = account_game.game.name
+      - if account_game.game.extension?
+        span.text-muted
+          |  ( #{account_game.game.base_game.name} )
+      | &nbsp;
+      = link_to account_game.game, class: "game-preview text-muted", target: "blank", title: "Voir la fiche du jeux", data: { toggle: "tootip", placement: "right"} do
+        = fa_icon('eye')
+      - if account_game.edition.present?
+        .edition.text-muted
+          | Parution : #{account_game.edition.editor.name} #{account_game.edition.published_at.year} (#{account_game.edition.lang})
+
+
+    td= status_indicator account_game
+    td De #{account_game.game.min_player} à #{account_game.game.max_player} joueurs
+    td= account_game.game.target_str
+    td= account_game.game.time_str
+    td= account_game.game.difficulty
+    td
+      - if account_game.parties_count > 0
+        span.badge.parties_count(data-toggle="tooltip" title="Joué il y a #{ time_ago_in_words(account_game.last_play) if account_game.last_play}")= account_game.parties_count

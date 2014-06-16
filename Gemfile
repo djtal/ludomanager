@@ -26,16 +26,23 @@ gem 'spring',        group: :development
 gem 'mysql2'
 gem "rake"
 
+gem "font-awesome-rails", "~> 4.1"
+gem 'will_paginate-bootstrap'
+gem "slim-rails"
+
 gem 'will_paginate'
 gem 'responders'
 gem 'paperclip'
 gem 'by_star'
-gem 'simple_form'
+gem 'simple_form', github: "plataformatec/simple_form"
 gem "googlecharts", git: "git://github.com/djtal/googlecharts.git"
 gem 'acts-as-taggable-on'
+gem "simple_calendar", "~> 1.1.0"
 
 gem 'newrelic_rpm'
 gem 'foreman'
+
+gem 'rails-i18n', '~> 4.0.0'
 
 gem 'recap', '~>1.0.0'
 
