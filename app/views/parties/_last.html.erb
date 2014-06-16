@@ -1,7 +1,7 @@
 <% if @last_parties.size > 0 %>
   <table>
     <tbody>
-      <%= render :partial => "parties/last_party", :collection => @last_parties %>
+      <%= render partial: "parties/last_party", collection: @last_parties %>
     </tbody>
   </table>
 <% else %>

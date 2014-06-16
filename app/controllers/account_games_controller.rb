@@ -7,7 +7,7 @@ class AccountGamesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        scope = current_account.account_games.include(:game)
+        scope = current_account.account_games.includes(:game)
         scope = scope.where(games: {time_category: params[:time] }) if params[:time].present?
         scope = scope.where(games: { target: params[:target] }) if params[:target].present?
 
@@ -17,7 +17,7 @@ class AccountGamesController < ApplicationController
           :view
         end
 
-        @account_games = scope.paginate(per_page: params[:per_page])
+        @account_games = scope.paginate(per_page: params[:per_page], page: params[:page])
 
         #order base game no extension aplha
         base_games, extensions = @account_games.partition{ |ac_game| ac_game.game.base_game_id.blank? }

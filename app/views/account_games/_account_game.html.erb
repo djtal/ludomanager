@@ -1,20 +1,20 @@
-<tr id="<%= dom_id(account_game) %>" class="account_game">
+<%= content_tag_for :tr, account_game do %>
   <% if @mode == :edit %>
     <td class="pad">
         <%= link_to "", edit_account_game_path(account_game), :class => "ss_sprite ss_pencil" %>
-    		<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete}, 
+    		<%= link_to_remote "", {:url => account_game_path(account_game), :method => :delete},
     			                  {:class => "ss_sprite ss_trash"} %>
     </td>
   <% end %>
 	<td class="<%= account_game.game.base_game_id.blank? ? "pad" : "prepend-1" %>">
 	  <%= account_game.parties_count > 0 ? link_to(account_game.game.name, played_game_path(account_game.game)) : account_game.game.name %>
-	</td> 
+	</td>
 	<td><%= status_indicator account_game %></td>
 	<td><strong class="<%= account_game.game.target_str.downcase.gsub(/\s+/, "_") %>"><%= account_game.game.target_str %></strong></td>
 	<td>
-	 <%= content_tag(:em, time_ago_in_words(account_game.last_play), :class => "") if account_game.last_play %>
+	 <%= content_tag(:em, time_ago_in_words(account_game.last_play)) if account_game.last_play %>
 	</td>
 	<td class="align-right">
 	  <%= content_tag(:strong,"#{account_game.parties_count}", :class => account_game.parties_count > 0 ? "" : "red") %>
 	</td>
-</tr>
+<% end %>

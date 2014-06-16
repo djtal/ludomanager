@@ -32,9 +32,12 @@ gem 'by_star'
 gem 'simple_form'
 gem "googlecharts", git: "git://github.com/djtal/googlecharts.git"
 gem 'acts-as-taggable-on'
+gem "simple_calendar", "~> 1.1.0"
 
 gem 'newrelic_rpm'
 gem 'foreman'
+
+gem 'rails-i18n', '~> 4.0.0'
 
 gem 'recap', '~>1.0.0'
 
