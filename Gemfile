@@ -27,6 +27,7 @@ gem 'mysql2'
 gem "rake"
 
 gem 'will_paginate'
+gem 'responders'
 gem 'paperclip'
 gem 'by_star'
 gem 'simple_form'
