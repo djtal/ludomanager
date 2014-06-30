@@ -1,0 +1,19 @@
+@import "bootstrap";
+@import "font-awesome";
+
+
+.hero-feature {
+  .thumbnail {
+    min-height: 270px;
+  }
+  .game-description {
+    min-height: 80px
+  }
+  h3 {
+    min-height: 52px;
+  }
+}
+
+li .fa {
+  margin-right: 2px;
+}

@@ -2,7 +2,7 @@
 
 class Game < ActiveRecord::Base
   Target = [["Tous public", 0], ["Tres jeune enfant", 1], ["Jeunes enfant", 2], ["Casual", 3], ["Gamers", 4]]
-  TimeCategory = [["< 30min", 0], ["Entre 30min/1h", 1],["Entre 1h et 1h30", 2], ["> 1h30", 3]]
+  TimeCategory = [["< 30min", 0], ["~ 30min/1h", 1],["~ 1h et 1h30", 2], ["> 1h30", 3]]
 
   before_destroy :check_parties, :check_accounts
   # after_save :merge_tags, if: proc { |game| !game.base_game_id.blank? }

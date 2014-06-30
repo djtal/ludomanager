@@ -70,6 +70,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace 'public' do
+    resources :libraries, only: :show
+  end
+
 
 
   get '/signup' => 'accounts#new', as: :signup

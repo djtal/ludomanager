@@ -29,7 +29,7 @@ module Ludomanager
     config.assets.enabled = true
     config.assets.paths << "#{config.root}/vendor/assets/font"
 
-    config.assets.precompile += ['private.js', 'private.css']
+    config.assets.precompile += ['private.js', 'private.css', 'library.css']
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

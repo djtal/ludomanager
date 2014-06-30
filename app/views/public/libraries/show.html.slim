@@ -1,0 +1,24 @@
+.row
+  .col-lg-12
+    h3 Tous les jeux
+
+  .row.text-center
+    - @games.each do |game|
+      .col-lg-3.col-md-6.hero-feature
+        .thumbnail
+          = image_tag(game.box.url(:big), size: "90x90")
+          .caption
+            h3= game.name
+            p.game-description.text-muted= truncate(game.description, length: 100)
+            p De #{game.min_player} à #{game.max_player} joueurs
+            ul.list-inline
+              li
+                = fa_icon('user')
+                = game.target_str
+              li
+                = fa_icon('clock-o')
+                = game.time_str
+              li
+                = fa_icon('sliders')
+                = game.difficulty
+
