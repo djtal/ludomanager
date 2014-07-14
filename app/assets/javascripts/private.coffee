@@ -1,4 +1,5 @@
 #=require jquery
+#=require jquery_ujs
 #=require bootstrap
 #=require metisMenu/jquery.metisMenu
 #=require sb-admin

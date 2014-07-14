@@ -17,6 +17,7 @@ class Account < ActiveRecord::Base
   before_save :encrypt_password
 
   has_many :account_games, dependent: :delete_all
+  has_many :members, inverse_of: :account
 
   has_many :parties, dependent: :delete_all do
     # return array containing 2 values

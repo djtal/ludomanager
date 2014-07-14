@@ -27,8 +27,7 @@ class AccountGamesController < ApplicationController
         acc
       end
     end
-
-    @title = t(".page_title")
+    respond_with(@account_games)
   end
 
   def export

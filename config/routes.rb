@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :members
+
   resources :tags do
     collection do
       get :lookup

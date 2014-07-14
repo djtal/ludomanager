@@ -4,6 +4,7 @@ html
     title = @title.presence || "Ludomanager"
     = stylesheet_link_tag "private", media: :all
     = javascript_include_tag "private"
+    = csrf_meta_tags
     meta name="viewport" content="width=device-width, initial-scale=1.0"
   body
     #wrapper
@@ -58,11 +59,15 @@ html
                         a(href="#")
                           i.fa.fa-gamepad.fa-fw
                           | Mes Parties
+                      li(class="#{"active" if controller_name == "members"}")
+                        = link_to members_path do
+                          i.fa.fa-users.fa-fw
+                          | Mes Adhérents
 
       #page-wrapper
         .row
           .col-lg-12
-            h1.page-header= @title
+            h1.page-header= @page_title
         - if flash[:notice].present?
           .alert.alert-success
             button.close(data-dismiss="alert" aria-hidden="true")&times;

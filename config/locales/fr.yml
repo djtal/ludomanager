@@ -1,6 +1,37 @@
 fr:
+  time:
+    formats:
+      short_date: "%d %b %Y"
   account_games:
     index:
       page_title: Tous mes jeux
     new:
       page_title: Aouter des jeux...
+  members:
+    index:
+      page_title: Tous mes adhérents
+    new:
+      page_title: Ajouter un adhérent
+    edit:
+      page_title: Edition d'un adhérent
+    update:
+      page_title: Edition d'un adhérent
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} crée(e) avec succes."
+      update:
+        notice: "%{resource_name} mis(e) a jour avec succes."
+      destroy:
+        notice: "%{resource_name} supprimé(e)."
+        alert: "%{resource_name} ne peut etre supprimé(e)."
+  activerecord:
+    models:
+      member:
+        one: Adhérent
+        other: Adhérents
+    attributes:
+      member:
+        first_name: Nom
+        last_name: Prenom
+        email: Email

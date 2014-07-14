@@ -1,0 +1,8 @@
+= form.input :first_name
+= form.input :last_name
+= form.input :email
+.form-group
+  .col-sm-offset-2.col-sm-10
+    = form.submit class: "btn btn-primary"
+    | &nbsp;ou&nbsp;
+    = link_to "Annuler", members_path, class: "btn btn-default"

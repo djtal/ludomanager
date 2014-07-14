@@ -1,0 +1,48 @@
+
+- if @members.present?
+  ul.list-inline
+    li.filter(class="#{"active" if params[:kind].blank? }")
+      = link_to pluralize(current_account.members.size, "adhérent", "adhérents"), members_path
+  ul.list-inline
+    li
+      = link_to new_member_path, class: "btn btn-primary"
+        = fa_icon "plus-circle"
+        | Ajouter...
+
+  table.table.table-hover.listing-with-images
+    thead
+      tr
+        th
+        th.text-center Statut adhésion
+        th Nom complet
+        th Addresse mail
+        th Date inscription
+        th
+    tbody
+      - @members.each do |member|
+        tr
+          td
+            input(type='checkbox' ng-model="item#{member.id}Status")
+          td.text-center
+            = fa_icon("circle", class: member.active ? "text-success" : "text-muted")
+          td= member.full_name
+          td= mail_to member.email
+          td= l(member.created_at, format: :short_date)
+          td
+            = link_to [:edit, member], class: "btn", title: "Modifier" do
+              = fa_icon("pencil-square-o")
+            = link_to member, method: :delete, class: "btn", title: "Modifier" do
+              = fa_icon("trash-o")
+
+
+
+
+- else
+  .panel.panel-warning
+    .panel-heading
+      h3.panel-title Aucun adhérents actuelement
+    .panel-body
+      = link_to new_member_path, class: "btn btn-primary" do
+        = fa_icon("plus-circle")
+        | &nbsp;Créer le premier !
+
