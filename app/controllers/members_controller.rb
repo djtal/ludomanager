@@ -3,8 +3,11 @@ class MembersController < ApplicationController
   before_filter :login_required
   before_filter :load_resource, only: %i(edit update destroy)
 
+  has_scope :active, type: :boolean, default: true, allow_blank: true
+
   def index
-    @members = current_account.members.active
+    @members = current_account.members
+    @members = apply_scopes(@members)
     @members = @members.paginate(per_page: params[:per_page], page: params[:page])
     respond_with(@members)
   end

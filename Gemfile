@@ -32,6 +32,7 @@ gem "slim-rails"
 
 gem 'will_paginate'
 gem 'responders'
+gem 'has_scope', github: "plataformatec/has_scope"
 gem 'paperclip'
 gem 'by_star'
 gem 'simple_form', github: "plataformatec/simple_form"

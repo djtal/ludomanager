@@ -5,6 +5,14 @@ GIT
     googlecharts (1.6.7)
 
 GIT
+  remote: git://github.com/plataformatec/has_scope.git
+  revision: 24e70df1a8bb51777023cb3b6f359ec59877c2b1
+  specs:
+    has_scope (0.6.0.rc)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
+
+GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 66ed5ee46cd6b01b4c47c53b74a85ad171a88bfa
   specs:
@@ -209,6 +217,7 @@ DEPENDENCIES
   font-awesome-rails (~> 4.1)
   foreman
   googlecharts!
+  has_scope!
   jbuilder (~> 2.0)
   jquery-rails
   mysql2

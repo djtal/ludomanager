@@ -2,7 +2,10 @@
 - if @members.present?
   ul.list-inline
     li.filter(class="#{"active" if params[:kind].blank? }")
-      = link_to pluralize(current_account.members.size, "adhérent", "adhérents"), members_path
+      = link_to pluralize(current_account.members.active.size, "adhérent", "adhérents"), members_path
+    - if current_account.members.active(false).size > 0
+      li.filter(class="#{"active" if params[:kind] == "inactive" }")
+        = link_to "Voir les inactifs", members_path(active: false), class: "text-muted btn btn-default btn-xs"
   ul.list-inline
     li
       = link_to new_member_path, class: "btn btn-primary"
