@@ -5,7 +5,7 @@ gem 'mysql2', '~> 0.2.7'
 gem "rake"
 
 gem 'searchlogic', '2.4.12'
-gem 'will_paginate', '~> 2.3.16'
+gem 'will_paginate', '~> 3.1.7'
 gem 'paperclip', "~> 2.4"
 gem 'by_star', '~>1.0.0'
 gem 'simple_form', "~> 1.0.4"
