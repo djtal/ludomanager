@@ -40,7 +40,7 @@ GEM
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     highline (1.6.21)
-    json (1.6.2)
+    json (1.8.6)
     kgio (2.9.2)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
@@ -73,8 +73,7 @@ GEM
     raindrops (0.13.0)
     rake (10.2.2)
     rbx-require-relative (0.0.5)
-    rdoc (3.11)
-      json (~> 1.4)
+    rdoc (6.1.1)
     recap (1.0.12)
       capistrano (~> 2.9)
       open4
