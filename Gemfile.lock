@@ -71,7 +71,7 @@ GEM
       rake (>= 0.8.3)
     rails-footnotes (3.6.7)
     raindrops (0.13.0)
-    rake (10.2.2)
+    rake (13.0.1)
     rbx-require-relative (0.0.5)
     rdoc (3.11)
       json (~> 1.4)
