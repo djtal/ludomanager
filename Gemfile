@@ -19,7 +19,7 @@ gem 'foreman'
 
 gem 'recap', '~>1.0.0'
 gem 'aws-sdk'
-gem 'nokogiri', '~>1.5.11' # because 1.6 require ruby 1.9?3 at least
+gem 'nokogiri', '~>1.11.4' # because 1.6 require ruby 1.9?3 at least
 gem 'capistrano', '~> 2.15.4'
 gem 'whenever', '0.8.4', :require => false
 
